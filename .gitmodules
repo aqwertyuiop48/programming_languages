@@ -522,7 +522,7 @@
 	branch = main
 [submodule "javascript/middleman_/middleman"]
 	path = javascript/middleman_/middleman
-	url = https://github.com/aqwertyuiop48/middleman.git
+	url = https://github.com/aqwertyuiop48/middleman_.git
 	branch = main
 [submodule "ruby/jekyll1"]
 	path = ruby/jekyll1
