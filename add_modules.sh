@@ -104,6 +104,9 @@ modules=(
 "kotlin/micronaut_/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|micronaut_kotlin_"
 "java/helidon/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|helidon_java_"
 "kotlin/helidon_/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|helidon_kotlin_"
+"java/http4j_/http4j_java|https://github.com/aqwertyuiop48/http4j_java.git|main"
+"kotlin/http4j_/http4j_java|https://github.com/aqwertyuiop48/http4j_java.git|kotlin_"
+"javascript/next_/nextjs_news_search_microservices|https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git|main"
 )
 
 for entry in "${modules[@]}"; do

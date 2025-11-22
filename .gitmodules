@@ -544,15 +544,19 @@
 	path = kotlin/helidon_/codeforces_script
 	url = https://github.com/aqwertyuiop48/codeforces_script.git
 	branch = helidon_kotlin_
+[submodule "java/http4j_/http4j_java"]
+	path = java/http4j_/http4j_java
+	url = https://github.com/aqwertyuiop48/http4j_java.git
+	branch = main
+[submodule "kotlin/http4j_/http4j_java"]
+	path = kotlin/http4j_/http4j_java
+	url = https://github.com/aqwertyuiop48/http4j_java.git
+	branch = kotlin_
+[submodule "javascript/next_/nextjs_news_search_microservices"]
+	path = javascript/next_/nextjs_news_search_microservices
+	url = https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git
+	branch = main
 
-# [submodule "java/http4j_/http4j_java"]
-# 	path = java/http4j_/http4j_java
-# 	url = https://github.com/aqwertyuiop48/http4j_java.git
-# 	branch = main
-# [submodule "kotlin/http4j_/http4j_java"]
-# 	path = kotlin/http4j_/http4j_java
-# 	url = https://github.com/aqwertyuiop48/http4j_java.git
-# 	branch = kotlin_
 # [submodule "Python/selenium_/selenium_python_example"]
 # 	path = Python/selenium_/selenium_python_example
 # 	url = https://github.com/aqwertyuiop48/selenium_python_example.git
@@ -564,10 +568,6 @@
 # [submodule "javascript/angular_/angular_live"]
 # 	path = javascript/angular_/angular_live
 # 	url = https://github.com/aqwertyuiop48/angular_live.git
-# 	branch = main
-# [submodule "javascript/next_/nextjs_news_search_microservices"]
-# 	path = javascript/next_/nextjs_news_search_microservices
-# 	url = https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git
 # 	branch = main
 # [submodule "java/android_/automated-build-android-app-with-github-action"]
 # 	path = java/android_/automated-build-android-app-with-github-action
@@ -589,6 +589,8 @@
 # 	path = java/angular_springboot/spring-boot-angular-15-mysql-example
 # 	url = https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example.git
 # 	branch = main
+
+
 # [submodule "java/test-swing11"]
 # 	path = java/test-swing11
 # 	url = https://github.com/aqwertyuiop48/test-swing11.git
@@ -597,8 +599,6 @@
 # 	path = typescript/ai-chatbot
 # 	url = https://github.com/aqwertyuiop48/ai-chatbot.git
 # 	branch = main
-
-
 # [submodule "javascript/stackblitz_/angular_nest_stackblitz"]
 # 	path = javascript/stackblitz_/angular_nest_stackblitz
 # 	url = https://github.com/aqwertyuiop48/angular_nest_stackblitz.git
