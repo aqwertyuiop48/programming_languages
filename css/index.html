@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            color:red
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css" />  <!-- takes precedence since it comes after the internal css-->
+
+</head>
+
+<body>
+    <h1>CSS selectors</h1>
+
+    <h2>Article 1 - English</h2>
+    <p> English Literature refers to the study of texts from around the world, written in the English language. By studying a degree in English Literature, you will learn how to analyze a multitude of texts and write clearly using several different styles.</p>
+   
+    <h2>Article 2 - Spanish</h2>
+    <p class="gray">Spanish literature generally refers to literature (Spanish poetry, prose, and drama) written in the Spanish language within the territory that presently constitutes the Kingdom of Spain.</p>
+    
+    <h2>Article 3 - Portuguese</h2>
+    <p class="gray">Portuguese literature is, generally speaking, literature written in the Portuguese language, particularly by citizens of Portugal; it may also refer to literature written by people living in Portugal, Brazil, Angola and Mozambique, and other Portuguese speaking countries.</p>
+
+</body>
+
+</html>
+
+
+
+
+
+
+<!-- Sass / scss -->
+<!-- <!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.9.12/sass.sync.min.js"></script>
+        <style type="scss">
+@mixin l2d($color,$strength){
+    background:linear-gradient(lighten($color,$strength),darken($color,$strength));
+    &:active{
+        background:linear-gradient(darken($color,$strength),lighten($color,$strength));
+    }
+}
+body{
+    @include l2d(#aa2424,10%);
+    min-height:100vh;
+}
+#hello{
+    margin:auto auto auto auto;
+    width:96vw;
+    user-select:none;
+    &:after{
+        content:" 😉";
+    }
+}
+        </style>
+        
+        <script>
+            Sass.compile(document.querySelector("style[type=scss]").innerHTML,function(res){
+    var s=document.createElement("style");
+    s.innerHTML=res.text;
+    res.formatted&&console.error(res.formatted); //if error console.error it.
+    res.text&&document.head.appendChild(s);// append style element only if no error.
+});
+        </script>
+    </head>
+    <body>
+        <h1 id="hello">Hello, this is styled using SCSS.</h1>
+    </body>
+</html> -->
