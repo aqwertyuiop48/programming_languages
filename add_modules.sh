@@ -109,6 +109,11 @@ modules=(
 "javascript/next_/nextjs_news_search_microservices|https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git|main"
 "Python/selenium_/selenium_python_example|https://github.com/aqwertyuiop48/selenium_python_example.git|main"
 "Python/selenium_/SeleniumBase|https://github.com/aqwertyuiop48/SeleniumBase.git|main"
+"java/android_/automated-build-android-app-with-github-action|https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action.git|main"
+"java/android_/testing-samples|https://github.com/aqwertyuiop48/testing-samples.git|main"
+"java/angular_springboot/Expense_Tracker|https://github.com/aqwertyuiop48/Expense_Tracker.git|main"
+"java/angular_springboot/angular-springboot-crud|https://github.com/aqwertyuiop48/angular-springboot-crud.git|main"
+"java/angular_springboot/spring-boot-angular-15-mysql-example|https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example.git|main"
 )
 
 for entry in "${modules[@]}"; do

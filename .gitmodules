@@ -564,31 +564,26 @@
 	path = Python/selenium_/SeleniumBase
 	url = https://github.com/aqwertyuiop48/SeleniumBase.git
 	branch = main
-	
-# [submodule "javascript/angular_/angular_live"]
-# 	path = javascript/angular_/angular_live
-# 	url = https://github.com/aqwertyuiop48/angular_live.git
-# 	branch = main
-# [submodule "java/android_/automated-build-android-app-with-github-action"]
-# 	path = java/android_/automated-build-android-app-with-github-action
-# 	url = https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action.git
-# 	branch = main
-# [submodule "java/android_/testing-samples"]
-# 	path = java/android_/testing-samples
-# 	url = https://github.com/aqwertyuiop48/testing-samples.git
-# 	branch = main
-# [submodule "java/angular_springboot/Expense_Tracker"]
-# 	path = java/angular_springboot/Expense_Tracker
-# 	url = https://github.com/aqwertyuiop48/Expense_Tracker.git
-# 	branch = main
-# [submodule "java/angular_springboot/angular-springboot-crud"]
-# 	path = java/angular_springboot/angular-springboot-crud
-# 	url = https://github.com/aqwertyuiop48/angular-springboot-crud.git
-# 	branch = main
-# [submodule "java/angular_springboot/spring-boot-angular-15-mysql-example"]
-# 	path = java/angular_springboot/spring-boot-angular-15-mysql-example
-# 	url = https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example.git
-# 	branch = main
+[submodule "java/android_/automated-build-android-app-with-github-action"]
+	path = java/android_/automated-build-android-app-with-github-action
+	url = https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action.git
+	branch = main
+[submodule "java/android_/testing-samples"]
+	path = java/android_/testing-samples
+	url = https://github.com/aqwertyuiop48/testing-samples.git
+	branch = main
+[submodule "java/angular_springboot/Expense_Tracker"]
+	path = java/angular_springboot/Expense_Tracker
+	url = https://github.com/aqwertyuiop48/Expense_Tracker.git
+	branch = main
+[submodule "java/angular_springboot/angular-springboot-crud"]
+	path = java/angular_springboot/angular-springboot-crud
+	url = https://github.com/aqwertyuiop48/angular-springboot-crud.git
+	branch = main
+[submodule "java/angular_springboot/spring-boot-angular-15-mysql-example"]
+	path = java/angular_springboot/spring-boot-angular-15-mysql-example
+	url = https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example.git
+	branch = main
 
 
 # [submodule "java/test-swing11"]
