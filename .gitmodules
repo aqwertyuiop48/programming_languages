@@ -556,15 +556,15 @@
 	path = javascript/next_/nextjs_news_search_microservices
 	url = https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git
 	branch = main
-
-# [submodule "Python/selenium_/selenium_python_example"]
-# 	path = Python/selenium_/selenium_python_example
-# 	url = https://github.com/aqwertyuiop48/selenium_python_example.git
-# 	branch = main
-# [submodule "Python/selenium_/SeleniumBase"]
-# 	path = Python/selenium_/SeleniumBase
-# 	url = https://github.com/aqwertyuiop48/SeleniumBase.git
-# 	branch = main
+[submodule "Python/selenium_/selenium_python_example"]
+	path = Python/selenium_/selenium_python_example
+	url = https://github.com/aqwertyuiop48/selenium_python_example.git
+	branch = main
+[submodule "Python/selenium_/SeleniumBase"]
+	path = Python/selenium_/SeleniumBase
+	url = https://github.com/aqwertyuiop48/SeleniumBase.git
+	branch = main
+	
 # [submodule "javascript/angular_/angular_live"]
 # 	path = javascript/angular_/angular_live
 # 	url = https://github.com/aqwertyuiop48/angular_live.git

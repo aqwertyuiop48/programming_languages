@@ -107,6 +107,8 @@ modules=(
 "java/http4j_/http4j_java|https://github.com/aqwertyuiop48/http4j_java.git|main"
 "kotlin/http4j_/http4j_java|https://github.com/aqwertyuiop48/http4j_java.git|kotlin_"
 "javascript/next_/nextjs_news_search_microservices|https://github.com/aqwertyuiop48/nextjs_news_search_microservices.git|main"
+"Python/selenium_/selenium_python_example|https://github.com/aqwertyuiop48/selenium_python_example.git|main"
+"Python/selenium_/SeleniumBase|https://github.com/aqwertyuiop48/SeleniumBase.git|main"
 )
 
 for entry in "${modules[@]}"; do
