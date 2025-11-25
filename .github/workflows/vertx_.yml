@@ -1,0 +1,230 @@
+name: Run Vert.x Application
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the main branch
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up JDK
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Step 3: Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # Step 4: Build the Vert.x application
+      - name: Build Java and Kotlin with Maven
+        run: |
+         #cd java/vertx_ && mvn clean package && java -jar target/vertx-application-1.0-SNAPSHOT.jar
+         #cd kotlin/vertx_ && mvn compile && mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"
+
+
+         # Step 1: Start the Java Vert.x application on localhost:8080
+          cd java/vertx_
+          mvn clean package &> /dev/null
+          java -jar target/vertx-application-1.0-SNAPSHOT.jar & # Run in the background
+          JAVA_PID=$!
+
+          # Step 2: Start the Kotlin Vert.x application on localhost:8090
+          cd ../../kotlin/vertx_
+          mvn compile &> /dev/null
+          mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt" & # Run in the background
+          KOTLIN_PID=$!
+
+          # Wait for 10 seconds
+          sleep 10
+
+          # Kill both processes
+          kill $JAVA_PID $KOTLIN_PID
+
+          # Notify the user
+          echo "Both applications ran for 10 seconds and are now terminated."
+
+      - name: Build Ktor with Maven
+        run: |
+          cd kotlin/ktor_
+          mvn clean compile exec:java -Dexec.mainClass="com.example.AppServerKt" & # Run in the background
+          KOTLIN_PID_=$!
+
+          # Wait for 10 seconds
+          sleep 10
+
+          # Kill both processes
+          kill $KOTLIN_PID_
+
+          # Notify the user
+          echo "Ran for 10 seconds and now terminated maven."
+
+
+      - name: Build Ktor with Kotlinc
+        run: |
+          cd kotlin/ktor_
+          mvn package
+          jars=$(ls lib/*.jar | tr '\n' ':' | sed 's/:$//')
+          kotlinc -cp "$jars" src/main/kotlin/com/example/AppServer.kt -d target/classes
+          kotlin -cp "target/classes:$jars" com.example.AppServerKt & # Run in the background
+          KOTLIN_PID_1=$!
+
+          # Wait for 10 seconds
+          sleep 10
+
+          # Kill both processes
+          kill $KOTLIN_PID_1
+
+          # Notify the user
+          echo "Ran for 10 seconds and now terminated kotlinc."
+
+
+      - name: Build Ktor with Kotlinc piping
+        run: |
+          sleep 60 # to avoid ngrok overlap
+          cd kotlin/ktor_
+          mvn clean -rf :my-ktor-app
+          mvn compile
+          mvn package
+          jars=$(ls lib/*.jar | tr '\n' ':' | sed 's/:$//')
+
+          echo '
+          package com.example
+
+          import io.ktor.server.engine.*
+          import io.ktor.server.netty.*
+          import io.ktor.server.application.*
+          import io.ktor.server.response.*
+          import io.ktor.server.request.*
+          import io.ktor.server.routing.*
+
+          // Define the AppServer class
+          class AppServer(private val port: Int) {
+              fun start() {
+                  embeddedServer(Netty, port = port) {
+                      routing {
+                          get("/") {
+                              call.respondText("Hello from Ktor in AppServer!")
+                          }
+                          // You can add more routes here
+                          get("/hello") {
+                              call.respondText("Hello, World, from another route!")
+                          }
+
+                          get("/html_string") {
+                              val htmlContent = """
+                                  <!DOCTYPE html>
+                                  <html>
+                                  <head>
+                                      <meta charset="UTF-8">
+                                      <title>My HTML Page</title>
+                                  </head>
+                                  <body>
+                                      <script>
+                                          alert(2)
+                                      </script>
+                                      <div>
+                                          <h1>Hello from embedded HTML string!</h1>
+                                          <p>This HTML is directly included in the Kotlin code.</p>
+                                          <ul>
+                                              <li>Item 1</li>
+                                              <li>Item 2</li>
+                                              <li>Item 3</li>
+                                          </ul>
+                                      </div>
+                                  </body>
+                                  </html>
+                              """.trimIndent()
+                              call.respondText(htmlContent, io.ktor.http.ContentType.Text.Html)
+                          }
+                      }
+                  }.start(wait = true)
+              }
+          }
+
+          // Create an instance of AppServer
+          val server = AppServer(port = 8100)
+          // Call the start method to run the server
+          server.start()
+
+          '  | kotlinc -cp "$jars" -d target/classes &
+
+          # Run the compiled Ktor server in the background
+          #kotlin -cp "target/classes:$jars" com.example.AppServerKt &
+
+          
+          
+          KOTLIN_PID_2=$!
+
+          sleep 15
+
+          # Kill both processes
+          if kill -0 $KOTLIN_PID_2 2>/dev/null; then
+            kill $KOTLIN_PID_2
+            sleep 2
+            # Force kill if still alive
+            if kill -0 $KOTLIN_PID_2 2>/dev/null; then
+              kill -9 $KOTLIN_PID_2
+            fi
+          fi
+
+          # Notify the user
+          echo "Ran for 60 seconds and now terminated kotlinc piping."
+
+####################################################################################
+
+# To run Ktor locally:
+  # cd kotlin/ktor_
+  # mvn clean package
+  # java -jar target/my-ktor-app-1.0-SNAPSHOT.jar  (http://localhost:8080/)
+
+# To build and push Ktor into Docker hub:
+# (From root of the repo):
+  # docker build -t my-ktor-app kotlin/ktor_/
+  # docker run -p 8080:8080 my-ktor-app
+  # docker tag my-ktor-app sreedockerhub19/my-ktor-app:latest
+  # docker push sreedockerhub19/my-ktor-app:latest
+
+####################################################################################
+
+# To run Vertx (Java) locally:
+  # cd java/vertx_
+  # mvn clean package -DskipTests
+  # java -jar target/vertx-application-1.0-SNAPSHOT.jar  (http://localhost:8080/)
+
+# To build and push Vertx (Java) into Docker hub:
+# (From root of the repo):
+  # docker build -t my-vertx-app java/vertx_/
+  # docker run -p 8080:8080 my-vertx-app
+  # docker tag my-vertx-app sreedockerhub19/my-vertx-app:latest
+  # docker push sreedockerhub19/my-vertx-app:latest
+
+####################################################################################
+
+# To run Vertx (Kotlin) locally:
+  # cd kotlin/vertx_
+  # mvn compile
+  # mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"  (http://localhost:8080/)
+
+# To build and push Vertx (Java) into Docker hub:
+# (From root of the repo):
+  # docker build -t my-vertx-app-kotlin kotlin/vertx_/
+  # docker run -p 8080:8080 my-vertx-app-kotlin
+  # docker tag my-vertx-app-kotlin sreedockerhub19/my-vertx-app-kotlin:latest
+  # docker push sreedockerhub19/my-vertx-app-kotlin:latest
+
+####################################################################################

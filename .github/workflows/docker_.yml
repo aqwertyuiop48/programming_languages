@@ -1,0 +1,71 @@
+name: Docker Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    name: Docker run workflow
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4  # ⬅️ This was missing
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+
+############################### Kotlin ###############################
+      # https://my-spring-app-ia5y.onrender.com
+      - name: Build Application docker - 1
+        working-directory: ./kotlin/spring_boot
+        run: |
+          docker build -t my-spring-app:latest .
+          docker tag my-spring-app sreedockerhub19/my-spring-app:latest
+          docker push sreedockerhub19/my-spring-app:latest
+
+      # https://my-vertx-app-kotlin.onrender.com
+      - name: Build Application docker - 3
+        working-directory: ./kotlin/vertx_
+        run: |
+          docker build -t my-vertx-app-kotlin .
+          docker tag my-vertx-app-kotlin sreedockerhub19/my-vertx-app-kotlin:latest
+          docker push sreedockerhub19/my-vertx-app-kotlin:latest
+
+      # https://my-ktor-app.onrender.com
+      - name: Build Application docker - 4
+        working-directory: ./kotlin/ktor_
+        run: |
+          docker build -t my-ktor-app .
+          docker tag my-ktor-app sreedockerhub19/my-ktor-app:latest
+          docker push sreedockerhub19/my-ktor-app:latest
+
+      # https://my-javalin-app-latest.onrender.com/
+      - name: Build Application docker - 5
+        working-directory: ./kotlin/javalin_
+        run: |
+          docker build -t my-javalin-app .
+          # docker run -p 8080:8080 my-javalin-app
+          docker tag my-javalin-app sreedockerhub19/my-javalin-app:latest
+          docker push sreedockerhub19/my-javalin-app:latest
+
+      # https://my-quarkus-kotlin-app.onrender.com
+      - name: Build Application docker - 7
+        working-directory: ./kotlin/quarkus_
+        run: |
+          docker build -t my-quarkus-kotlin-app .
+          # docker run -p 8080:8080 my-quarkus-kotlin-app
+          docker tag my-quarkus-kotlin-app sreedockerhub19/my-quarkus-kotlin-app:latest
+          docker push sreedockerhub19/my-quarkus-kotlin-app:latest
+
+
+############################### TypeScript ###############################
+
+  # https://dashboard.render.com/web/srv-d1r5n10dl3ps73f3mo2g
