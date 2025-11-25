@@ -1,9 +1,10 @@
 name: Spring_boot_web_apps_gradle_java_applications
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build:

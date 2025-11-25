@@ -1,9 +1,10 @@
 name: Build and Run Assembly Code in Docker with tmpfs
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build:

@@ -1,9 +1,10 @@
 name: Kubernetes Example Workflow
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   setup-kind:

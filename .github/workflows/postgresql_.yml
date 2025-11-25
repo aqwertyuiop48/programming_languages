@@ -1,9 +1,10 @@
 name: PostgreSQL Example Workflow
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   postgresql-job:

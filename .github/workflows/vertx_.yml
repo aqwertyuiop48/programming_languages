@@ -1,9 +1,10 @@
 name: Run Vert.x Application
 
 on:
-  push:
-    branches:
-      - main  # Trigger on push to the main branch
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build-and-run:

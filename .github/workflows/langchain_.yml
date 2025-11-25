@@ -1,9 +1,10 @@
 name: LangChain CI
 
 on:
-  push:
-    branches:
-      - main_
+  # push:
+  #   branches:
+  #     - main_
+  workflow_dispatch:
 
 jobs:
   langchain-run:

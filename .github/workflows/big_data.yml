@@ -1,9 +1,10 @@
 name: Big Data Processing
 
 on:
-    push:
-      branches:
-        - main
+    # push:
+    #   branches:
+    #     - main
+    workflow_dispatch:
 
 jobs:
   big_data_job:

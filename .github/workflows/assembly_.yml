@@ -1,9 +1,10 @@
 name: Build and Run Assembly Code
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build-and-run:

@@ -1,9 +1,10 @@
 name: MySQL Shell Example Workflow
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   mysqlsh-job:

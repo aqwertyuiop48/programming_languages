@@ -1,10 +1,10 @@
 name: Tesseract OCR Workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   test-tesseract:

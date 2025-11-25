@@ -1,9 +1,10 @@
 name: Spring_boot_API_maven_java_applications
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build:

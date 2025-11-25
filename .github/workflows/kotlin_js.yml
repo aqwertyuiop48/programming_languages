@@ -1,9 +1,10 @@
 name: Build and Deploy Kotlin/JS
 
 on:
-  push:
-    branches:
-      - main  # Trigger the workflow on pushes to the 'main' branch
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
 
 jobs:
   build:
