@@ -1,0 +1,132 @@
+node_modules
+##########################################
+typescript/cypress_automation/node_modules
+typescript/.DS_Store
+
+.vscode
+java/.DS_Store
+
+##########################################
+# javascript -> react_ -> myapp
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+javascript/react_/myapp/node_modules
+javascript/react_/myapp/.pnp
+javascript/react_/myapp/.pnp.js
+
+# QA testing
+javascript/react_/myapp/coverage
+QA/cypress_/cypress-example-api-testing-master/node_modules
+QA/cypress_/cypress-example-api-testing-master/cypress/reports
+
+# production
+javascript/react_/myapp/build
+
+# misc
+javascript/react_/myapp/.DS_Store
+javascript/react_/myapp/.env.local
+javascript/react_/myapp/.env.development.local
+javascript/react_/myapp/.env.test.local
+javascript/react_/myapp/.env.production.local
+
+javascript/react_/myapp/npm-debug.log*
+javascript/react_/myapp/yarn-debug.log*
+javascript/react_/myapp/yarn-error.log*
+
+##########################################
+# javascript -> react_
+
+javascript/react_/node_modules
+
+##########################################
+# javascript -> nest_ -> udemy -> scratch -> node_modules
+
+javascript/nest_/udemy/scratch/node_modules
+
+##########################################
+# javascript -> toml_ -> node_modules
+javascript/toml_/node_modules
+
+##########################################
+# javascript  -> node_modules
+
+javascript/node_modules
+
+##########################################
+# typescript -> webassembly
+
+typescript/webassembly_/assembly_Script/node_modules
+typescript/webassembly_/2d_game_/node_modules
+typescript/webassembly_/2d_game_/build
+typescript/webassembly_/2d_game_/jspm_packages
+
+
+##########################################
+# java and kotlin
+
+java/.idea
+
+java/java_applications/.idea
+java/java_applications/target
+
+java/JavaUdemy/.idea
+java/JavaUdemy/target
+
+java/spring_rabbitmq/.idea
+java/spring_rabbitmq/target
+
+java/springboot_starter/.idea
+java/springboot_starter/target
+
+java/java_mysql/.idea
+java/java_mysql/out
+
+kotlin/.DS_Store
+kotlin/KotlinProject/lib/
+kotlin/KotlinProject/target/
+
+# vertx and spring 
+java/vertx_/target
+java/vertx_/dependency-reduced-pom.xml
+kotlin/vertx_/target
+kotlin/vertx_/dependency-reduced-pom.xml
+kotlin/spring_boot/target
+
+# ktor
+kotlin/ktor_/lib
+kotlin/ktor_/target
+
+##########################################
+# typescript -> cypress_automation
+
+typescript/cypress_automation/cypress/videos
+typescript/cypress_automation/cypress/screenshots
+
+
+##########################################
+# Elm
+elm/elm-stuff
+.qodo
+
+
+# WebDriver
+javascript/webdriver_io/node_modules
+
+
+kotlin/spring_boot/.idea
+kotlin/annotations_/.idea
+
+#### Python
+Python/pytest_/app/__pycache__
+Python/pytest_/.venv
+Python/pytest_/.idea
+Python/pytest_/.pytest_cache
+Python/pytest_/app/*.pyc
+
+Python/pytest_/tests/__pycache__
+Python/pytest_/tests/*.pyc
+
+Python/cucumber_/.idea
+Python/cucumber_/features/__pycache__
+Python/cucumber_/.pytest_cache
