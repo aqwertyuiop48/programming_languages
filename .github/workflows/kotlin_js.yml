@@ -1,0 +1,117 @@
+name: Build and Deploy Kotlin/JS
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on pushes to the 'main' branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the repository code
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up JDK (required for Kotlin/JS projects)
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '23' # Use Java 17 (or the version required for Kotlin)
+        distribution: 'temurin'
+
+    - name: Set up Gradle
+      uses: gradle/gradle-build-action@v2
+
+    
+    # Step 4: Build the Kotlin/JS project
+    - name: Build the Kotlin/JS project
+      run: |
+       cd kotlin/kotlin_js
+       gradle browserProductionWebpack
+       ls build/js/packages/kotlin_js/kotlin
+       #ls build/distributions
+       #mv build/distributions/kotlin_js.js .
+       mv build/js/packages/kotlin_js/kotlin/kotlin_js.js .
+
+    # Step 4: Build the Kotlin tutorial project using kotlinc (to convert to Java)
+    - name: Build the Kotlin tutorial project, run it, and decompile to Java
+      run: |
+        cd kotlin/KotlinProject
+
+        # Step 1: Build both Java & Kotlin sources with Gradle
+        chmod +x gradlew
+        ./gradlew build
+
+        # Step 2: Find all runtime dependencies
+        ./gradlew copyDependencies
+        jars=$(find build/lib -name "*.jar" | tr '\n' ':' | sed 's/:$//')
+        echo "Classpath: $jars"
+
+        # Step 3: Run the built Kotlin program
+        # Use classes from Gradle build + runtime jars
+        kotlin -cp "build/classes/java/main:build/classes/kotlin/main:$jars" org.example.MainKt
+
+        # Step 4: Download CFR decompiler
+        CFR_VERSION="0.152"
+        CFR_URL="http://www.benf.org/other/cfr/cfr-${CFR_VERSION}.jar"
+        wget -O cfr.jar "$CFR_URL"
+        echo "CFR downloaded"
+
+        # Step 5: Decompile MainKt.class to Java source
+        OUTPUT_DIR="decompiled-java"
+        OUTPUT_FILE="${OUTPUT_DIR}/MainKt.java"
+        mkdir -p "$OUTPUT_DIR"
+
+        echo "Decompiling build/classes/kotlin/main/org/example/MainKt.class to $OUTPUT_FILE"
+        ls build/classes/kotlin/main/org/example
+
+        java -jar cfr.jar build/classes/kotlin/main/org/example/MainKt.class > "$OUTPUT_FILE"
+
+        if [ $? -eq 0 ]; then
+          echo "Decompilation successful."
+          echo "------------------- Decompiled Java -------------------"
+          cat "$OUTPUT_FILE"
+          echo "------------------------------------------------------"
+        else
+          echo "Decompilation failed."
+          exit 1
+        fi
+
+    # # Step 4.1: Compile the decompiled Java file
+    # - name: Compile the Decompiled Java file
+    #   run: |
+    #     # Compile the decompiled Java file
+    #     cd decompiled-java
+    #     # Find the classpath for dependencies
+    #     LIBS_PATH=../kotlin/KotlinProject/lib
+    #     jars=$(ls $LIBS_PATH/*.jar | tr '\n' ':' | sed 's/:$//')
+
+    #     # Remove lines with "void" used as a variable (not as a method)
+    #     sed -i '/^\s*void [a-zA-Z0-9$_]\+;/d' MainKt.java
+    #     sed -i '/^\s*void [a-zA-Z0-9$_]\+ =/d' MainKt.java
+
+    #     javac -cp "$jars" MainKt.java
+    #     ls -l
+
+    # Step 4: Build the Kotlin tutorial project using gradle
+    - name: Build the Kotlin tutorial project using gradle
+      run: |
+       cd kotlin/KotlinProject
+       ./gradlew clean build && ./gradlew run
+
+    - name: Upload file as artifact
+      uses: actions/upload-artifact@v4
+      with:
+           name: captured-html-artifacts
+           path: |
+            kotlin/kotlin_js/index.html
+            kotlin/kotlin_js/kotlin_js.js
+
+    # # Step 5: Deploy to GitHub Pages (optional)
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: build/distributions  # Path to the built JavaScript files

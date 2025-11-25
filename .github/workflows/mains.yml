@@ -1,0 +1,37 @@
+name: Build WebAssembly
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: |
+       cd typescript/webassembly_/assembly_Script
+       npm install --save-dev assemblyscript && npm install
+       npm install serve@14.2.4
+       npm run asbuild
+       npm start
+       sleep 5
+       curl http://localhost:3000 -o index.html
+       cd .. && cd .. && cd ..
+
+       cd typescript/webassembly_/2d_game_
+       npm install
+       npm run asbuild:optimized -- --memoryBase 40000
+       npx ws -p 1234 &
+       sleep 10
+       cd .. && cd .. && cd ..

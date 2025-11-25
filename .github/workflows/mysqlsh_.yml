@@ -1,0 +1,106 @@
+name: MySQL Shell Example Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mysqlsh-job:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: sample_password
+          MYSQL_DATABASE: sample_db
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install MySQL Shell
+        run: |
+         sudo apt-get update && sudo apt-get install -y mysql-shell
+         python -m pip install --upgrade pip
+         pip install numpy
+         sudo /usr/bin/python3 -m pip install numpy
+
+      - name: Wait for MySQL to be ready
+        run: |
+          echo "Waiting for MySQL to be ready..."
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -u root -psample_password --silent; then
+              echo "MySQL is ready!"
+              break
+            fi
+            sleep 2
+          done
+
+      - name: Run Python code via mysqlsh
+        run: |
+          echo "Running Python code using mysqlsh..."
+          mysqlsh root@127.0.0.1:3306 --password=sample_password --py <<'EOF'
+
+          import datetime
+          import sys; print(sys.executable)
+          import subprocess
+          import numpy as np
+
+          # Use other Python libraries
+          print('Current date and time:', datetime.datetime.now())
+
+          # Subprocess with single string command
+          result = subprocess.run('ls -l && pwd', shell=True, capture_output=True, text=True)
+          print("Output of 'ls -l and pwd':")
+          print(result.stdout)
+
+          EOF
+
+
+      - name: Run Python code via mysqlsh_1
+        run: |
+          echo "Running Python code using mysqlsh..."
+          mysqlsh root@127.0.0.1:3306 --password=sample_password --py <<'EOF'
+
+          import datetime
+          import numpy as np
+
+          # Use other Python libraries
+          print('Current date and time:', datetime.datetime.now())
+
+          # NumPy example: create array and compute mean
+          arr = np.array([10, 20, 30, 40, 50])
+          print("Array:", arr)
+          print("Mean:", np.mean(arr))
+
+          EOF
+
+      - name: Run SQL commands via mysqlsh
+        run: |
+          echo "Running SQL commands using mysqlsh..."
+          mysqlsh root@127.0.0.1:3306 --password=sample_password --sql -e "
+            CREATE DATABASE IF NOT EXISTS sample_db;
+            USE sample_db;
+            CREATE TABLE IF NOT EXISTS users (
+              id INT PRIMARY KEY AUTO_INCREMENT,
+              name VARCHAR(50),
+              email VARCHAR(50)
+            );
+            INSERT INTO users(name, email) VALUES('Alice', 'alice@example.com');
+            INSERT INTO users(name, email) VALUES('Bob', 'bob@example.com');
+            SELECT * FROM users;
+          "
