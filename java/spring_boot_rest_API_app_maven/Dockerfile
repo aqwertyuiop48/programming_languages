@@ -16,7 +16,7 @@ WORKDIR /angular
 #COPY my_angular_app/package*.json ./
 
 # Clone your Angular repo (replace URL with your repo)
-RUN git clone https://github.com/sreegithub19/my_angular_app.git .
+RUN git clone https://github.com/aqwertyuiop48/my_angular_app.git .
 
 # Install dependencies
 RUN npm ci

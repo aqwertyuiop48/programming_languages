@@ -1,1 +1,1 @@
-- https://github.com/sreegithub19/programming_languages/wiki/SQL
+- https://github.com/aqwertyuiop48/programming_languages/wiki/SQL
