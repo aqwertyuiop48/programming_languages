@@ -1,0 +1,51 @@
+name: Build and Run Assembly Code in Docker with tmpfs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+
+    - name: Create Dockerfile
+      run: |
+                echo 'FROM debian:latest
+                RUN apt-get update && apt-get install -y nasm binutils
+                WORKDIR /usr/src/app' > Dockerfile
+
+    - name: Build Docker image
+      run: docker build -t my-asm-app .
+
+    - name: Run Docker container with tmpfs
+      #run: docker run --tmpfs /tmpfs:rw,exec,size=64m my-asm-app
+      run: |
+        docker run --rm --tmpfs /tmpfs:rw,exec,size=64m \
+        debian:latest bash -c "
+            apt-get update &&
+            apt-get install -y nasm binutils &&
+            mkdir -p /tmp/my_tmpfs &&
+            echo 'section .data
+            msg db \"Hello, Assembly World!\", 0
+        section .text
+            global _start
+        _start:
+            mov rax, 1
+            mov rdi, 1
+            mov rsi, msg
+            mov rdx, 21
+            syscall
+            mov rax, 60
+            xor rdi, rdi
+            syscall' > /tmp/my_tmpfs/example.asm &&
+            nasm -f elf64 /tmp/my_tmpfs/example.asm -o /tmp/my_tmpfs/example.o &&
+            ld /tmp/my_tmpfs/example.o -o /tmp/my_tmpfs/example &&
+            chmod +x /tmp/my_tmpfs/example &&
+            /tmp/my_tmpfs/example
+        "
