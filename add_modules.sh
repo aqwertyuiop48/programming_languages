@@ -62,7 +62,7 @@ modules=(
 "javascript/next_/nextjs-fastapi-starter-1|https://github.com/aqwertyuiop48/nextjs-fastapi-starter-1.git|main"
 "javascript/codeforces_web|https://github.com/aqwertyuiop48/codeforces_web.git|main"
 "javascript/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|main"
-"javascript/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|main_"
+"javascript/main_/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|main_"
 "java/selenium_|https://github.com/aqwertyuiop48/selenium_java.git|main"
 "javascript/java_embed/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|java_"
 "java/codeforces_script|https://github.com/aqwertyuiop48/codeforces_script.git|javac_"

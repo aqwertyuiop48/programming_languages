@@ -100,7 +100,7 @@ jobs:
           cd javascript/next_/nextjs-fastapi-starter-1 && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           cd javascript/codeforces_web && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
           cd javascript/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
-          cd javascript/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main_ && git pull origin main_ --allow-unrelated-histories && cd ../..
+          cd javascript/main_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main_ && git pull origin main_ --allow-unrelated-histories && cd ../../..
           cd javascript/java_embed/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout java_ && git pull origin java_ --allow-unrelated-histories && cd ../../..
           cd java/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout javac_ && git pull origin javac_ --allow-unrelated-histories && cd ../..
           #cd java/test-swing11 && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
