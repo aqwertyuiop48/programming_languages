@@ -67,6 +67,7 @@ To remove a submodule:
 - Delete branch ("typescript") in remote : git push https://github.com/aqwertyuiop48/node_server.git --delete typescript
 
 
+
 (All in one step) :  
 Mac:
 git add . && git commit -m "Message" && git push origin main
