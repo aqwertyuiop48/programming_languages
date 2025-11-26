@@ -28,7 +28,7 @@ jobs:
           git config --global pull.rebase false
 
 
-          git submodule foreach --recursive 'git pull origin HEAD --allow-unrelated-histories'
+          #git submodule foreach --recursive 'git pull origin HEAD --allow-unrelated-histories'
           git pull origin main --allow-unrelated-histories
           cd CPP/codeforces_script && git fetch --all &&  git checkout cpp_ && git pull origin cpp_ --allow-unrelated-histories && cd ../..
           cd azure_/Microsoft_AZ-900 && git fetch --all &&  git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
