@@ -1,0 +1,159 @@
+name: Git submodules sync
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.CI_TOKEN }}  # Your PAT secret
+
+
+      - name: Run Git submodules sync
+        env:
+         GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
+        run: |
+          git config --global user.email "aqwertyuiop48@hotmail.com"
+          git config --global user.name "aqwertyuiop48"
+          git config --global pull.rebase false
+
+
+          #git submodule foreach --recursive 'git pull origin HEAD --allow-unrelated-histories'
+          git pull origin main --allow-unrelated-histories
+          cd CPP/codeforces_script && git fetch --all &&  git checkout cpp_ && git pull origin cpp_ --allow-unrelated-histories && cd ../..
+          cd azure_/Microsoft_AZ-900 && git fetch --all &&  git checkout master && git pull origin master --allow-unrelated-histories && cd ../..
+          cd javascript/next_/nextjs_news_search_microservices && git fetch --all &&  git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/angular_/angular_live && git fetch --all &&  git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd azure_/main_/Microsoft_AZ-900 && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&  git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          #cd resumes && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ..
+          cd gate && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ..
+          cd profiles && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ..
+          cd credentials_/credentials && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd javascript/vue_/vuejs_training && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/vue_/vuejs_training_typescript && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&  git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../..
+          cd Python/flask_/vercel_flask_app && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/angular_/my_angular_app && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/angular_/my_angular_app_main && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/nest_/nestjs_app && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/next_/nextjs_app && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/next_/nextjs_app_typescript && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../..
+          cd javascript/next_/nextjs_app_ts_js && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout ts_js && git pull origin ts_js --allow-unrelated-histories && cd ../../..
+          cd javascript/react_/my_react_app && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/react_/my_react_app_main && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/express_/express_vercel_app && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/vue_/vue_project && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/express_/JavaScript-Applications && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/solid_/solid_app && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/ionic__/ionic_app && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/whatsapp-2 && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/jspaint && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/Video-Meeting && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/google-translate-clone && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/codepen && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/app_clones/App_clones && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd Python/django_/vercel_django_example1 && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/koa_/koa_project && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/koa_/koa_project && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../..
+          cd javascript/hapi_/hapijs_vercel && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd Python/python_server_/python_server && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/node_/node_server && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/brunch_/brunch && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/stencil_/stencil && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/umijs_/umijs && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/ember_/ember && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/svelte_/svelte && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/gatsby_/gatsby && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/remix_/remix && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/backbone_/backbone_vercel && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/knockout_/knockout_vercel && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/ts_node_server/ts_node_server && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/express_/ts_express_vercel_app && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/nest_/nestjs_js && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd golang/golang_/golang_vercel && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/qwik_/qwik-app && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/nest_/nestjs_tsx && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          #cd Python/flask_/flask_pythonanywhere && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd Python/fastapi_/fastapi_python && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/graphql_/apollo_graphql && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/solid_/solid_ts/solid_app && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../../..
+          cd javascript/nuxt_/nuxtjs-boilerplate && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/redwood_/netlify-deploy && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/adonis/serverless-adonis && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd typescript/redwood_/netlify-deploy && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../..
+          cd typescript/adonis_/serverless-adonis && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout typescript && git pull origin typescript --allow-unrelated-histories && cd ../../..
+          cd javascript/next_/nextjs_project && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd typescript/adonis_/serverless-adonis-ts && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          #cd javascript/stackblitz_/angular_nest_stackblitz && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          #cd javascript/stackblitz_/nx_react_nestjs_graphql && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/nx_/nx-monorepo && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/next_/nextjs-fastapi-starter-1 && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/codeforces_web && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd javascript/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd javascript/java_embed/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout java_ && git pull origin java_ --allow-unrelated-histories && cd ../../..
+          cd java/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout javac_ && git pull origin javac_ --allow-unrelated-histories && cd ../..
+          #cd java/test-swing11 && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../..
+          cd java/java_web/test-swing11 && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout gh-pages && git pull origin gh-pages --allow-unrelated-histories && cd ../../..
+          cd kotlin/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout kotlin1_ && git pull origin kotlin1_ --allow-unrelated-histories && cd ../..
+          cd julia_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout julia_ && git pull origin julia_ --allow-unrelated-histories && cd ../..
+          cd Python/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout python_ && git pull origin python_ --allow-unrelated-histories && cd ../..
+          cd ruby/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout ruby_ && git pull origin ruby_ --allow-unrelated-histories && cd ../..
+          cd rust/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout rust_ && git pull origin rust_ --allow-unrelated-histories && cd ../..
+          cd elm/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout elm_ && git pull origin elm_ --allow-unrelated-histories && cd ../..
+          cd dart/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout dart_ && git pull origin dart_ --allow-unrelated-histories && cd ../..
+          cd kotlin/java_embed/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout kotlin_ && git pull origin kotlin_ --allow-unrelated-histories && cd ../../..
+          cd csharp/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout c_sharp && git pull origin c_sharp --allow-unrelated-histories && cd ../..
+          cd lua__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout lua_ && git pull origin lua_ --allow-unrelated-histories && cd ../..
+          cd objective_c_cpp/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout objective_c_ && git pull origin objective_c_ --allow-unrelated-histories && cd ../..
+          cd solidity__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout solidity_ && git pull origin solidity_ --allow-unrelated-histories && cd ../..
+          cd swift_code/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout swift_ && git pull origin swift_ --allow-unrelated-histories && cd ../..
+          cd matlab__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout matlab_ && git pull origin matlab_ --allow-unrelated-histories && cd ../..
+          cd scilab__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout scilab_ && git pull origin scilab_ --allow-unrelated-histories && cd ../..
+          cd java/cucumber_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout java_cucumber && git pull origin java_cucumber --allow-unrelated-histories && cd ../../..
+          cd golang/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout golang_ && git pull origin golang_ --allow-unrelated-histories && cd ../..
+          cd scala/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout scala_ && git pull origin scala_ --allow-unrelated-histories && cd ../..
+          cd perl/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout perl_ && git pull origin perl_ --allow-unrelated-histories && cd ../..
+          cd pascal/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout pascal_ && git pull origin pascal_ --allow-unrelated-histories && cd ../..
+          cd QA/cypress_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout cypress_testing && git pull origin cypress_testing --allow-unrelated-histories && cd ../../..
+          cd QA/cypress_1/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout cypress_testing_1 && git pull origin cypress_testing_1 --allow-unrelated-histories && cd ../../..
+          cd clojure_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout clojure_ && git pull origin clojure_ --allow-unrelated-histories && cd ../..
+          cd clojure_/clojure_script_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout clojure_script && git pull origin clojure_script --allow-unrelated-histories && cd ../../..
+          cd R__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout R_ && git pull origin R_ --allow-unrelated-histories && cd ../..
+          cd AI_nization/bito1__/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout bito1_ && git pull origin bito1_ --allow-unrelated-histories && cd ../../..
+          cd AI_nization/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout bito_ && git pull origin bito_ --allow-unrelated-histories && cd ../..
+          #cd cengage_lfs_programming && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ..
+          #cd typescript/ai-chatbot && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd certifications && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ..      
+          cd java/android_/automated-build-android-app-with-github-action && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd java/android_/testing-samples && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd java/angular_springboot/Expense_Tracker && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd java/angular_springboot/angular-springboot-crud && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd java/angular_springboot/spring-boot-angular-15-mysql-example && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd javascript/middleman_/middleman && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd ruby/jekyll1 && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd java/micronaut_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout micronaut_java_ && git pull origin micronaut_java_ --allow-unrelated-histories && cd ../../..
+          cd kotlin/micronaut_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout micronaut_kotlin_ && git pull origin micronaut_kotlin_ --allow-unrelated-histories && cd ../../..
+          cd java/helidon/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout helidon_java_ && git pull origin helidon_java_ --allow-unrelated-histories && cd ../../..
+          cd Python/selenium_/selenium_python_example && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd Python/selenium_/SeleniumBase && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd kotlin/helidon_/codeforces_script && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout helidon_kotlin_ && git pull origin helidon_kotlin_ --allow-unrelated-histories && cd ../../..
+          cd java/http4j_/http4j_java && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd kotlin/http4j_/http4j_java && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout kotlin_ && git pull origin kotlin_ --allow-unrelated-histories && cd ../../..
+
+          git add .
+
+          if [[ $(git diff --cached --quiet; echo $?) -ne 0 ]]; then
+            git commit -m "Your commit message"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
