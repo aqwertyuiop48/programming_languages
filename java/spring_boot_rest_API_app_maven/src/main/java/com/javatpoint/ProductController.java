@@ -1,9 +1,12 @@
 package com.javatpoint;
 import java.util.List;
+
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.sun.java.accessibility.util.*;
 import com.sun.jdi.*;
 import com.sun.management.*;
@@ -71,14 +74,58 @@ public class ProductController
 {
     @Autowired
     private IProductService productService;
-    //mapping the getProduct() method to /product
-    @GetMapping(value = "/product")
-    public List<Product> getProduct()
-    {
-        //finds all the products
-        List<Product> products = productService.findAll();
-        //returns the product list
-        return products;
+
+    // -------------------------
+    // 1️⃣ Get hardcoded products
+    // -------------------------
+    @GetMapping("/products/hardcoded")
+    public List<ProductDTO> getHardcodedProducts() {
+        return productService.getHardcodedProducts();
+    }
+
+    // -------------------------
+    // 2️⃣ Get products from DB
+    // -------------------------
+    @GetMapping("/products/db")
+    public List<ProductDTO> getProductsFromDb() {
+        return productService.getProductsFromDb();
+    }
+
+    // -------------------------
+    // 3️⃣ Get product by ID from DB
+    // -------------------------
+    @GetMapping("/products/db/{id}")
+    public ProductDTO getProductById(@PathVariable int id) {
+        return productService.getProductById(id);
+    }
+
+    // -------------------------
+    // 4️⃣ POST – Create Product in DB
+    // -------------------------
+    @PostMapping("/products/db")
+    public ProductDTO createProduct(@RequestBody ProductDTO dto) {
+        return productService.createProduct(dto);
+    }
+            /*
+            fetch("http://localhost:8080/products/db", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                name: "Laptop",
+                batch: "BNV998",
+                price: 45000,
+                quantity: 2
+            })
+        }).then(r => r.json()).then(console.log);
+
+             */
+
+    // -------------------------
+    // 5️⃣ PUT – Update Product in DB
+    // -------------------------
+    @PutMapping("/products/db/{id}")
+    public ProductDTO updateProduct(@PathVariable int id, @RequestBody ProductDTO dto) {
+        return productService.updateProduct(id, dto);
     }
 
     /*************************************************** 1  (Leetcode) ********************************************************/
@@ -143,6 +190,24 @@ public class ProductController
         results.add(longestPalindrome("abcabcbb"));
         results.add(longestPalindrome("bbbbb"));
         return results;
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(ProductController.class);
+
+    @GetMapping("/api")
+    public void getAPI(HttpServletResponse response) throws IOException {
+        String a = "a";
+        int b = 1;
+        log.info("""
+        Step 1: API started , {} , {}.
+        """,a,b);
+
+        String msg = String.format("""
+        Step 1: API started AGAIN , %s , %d.
+        """, a, b);
+        response.getWriter().println(msg);
+        response.getWriter().println(msg);
+
     }
     /***********************************************************************************************************/
 

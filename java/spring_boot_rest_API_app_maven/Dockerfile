@@ -67,3 +67,7 @@ EXPOSE 8080
 
 # Start the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]
+# Locally:
+    #  java -jar target/spring-boot-rest-example-0.0.1-SNAPSHOT.jar
+    # or
+    #  mvn spring-boot:run

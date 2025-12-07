@@ -162,7 +162,7 @@ jobs:
           // Call the start method to run the server
           server.start()
 
-          '  | kotlinc -cp "$jars" -d target/classes &
+          '  | kotlinc -Xrepl -cp "$jars" -d target/classes &
 
           # Run the compiled Ktor server in the background
           #kotlin -cp "target/classes:$jars" com.example.AppServerKt &
