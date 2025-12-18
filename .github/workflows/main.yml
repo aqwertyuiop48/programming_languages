@@ -2,10 +2,11 @@ name: Git submodules sync
 
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   #pull_request:
+  workflow_dispatch:
 
 jobs:
   build:

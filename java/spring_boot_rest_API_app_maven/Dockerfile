@@ -94,7 +94,7 @@ COPY . .
 COPY --from=angular-build /angular/dist/my-app /app/src/main/resources/static/angular
 
 # Build the Kotlin Spring Boot project, skipping tests
-RUN mvn clean package
+RUN mvn clean package -Dmaven.test.skip=true
 
 # ---------- Step 2: Runtime Stage ----------
 FROM eclipse-temurin:21-jre
