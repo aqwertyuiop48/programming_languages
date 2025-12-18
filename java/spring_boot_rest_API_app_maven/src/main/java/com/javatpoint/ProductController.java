@@ -1,4 +1,5 @@
 package com.javatpoint;
+import org.springframework.jdbc.core.JdbcTemplate;
 import java.util.List;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,6 +36,8 @@ import java.text.*;
 import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 import javax.accessibility.*;
 import javax.annotation.processing.*;
 import javax.crypto.*;
@@ -75,6 +78,12 @@ public class ProductController
     @Autowired
     private IProductService productService;
 
+    private final JdbcTemplate jdbcTemplate;
+
+    public ProductController(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
     // -------------------------
     // 1️⃣ Get hardcoded products
     // -------------------------
@@ -90,6 +99,31 @@ public class ProductController
     public List<ProductDTO> getProductsFromDb() {
         return productService.getProductsFromDb();
     }
+
+    @GetMapping("/products/db1")
+    public List<Map<String, Object>> getProductsRaw() {
+
+        getProductsFromDb();
+        jdbcTemplate.execute(""" 
+Create table If Not Exists Person (id int, email varchar(255));
+truncate table person;
+insert into Person (id, email) values ('1', 'a@b.com');
+insert into Person (id, email) values ('2', 'c@d.com');
+insert into Person (id, email) values ('3', 'a@b.com');
+                """);
+        List<Map<String, Object>> combined = new ArrayList<>();
+        for(String i : new ArrayList<>(Arrays.asList(
+                "SELECT * FROM products",
+                "SELECT * FROM products LIMIT 1",
+                "SELECT * FROM products limit 3",
+                "select distinct(e.email) from Person e join Person p on e.id != p.id and e.email = p.email;"
+        ))) {
+            combined.addAll(jdbcTemplate.queryForList(i));
+            combined.add(new HashMap<>(Map.of("", "=======================================")));
+        }
+        return combined;
+    }
+
 
     // -------------------------
     // 3️⃣ Get product by ID from DB
@@ -172,16 +206,7 @@ public class ProductController
     /*************************************************  5  **********************************************************/
 
     public String longestPalindrome(String s) {
-        String li = "";
-        for(int i=0;i<s.length();i++){
-            for(int j=s.length()+1;j>=(i+1);j--){
-                if(s.substring(i,j).equals(new StringBuilder(s.substring(i,j)).reverse().toString())){
-                    li = s.substring(i,j);
-                    break;
-                }
-            }
-        }
-        return li;
+        return IntStream.range(0, 2 * s.length()).mapToObj(i -> Stream.iterate(new int[]{i / 2, i / 2 + i % 2}, p -> p[0] >= 0 && p[1] < s.length() && s.charAt(p[0]) == s.charAt(p[1]), p -> new int[]{p[0] - 1, p[1] + 1}).reduce((a, b) -> b).orElse(new int[]{i / 2, i / 2 + i % 2 - 1})).max(Comparator.comparingInt(p -> p[1] - p[0])).map(p -> s.substring(p[0], p[1] + 1)).orElse("");
     }
 
     @GetMapping("/5")
