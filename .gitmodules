@@ -376,10 +376,10 @@
 	path = javascript/codeforces_script
 	url = https://github.com/aqwertyuiop48/codeforces_script.git
 	branch = main
-[submodule "javascript/codeforces_script"]
-	path = javascript/codeforces_script
-	url = https://github.com/aqwertyuiop48/codeforces_script.git
-	branch = main_
+# [submodule "javascript/codeforces_script"]
+# 	path = javascript/codeforces_script
+# 	url = https://github.com/aqwertyuiop48/codeforces_script.git
+# 	branch = main_
 [submodule "java/selenium_"]
 	path = java/selenium_
 	url = https://github.com/aqwertyuiop48/selenium_java.git
