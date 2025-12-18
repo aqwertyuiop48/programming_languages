@@ -49,3 +49,13 @@ jobs:
           # docker run -p 8080:8080 my-quarkus-java-app
           docker tag my-quarkus-java-app sreedockerhub19/my-quarkus-java-app:latest
           docker push sreedockerhub19/my-quarkus-java-app:latest
+
+      # https://my-spring-boot-app-pzc1.onrender.com
+      - name: Build Application docker - 2
+        working-directory: ./java/spring_boot_web_apps_gradle/java_applications
+        run: |
+          
+          docker build -t my-spring-boot-app .
+          # docker run -p 8080:8080 my-spring-boot-app
+          docker tag my-spring-boot-app sreedockerhub19/my-spring-boot-app:latest
+          docker push sreedockerhub19/my-spring-boot-app:latest
