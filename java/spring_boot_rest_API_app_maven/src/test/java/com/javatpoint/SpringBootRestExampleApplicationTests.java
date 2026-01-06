@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-
+import reactor.core.publisher.Flux;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,6 +23,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,6 +75,22 @@ class SpringBootRestExampleApplicationTests {
                 wait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1")));
 
         assertEquals("Example Domain", heading.getText());
+    }
+
+    @Test
+    @DisplayName("Spring webflux")
+    void springWebFlux(){
+        System.out.println(countBalls(1,10));
+        System.out.println(countBalls(5,15));
+    }
+    public int countBalls(int lowLimit, int highLimit) {
+        return Flux.fromIterable(() -> IntStream.rangeClosed(lowLimit, highLimit).iterator())
+                .flatMap(n -> Flux.just(n).expand(i -> i > 9 ? Flux.just(i / 10) : Flux.empty()).map(i -> i % 10).reduce(0, Integer::sum))
+                .groupBy(sum -> sum)
+                .flatMap(Flux::count)
+                .reduce(0L, Math::max)
+                .block()
+                .intValue();
     }
 
     @Test
