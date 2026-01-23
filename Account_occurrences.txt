@@ -1,0 +1,21 @@
+cpadmaja2003 occurrences
+
+Total : 
+
+Harmless
+- Account details:
+	- credentials_\credentials\README.md : 8
+
+	- gate\README.md : 1
+	- gate\2026\readme.md : 1
+
+	- profiles\.bash_profile : 1
+	- profiles\personal_bookmarks.html +
+	  profiles\README.md +
+	  profiles\accounts\linkedin.md + 
+	  profiles\accounts\naukri\js_account.md + 
+	  profiles\accounts\naukri\main_account.md +
+	  profiles\accounts\naukri\python_account.md + 
+	  profiles\accounts\naukri\test_account.md : 119
+
+	- Python\flask_\flask_pythonanywhere\readme.md : 1
