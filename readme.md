@@ -71,7 +71,7 @@ To remove a submodule:
 Mac:
 git add . && git commit -m "Message" && git push origin main
 
-cd ~/Desktop/sreedhar/git4_/programming_languages && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main
+alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
 
 Windows:
 git add . ; git commit -m "Message" ; git push origin main
@@ -93,3 +93,9 @@ https://www.freeconvert.com/video-compressor
 3. Video splitter:
 https://split-video.com/
 
+
+================================================================
+
+## Cengage material
+
+- https://github.com/aqwertyuiop48/profiles/releases
