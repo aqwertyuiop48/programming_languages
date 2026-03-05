@@ -152,6 +152,26 @@ jobs:
           cd java/http4j_/http4j_java && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           cd kotlin/http4j_/http4j_java && git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' && git fetch --all &&   git checkout kotlin_ && git pull origin kotlin_ --allow-unrelated-histories && cd ../../..
 
+          # --- NEW FRAMEWORKS SYNC ---
+          cd javascript/new_frameworks/vuepress && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/zola && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/tanstack-start && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/vitepress && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/storybook && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/preact && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/parcel && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/polymer && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/nitro && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/ionic-angular && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/hydrogen && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/hugo && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/hono && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/hexo && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/h3 && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/elysia && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/eleventy && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/docusaurus-2 && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd javascript/new_frameworks/docusaurus && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           git add .
 
           if [[ $(git diff --cached --quiet; echo $?) -ne 0 ]]; then

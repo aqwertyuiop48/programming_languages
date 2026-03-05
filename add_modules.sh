@@ -114,6 +114,26 @@ modules=(
 "java/angular_springboot/Expense_Tracker|https://github.com/aqwertyuiop48/Expense_Tracker.git|main"
 "java/angular_springboot/angular-springboot-crud|https://github.com/aqwertyuiop48/angular-springboot-crud.git|main"
 "java/angular_springboot/spring-boot-angular-15-mysql-example|https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example.git|main"
+# --- NEW FRAMEWORKS SECTION ---
+"javascript/new_frameworks/vuepress|https://github.com/aqwertyuiop48/vuepress.git|main"
+"javascript/new_frameworks/zola|https://github.com/aqwertyuiop48/zola.git|main"
+"javascript/new_frameworks/tanstack-start|https://github.com/aqwertyuiop48/tanstack-start.git|main"
+"javascript/new_frameworks/vitepress|https://github.com/aqwertyuiop48/vitepress.git|main"
+"javascript/new_frameworks/storybook|https://github.com/aqwertyuiop48/storybook.git|main"
+"javascript/new_frameworks/preact|https://github.com/aqwertyuiop48/preact.git|main"
+"javascript/new_frameworks/parcel|https://github.com/aqwertyuiop48/parcel.git|main"
+"javascript/new_frameworks/polymer|https://github.com/aqwertyuiop48/polymer.git|main"
+"javascript/new_frameworks/nitro|https://github.com/aqwertyuiop48/nitro.git|main"
+"javascript/new_frameworks/ionic-angular|https://github.com/aqwertyuiop48/ionic-angular.git|main"
+"javascript/new_frameworks/hydrogen|https://github.com/aqwertyuiop48/hydrogen.git|main"
+"javascript/new_frameworks/hugo|https://github.com/aqwertyuiop48/hugo.git|main"
+"javascript/new_frameworks/hono|https://github.com/aqwertyuiop48/hono.git|main"
+"javascript/new_frameworks/hexo|https://github.com/aqwertyuiop48/hexo.git|main"
+"javascript/new_frameworks/h3|https://github.com/aqwertyuiop48/h3.git|main"
+"javascript/new_frameworks/elysia|https://github.com/aqwertyuiop48/elysia.git|main"
+"javascript/new_frameworks/eleventy|https://github.com/aqwertyuiop48/eleventy.git|main"
+"javascript/new_frameworks/docusaurus-2|https://github.com/aqwertyuiop48/docusaurus-2.git|main"
+"javascript/new_frameworks/docusaurus|https://github.com/aqwertyuiop48/docusaurus.git|main"
 )
 
 for entry in "${modules[@]}"; do

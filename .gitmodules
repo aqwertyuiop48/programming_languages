@@ -612,3 +612,98 @@
 	path = javascript/main_/codeforces_script
 	url = https://github.com/aqwertyuiop48/codeforces_script.git
 	branch = main_
+
+[submodule "javascript/new_frameworks/vuepress"]
+	path = javascript/new_frameworks/vuepress
+	url = https://github.com/aqwertyuiop48/vuepress.git
+	branch = main
+
+[submodule "javascript/new_frameworks/zola"]
+	path = javascript/new_frameworks/zola
+	url = https://github.com/aqwertyuiop48/zola.git
+	branch = main
+
+[submodule "javascript/new_frameworks/tanstack-start"]
+	path = javascript/new_frameworks/tanstack-start
+	url = https://github.com/aqwertyuiop48/tanstack-start.git
+	branch = main
+
+[submodule "javascript/new_frameworks/vitepress"]
+	path = javascript/new_frameworks/vitepress
+	url = https://github.com/aqwertyuiop48/vitepress.git
+	branch = main
+
+[submodule "javascript/new_frameworks/storybook"]
+	path = javascript/new_frameworks/storybook
+	url = https://github.com/aqwertyuiop48/storybook.git
+	branch = main
+
+[submodule "javascript/new_frameworks/preact"]
+	path = javascript/new_frameworks/preact
+	url = https://github.com/aqwertyuiop48/preact.git
+	branch = main
+
+[submodule "javascript/new_frameworks/parcel"]
+	path = javascript/new_frameworks/parcel
+	url = https://github.com/aqwertyuiop48/parcel.git
+	branch = main
+
+[submodule "javascript/new_frameworks/polymer"]
+	path = javascript/new_frameworks/polymer
+	url = https://github.com/aqwertyuiop48/polymer.git
+	branch = main
+
+[submodule "javascript/new_frameworks/nitro"]
+	path = javascript/new_frameworks/nitro
+	url = https://github.com/aqwertyuiop48/nitro.git
+	branch = main
+
+[submodule "javascript/new_frameworks/ionic-angular"]
+	path = javascript/new_frameworks/ionic-angular
+	url = https://github.com/aqwertyuiop48/ionic-angular.git
+	branch = main
+
+[submodule "javascript/new_frameworks/hydrogen"]
+	path = javascript/new_frameworks/hydrogen
+	url = https://github.com/aqwertyuiop48/hydrogen.git
+	branch = main
+
+[submodule "javascript/new_frameworks/hugo"]
+	path = javascript/new_frameworks/hugo
+	url = https://github.com/aqwertyuiop48/hugo.git
+	branch = main
+
+[submodule "javascript/new_frameworks/hono"]
+	path = javascript/new_frameworks/hono
+	url = https://github.com/aqwertyuiop48/hono.git
+	branch = main
+
+[submodule "javascript/new_frameworks/hexo"]
+	path = javascript/new_frameworks/hexo
+	url = https://github.com/aqwertyuiop48/hexo.git
+	branch = main
+
+[submodule "javascript/new_frameworks/h3"]
+	path = javascript/new_frameworks/h3
+	url = https://github.com/aqwertyuiop48/h3.git
+	branch = main
+
+[submodule "javascript/new_frameworks/elysia"]
+	path = javascript/new_frameworks/elysia
+	url = https://github.com/aqwertyuiop48/elysia.git
+	branch = main
+
+[submodule "javascript/new_frameworks/eleventy"]
+	path = javascript/new_frameworks/eleventy
+	url = https://github.com/aqwertyuiop48/eleventy.git
+	branch = main
+
+[submodule "javascript/new_frameworks/docusaurus-2"]
+	path = javascript/new_frameworks/docusaurus-2
+	url = https://github.com/aqwertyuiop48/docusaurus-2.git
+	branch = main
+
+[submodule "javascript/new_frameworks/docusaurus"]
+	path = javascript/new_frameworks/docusaurus
+	url = https://github.com/aqwertyuiop48/docusaurus.git
+	branch = main
