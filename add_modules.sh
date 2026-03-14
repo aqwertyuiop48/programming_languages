@@ -156,15 +156,29 @@ for entry in "${modules[@]}"; do
 
     git config --global credential.https://github.com.username aqwertyuiop48
 
-    # git submodule foreach '
-    # BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
-    # && git switch $BRANCH \
-    # && git add . \
-    # && (git commit -m "Update internal URLs" || echo "No changes in $name") \
-    # && git push origin $BRANCH \
-    # || echo "FAILED: $name"
-    # '
 
     git submodule add -b "$branch" "$url" "$path"
     echo
 done
+
+
+# submodule pull and push
+git submodule foreach '
+BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
+&& git switch $BRANCH \
+&& git pull origin $BRANCH \
+&& git add . \
+&& (git commit -m "Update internal URLs" || echo "No changes in $name") \
+&& git push origin $BRANCH \
+|| echo "FAILED: $name"
+'
+
+# # submodule ONLY push
+# git submodule foreach '
+# BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
+# && git switch $BRANCH \
+# && git add . \
+# && (git commit -m "Update internal URLs" || echo "No changes in $name") \
+# && git push origin $BRANCH \
+# || echo "FAILED: $name"
+# '
