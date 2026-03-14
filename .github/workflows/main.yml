@@ -19,16 +19,6 @@ jobs:
           submodules: true
           token: ${{ secrets.CI_TOKEN }}  # Your PAT secret
 
-      - name: Run Git submodules sync first
-        env:
-         GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
-        run: |
-          git config --global user.email "aqwertyuiop48@hotmail.com"
-          git config --global user.name "aqwertyuiop48"
-          git config --global pull.rebase false
-
-          chmod +x add_modules.sh && ./add_modules.sh
-
       - name: Run Git submodules sync
         env:
          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
@@ -198,3 +188,14 @@ jobs:
           else
             echo "No changes to commit."
           fi
+
+
+      - name: Run Git submodules sync first
+        env:
+         GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
+        run: |
+          git config --global user.email "aqwertyuiop48@hotmail.com"
+          git config --global user.name "aqwertyuiop48"
+          git config --global pull.rebase false
+
+          chmod +x add_modules.sh && ./add_modules.sh
