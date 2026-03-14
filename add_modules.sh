@@ -134,6 +134,15 @@ modules=(
 "javascript/new_frameworks/eleventy|https://github.com/aqwertyuiop48/eleventy.git|main"
 "javascript/new_frameworks/docusaurus-2|https://github.com/aqwertyuiop48/docusaurus-2.git|main"
 "javascript/new_frameworks/docusaurus|https://github.com/aqwertyuiop48/docusaurus.git|main"
+"kotlin/algorithms/Kotlin|https://github.com/aqwertyuiop48/Kotlin.git|master"
+"Python/algorithms/Python|https://github.com/aqwertyuiop48/Python.git|master"
+"java/algorithms/Java|https://github.com/aqwertyuiop48/Java.git|master"
+"algorithms/CLRS|https://github.com/aqwertyuiop48/CLRS.git|main"
+"javascript/saas-microservices|https://github.com/aqwertyuiop48/saas-microservices.git|main"
+"javascript/turborepo-with-hono|https://github.com/aqwertyuiop48/turborepo-with-hono.git|main"
+"rust/rust-axum|https://github.com/aqwertyuiop48/rust-axum.git|main"
+"Python/empathic-voice-interface-starter|https://github.com/aqwertyuiop48/empathic-voice-interface-starter.git|main"
+"java/temporal/edu-101-java-code|https://github.com/aqwertyuiop48/edu-101-java-code.git|main"
 )
 
 for entry in "${modules[@]}"; do
@@ -144,6 +153,18 @@ for entry in "${modules[@]}"; do
 
     # Add submodule
     echo "Adding submodule: $path"
+
+    git config --global credential.https://github.com.username aqwertyuiop48
+
+    # git submodule foreach '
+    # BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
+    # && git switch $BRANCH \
+    # && git add . \
+    # && (git commit -m "Update internal URLs" || echo "No changes in $name") \
+    # && git push origin $BRANCH \
+    # || echo "FAILED: $name"
+    # '
+
     git submodule add -b "$branch" "$url" "$path"
     echo
 done

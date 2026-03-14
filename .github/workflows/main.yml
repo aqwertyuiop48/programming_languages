@@ -172,6 +172,15 @@ jobs:
           cd javascript/new_frameworks/eleventy && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           cd javascript/new_frameworks/docusaurus-2 && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           cd javascript/new_frameworks/docusaurus && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
+          cd kotlin/algorithms/Kotlin && git fetch --all && git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd Python/algorithms/Python && git fetch --all && git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd java/algorithms/Java && git fetch --all && git checkout master && git pull origin master --allow-unrelated-histories && cd ../../..
+          cd algorithms/CLRS && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd javascript/saas-microservices && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd javascript/turborepo-with-hono && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd rust/rust-axum && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd Python/empathic-voice-interface-starter && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../..
+          cd java/temporal/edu-101-java-code && git fetch --all && git checkout main && git pull origin main --allow-unrelated-histories && cd ../../..
           git add .
 
           if [[ $(git diff --cached --quiet; echo $?) -ne 0 ]]; then
