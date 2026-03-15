@@ -34,7 +34,7 @@ jobs:
             git fetch --all
             branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo "main")
             git checkout $branch
-            git pull origin $branch --allow-unrelated-histories
+            git pull origin $branch -- --allow-unrelated-histories
           '
 
           git add .
