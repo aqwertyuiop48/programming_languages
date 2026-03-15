@@ -19,6 +19,36 @@ jobs:
           submodules: true
           token: ${{ secrets.CI_TOKEN }}  # Your PAT secret
 
+      - name: Run Git submodules sync first
+        env:
+         GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
+        run: |
+          git config --global user.email "aqwertyuiop48@hotmail.com"
+          git config --global user.name "aqwertyuiop48"
+          git config --global pull.rebase false
+
+          git submodule foreach '
+            # 1. Get branch name
+            BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)
+            
+            # 2. Brute force fetch and checkout (The working logic)
+            git fetch --all
+            git checkout $BRANCH || git checkout -b $BRANCH origin/$BRANCH
+            
+            # 3. Pull with your "allow" flag
+            git pull origin $BRANCH --allow-unrelated-histories
+          '
+          # 4. Now commit the parent repo
+          git add .
+          # Check if there are any staged changes
+          if ! git diff --cached --quiet; then
+            git commit -m "Update all submodules"
+            git push origin main
+          else
+            echo "No changes to commit. Skipping push."
+          fi
+
+
       - name: Run Git submodules sync
         env:
          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
