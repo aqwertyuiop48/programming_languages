@@ -27,28 +27,38 @@ jobs:
           git config --global user.name "aqwertyuiop48"
           git config --global pull.rebase false
 
+          # Ensure all submodules are initialized first
+          git submodule update --init --recursive
+
           git submodule foreach '
-            # 1. Get branch name
-            BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main)
-            
-            # 2. Brute force fetch and checkout (The working logic)
-            git fetch --all
-            git checkout $BRANCH || git checkout -b $BRANCH origin/$BRANCH
-            
-            # 3. Pull with your "allow" flag
-            git pull origin $BRANCH --allow-unrelated-histories
+              # 1. Get branch name from .gitmodules (default to main)
+              # We use xargs to trim any accidental whitespace
+              BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch | xargs || echo main)
+              
+              echo "Updating submodule $name on branch $BRANCH..."
+              
+              # 2. Fetch specific branch and force checkout
+              # -B creates the branch if it doesn't exist, or resets it if it does
+              git fetch origin $BRANCH
+              git checkout -B $BRANCH origin/$BRANCH
+              
+              # 3. Pull with unrelated histories flag
+              git pull origin $BRANCH --allow-unrelated-histories
           '
-          # 4. Now commit the parent repo
+
+          # 4. Handle Parent Repo Updates
           git add .
-          # Check if there are any staged changes
+
+          # Check if there are any staged changes (submodule pointers)
           if ! git diff --cached --quiet; then
-            git commit -m "Update all submodules"
-            git push origin main
+              echo "Changes detected. Committing..."
+              git commit -m "chore: automated submodule update"
+              git push origin main
           else
-            echo "No changes to commit. Skipping push."
+              echo "No submodule updates found. Skipping push."
           fi
 
-
+          
       - name: Run Git submodules sync
         env:
          GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
