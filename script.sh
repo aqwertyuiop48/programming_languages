@@ -1,6 +1,6 @@
 git pull origin main --allow-unrelated-histories
 
-git submodule foreach '
+git submodule foreach --recursive '
 git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 git fetch --all
 branch=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo "main")
