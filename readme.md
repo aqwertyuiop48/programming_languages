@@ -67,11 +67,23 @@ To remove a submodule:
 
 
 
-(All in one step) :  
+(All in one step) : 
+
+<pre>
+## For Github codespace
+- unset GITHUB_TOKEN
+- gh auth login
+      Select: GitHub.com
+      Select: HTTPS
+      Select: Yes (Authenticate Git with your GitHub credentials)
+      Select: Login with a web browser
+</pre>
+
 Mac:
 git add . && git commit -m "Message" && git push origin main
 
 alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
+
 
 Windows:
 git add . ; git commit -m "Message" ; git push origin main
