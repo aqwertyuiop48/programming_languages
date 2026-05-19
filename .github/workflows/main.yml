@@ -195,6 +195,7 @@ jobs:
 
           if [[ $(git diff --cached --quiet; echo $?) -ne 0 ]]; then
             git commit -m "Your commit message"
+            git pull origin main --rebase
             git push origin main
           else
             echo "No changes to commit."
