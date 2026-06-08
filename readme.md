@@ -86,6 +86,8 @@ git add . && git commit -m "Message" && git push origin main
 
 alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
 
+alias mac_public='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules_public.sh && ./add_modules_public.sh && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --recursive --remote && git add . && git commit -m "Message" && git push origin main'
+
 
 Windows:
 git add . ; git commit -m "Message" ; git push origin main
