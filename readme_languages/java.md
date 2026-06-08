@@ -1,18 +1,22 @@
 # Java Execution Methods in Programming Languages Repository
 
-This document catalogues **all 15 different Java-only methods** discovered for building, running, and executing Java code throughout the repository. Non-Java methods (Kotlin, Scala, etc.) are excluded to focus on pure Java execution techniques with an emphasis on end-to-end execution rather than compilation-only steps.
+This document catalogues **all distinct Java-only methods** discovered for building, running, and executing Java code throughout the repository. Non-Java methods (Kotlin, Scala, etc.) are excluded to focus on pure Java execution techniques with an emphasis on end-to-end execution rather than compilation-only steps.
 
-Each method is intended to show a runnable Java execution path producing actual output, not just a separate compile step.
+Each method takes Java source code as input and produces the program's output. Intermediate steps (e.g., running a pre-built JAR, executing already-compiled `.class` files, dependency pre-fetching, JVM-flag wrappers) are not listed as separate methods; if a single command performs compile + run together, that counts as one method.
 
 ## Table of Contents
 
 1. **Direct Compilation & Execution**
    - 1.1 [javac + java](#11-javac--java)
+   - 1.2 [java <file.java> (Single-File Source Launcher)](#12-java-filejava-single-file-source-launcher)
+   - 1.3 [java --source with Zsh Process Substitution (Inline Heredoc)](#13-java---source-with-zsh-process-substitution-inline-heredoc)
+   - 1.4 [java --source Shebang Script](#14-java---source-shebang-script)
 
 2. **Maven Build System**
    - 2.1 [Maven Clean Install](#21-maven-clean-install)
    - 2.2 [Maven Spring Boot Run](#22-maven-spring-boot-run)
    - 2.3 [Maven Exec Plugin](#23-maven-exec-plugin)
+   - 2.4 [Maven Quarkus Dev Mode (`mvn quarkus:dev`)](#24-maven-quarkus-dev-mode-mvn-quarkusdev)
 
 3. **Gradle Build System**
    - 3.1 [Gradle Build & Run](#31-gradle-build--run)
@@ -21,39 +25,34 @@ Each method is intended to show a runnable Java execution path producing actual 
    - 4.1 [JShell Direct Execution](#41-jshell-direct-execution)
    - 4.2 [Maven Exec with JShell](#42-maven-exec-with-jshell)
 
-5. **Java JAR Files**
-   - 5.1 [Execute JAR Files](#51-execute-jar-files)
+5. **IJava Jupyter Kernel**
+   - 5.1 [IJava Notebook Installation & Execution](#51-ijava-notebook-installation--execution)
 
-6. **IJava Jupyter Kernel**
-   - 6.1 [IJava Notebook Installation & Execution](#61-ijava-notebook-installation--execution)
+6. **Docker Containerization**
+   - 6.1 [Docker Build & Run](#61-docker-build--run)
 
-7. **Docker Containerization**
-   - 7.1 [Docker Build & Run](#71-docker-build--run)
+7. **JUnit Testing**
+   - 7.1 [JUnit with Maven](#71-junit-with-maven)
 
-8. **Class Path Execution**
-   - 8.1 [java -cp (With External Libraries)](#81-java--cp-with-external-libraries)
+8. **Android Gradle Build System**
+   - 8.1 [Android Gradle Plugin](#81-android-gradle-plugin)
 
-9. **Gradle Wrapper Scripts**
-   - 9.1 [Gradlew (Gradle Wrapper)](#91-gradlew-gradle-wrapper)
+9. **Maven Test**
+   - 9.1 [mvn test (Run Unit Tests)](#91-mvn-test-run-unit-tests)
 
-10. **JUnit Testing**
-    - 10.1 [JUnit with Maven](#101-junit-with-maven)
-    - 10.2 [JUnit Console Launcher JAR](#102-junit-console-launcher-jar)
+10. **Java ProcessBuilder (Programmatic Execution)**
+    - 10.1 [ProcessBuilder Class](#101-processbuilder-class)
 
-11. **Android Gradle Build System**
-    - 11.1 [Android Gradle Plugin](#111-android-gradle-plugin)
+11. **Java Runtime.getRuntime() (Legacy Execution)**
+    - 11.1 [Runtime.getRuntime().exec()](#111-runtimegetruntimeexec)
 
-12. **Maven Test**
-    - 12.1 [mvn test (Run Unit Tests)](#121-mvn-test-run-unit-tests)
+12. **JBang (Single-File Java Launcher)**
+    - 12.1 [jbang <file.java>](#121-jbang-filejava)
+    - 12.2 [jbang -c (One-Liner)](#122-jbang--c-one-liner)
+    - 12.3 [jbang <alias>@<org> (Remote / Aliased Scripts)](#123-jbang-aliasorg-remote--aliased-scripts)
 
-13. **Java ProcessBuilder (Programmatic Execution)**
-    - 13.1 [ProcessBuilder Class](#131-processbuilder-class)
-
-14. **Java Runtime.getRuntime() (Legacy Execution)**
-    - 14.1 [Runtime.getRuntime().exec()](#141-runtimegetruntimeexec)
-
-15. **Java with JVM Properties**
-    - 15.1 [java -D (JVM System Properties)](#151-java--d-jvm-system-properties)
+13. **Bazel Build System**
+    - 13.1 [bazel test (Android Instrumentation Tests)](#131-bazel-test-android-instrumentation-tests)
 
 ---
 
@@ -79,6 +78,59 @@ Each method is intended to show a runnable Java execution path producing actual 
 ```bash
 javac -cp ".:mysql-connector-j-9.3.0.jar" javaMysql.java
 java -cp ".:mysql-connector-j-9.3.0.jar" javaMysql
+```
+
+### 1.2 java <file.java> (Single-File Source Launcher)
+**Method:** Java 11+ single-file source-code launcher — compile and run a `.java` file in one command without writing a `.class` file to disk (inline shell-friendly execution analogous to `kotlin <file.kts>`)
+
+**Locations:**
+- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L25-L26) - `java MainOracle.java`
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L25-L26](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L25-L26)
+- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L36) - `java Main.java < input.txt` (stdin redirection)
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L36](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L36)
+- [typescript/inputs/shell_java.js](../typescript/inputs/shell_java.js#L79-L80) - Inline heredoc-style: `echo ${java_code} > /tmp/TmpClass.java && java /tmp/TmpClass.java`
+
+**Example:**
+```bash
+java Main.java
+java Main.java < input.txt
+echo 'class Hi { public static void main(String[] a) { System.out.println("hi"); } }' > Hi.java && java Hi.java
+```
+
+### 1.3 java --source with Zsh Process Substitution (Inline Heredoc)
+**Method:** Use zsh's `=( ... )` process substitution to feed an inline heredoc directly into the Java source launcher — no temp file written by the user, no manual cleanup. The Java code is embedded literally in the shell command (true inline-in-shell execution, analogous to `kotlin -e` for a full class)
+
+**Locations:**
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L36-L46) - `shell: zsh {0}` step with `java --source 21 =(cat <<'EOF' ... EOF)`
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L36-L46](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L36-L46)
+
+**Example:**
+```zsh
+java --source 21 =(cat <<'EOF'
+class A {
+    public static void main(String[] args) {
+        System.out.println("Zsh magic: No manual file cleanup needed!");
+    }
+}
+EOF
+)
+```
+
+### 1.4 java --source Shebang Script
+**Method:** Make a `.sh` file executable with a `#!/usr/local/bin/java --source <N>` (or `#!/usr/bin/env -S java --source <N>`) shebang so the Java source itself becomes a runnable script accepting CLI args
+
+**Locations:**
+- [javascript/java_embed/codeforces_script/shebang_job.sh](../javascript/java_embed/codeforces_script/shebang_job.sh#L1) - `#!/usr/local/bin/java --source 21` with a `public class sum { public static void main(String[] args) { ... } }` body that sums CLI args
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/shebang_job.sh#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/shebang_job.sh#L1)
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L68-L69) - `chmod +x shebang_job.sh && java --source 21 shebang_job.sh 1 3 5`
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L68-L69](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L68-L69)
+
+**Example:**
+```bash
+chmod +x shebang_job.sh
+java --source 21 shebang_job.sh 1 3 5
+# or, if the shebang line is honoured directly:
+./shebang_job.sh 1 3 5
 ```
 
 ---
@@ -142,6 +194,20 @@ mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"
 mvn exec:exec -Dexec.executable="jshell" -Dexec.args="-"
 ```
 
+### 2.4 Maven Quarkus Dev Mode (`mvn quarkus:dev`)
+**Method:** Quarkus live-coding mode — the Maven Quarkus plugin compiles Java sources and runs the application in the foreground with hot-reload (single command = source-in, running app + output)
+
+**Locations:**
+- [java/quarkus_/README.md](../java/quarkus_/README.md#L36) - `./mvnw quarkus:dev`
+- [quarkus_/README.md](../quarkus_/README.md#L36) - Same instructions (top-level Quarkus README)
+
+**Example:**
+```bash
+cd java/quarkus_
+./mvnw quarkus:dev
+# Edits to .java files under src/main/java are picked up on the next request (live reload)
+```
+
 ---
 
 ## 3. **Gradle Build System**
@@ -202,39 +268,14 @@ jshell --class-path "path/to/classpath" --startup /dev/stdin
 
 ---
 
-## 5. **Java JAR Files**
+## 5. **IJava Jupyter Kernel**
 
-### 5.1 Execute JAR Files
-**Method:** Running compiled JAR files with `java -jar`
-
-**Locations:**
-- [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L44) - Vertx JAR execution
-- [.github/workflows/sprint_boot_API_maven_kotlin.yml](../.github/workflows/sprint_boot_API_maven_kotlin.yml#L45) - Spring Boot JAR
-- [.github/workflows/spring_boot_API_maven_java_applications.yml](../.github/workflows/spring_boot_API_maven_java_applications.yml#L58)
-- [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L71) - CFR tool JAR execution
-- [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L38-L42) - Multiple JAR files
-  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L38-L42](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/preinstalled.yml#L38-L42)
-- [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L73-L76)
-  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L73-L76](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L73-L76)
-- [kotlin/quarkus_/README.md](../kotlin/quarkus_/README.md#L60)
-
-**Example:**
-```bash
-java -jar target/vertx-application-1.0-SNAPSHOT.jar
-java -jar target/*.jar
-java -jar Main.jar
-```
-
----
-
-## 6. **IJava Jupyter Kernel**
-
-### 6.1 IJava Notebook Installation & Execution
-**Method:** Using IJava kernel in Jupyter notebooks for interactive Java
+### 5.1 IJava Notebook Installation & Execution
+**Method:** Using the IJava kernel in Jupyter for interactive Java — supports both inline execution via `jupyter-console --kernel=java <<EOF ... EOF` and full notebook execution via `jupyter nbconvert --execute`
 
 **Locations:**
-- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L44-L99) - IJava setup and inline execution
-  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L44-L99](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L44-L99)
+- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L44-L88) - IJava install, inline `jupyter-console --kernel=java <<EOF` step, and notebook execution via `nbconvert`
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L44-L88](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L44-L88)
 - [javascript/java_embed/codeforces_script/README.md](../javascript/java_embed/codeforces_script/README.md#L80-L86)
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/README.md#L80-L86](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/README.md#L80-L86)
 - [Python/codeforces_script/execute/notebook_java.ipynb](../Python/codeforces_script/execute/notebook_java.ipynb) - Jupyter notebook with IJava
@@ -246,13 +287,22 @@ java -jar Main.jar
 ```bash
 curl -L https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip -o ijava-kernel.zip
 unzip -q ijava-kernel.zip -d ijava-kernel && cd ijava-kernel && python3 install.py --sys-prefix
+
+# Inline
+jupyter-console --kernel=java <<EOF
+System.out.println("Hello from IJava inline!");
+System.out.println("Java version: " + System.getProperty("java.version"));
+EOF
+
+# Notebook
+jupyter nbconvert --to notebook --execute notebook_java.ipynb --output executed_notebook_java.ipynb
 ```
 
 ---
 
-## 7. **Docker Containerization**
+## 6. **Docker Containerization**
 
-### 7.1 Docker Build & Run
+### 6.1 Docker Build & Run
 **Method:** Building Docker images and running containerized Java applications
 
 **Docker Files with Java Build:**
@@ -288,53 +338,9 @@ CMD ["java", "-jar", "target/app.jar"]
 
 ---
 
-## 8. **Class Path Execution**
+## 7. **JUnit Testing**
 
-### 8.1 java -cp (With External Libraries)
-**Method:** Running Java with specific classpath for dependencies
-
-**Locations:**
-- [.github/workflows/java_mysql.yml](../.github/workflows/java_mysql.yml#L102) - MySQL connector
-- [AI_nization/codeforces_script/.github/workflows/main.yml](../AI_nization/codeforces_script/.github/workflows/main.yml#L47) - Custom classpath
-  - Remote (submodule `AI_nization/codeforces_script` @ branch `bito_`): [AI_nization/codeforces_script/.github/workflows/main.yml#L47](https://github.com/aqwertyuiop48/codeforces_script/blob/bito_/.github/workflows/main.yml#L47)
-- [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L40-L42)
-  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L40-L42](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala3_coursier.yml#L40-L42)
-- [kotlin/java_embed/codeforces_script/.github/workflows/main_scala2_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala2_coursier.yml#L47-L48)
-  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala2_coursier.yml#L47-L48](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala2_coursier.yml#L47-L48)
-
-**Example:**
-```bash
-java -cp ".:mysql-connector-j-9.3.0.jar" javaMysql
-java -cp bito__ Calculator
-java -cp ".:${JARS}" Hello1
-```
-
----
-
-## 9. **Gradle Wrapper Scripts**
-
-### 9.1 Gradlew (Gradle Wrapper)
-**Method:** Using gradle wrapper for environment-independent builds and direct Java application execution
-
-**Locations:**
-- [java/micronaut_/codeforces_script/gradlew](../java/micronaut_/codeforces_script/gradlew) - Java Gradle wrapper script
-  - Remote (submodule `java/micronaut_/codeforces_script` @ branch `micronaut_java_`): [java/micronaut_/codeforces_script/gradlew](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_java_/gradlew)
-- [kotlin/micronaut_/codeforces_script/gradlew](../kotlin/micronaut_/codeforces_script/gradlew) - Kotlin/Micronaut wrapper script
-  - Remote (submodule `kotlin/micronaut_/codeforces_script` @ branch `micronaut_kotlin_`): [kotlin/micronaut_/codeforces_script/gradlew](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_kotlin_/gradlew)
-- [kotlin/algorithms/Kotlin/gradlew](../kotlin/algorithms/Kotlin/gradlew) - Kotlin wrapper script
-  - Remote (submodule `kotlin/algorithms/Kotlin` @ branch `master`): [kotlin/algorithms/Kotlin/gradlew](https://github.com/aqwertyuiop48/Kotlin/blob/master/gradlew)
-
-**Example:**
-```bash
-./gradlew clean build
-./gradlew run
-```
-
----
-
-## 10. **JUnit Testing**
-
-### 10.1 JUnit with Maven
+### 7.1 JUnit with Maven
 **Method:** Running JUnit tests through Maven
 
 **Locations:**
@@ -349,24 +355,11 @@ javac -cp .:junit-platform-console-standalone-1.9.3.jar bito__/Calculator.java b
 java -cp .:junit-platform-console-standalone-1.9.3.jar org.junit.platform.console.ConsoleLauncher ...
 ```
 
-### 10.2 JUnit Console Launcher JAR
-**Method:** Running JUnit tests directly via JUnit Console Launcher JAR
-
-**Locations:**
-- [AI_nization/codeforces_script/.github/workflows/main.yml](../AI_nization/codeforces_script/.github/workflows/main.yml#L33-L42) - Download and run JUnit standalone JAR
-  - Remote (submodule `AI_nization/codeforces_script` @ branch `bito_`): [AI_nization/codeforces_script/.github/workflows/main.yml#L33-L42](https://github.com/aqwertyuiop48/codeforces_script/blob/bito_/.github/workflows/main.yml#L33-L42)
-
-**Example:**
-```bash
-wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.9.3/junit-platform-console-standalone-1.9.3.jar
-java -jar junit-platform-console-standalone-1.9.3.jar --class-path bito__ --scan-class-path
-```
-
 ---
 
-## 11. **Android Gradle Build System**
+## 8. **Android Gradle Build System**
 
-### 11.1 Android Gradle Plugin
+### 8.1 Android Gradle Plugin
 **Method:** Building Android applications using Gradle and Android plugin
 
 **Locations:**
@@ -385,9 +378,9 @@ java -jar junit-platform-console-standalone-1.9.3.jar --class-path bito__ --scan
 ---
 
 
-## 12. **Maven Test**
+## 9. **Maven Test**
 
-### 12.1 mvn test (Run Unit Tests)
+### 9.1 mvn test (Run Unit Tests)
 **Method:** Maven command to run JUnit tests in the project
 
 **Locations:**
@@ -410,9 +403,9 @@ mvn test -Dtest='!AmazonTest,!AmazeTest'
 
 ---
 
-## 13. **Java ProcessBuilder (Programmatic Execution)**
+## 10. **Java ProcessBuilder (Programmatic Execution)**
 
-### 13.1 ProcessBuilder Class
+### 10.1 ProcessBuilder Class
 **Method:** Executing Java code programmatically from within Java using ProcessBuilder API
 
 **Locations:**
@@ -434,9 +427,9 @@ Process process = pb.start();
 
 ---
 
-## 14. **Java Runtime.getRuntime() (Legacy Execution)**
+## 11. **Java Runtime.getRuntime() (Legacy Execution)**
 
-### 14.1 Runtime.getRuntime().exec()
+### 11.1 Runtime.getRuntime().exec()
 **Method:** Executing commands from within Java using the legacy Runtime API
 
 **Locations:**
@@ -454,20 +447,68 @@ r.exec(new String[] { "python", "-c", command });
 
 ---
 
+## 12. **JBang (Single-File Java Launcher)**
 
-## 15. **Java with JVM Properties**
-
-### 15.1 java -D (JVM System Properties)
-**Method:** Running Java with system property flags for configuration
+### 12.1 jbang <file.java>
+**Method:** Run a `.java` file directly with [JBang](https://www.jbang.dev) — like the built-in `java <file.java>` launcher but with dependency declarations via `//DEPS` comments and automatic JDK provisioning
 
 **Locations:**
-- [QA/cypress_/codeforces_script/doc/jenkins.md](../QA/cypress_/codeforces_script/doc/jenkins.md#L22) - Jenkins WAR with file encoding
-  - Remote (submodule `QA/cypress_/codeforces_script` @ branch `cypress_testing`): [QA/cypress_/codeforces_script/doc/jenkins.md#L22](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/doc/jenkins.md#L22)
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L70) - `jbang Mains.java`
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L70](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L70)
 
 **Example:**
 ```bash
-java -Dfile.encoding=UTF-8 -jar jenkins.war
-java -Dproperty=value MainClass
+jbang Mains.java
+```
+
+### 12.2 jbang -c (One-Liner)
+**Method:** Execute an inline Java expression/statement directly from the shell — the true Java analogue of `kotlin -e`
+
+**Locations:**
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L67) - `jbang -c 'System.out.println(System.getProperty("java.version"));'`
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L67](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L67)
+
+**Example:**
+```bash
+jbang -c 'System.out.println(System.getProperty("java.version"));'
+```
+
+### 12.3 jbang <alias>@<org> (Remote / Aliased Scripts)
+**Method:** Resolve and run a named Java script from a remote catalog (the source is fetched, compiled, and executed in one command)
+
+**Locations:**
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L54) - `jbang properties@jbangdev`
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L54](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L54)
+
+**Example:**
+```bash
+jbang properties@jbangdev
+```
+
+---
+
+## 13. **Bazel Build System**
+
+### 13.1 bazel test (Android Instrumentation Tests)
+**Method:** Use Bazel to build and run Android instrumentation tests written in Java in one command — source `.java` files declared in `BUILD.bazel` targets are compiled and executed against an emulator/device (`bazel test //...`)
+
+**Locations:**
+- [java/android_/testing-samples/README.md](../java/android_/testing-samples/README.md#L92) - `bazel test //... --config=headless`
+  - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/README.md#L92](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L92)
+- [java/android_/testing-samples/README.md](../java/android_/testing-samples/README.md#L95) - `bazel test //ui/uiautomator/BasicSample:BasicSampleInstrumentationTest_21_x86 --config=headless` (single target)
+  - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/README.md#L95](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L95)
+- [java/android_/testing-samples/README.md](../java/android_/testing-samples/README.md#L112-L118) - `--config=gui` and `--config=local_device` variants
+  - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/README.md#L112-L118](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L112-L118)
+- [java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel](../java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel#L48) - `android_instrumentation_test` target declaration
+  - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel#L48](https://github.com/aqwertyuiop48/testing-samples/blob/main/ui/uiautomator/BasicSample/BUILD.bazel#L48)
+
+**Example:**
+```bash
+cd java/android_/testing-samples
+# Edit WORKSPACE to point at your local Android SDK
+bazel test //... --config=headless
+bazel test //ui/uiautomator/BasicSample:BasicSampleInstrumentationTest_21_x86 --config=headless
+bazel query 'kind(android_instrumentation_test, //...)'
 ```
 
 ---
@@ -477,20 +518,22 @@ java -Dproperty=value MainClass
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
 | javac + java | Simple compilation & execution | [profiles/.bash_profile](../profiles/.bash_profile#L79)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/profiles/blob/main/.bash_profile#L79) |
+| java <file.java> | Single-file source launcher (compile + run in one command) | [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L25)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L25) |
+| java --source + zsh `=(cat <<EOF)` | Inline Java in zsh via process substitution | [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L36)<br/>[remote @ `java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L36) |
+| java --source shebang | Executable `.sh` with Java body | [javascript/java_embed/codeforces_script/shebang_job.sh](../javascript/java_embed/codeforces_script/shebang_job.sh#L1)<br/>[remote @ `java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/shebang_job.sh#L1) |
 | Maven | Dependency management & runtime execution | [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L50) |
+| mvn quarkus:dev | Quarkus live-coding mode | [java/quarkus_/README.md](../java/quarkus_/README.md#L36) |
 | Gradle | Modern build system | [java/micronaut_/codeforces_script/README.md](../java/micronaut_/codeforces_script/README.md#L24)<br/>[remote @ `micronaut_java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_java_/README.md#L24) |
 | JShell | Interactive Java execution | [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L91)<br/>[remote @ `java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L91) |
-| java -jar | JAR execution | [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L44) |
 | IJava | Jupyter notebooks | [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L44)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L44) |
 | Docker | Containerized execution | [java/vertx_/Dockerfile](../java/vertx_/Dockerfile) |
-| java -cp | Classpath runtime execution | [.github/workflows/java_mysql.yml](../.github/workflows/java_mysql.yml#L102) |
-| Gradlew | Wrapper-based runtime builds | [java/micronaut_/codeforces_script/gradlew](../java/micronaut_/codeforces_script/gradlew)<br/>[remote @ `micronaut_java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_java_/gradlew) |
 | JUnit | Testing | [AI_nization/codeforces_script/.github/workflows/main.yml](../AI_nization/codeforces_script/.github/workflows/main.yml#L38)<br/>[remote @ `bito_`](https://github.com/aqwertyuiop48/codeforces_script/blob/bito_/.github/workflows/main.yml#L38) |
 | Android Gradle | Mobile app builds | [java/android_/testing-samples/README.md](../java/android_/testing-samples/README.md#L61)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L61) |
 | mvn test | Run unit tests | [.github/workflows/spring_boot_API_maven_java_applications.yml](../.github/workflows/spring_boot_API_maven_java_applications.yml#L66) |
 | ProcessBuilder | Programmatic execution | [java/codeforces_script/src/main/java/com/example/DataStructures.java](../java/codeforces_script/src/main/java/com/example/DataStructures.java#L113)<br/>[remote @ `javac_`](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L113) |
 | Runtime.exec() | Legacy execution API | [java/readme.txt](../java/readme.txt#L240) |
-| java -D | JVM properties | [QA/cypress_/codeforces_script/doc/jenkins.md](../QA/cypress_/codeforces_script/doc/jenkins.md#L22)<br/>[remote @ `cypress_testing`](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/doc/jenkins.md#L22) |
+| JBang | Single-file launcher, one-liner (`jbang -c`), remote aliased scripts | [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L67)<br/>[remote @ `java_`](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L67) |
+| Bazel | Build + run Android instrumentation tests | [java/android_/testing-samples/README.md](../java/android_/testing-samples/README.md#L92)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L92) |
 
 ---
 
@@ -506,6 +549,8 @@ java -Dproperty=value MainClass
 - **Kafka** - Event streaming
 - **Android SDK** - Mobile development
 - **Selenium** - Web automation testing
+- **JBang** - Single-file Java launcher with `//DEPS`, one-liner mode (`jbang -c`), and remote/aliased scripts
+- **Bazel** - Build system used for Android Java instrumentation tests (`bazel test //...`)
 
 ---
 

@@ -36,3 +36,17 @@ jobs:
         # behave -> locally
         pytest
         # python3 -m pytest -> locally
+
+    - name: Python Jupyter console
+      run: |
+        pip install jupyter jupyter_client jupyter-console
+
+        jupyter-console --kernel=python3 <<EOF
+        print("Hello from Python inline!")
+
+        # Print Python runtime metadata
+        import sys
+        print("Python version: " + sys.version)
+        print("Python platform: " + sys.platform)
+        print("Python home: " + sys.prefix)
+        EOF

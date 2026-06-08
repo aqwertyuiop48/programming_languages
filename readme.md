@@ -84,10 +84,17 @@ To remove a submodule:
 Mac:
 git add . && git commit -m "Message" && git push origin main
 
+<hr>
+- For local system: <br>
+
 alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
+
+<hr>
+- For Github codespace: <br>
 
 alias mac_public='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules_public.sh && ./add_modules_public.sh && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --force --recursive && git add . && git commit -m "Message" && git push origin main'
 
+<hr>
 
 Windows:
 git add . ; git commit -m "Message" ; git push origin main

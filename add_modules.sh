@@ -164,16 +164,16 @@ for entry in "${modules[@]}"; do
 done
 
 
-# # submodule pull and push
-# git submodule foreach '
-# BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
-# && git switch $BRANCH \
-# && git pull origin $BRANCH \
-# && git add . \
-# && (git commit -m "Update internal URLs" || echo "No changes in $name") \
-# && git push origin $BRANCH \
-# || echo "FAILED: $name"
-# '
+# submodule pull and push
+git submodule foreach '
+BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
+&& git switch $BRANCH \
+&& git pull origin $BRANCH \
+&& git add . \
+&& (git commit -m "Update internal URLs" || echo "No changes in $name") \
+&& git push origin $BRANCH \
+|| echo "FAILED: $name"
+'
 
 # # submodule ONLY push
 # git submodule foreach '
