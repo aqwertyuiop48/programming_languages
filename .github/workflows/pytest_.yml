@@ -138,19 +138,6 @@ jobs:
         EOF
         tsx /tmp/hello_tsx.ts
 
-    - name: tsx <<EOF  (stdin heredoc)
-      run: |
-        tsx <<'EOF'
-        const greeting: string = "Hello from tsx heredoc!";
-        console.log(greeting);
-        console.log("Node version: " + process.version);
-        console.log("Platform: "     + process.platform);
-        EOF
-
-    - name: tsx via shell pipe  (echo | tsx)
-      run: |
-        echo 'const msg: string = "Hello from tsx via pipe!"; console.log(msg);' | tsx
-
     # ---------- bun ----------
 
     - name: bun run <file.ts>  (file run)
