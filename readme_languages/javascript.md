@@ -12,6 +12,10 @@ Each method takes JS source as input and produces program output. Toolchain prov
    - 1.1 [node \<file.js\> (Node interpreter)](#11-node-filejs-node-interpreter)
    - 1.2 [node -e "..." (Inline Expression)](#12-node--e--inline-expression)
    - 1.3 [node -e with shell heredoc (Multi-line Inline)](#13-node--e-with-shell-heredoc-multi-line-inline)
+   - 1.4 [node -p "..." (Print Expression Value)](#14-node--p--print-expression-value)
+   - 1.5 [node - <<EOF (Stdin Heredoc)](#15-node---eof-stdin-heredoc)
+   - 1.6 [echo '...' | node - (Piped REPL Stdin)](#16-echo---node---piped-repl-stdin)
+   - 1.7 [node --check \<file.js\> (Syntax Check Without Run)](#17-node---check-filejs-syntax-check-without-run)
 
 2. **npm / yarn Script Runners**
    - 2.1 [npm start / npm test / npm run \<script\> (package.json scripts)](#21-npm-start--npm-test--npm-run-script-packagejson-scripts)
@@ -131,6 +135,56 @@ node -e "
     await browser.close();
   })();
 "
+```
+
+### 1.4 node -p "..." (Print Expression Value)
+**Method:** Evaluate a JS expression and print its value (analog of `node -e` but with an implicit `console.log` around the result). Handy for one-shot prints of runtime metadata or quick arithmetic without writing a script.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L204-L206) - ``node -p '`node -p :: ${process.version} on ${process.platform}`'``
+
+**Example:**
+```bash
+node -p '2 + 3 * 4'
+node -p '`Node ${process.version} on ${process.platform}`'
+```
+
+### 1.5 node - <<EOF (Stdin Heredoc)
+**Method:** Pass `-` as the script argument so Node reads program source from stdin, then feed it a shell heredoc. Direct analog of `python3 - <<EOF` (see [python.md §2.2](python.md#22-python3---eof-stdin-heredoc)) for JavaScript. Distinct from `node -e "..."` heredoc (§1.3): here the program isn't an argv string, so quoting rules are simpler.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L208-L215) - `node - <<'EOF' ... console.log("Hello from node stdin heredoc!"); ... EOF`
+
+**Example:**
+```bash
+node - <<'EOF'
+const greeting = "Hello from node stdin heredoc!";
+console.log(greeting);
+console.log("Node version: " + process.version);
+EOF
+```
+
+### 1.6 echo '...' | node - (Piped REPL Stdin)
+**Method:** Pipe a JS program into Node's stdin via a shell pipe — the one-liner sibling of §1.5. Any shell command whose stdout is JS source can drive a Node run.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L217-L219) - `echo 'console.log("Hello from node via pipe! Node " + process.version)' | node -`
+
+**Example:**
+```bash
+echo 'console.log("hi from node!")' | node -
+printf '%s\n' 'const x = 1 + 2;' 'console.log(x);' | node -
+```
+
+### 1.7 node --check \<file.js\> (Syntax Check Without Run)
+**Method:** Parse a JS file and report syntax errors without executing it. Used as a CI lint gate to fail fast before invoking a heavier runtime or test runner.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L221-L223) - `node --check /tmp/hello_node.js && echo "Syntax OK"`
+
+**Example:**
+```bash
+node --check src/index.js && echo "Syntax OK"
 ```
 
 ---

@@ -12,6 +12,13 @@ Each method takes TS source as input and produces program output. Pure type-chec
    - 1.1 [ts-node \<file.ts\> (Inline TS Transpile + Run)](#11-ts-node-filets-inline-ts-transpile--run)
    - 1.2 [tsx \<file.ts\> (esbuild-powered TS runner)](#12-tsx-filets-esbuild-powered-ts-runner)
    - 1.3 [bun run \<file.ts\> / bun run --watch (Bun runtime)](#13-bun-run-filets--bun-run---watch-bun-runtime)
+   - 1.4 [ts-node -e "..." (Inline Expression)](#14-ts-node--e--inline-expression)
+   - 1.5 [ts-node -p -e "..." (Print Expression Value)](#15-ts-node--p--e--print-expression-value)
+   - 1.6 [ts-node <<EOF (Stdin Heredoc)](#16-ts-node-eof-stdin-heredoc)
+   - 1.7 [echo '...' | ts-node (Piped REPL Stdin)](#17-echo---ts-node-piped-repl-stdin)
+   - 1.8 [bun -e "..." (Inline Expression)](#18-bun--e--inline-expression)
+   - 1.9 [bun --print "..." (Print Expression Value)](#19-bun---print--print-expression-value)
+   - 1.10 [bun - <<EOF (Stdin Heredoc)](#110-bun---eof-stdin-heredoc)
 
 2. **TypeScript-First Framework Dev Servers**
    - 2.1 [ng serve / ng build / ng test (Angular CLI)](#21-ng-serve--ng-build--ng-test-angular-cli)
@@ -87,6 +94,93 @@ npm run dev
 bun run src/index.ts
 bun run --watch src/index.ts
 bun dev
+```
+
+### 1.4 ts-node -e "..." (Inline Expression)
+**Method:** Evaluate a TypeScript expression supplied as a shell argument — the TS analog of `node -e` ([javascript.md §1.2](javascript.md#12-node--e--inline-expression)). When the surrounding `package.json` declares `"type": "module"` (or under Node 20+ defaults), `ts-node` defaults to ESM and emits `export {};` which fails under `vm`; force CommonJS via `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}'` and isolate from the workspace tsconfig with `--cwd`.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L102-L105) - `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp -e '<expr>'`
+
+**Example:**
+```bash
+TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+  ts-node --cwd /tmp -e 'const msg: string = "hi"; console.log(msg);'
+```
+
+### 1.5 ts-node -p -e "..." (Print Expression Value)
+**Method:** Print the value of a TypeScript expression. ts-node's `-p` flag requires `-e` (unlike `node -p`); together they evaluate the expression and `console.log` the result. Useful for one-liners that emit runtime metadata.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L107-L110) - ``TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp -p -e '`ts-node -p :: ${process.version} on ${process.platform}`' ``
+
+**Example:**
+```bash
+TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+  ts-node --cwd /tmp -p -e '`Node ${process.version} on ${process.platform}`'
+```
+
+### 1.6 ts-node <<EOF (Stdin Heredoc)
+**Method:** Pipe a TypeScript program into ts-node's stdin via a shell heredoc. ts-node auto-detects piped stdin when no script path is given. Same CommonJS / `--cwd` workarounds as §1.4.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L112-L122) - `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp <<'EOF' ... EOF`
+
+**Example:**
+```bash
+TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+  ts-node --cwd /tmp <<'EOF'
+const nums: number[] = [1, 2, 3, 4, 5];
+console.log("Sum: " + nums.reduce((a, b) => a + b, 0));
+EOF
+```
+
+### 1.7 echo '...' | ts-node (Piped REPL Stdin)
+**Method:** One-liner form of §1.6 — any shell command whose stdout is TypeScript source can drive a ts-node run.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L124-L127) - `echo '<ts>' | TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp`
+
+**Example:**
+```bash
+echo 'const x: number = 42; console.log(x);' \
+  | TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp
+```
+
+### 1.8 bun -e "..." (Inline Expression)
+**Method:** Evaluate a TypeScript expression supplied as a shell argument under Bun. Bun parses TypeScript natively so no compiler-option workaround is needed (unlike ts-node).
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L153-L155) - `bun -e 'const msg: string = "Hello from bun -e!"; console.log(msg); console.log("Bun version: " + Bun.version);'`
+
+**Example:**
+```bash
+bun -e 'const msg: string = "hi"; console.log(msg, Bun.version);'
+```
+
+### 1.9 bun --print "..." (Print Expression Value)
+**Method:** Print the value of a TypeScript expression under Bun — analog of `node -p` but for TS source. Bun does not expose a `-p` short flag; only `--print` works.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L157-L159) - ``bun --print '`bun --print :: Bun ${Bun.version} on ${process.platform}`'``
+
+**Example:**
+```bash
+bun --print '`Bun ${Bun.version} on ${process.platform}`'
+```
+
+### 1.10 bun - <<EOF (Stdin Heredoc)
+**Method:** Pass `-` as the script argument so Bun reads program source from stdin, then feed it a shell heredoc. TypeScript-aware sibling of `node - <<EOF` ([javascript.md §1.5](javascript.md#15-node----eof-stdin-heredoc)).
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L161-L167) - `bun - <<'EOF' ... const greeting: string = "Hello from bun stdin heredoc!"; ... EOF`
+
+**Example:**
+```bash
+bun - <<'EOF'
+const greeting: string = "hi from bun stdin!";
+console.log(greeting, Bun.version);
+EOF
 ```
 
 ---

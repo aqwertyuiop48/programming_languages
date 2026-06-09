@@ -17,6 +17,8 @@ Each method takes Python source as input and produces the program's output. Tool
    - 2.2 [python3 - <<EOF (Stdin Heredoc)](#22-python3---eof-stdin-heredoc)
    - 2.3 [ipython -c "..." (Inline IPython Expression)](#23-ipython--c--inline-ipython-expression)
    - 2.4 [ipython <<EOF (IPython Stdin Heredoc)](#24-ipython-eof-ipython-stdin-heredoc)
+   - 2.5 [python -m \<module\> (Stdlib Module Runner)](#25-python--m-module-stdlib-module-runner)
+   - 2.6 [echo '...' | python (Piped REPL Stdin)](#26-echo---python-piped-repl-stdin)
 
 3. **Test Runners**
    - 3.1 [python -m unittest discover (Stdlib Test Runner)](#31-python--m-unittest-discover-stdlib-test-runner)
@@ -185,6 +187,31 @@ print("Python version: " + sys.version)
 print("Python platform: " + sys.platform)
 print("Python home: " + sys.prefix)
 EOF
+```
+
+### 2.5 python -m \<module\> (Stdlib Module Runner)
+**Method:** Run a stdlib (or installed) module as `__main__` via Python's `-m` flag. The general form of `python -m unittest discover` (§3.1) and `python -m pytest` (§3.2) — here applied to introspection / micro-benchmark modules (`timeit`, `platform`, `site`) bundled with CPython.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L174-L178) - `python -m timeit -n 1000 -s 'x = list(range(100))' 'sum(x)'`, `python -m platform`, `python -m site`
+
+**Example:**
+```bash
+python -m timeit -n 1000 -s 'x = list(range(100))' 'sum(x)'
+python -m platform
+python -m site
+```
+
+### 2.6 echo '...' | python (Piped REPL Stdin)
+**Method:** Pipe a Python program into the interpreter's stdin via a shell pipe — the lightweight sibling of §2.2's heredoc. CPython reads the program from stdin when no script path is supplied, so any shell command whose stdout is Python source can drive an interpreter run in one line.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L180-L182) - `echo 'import sys; print("Hello from python via pipe!"); print("Python version: " + sys.version)' | python`
+
+**Example:**
+```bash
+echo 'import sys; print("Hello!"); print(sys.version)' | python
+printf '%s\n' 'for i in range(3):' '    print(i)' | python
 ```
 
 ---

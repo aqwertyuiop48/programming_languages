@@ -24,6 +24,9 @@ Each method takes Java source code as input and produces the program's output. I
 4. **JShell (Interactive Java Shell)**
    - 4.1 [JShell Direct Execution](#41-jshell-direct-execution)
    - 4.2 [Maven Exec with JShell](#42-maven-exec-with-jshell)
+   - 4.3 [jshell - <<EOF (Stdin Heredoc)](#43-jshell---eof-stdin-heredoc)
+   - 4.4 [echo '...' | jshell - (Piped REPL Stdin)](#44-echo---jshell---piped-repl-stdin)
+   - 4.5 [jshell \<file.jsh\> (Script File)](#45-jshell-filejsh-script-file)
 
 5. **IJava Jupyter Kernel**
    - 5.1 [IJava Notebook Installation & Execution](#51-ijava-notebook-installation--execution)
@@ -264,6 +267,49 @@ gradle build && gradle run
 ) | jshell -q -
 mvn exec:exec -Dexec.executable=jshell -Dexec.args="-"
 jshell --class-path "path/to/classpath" --startup /dev/stdin
+```
+
+### 4.3 jshell - <<EOF (Stdin Heredoc)
+**Method:** Pass `-` as the script argument so JShell reads source from stdin, then feed it a shell heredoc with multiple statements and a trailing `/exit`. Direct Java analog of `python3 - <<EOF` ([python.md §2.2](python.md#22-python3---eof-stdin-heredoc)) and `node - <<EOF` ([javascript.md §1.5](javascript.md#15-node----eof-stdin-heredoc)).
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L235-L244) - `jshell - <<'EOF' ... System.out.println("Hello from jshell heredoc!"); ... /exit ... EOF`
+
+**Example:**
+```bash
+jshell - <<'EOF'
+System.out.println("Hello from jshell heredoc!");
+int[] nums = {1, 2, 3, 4, 5};
+int sum = java.util.Arrays.stream(nums).sum();
+System.out.println("Sum: " + sum);
+/exit
+EOF
+```
+
+### 4.4 echo '...' | jshell - (Piped REPL Stdin)
+**Method:** Pipe Java source into JShell's stdin via a shell pipe — one-liner sibling of §4.3. Each JShell command must be on its own line, so use `printf '%s\n' '<stmt>;' '/exit'` rather than `echo '<stmt>; /exit'` (a single-line `/exit` is parsed as part of the prior expression).
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L246-L248) - `printf '%s\n' 'System.out.println("Hello from jshell via pipe! Java " + System.getProperty("java.version"));' '/exit' | jshell -`
+
+**Example:**
+```bash
+printf '%s\n' 'System.out.println("hi");' '/exit' | jshell -
+```
+
+### 4.5 jshell \<file.jsh\> (Script File)
+**Method:** Pass a `.jsh` script file as a positional argument. JShell reads the file like a sequence of REPL inputs, executes each statement, and exits when it reaches `/exit` (or EOF). The file-based companion to §4.3 / §4.4 — same execution semantics, just sourced from disk.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L250-L256) - `jshell /tmp/hello.jsh` (file written via `cat > /tmp/hello.jsh <<'EOF' ... /exit ... EOF`)
+
+**Example:**
+```bash
+cat > hello.jsh <<'EOF'
+System.out.println("Hello from jshell file!");
+/exit
+EOF
+jshell hello.jsh
 ```
 
 ---
