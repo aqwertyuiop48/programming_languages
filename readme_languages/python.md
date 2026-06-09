@@ -15,6 +15,8 @@ Each method takes Python source as input and produces the program's output. Tool
 2. **Inline / REPL Execution**
    - 2.1 [python -c "..." (Inline Expression)](#21-python--c--inline-expression)
    - 2.2 [python3 - <<EOF (Stdin Heredoc)](#22-python3---eof-stdin-heredoc)
+   - 2.3 [ipython -c "..." (Inline IPython Expression)](#23-ipython--c--inline-ipython-expression)
+   - 2.4 [ipython <<EOF (IPython Stdin Heredoc)](#24-ipython-eof-ipython-stdin-heredoc)
 
 3. **Test Runners**
    - 3.1 [python -m unittest discover (Stdlib Test Runner)](#31-python--m-unittest-discover-stdlib-test-runner)
@@ -150,6 +152,38 @@ python3 - <<'EOF'
 import sys
 print("Multi-line raw Python!")
 print("sys.version:", sys.version)
+EOF
+```
+
+### 2.3 ipython -c "..." (Inline IPython Expression)
+**Method:** Evaluate one or more Python statements supplied as a shell argument under the IPython interpreter (§1.4) rather than plain CPython. Unlike `python -c` (§2.1), the code runs inside an IPython session and therefore has access to the IPython runtime (`get_ipython()`, line/cell magics, shell escapes like `!ls`).
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L56-L59) - `ipython -c 'print("Hello from IPython inline!"); import sys; print("Python version: " + sys.version); ...'`
+
+**Example:**
+```bash
+pip install ipython
+ipython -c 'print("Hello from IPython inline!"); import sys; print(sys.version)'
+ipython -c 'print(2 + 3); !ls'   # shell escape works because we're in IPython
+```
+
+### 2.4 ipython <<EOF (IPython Stdin Heredoc)
+**Method:** Pipe a shell heredoc straight into `ipython`'s stdin so a multi-line Python program is fed to the IPython interpreter in one step. Direct IPython analog of `python3 - <<EOF` (§2.2) and the inline cousin of `jupyter-console --kernel=python3 <<EOF` (§6.3); the difference vs §6.3 is no kernel client/server hop — IPython evaluates stdin directly.
+
+**Locations:**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L63-L71) - `ipython <<EOF ... print("Hello from IPython inline again!") ... EOF`
+
+**Example:**
+```bash
+pip install ipython
+
+ipython <<EOF
+print("Hello from IPython inline again!")
+import sys
+print("Python version: " + sys.version)
+print("Python platform: " + sys.platform)
+print("Python home: " + sys.prefix)
 EOF
 ```
 

@@ -50,3 +50,248 @@ jobs:
         print("Python platform: " + sys.platform)
         print("Python home: " + sys.prefix)
         EOF
+
+    - name: Python IPython (-c flag)
+      run: |
+        pip install ipython
+
+        ipython -c 'print("Hello from IPython inline!"); import sys; print("Python version: " + sys.version); print("Python platform: " + sys.platform); print("Python home: " + sys.prefix)'
+
+    - name: Python IPython (heredoc)
+      run: |
+        pip install ipython
+
+        ipython <<EOF
+        print("Hello from IPython inline again!")
+
+        # Print Python runtime metadata
+        import sys
+        print("Python version: " + sys.version)
+        print("Python platform: " + sys.platform)
+        print("Python home: " + sys.prefix)
+        EOF
+
+    # -----------------------------------------------------------------------
+    # TypeScript / JavaScript inline-execution variants
+    # -----------------------------------------------------------------------
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install ts-node, tsx, typescript, and bun
+      run: |
+        npm install -g ts-node typescript tsx
+        curl -fsSL https://bun.sh/install | bash
+        echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+    # ---------- ts-node ----------
+
+    - name: ts-node <file.ts>  (file run)
+      run: |
+        cat > /tmp/hello_tsnode.ts <<'EOF'
+        const msg: string = "Hello from ts-node file!";
+        console.log(msg);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        console.log("Arch: "         + process.arch);
+        EOF
+        ts-node /tmp/hello_tsnode.ts
+
+    - name: ts-node -e  (inline expression)
+      run: |
+        ts-node -e 'const msg: string = "Hello from ts-node -e!"; console.log(msg); console.log("Node version: " + process.version); console.log("Platform: " + process.platform);'
+
+    - name: ts-node -p  (print expression value)
+      run: |
+        ts-node -p '`ts-node -p :: ${process.version} on ${process.platform}`'
+
+    - name: ts-node <<EOF  (stdin heredoc)
+      run: |
+        ts-node <<'EOF'
+        const greeting: string = "Hello from ts-node heredoc!";
+        console.log(greeting);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        const nums: number[] = [1, 2, 3, 4, 5];
+        console.log("Sum: " + nums.reduce((a, b) => a + b, 0));
+        EOF
+
+    - name: ts-node via shell pipe  (echo | ts-node)
+      run: |
+        echo 'const msg: string = "Hello from ts-node via pipe!"; console.log(msg);' | ts-node
+
+    # ---------- tsx ----------
+
+    - name: tsx <file.ts>  (file run)
+      run: |
+        cat > /tmp/hello_tsx.ts <<'EOF'
+        const msg: string = "Hello from tsx file!";
+        console.log(msg);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        EOF
+        tsx /tmp/hello_tsx.ts
+
+    - name: tsx -e  (inline expression)
+      run: |
+        tsx -e 'const msg: string = "Hello from tsx -e!"; console.log(msg); console.log("Node version: " + process.version);'
+
+    - name: tsx -p  (print expression value)
+      run: |
+        tsx -p '`tsx -p :: ${process.version}`'
+
+    - name: tsx <<EOF  (stdin heredoc)
+      run: |
+        tsx <<'EOF'
+        const greeting: string = "Hello from tsx heredoc!";
+        console.log(greeting);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        EOF
+
+    - name: tsx via shell pipe  (echo | tsx)
+      run: |
+        echo 'const msg: string = "Hello from tsx via pipe!"; console.log(msg);' | tsx
+
+    # ---------- bun ----------
+
+    - name: bun run <file.ts>  (file run)
+      run: |
+        cat > /tmp/hello_bun.ts <<'EOF'
+        const msg: string = "Hello from bun file!";
+        console.log(msg);
+        console.log("Bun version: "  + Bun.version);
+        console.log("Platform: "     + process.platform);
+        EOF
+        bun run /tmp/hello_bun.ts
+
+    - name: bun -e  (inline expression)
+      run: |
+        bun -e 'const msg: string = "Hello from bun -e!"; console.log(msg); console.log("Bun version: " + Bun.version);'
+
+    - name: bun --print  (print expression value)
+      run: |
+        bun --print '`bun --print :: Bun ${Bun.version} on ${process.platform}`'
+
+    - name: bun -  (read program from stdin via heredoc)
+      run: |
+        bun - <<'EOF'
+        const greeting: string = "Hello from bun stdin heredoc!";
+        console.log(greeting);
+        console.log("Bun version: " + Bun.version);
+        console.log("Platform: "    + process.platform);
+        EOF
+
+    # -----------------------------------------------------------------------
+    # Python additional inline-execution variants
+    # -----------------------------------------------------------------------
+
+    - name: python -m  (module flag — runs a stdlib module as __main__)
+      run: |
+        python -m timeit -n 1000 -s 'x = list(range(100))' 'sum(x)'
+        python -m platform
+        python -m site
+
+    - name: echo | python  (piped REPL stdin)
+      run: |
+        echo 'import sys; print("Hello from python via pipe!"); print("Python version: " + sys.version)' | python
+
+    # -----------------------------------------------------------------------
+    # Node.js / JavaScript inline-execution variants
+    # (Node was installed earlier alongside ts-node / tsx / bun)
+    # -----------------------------------------------------------------------
+
+    - name: node <file.js>  (file run)
+      run: |
+        cat > /tmp/hello_node.js <<'EOF'
+        const msg = "Hello from node file!";
+        console.log(msg);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        console.log("Arch: "         + process.arch);
+        EOF
+        node /tmp/hello_node.js
+
+    - name: node -e  (inline expression)
+      run: |
+        node -e 'const msg = "Hello from node -e!"; console.log(msg); console.log("Node version: " + process.version); console.log("Platform: " + process.platform);'
+
+    - name: node -p  (print expression value)
+      run: |
+        node -p '`node -p :: ${process.version} on ${process.platform}`'
+
+    - name: node <<EOF  (stdin heredoc via process substitution)
+      run: |
+        node <<'EOF'
+        const greeting = "Hello from node stdin heredoc!";
+        console.log(greeting);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        EOF
+
+    - name: echo | node  (piped REPL stdin)
+      run: |
+        echo 'console.log("Hello from node via pipe! Node " + process.version)' | node
+
+    - name: node --check  (syntax-check a JS file without running it)
+      run: |
+        node --check /tmp/hello_node.js && echo "Syntax OK"
+
+    # -----------------------------------------------------------------------
+    # Java inline / single-file / JShell execution variants
+    # -----------------------------------------------------------------------
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: jshell - <<EOF  (stdin heredoc)
+      run: |
+        jshell - <<'EOF'
+        System.out.println("Hello from jshell heredoc!");
+        System.out.println("Java version: " + System.getProperty("java.version"));
+        int[] nums = {1, 2, 3, 4, 5};
+        int sum = java.util.Arrays.stream(nums).sum();
+        System.out.println("Sum: " + sum);
+        /exit
+        EOF
+
+    - name: echo | jshell  (piped REPL stdin)
+      run: |
+        echo 'System.out.println("Hello from jshell via pipe! Java " + System.getProperty("java.version")); /exit' | jshell -
+
+    - name: jshell <file.jsh>  (script file)
+      run: |
+        cat > /tmp/hello.jsh <<'EOF'
+        System.out.println("Hello from jshell file!");
+        System.out.println("Java version: " + System.getProperty("java.version"));
+        /exit
+        EOF
+        jshell /tmp/hello.jsh
+
+    # -----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
+    # ClojureScript inline / file execution via nbb (Node-hosted)
+    # -----------------------------------------------------------------------
+
+    - name: Install nbb (ClojureScript on Node)
+      run: |
+        npm install -g nbb
+
+    - name: nbb -e  (inline ClojureScript expression)
+      run: |
+        nbb -e '(println "Hello from nbb -e!") (println (str "Node: " js/process.version))'
+
+    - name: nbb <file.cljs>  (file run)
+      run: |
+        cat > /tmp/hello.cljs <<'EOF'
+        (println "Hello from nbb <file.cljs>!")
+        (println (str "Node: " js/process.version))
+        (println (str "Platform: " js/process.platform))
+        (println (str "Sum: " (reduce + [1 2 3 4 5])))
+        EOF
+        nbb /tmp/hello.cljs
