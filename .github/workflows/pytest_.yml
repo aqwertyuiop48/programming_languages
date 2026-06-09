@@ -101,15 +101,18 @@ jobs:
 
     - name: ts-node -e  (inline expression)
       run: |
-        ts-node -e 'const msg: string = "Hello from ts-node -e!"; console.log(msg); console.log("Node version: " + process.version); console.log("Platform: " + process.platform);'
+        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+          ts-node --cwd /tmp -e 'const msg: string = "Hello from ts-node -e!"; console.log(msg); console.log("Node version: " + process.version); console.log("Platform: " + process.platform);'
 
     - name: ts-node -p  (print expression value)
       run: |
-        ts-node -p '`ts-node -p :: ${process.version} on ${process.platform}`'
+        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+          ts-node --cwd /tmp -p '`ts-node -p :: ${process.version} on ${process.platform}`'
 
     - name: ts-node <<EOF  (stdin heredoc)
       run: |
-        ts-node <<'EOF'
+        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
+          ts-node --cwd /tmp <<'EOF'
         const greeting: string = "Hello from ts-node heredoc!";
         console.log(greeting);
         console.log("Node version: " + process.version);
@@ -120,7 +123,8 @@ jobs:
 
     - name: ts-node via shell pipe  (echo | ts-node)
       run: |
-        echo 'const msg: string = "Hello from ts-node via pipe!"; console.log(msg);' | ts-node
+        echo 'const msg: string = "Hello from ts-node via pipe!"; console.log(msg);' \
+          | TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp
 
     # ---------- tsx ----------
 
