@@ -55,6 +55,9 @@ Each method takes Python source as input and produces the program's output. Tool
 **Method:** Run a Python script with the `python` (or `python3`) command. The interpreter compiles to bytecode and executes in one step.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L76) - `python test.py`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L76](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76)
 - [Python/codeforces_script/.github/workflows/main2.yml](../Python/codeforces_script/.github/workflows/main2.yml#L32) - `python shell_script.py`
@@ -77,6 +80,9 @@ python vulnerability_scanner.py --ip 127.0.0.1 --start-port 1 --end-port 1024
 - [Python/codeforces_script/direct/run.sh](../Python/codeforces_script/direct/run.sh#L40-L41) - `python3 "$script" < "$f" | tee "py_output/${testname}.txt"`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/direct/run.sh#L40-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L40-L41)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 python3 1A.py < test1.in
@@ -88,6 +94,9 @@ python3 1A.py < test1.in
 **Locations:**
 - [Python/django_/vercel_django_example1/manage.py](../Python/django_/vercel_django_example1/manage.py#L1) - `#!/usr/bin/env python`
   - Remote (submodule `Python/django_/vercel_django_example1` @ branch `main`): [Python/django_/vercel_django_example1/manage.py#L1](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -114,6 +123,9 @@ What distinguishes IPython execution from plain `python` is access to the IPytho
 - [java/temporal/edu-101-java-code/temporal_.ipynb](../java/temporal/edu-101-java-code/temporal_.ipynb#L1574) - `"name": "ipython"` kernel metadata
   - Remote (submodule `java/temporal/edu-101-java-code` @ branch `main`): [java/temporal/edu-101-java-code/temporal_.ipynb#L1574](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/temporal_.ipynb#L1574)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ipython kernel install --user --name=venv      # register the IPython kernel
@@ -134,6 +146,9 @@ ipython                                        # enhanced REPL
 - [javascript/mysql_connector_/mysql_connector_.js](../javascript/mysql_connector_/mysql_connector_.js#L44) - `spawnSync('python3', ['-c', pythonCode], ...)`
 - [golang/6_go_movies_crud_1/main_2.js](../golang/6_go_movies_crud_1/main_2.js#L117) - `runner.execFile("python", ["-c", python_go_main], ...)`
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 python -c "print(2 + 3)"
@@ -148,6 +163,9 @@ python -c "print(2 + 3)"
 - [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L6) - `"python3 - <<'EOF'..."` (Clojure-built shell string)
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L6](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 python3 - <<'EOF'
@@ -161,6 +179,9 @@ EOF
 **Method:** Evaluate one or more Python statements supplied as a shell argument under the IPython interpreter (§1.4) rather than plain CPython. Unlike `python -c` (§2.1), the code runs inside an IPython session and therefore has access to the IPython runtime (`get_ipython()`, line/cell magics, shell escapes like `!ls`).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L56-L59) - `ipython -c 'print("Hello from IPython inline!"); import sys; print("Python version: " + sys.version); ...'`
 
 **Example:**
@@ -174,6 +195,9 @@ ipython -c 'print(2 + 3); !ls'   # shell escape works because we're in IPython
 **Method:** Pipe a shell heredoc straight into `ipython`'s stdin so a multi-line Python program is fed to the IPython interpreter in one step. Direct IPython analog of `python3 - <<EOF` (§2.2) and the inline cousin of `jupyter-console --kernel=python3 <<EOF` (§6.3); the difference vs §6.3 is no kernel client/server hop — IPython evaluates stdin directly.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L63-L71) - `ipython <<EOF ... print("Hello from IPython inline again!") ... EOF`
 
 **Example:**
@@ -193,6 +217,9 @@ EOF
 **Method:** Run a stdlib (or installed) module as `__main__` via Python's `-m` flag. The general form of `python -m unittest discover` (§3.1) and `python -m pytest` (§3.2) — here applied to introspection / micro-benchmark modules (`timeit`, `platform`, `site`) bundled with CPython.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L174-L178) - `python -m timeit -n 1000 -s 'x = list(range(100))' 'sum(x)'`, `python -m platform`, `python -m site`
 
 **Example:**
@@ -206,6 +233,9 @@ python -m site
 **Method:** Pipe a Python program into the interpreter's stdin via a shell pipe — the lightweight sibling of §2.2's heredoc. CPython reads the program from stdin when no script path is supplied, so any shell command whose stdout is Python source can drive an interpreter run in one line.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L180-L182) - `echo 'import sys; print("Hello from python via pipe!"); print("Python version: " + sys.version)' | python`
 
 **Example:**
@@ -222,10 +252,12 @@ printf '%s\n' 'for i in range(3):' '    print(i)' | python
 **Method:** Use the `unittest` module's CLI to discover and run all matching test modules under a directory. End-to-end: discovers, loads, runs, reports.
 
 **Locations:**
+- [Python/PyUnit_/test_example.py](../Python/PyUnit_/test_example.py#L17) - `if __name__ == "__main__": unittest.main()` (also runnable via `python test_example.py`)
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pyunit_.yml](../.github/workflows/pyunit_.yml#L26) - `python -m unittest discover -s . -p "test_*.py"`
 - [Python/codeforces_script/.github/workflows/selenium_.yml](../Python/codeforces_script/.github/workflows/selenium_.yml#L63) - `python -m unittest discover -s Python/selenium_ -p local_.py`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/selenium_.yml#L63](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/selenium_.yml#L63)
-- [Python/PyUnit_/test_example.py](../Python/PyUnit_/test_example.py#L17) - `if __name__ == "__main__": unittest.main()` (also runnable via `python test_example.py`)
 
 **Example:**
 ```bash
@@ -236,6 +268,9 @@ python -m unittest discover -s . -p "test_*.py"
 **Method:** Run [pytest](https://docs.pytest.org/) directly — it auto-discovers `test_*.py` / `*_test.py` files and runs functions named `test_*`. The `python -m pytest` form forces the same interpreter as the active environment.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L27) - `pytest && python app/decorator.py && pytest -m slow`
 - [Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml](../Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml#L36) - `pytest -v --html=results/report.html`
   - Remote (submodule `Python/selenium_/selenium_python_example` @ branch `main`): [Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml#L36](https://github.com/aqwertyuiop48/selenium_python_example/blob/main/.github/workflows/daily-test.yml#L36)
@@ -254,9 +289,11 @@ python -m pytest tests/      # equivalent, pinned to active interpreter
 **Method:** Run [behave](https://behave.readthedocs.io/) against `.feature` files and step-definition modules under `features/steps/`. End-to-end: parses Gherkin, dispatches to Python steps, executes, reports.
 
 **Locations:**
-- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L35) - `behave`
 - [Python/cucumber_/features/steps/api_steps.py](../Python/cucumber_/features/steps/api_steps.py#L2) - `from behave import given, when, then`
 - [Python/cucumber_/features/api.feature](../Python/cucumber_/features/api.feature) - Gherkin feature
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L35) - `behave`
 
 **Example:**
 ```bash
@@ -268,8 +305,10 @@ behave
 **Method:** [pytest-bdd](https://pytest-bdd.readthedocs.io/) wires `.feature` files into pytest test functions; invoked via `pytest`.
 
 **Locations:**
-- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L38) - `pytest` after `pip install ... pytest-bdd`
 - [Python/cucumber_/features/test_api_pytest_bdd_steps.py](../Python/cucumber_/features/test_api_pytest_bdd_steps.py#L1-L6) - `from pytest_bdd import scenarios, given, when, then`
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L38) - `pytest` after `pip install ... pytest-bdd`
 
 **Example:**
 ```python
@@ -286,6 +325,9 @@ pytest    # runs the .feature via pytest-bdd
 **Locations:**
 - [Python/robot_/search_test.robot](../Python/robot_/search_test.robot#L1-L5) - `*** Settings ***` block declaring `RequestsLibrary`
 - [Python/robot_/requirements.txt](../Python/robot_/requirements.txt#L1) - `robotframework==...`
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -304,6 +346,9 @@ robot search_test.robot
   - Remote (submodule `Python/django_/vercel_django_example1` @ branch `main`): [Python/django_/vercel_django_example1/manage.py#L1-L22](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1-L22)
 - [Python/django_/vercel_django_example1/readme.md](../Python/django_/vercel_django_example1/readme.md#L12) - `python manage.py runserver`
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 python manage.py runserver
@@ -318,6 +363,9 @@ python manage.py runserver
 - [Python/flask_/flask_pythonanywhere/readme2.md](../Python/flask_/flask_pythonanywhere/readme2.md#L29) - `FLASK_APP=flask_app.py flask run`
   - Remote (submodule `Python/flask_/flask_pythonanywhere` @ branch `main`): [Python/flask_/flask_pythonanywhere/readme2.md#L29](https://github.com/aqwertyuiop48/flask_pythonanywhere/blob/main/readme2.md#L29)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 FLASK_APP=index.py flask run
@@ -329,6 +377,9 @@ FLASK_APP=index.py flask run
 **Locations:**
 - [Python/fastapi_/fastapi_python/main.py](../Python/fastapi_/fastapi_python/main.py#L1-L4) - `import uvicorn; uvicorn.run("server.api:app", host="0.0.0.0", port=8001, reload=True)`
   - Remote (submodule `Python/fastapi_/fastapi_python` @ branch `main`): [Python/fastapi_/fastapi_python/main.py#L1-L4](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1-L4)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -344,8 +395,10 @@ uvicorn server.api:app --reload --host 0.0.0.0 --port 8001
 **Method:** Run a [Celery](https://docs.celeryq.dev/) worker process bound to the `tasks` app; the broker / backend are declared inside the app module. End-to-end: loads source, registers tasks, starts worker.
 
 **Locations:**
-- [.github/workflows/celery_.yml](../.github/workflows/celery_.yml#L36) - `nohup celery -A tasks worker --loglevel=info &`
 - [Python/celery_/tasks.py](../Python/celery_/tasks.py#L1-L6) - `from celery import Celery; app = Celery('tasks', broker='redis://localhost:6379/0')`
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/celery_.yml](../.github/workflows/celery_.yml#L36) - `nohup celery -A tasks worker --loglevel=info &`
 
 **Example:**
 ```bash
@@ -360,12 +413,14 @@ celery -A tasks worker --loglevel=info
 **Method:** Execute every cell in a `.ipynb` file with the Python kernel and write the executed version out. Single command takes notebook source → produces output.
 
 **Locations:**
+- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb) - the input notebook
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb)
+
+**Workflow yml (executes in CI):**
 - [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L81) - `jupyter nbconvert --to notebook --execute notebook.ipynb --output executed_notebook.ipynb`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L81](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81)
 - [Python/codeforces_script/.github/workflows/main_release.yml](../Python/codeforces_script/.github/workflows/main_release.yml#L47) - same pattern targeting `outputs/`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_release.yml#L47](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_release.yml#L47)
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb) - the input notebook
-  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb)
 
 **Example:**
 ```bash
@@ -396,6 +451,9 @@ When executed via `jupyter nbconvert --execute` (§6.1) or directly in the noteb
 - [Python/algorithms/Python/machine_learning/logistic_regression.py](../Python/algorithms/Python/machine_learning/logistic_regression.py#L22) - `get_ipython().run_line_magic('matplotlib', 'inline')` (the programmatic form of `%matplotlib inline`)
   - Remote (submodule `Python/algorithms/Python` @ branch `master`): [Python/algorithms/Python/machine_learning/logistic_regression.py#L22](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example (notebook cells executed by `nbconvert --execute`):**
 ```python
 # cell 1 — cell magic that writes a file
@@ -419,6 +477,9 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 **Method:** [`jupyter-console`](https://jupyter-console.readthedocs.io/) opens a terminal frontend to a Jupyter kernel. With `--kernel=python3` (the default IPython kernel) and a shell heredoc, a full multi-line Python program is fed in and executed in a single step — source → kernel → output. Direct Python analog of java.md §5.1's `jupyter-console --kernel=java <<EOF`.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L44-L52) - `jupyter-console --kernel=python3 <<EOF ... print("Hello from Python inline!") ... EOF`
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L42) - `pip install jupyter jupyter_client jupyter-console` (prereq)
 
@@ -443,10 +504,12 @@ EOF
 **Method:** Build a Docker image whose `Dockerfile` installs Python and copies in source; run the image and the entrypoint executes the Python program. End-to-end: source → image → running program → artifacts copied out.
 
 **Locations:**
-- [Python/codeforces_script/.github/workflows/docker_.yml](../Python/codeforces_script/.github/workflows/docker_.yml#L20-L26) - `docker build -t my-app .` then `docker run --name my-container -d my-app`
-  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/docker_.yml#L20-L26](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20-L26)
 - [Python/codeforces_script/Dockerfile](../Python/codeforces_script/Dockerfile#L1-L2) - `FROM ubuntu:20.04`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/Dockerfile#L1-L2](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/Dockerfile#L1-L2)
+
+**Workflow yml (executes in CI):**
+- [Python/codeforces_script/.github/workflows/docker_.yml](../Python/codeforces_script/.github/workflows/docker_.yml#L20-L26) - `docker build -t my-app .` then `docker run --name my-container -d my-app`
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/docker_.yml#L20-L26](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20-L26)
 
 **Example:**
 ```bash
@@ -468,6 +531,9 @@ docker cp my-container:/app/output/output.txt ./output.txt
 - [typescript/inputs/final_inputs.js](../typescript/inputs/final_inputs.js#L6-L70) - multiple `spawn("python", ["-c", \`...\`])` calls
 - [golang/6_go_movies_crud_1/main_2.js](../golang/6_go_movies_crud_1/main_2.js#L117) - `runner.execFile("python", ["-c", python_go_main], ...)`
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```javascript
 const { spawn } = require('child_process');
@@ -483,6 +549,9 @@ child.stdout.on('data', d => process.stdout.write(d));
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L23-L32](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L23-L32)
 - [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65) - `(def python-code ...) (def result (shell/sh "python3" "-c" python-code))`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```clojure

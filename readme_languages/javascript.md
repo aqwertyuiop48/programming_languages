@@ -83,6 +83,10 @@ Each method takes JS source as input and produces program output. Toolchain prov
 **Method:** Pass a `.js` / `.mjs` file directly to the `node` CLI. The V8 engine parses and executes the script in one step.
 
 **Locations:**
+- [javascript/adonis/serverless-adonis/package.json](../javascript/adonis/serverless-adonis/package.json#L9) - `"serve": "node server.js"` (AdonisJS v3 entry)
+  - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L9)
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/mysql_.yml](../.github/workflows/mysql_.yml#L92) - `node javascript/mysql_connector_/mysql_connector_.js`
 - [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L37) - `node scripts/solidity_in_js.js`
   - Remote (submodule `solidity__/codeforces_script` @ branch `solidity_`): [main.yml#L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L37)
@@ -90,8 +94,6 @@ Each method takes JS source as input and produces program output. Toolchain prov
   - Remote (submodule @ branch `clojure_script`): [main.yml#L65](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L65)
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L60) - `node java_node.js`
   - Remote (submodule @ branch `java_`): [main.yml#L60](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L60)
-- [javascript/adonis/serverless-adonis/package.json](../javascript/adonis/serverless-adonis/package.json#L9) - `"serve": "node server.js"` (AdonisJS v3 entry)
-  - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L9)
 
 **Example:**
 ```bash
@@ -110,6 +112,9 @@ node scripts/solidity_in_js.js
   - Remote (submodule @ branch `golang_`): [1_nested_functions.go#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29)
 - [java/readme.txt](../java/readme.txt#L557) - `processBuilder.command("node", "-e", strings)` (Java → Node)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 node -e "console.log(2 + 3)"
@@ -119,10 +124,12 @@ node -e "console.log(2 + 3)"
 **Method:** Feed a multi-line JS program into `node -e` via a shell-quoted heredoc-style string. Lets a single CI step embed a non-trivial JS program — including `require(...)` imports — without a separate file.
 
 **Locations:**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L105-L130) - multi-line `node -e "..."` driving Playwright's `chromium.launch` to record videos
-  - Remote (submodule @ branch `golang_`): [main.yml#L105-L130](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105-L130)
 - [ruby/codeforces_script/execute/child.rb](../ruby/codeforces_script/execute/child.rb#L1-L7) - Ruby `exec <<~CMD ... node -e "console.log('Hi from nested nodejs!');" ... CMD`
   - Remote (submodule @ branch `ruby_`): [child.rb#L1-L7](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7)
+
+**Workflow yml (executes in CI):**
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L105-L130) - multi-line `node -e "..."` driving Playwright's `chromium.launch` to record videos
+  - Remote (submodule @ branch `golang_`): [main.yml#L105-L130](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105-L130)
 
 **Example:**
 ```bash
@@ -141,6 +148,9 @@ node -e "
 **Method:** Evaluate a JS expression and print its value (analog of `node -e` but with an implicit `console.log` around the result). Handy for one-shot prints of runtime metadata or quick arithmetic without writing a script.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L204-L206) - ``node -p '`node -p :: ${process.version} on ${process.platform}`'``
 
 **Example:**
@@ -153,6 +163,9 @@ node -p '`Node ${process.version} on ${process.platform}`'
 **Method:** Pass `-` as the script argument so Node reads program source from stdin, then feed it a shell heredoc. Direct analog of `python3 - <<EOF` (see [python.md §2.2](python.md#22-python3---eof-stdin-heredoc)) for JavaScript. Distinct from `node -e "..."` heredoc (§1.3): here the program isn't an argv string, so quoting rules are simpler.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L208-L215) - `node - <<'EOF' ... console.log("Hello from node stdin heredoc!"); ... EOF`
 
 **Example:**
@@ -168,6 +181,9 @@ EOF
 **Method:** Pipe a JS program into Node's stdin via a shell pipe — the one-liner sibling of §1.5. Any shell command whose stdout is JS source can drive a Node run.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L217-L219) - `echo 'console.log("Hello from node via pipe! Node " + process.version)' | node -`
 
 **Example:**
@@ -180,6 +196,9 @@ printf '%s\n' 'const x = 1 + 2;' 'console.log(x);' | node -
 **Method:** Parse a JS file and report syntax errors without executing it. Used as a CI lint gate to fail fast before invoking a heavier runtime or test runner.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L221-L223) - `node --check /tmp/hello_node.js && echo "Syntax OK"`
 
 **Example:**
@@ -195,13 +214,15 @@ node --check src/index.js && echo "Syntax OK"
 **Method:** Invoke a named script declared in `package.json#scripts`. The script body runs in a sub-shell with `node_modules/.bin` on `PATH`. `npm start` and `npm test` are shorthands for `npm run start` / `npm run test`.
 
 **Locations:**
+- Hundreds of `package.json` script declarations across `javascript/`.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/mains.yml](../.github/workflows/mains.yml#L27-L28) - `npm run asbuild` then `npm start` (AssemblyScript → Node)
 - [.github/workflows/mains.yml](../.github/workflows/mains.yml#L35) - `npm run asbuild:optimized -- --memoryBase 40000`
 - [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L34) - `npm run start` (resolves to `nbb hello.cljs`)
   - Remote (submodule @ branch `clojure_script`): [main.yml#L34](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L34)
 - [javascript/main_/codeforces_script/.github/workflows/main.yml](../javascript/main_/codeforces_script/.github/workflows/main.yml#L107-L108) - `npm run pystart` / `npm run pystartmac`
   - Remote (submodule @ branch `main_`): [main.yml#L107-L108](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/.github/workflows/main.yml#L107-L108)
-- Hundreds of `package.json` script declarations across `javascript/`.
 
 **Example:**
 ```bash
@@ -215,6 +236,9 @@ npm run start:dev      # arbitrary named script
 **Method:** `npx` resolves a binary from local `node_modules/.bin` (or fetches it from the npm registry), then executes it with the supplied args — in one command. Used as the entry point for many tools that themselves run JS / drive headless browsers.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L25-L37) - `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost`
   - Remote (submodule @ branch `solidity_`): [main.yml#L25-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37)
 - [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L64) - `npx shadow-cljs compile app`
@@ -249,6 +273,9 @@ Each entry below is a single CLI invocation that takes the framework's source tr
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/whatsapp-2/blob/main/package.json#L5-L7)
 - [javascript/turborepo-with-hono/apps/web/package.json](../javascript/turborepo-with-hono/apps/web/package.json#L7) - `next dev --turbopack --port 3001`
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 next dev
@@ -261,6 +288,9 @@ next build && next start
 **Locations:**
 - [javascript/nuxt_/nuxtjs-boilerplate/package.json](../javascript/nuxt_/nuxtjs-boilerplate/package.json#L4-L5) - `"build": "nuxt build"`, `"dev": "nuxt dev"`
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/nuxtjs-boilerplate/blob/main/package.json#L4-L5)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -279,6 +309,9 @@ nuxt dev
 - [javascript/ionic__/ionic_app/package.json](../javascript/ionic__/ionic_app/package.json#L38-L40) - `react-scripts start` / `react-scripts test` (Ionic + React)
   - Remote (submodule @ branch `main`): [package.json#L38-L40](https://github.com/aqwertyuiop48/ionic_app/blob/main/package.json#L38-L40)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 react-scripts start
@@ -294,6 +327,9 @@ react-scripts test
 - [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L6-L8) - `vite dev --port 3000`, `vite preview`
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L6-L8)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 vite              # dev server
@@ -306,6 +342,9 @@ vite preview      # serve build output
 **Locations:**
 - [javascript/gatsby_/gatsby/package.json](../javascript/gatsby_/gatsby/package.json#L4-L7) - `"develop"`, `"start"`, `"build"`, `"serve"`
   - Remote (submodule @ branch `main`): [package.json#L4-L7](https://github.com/aqwertyuiop48/gatsby/blob/main/package.json#L4-L7)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -320,6 +359,9 @@ gatsby serve
 - [javascript/remix_/remix/package.json](../javascript/remix_/remix/package.json#L5-L6) - `"build": "remix build"`, `"dev": "remix dev"`
   - Remote (submodule @ branch `main`): [package.json#L5-L6](https://github.com/aqwertyuiop48/remix/blob/main/package.json#L5-L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 remix dev
@@ -331,6 +373,9 @@ remix dev
 **Locations:**
 - [javascript/redwood_/netlify-deploy/README.md](../javascript/redwood_/netlify-deploy/README.md#L20) - `yarn redwood dev`
   - Remote (submodule @ branch `main`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/main/README.md#L20)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -345,6 +390,9 @@ yarn rw test
 - [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L7-L9) - `"build": "stencil build"`, `"start": "stencil build --dev --watch --serve"`, `"test": "stencil test --spec --e2e"`
   - Remote (submodule @ branch `main`): [package.json#L7-L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L7-L9)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 stencil build --dev --watch --serve
@@ -356,6 +404,9 @@ stencil build --dev --watch --serve
 **Locations:**
 - [javascript/brunch_/brunch/package.json](../javascript/brunch_/brunch/package.json#L9-L11) - `"start": "brunch watch --server"`, `"dev": "brunch watch --server --port $PORT"`, `"build": "brunch build --production"`
   - Remote (submodule @ branch `main`): [package.json#L9-L11](https://github.com/aqwertyuiop48/brunch/blob/main/package.json#L9-L11)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -369,6 +420,9 @@ brunch watch --server
 - [javascript/umijs_/umijs/package.json](../javascript/umijs_/umijs/package.json#L4) - `"start": "NODE_OPTIONS=--openssl-legacy-provider umi dev"`
   - Remote (submodule @ branch `main`): [package.json#L4](https://github.com/aqwertyuiop48/umijs/blob/main/package.json#L4)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 NODE_OPTIONS=--openssl-legacy-provider umi dev
@@ -380,6 +434,9 @@ NODE_OPTIONS=--openssl-legacy-provider umi dev
 **Locations:**
 - [javascript/nx_/nx-monorepo/package.json](../javascript/nx_/nx-monorepo/package.json#L5-L7) - `"start": "nx serve"`, `"build": "nx build"`, `"test": "nx test"`
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/nx-monorepo/blob/main/package.json#L5-L7)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -393,6 +450,9 @@ nx serve
 - [javascript/turborepo-with-hono/package.json](../javascript/turborepo-with-hono/package.json#L5-L6) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
   - Remote (submodule @ branch `main`): [package.json#L5-L6](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/package.json#L5-L6)
 - [javascript/saas-microservices/package.json](../javascript/saas-microservices/package.json#L7-L10) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -410,6 +470,9 @@ turbo run build
 - [javascript/adonis/serverless-adonis/package.json](../javascript/adonis/serverless-adonis/package.json#L7) - `"serve:dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js"`
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L7)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 nodemon ./public/javascript_apps.js
@@ -420,13 +483,15 @@ nodemon --watch app -x node server.js
 **Method:** `serve` (npm package), `local-web-server` (`ws`), and `sirv` host a directory of HTML / JS / WASM over HTTP — the single command that turns static JS sources into a running site loaded by the browser.
 
 **Locations:**
-- [.github/workflows/mains.yml](../.github/workflows/mains.yml#L26-L28) - `npm install serve@14.2.4`, `npm run asbuild`, `npm start` (CRA's `serve` for an AssemblyScript bundle, then `curl http://localhost:3000`)
-- [.github/workflows/mains.yml](../.github/workflows/mains.yml#L36) - `npx ws -p 1234 &` (local-web-server)
 - [typescript/webassembly_/2d_game_/README.md](../typescript/webassembly_/2d_game_/README.md#L34) - `npx ws -p 1234`
 - [javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L8) - `"start": "sirv public --no-clear"`
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L8)
 - [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L5) - `"serve": "sirv build --port 8080 --cors --single"`
   - Remote (submodule @ branch `main`): [package.json#L5](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L5)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/mains.yml](../.github/workflows/mains.yml#L26-L28) - `npm install serve@14.2.4`, `npm run asbuild`, `npm start` (CRA's `serve` for an AssemblyScript bundle, then `curl http://localhost:3000`)
+- [.github/workflows/mains.yml](../.github/workflows/mains.yml#L36) - `npx ws -p 1234 &` (local-web-server)
 
 **Example:**
 ```bash
@@ -442,6 +507,9 @@ sirv public --no-clear
 - [javascript/ember_/ember/package.json](../javascript/ember_/ember/package.json#L17-L19) - `"dev": "ember serve --port $PORT"`, `"start": "ember serve"`, `"test": "ember test"`
   - Remote (submodule @ branch `main`): [package.json#L17-L19](https://github.com/aqwertyuiop48/ember/blob/main/package.json#L17-L19)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ember serve
@@ -456,6 +524,9 @@ ember test
 - [javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L6-L8) - `"build": "rollup -c"`, `"dev": "rollup -c -w"`, `"start": "sirv public --no-clear"`
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L6-L8)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 rollup -c -w        # watch & rebuild
@@ -468,6 +539,9 @@ sirv public --no-clear   # serve the build/
 **Locations:**
 - [javascript/new_frameworks/parcel/package.json](../javascript/new_frameworks/parcel/package.json#L6-L7) - `"start": "parcel"`, `"build": "parcel build"`
   - Remote (submodule @ branch `main`): [package.json#L6-L7](https://github.com/aqwertyuiop48/parcel/blob/main/package.json#L6-L7)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -482,6 +556,9 @@ parcel build
 - [javascript/new_frameworks/nitro/package.json](../javascript/new_frameworks/nitro/package.json#L4-L9) - `"build": "nitro build"`, `"dev": "nitro dev"`, `"prepare": "nitro prepare"`
   - Remote (submodule @ branch `main`): [package.json#L4-L9](https://github.com/aqwertyuiop48/nitro/blob/main/package.json#L4-L9)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 nitro dev
@@ -494,6 +571,9 @@ nitro build
 **Locations:**
 - [javascript/new_frameworks/polymer/package.json](../javascript/new_frameworks/polymer/package.json#L9-L14) - `"start": "polymer serve"`, `"dev": "polymer serve --port $PORT"`, `"build": "polymer build"`, `"test": "polymer test"`, `"lint": "polymer lint"`
   - Remote (submodule @ branch `main`): [package.json#L9-L14](https://github.com/aqwertyuiop48/polymer/blob/main/package.json#L9-L14)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -509,6 +589,9 @@ polymer test
 - [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L4-L6) - `"build": "NODE_OPTIONS=--openssl-legacy-provider preact build"`, `"dev": "preact watch"`, `"serve": "sirv build --port 8080 --cors --single"`
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L4-L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 preact watch
@@ -522,6 +605,9 @@ preact build
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L8-L10) - `"dev": "shopify hydrogen dev"`, `"build": "shopify hydrogen build"`, `"preview": "shopify hydrogen preview"`
   - Remote (submodule @ branch `main`): [package.json#L8-L10](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L8-L10)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 shopify hydrogen dev
@@ -534,6 +620,9 @@ shopify hydrogen build
 **Locations:**
 - [javascript/new_frameworks/storybook/package.json](../javascript/new_frameworks/storybook/package.json#L8-L9) - `"storybook": "storybook dev -p 6006"`, `"build-storybook": "storybook build"`
   - Remote (submodule @ branch `main`): [package.json#L8-L9](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L8-L9)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -552,6 +641,9 @@ storybook build
 - [javascript/new_frameworks/eleventy/package.json](../javascript/new_frameworks/eleventy/package.json#L18-L21) - `"build": "eleventy"`, `"watch": "eleventy --watch"`, `"serve": "eleventy --serve"`, `"start": "eleventy --serve"`
   - Remote (submodule @ branch `main`): [package.json#L18-L21](https://github.com/aqwertyuiop48/eleventy/blob/main/package.json#L18-L21)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 eleventy --serve
@@ -564,6 +656,9 @@ eleventy --watch
 **Locations:**
 - [javascript/new_frameworks/hexo/package.json](../javascript/new_frameworks/hexo/package.json#L20-L21) - `"dev": "hexo server -p $PORT"`, `"build": "hexo generate"`
   - Remote (submodule @ branch `main`): [package.json#L20-L21](https://github.com/aqwertyuiop48/hexo/blob/main/package.json#L20-L21)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -578,6 +673,9 @@ hexo generate
 - [javascript/new_frameworks/vuepress/package.json](../javascript/new_frameworks/vuepress/package.json#L4-L5) - `"dev": "vuepress dev src"`, `"build": "vuepress build src"`
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/vuepress/blob/main/package.json#L4-L5)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 vuepress dev src
@@ -590,6 +688,9 @@ vuepress build src
 **Locations:**
 - [javascript/new_frameworks/vitepress/package.json](../javascript/new_frameworks/vitepress/package.json#L11-L13) - `"dev": "vitepress dev docs"`, `"build": "vitepress build docs"`, `"serve": "vitepress serve docs"`
   - Remote (submodule @ branch `main`): [package.json#L11-L13](https://github.com/aqwertyuiop48/vitepress/blob/main/package.json#L11-L13)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -604,6 +705,9 @@ vitepress serve docs
 - [javascript/new_frameworks/docusaurus/package.json](../javascript/new_frameworks/docusaurus/package.json#L4-L6) - `"start": "docusaurus-start"`, `"dev": "docusaurus-start --port $PORT"`, `"build": "docusaurus-build"`
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/docusaurus/blob/main/package.json#L4-L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 docusaurus-start
@@ -616,6 +720,9 @@ docusaurus-build
 **Locations:**
 - [javascript/new_frameworks/docusaurus-2/package.json](../javascript/new_frameworks/docusaurus-2/package.json#L5-L10) - `"start": "docusaurus start"`, `"build": "docusaurus build"`, `"serve": "docusaurus serve"`
   - Remote (submodule @ branch `main`): [package.json#L5-L10](https://github.com/aqwertyuiop48/docusaurus-2/blob/main/package.json#L5-L10)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -635,6 +742,9 @@ docusaurus serve
 - [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L8) - `"test": "jest"`
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L8)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 jest
@@ -646,10 +756,12 @@ jest --coverage
 **Method:** `vitest` is a Jest-API-compatible runner that reuses Vite's transform pipeline. `vitest run --coverage` executes once and reports.
 
 **Locations:**
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) - `npx vitest run --coverage`
 - [javascript/next_/nextjs_news_search_microservices/package.json](../javascript/next_/nextjs_news_search_microservices/package.json#L11) - `"test": "vitest"`
 - [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L9) - `"test": "vitest run"`
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"`
+
+**Workflow yml (executes in CI):**
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) - `npx vitest run --coverage`
 
 **Example:**
 ```bash
@@ -667,6 +779,9 @@ npx vitest run --coverage
   - Remote (submodule @ branch `cypress_testing`): [package.json#L57](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/package.json#L57)
 - [javascript/webdriver_io/package.json](../javascript/webdriver_io/package.json#L7) - `@wdio/mocha-framework` (WebdriverIO using Mocha as its test runner)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 npx mocha
@@ -677,6 +792,9 @@ npx mocha 'test/**/*.spec.js'
 **Method:** `cypress run` boots an Electron-backed headless browser, executes every `cypress/e2e/**` spec, and writes a report.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L31) - `npx cypress run`
   - Remote (submodule @ branch `cypress_testing`): [main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31)
 - [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L51-L52) - report / video artifacts published
@@ -690,6 +808,9 @@ npx cypress run
 **Method:** `playwright` ships its own browser binaries and is invoked via `npx playwright …`. `screenshot` and `test` both take JS specs / URLs as input and produce program output (images, traces, reports) in one step.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L27) - `npx playwright install`
   - Remote (submodule @ branch `golang_`): [main.yml#L27](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)
 - [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L98-L100) - `npx playwright screenshot http://localhost:8080 videos/index.png` (multiple endpoints)
@@ -706,6 +827,9 @@ npx playwright test
 **Method:** WebdriverIO's `wdio run <config>` reads a JS config, spawns the chosen runner (mocha / jasmine / cucumber), and executes browser tests in one step.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/webdriver_io.yml](../.github/workflows/webdriver_io.yml#L33) - `npx wdio run wdio.conf.js`
 
 **Example:**
@@ -721,6 +845,9 @@ npx wdio run wdio.conf.js
 **Method:** Hardhat is a Node-hosted Ethereum dev framework. `npx hardhat node` runs a local JSON-RPC chain; `npx hardhat run scripts/X.js --network localhost` executes a JS deploy / interaction script against it; `npx hardhat test` runs the project's JS test suite.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L25-L37) - `npm install --save-dev hardhat`, `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost && node scripts/solidity_in_js.js`
   - Remote (submodule @ branch `solidity_`): [main.yml#L25-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37)
 
@@ -744,6 +871,8 @@ npx hardhat test
 **Locations:**
 - [clojure_/clojure_script_/codeforces_script/package.json](../clojure_/clojure_script_/codeforces_script/package.json#L3) - `"start": "nbb hello.cljs"`
   - Remote (submodule @ branch `clojure_script`): [package.json#L3](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3)
+
+**Workflow yml (executes in CI):**
 - [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L31-L34) - `npm install nbb -g`, `nbb -e '(+ 1 2 3)'`, `npm run start`
 - [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L36-L59) - multi-line `nbb -e '(ns hello (:require ["fs" :as fs] ...)) (println "Hello from nbb!") ...'`
 
@@ -766,6 +895,9 @@ nbb hello.cljs
 - [javascript/next_/nextjs_news_search_microservices/Dockerfile](../javascript/next_/nextjs_news_search_microservices/Dockerfile#L2-L14) - multi-stage `node:18-alpine` builder + runner
 - [QA/cypress_/codeforces_script/Dockerfile](../QA/cypress_/codeforces_script/Dockerfile#L22-L25) - `RUN npm install` + Cypress entrypoint
   - Remote (submodule @ branch `cypress_testing`): [Dockerfile#L22-L25](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/Dockerfile#L22-L25)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```dockerfile
@@ -794,6 +926,9 @@ docker run -p 3000:3000 my-node-app
 - [java/codeforces_script/src/main/java/com/example/DataStructures.java](../java/codeforces_script/src/main/java/com/example/DataStructures.java#L1040) - `return (int) Context.create("js").eval("js", expression).asDouble();`
   - Remote (submodule @ branch `javac_`): [DataStructures.java#L1040](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L1040)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```java
 import org.graalvm.polyglot.*;
@@ -806,6 +941,9 @@ int result = (int) Context.create("js").eval("js", "1 + 2 * 3").asDouble();
 **Locations:**
 - [typescript/inputs/shell_java_.js](../typescript/inputs/shell_java_.js#L3) - `spawn("node", ["-e", node_string])`
 - [typescript/inputs/nested_child_process.js](../typescript/inputs/nested_child_process.js#L4) - `exec(\`node -e "console.log(2)"\`)` (compiled JS form)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```js
@@ -827,6 +965,9 @@ child.stdout.pipe(process.stdout);
   - Remote (submodule @ branch `objective_c_cpp_`): [hello.mm#L49](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_cpp_/hello.mm#L49)
 - [CPP/codeforces_script/cpp_/trial.cpp](../CPP/codeforces_script/cpp_/trial.cpp#L29) - `node -e "console.log(2+3+' from nodejs');"` invoked via `system(...)` (C++ → Node)
   - Remote (submodule @ branch `cpp_`): [trial.cpp#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example (Go):**
 ```go

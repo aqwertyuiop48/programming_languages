@@ -34,10 +34,12 @@ This document catalogues **all distinct C++-only methods** discovered for buildi
 **Method:** Standard `g++` compile of a `.cpp` file followed by execution of the resulting binary, paired as a single end-to-end step (chained with `&&` or run sequentially in CI).
 
 **Locations:**
-- [CPP/codeforces_script/.github/workflows/main.yml](../CPP/codeforces_script/.github/workflows/main.yml#L32-L48) - Loop: `g++ "$file" -o "${file%.cpp}" -lboost_*` then loop runs each `./"$exe"`
-  - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/main.yml#L32-L48](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml#L32-L48)
 - [CPP/codeforces_script/cpp_/](../CPP/codeforces_script/cpp_/) - hello.cpp, hello1.cpp, stl_vectors.cpp, boost_.cpp, trial.cpp, c_.cpp, rust_in_cpp.cpp driven by the above loop
 - [CPP/readme.txt](../CPP/readme.txt) - Documented `g++ hello.cpp -o hello && ./hello` pattern
+
+**Workflow yml (executes in CI):**
+- [CPP/codeforces_script/.github/workflows/main.yml](../CPP/codeforces_script/.github/workflows/main.yml#L32-L48) - Loop: `g++ "$file" -o "${file%.cpp}" -lboost_*` then loop runs each `./"$exe"`
+  - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/main.yml#L32-L48](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml#L32-L48)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L76-L85) - Canonical inline demo
 
 **Example:**
@@ -51,6 +53,9 @@ g++ "$file" -o "${file%.cpp}" -lboost_system -lboost_filesystem -lboost_regex
 **Method:** Pipe C++ source directly into `g++` via a shell heredoc with `-x c++` (force language) and `-` (read source from stdin). Compiles to a named output binary, which is then executed. No source file written to disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L87-L96) - `g++ -x c++ -o /tmp/hello_cpp_heredoc - <<'EOF' … EOF` then run
 
 **Example:**
@@ -66,9 +71,11 @@ EOF
 **Method:** One-liner pipe of C++ source from `echo` into `g++ -x c++ -`, chained with `&&` to run the binary. The form used by polyglot embedders (Java/Rust) but also valid as a direct CI step.
 
 **Locations:**
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L98-L102) - Direct demo
 - [java/codeforces_script/execute1/cpp_in_java.java](../java/codeforces_script/execute1/cpp_in_java.java#L51) - Used via ProcessBuilder (see §5.1)
 - [rust/codeforces_script/execute/cpp_.rs](../rust/codeforces_script/execute/cpp_.rs#L15-L25) - Used via Rust Command (see §5.2)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L98-L102) - Direct demo
 
 **Example:**
 ```bash
@@ -77,12 +84,19 @@ int main(){std::cout<<"hi\n";}' | g++ -x c++ -o /tmp/a - && /tmp/a
 ```
 
 ### 1.4 clang++ + ./out (Alternate Compiler)
-**Method:** Same compile-and-run pair as §1.1 but using LLVM's `clang++` instead of GCC. Useful when targeting alternate ABI behaviour, sanitizers (`-fsanitize=…`), or macOS/Frameworks linkage. The Objective-C++ workflow uses the same `clang++` driver via `.mm` files with `-framework Foundation` for native macOS APIs.
+**Method:** Same compile-and-run pair as §1.1 but using LLVM's `clang++` instead of GCC. Useful when targeting alternate ABI behaviour, sanitizers (`-fsanitize=…`), or macOS/Frameworks linkage. The Objective-C++ workflow uses the same `clang++` driver via `.mm` files with `-framework Foundation` for native macOS APIs — both the file form (`clang++ … file.mm && ./bin`) and the echo-pipe form (`echo '…' | clang++ -x objective-c++ -o bin - && ./bin`) appear there.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L104-L111) - `clang++ /tmp/hello_clangpp.cpp -o /tmp/hello_clangpp && /tmp/hello_clangpp`
 - [objective_c_cpp/codeforces_script/.github/workflows/main.yml](../objective_c_cpp/codeforces_script/.github/workflows/main.yml#L37-L39) - `clang++ -std=c++11 -framework Foundation -o run_python_node hello.mm && ./run_python_node` (Objective-C++ uses the same compiler driver)
   - Remote (submodule `objective_c_cpp/codeforces_script` @ branch `objective_c_`): [objective_c_cpp/codeforces_script/.github/workflows/main.yml#L37-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_/.github/workflows/main.yml#L37-L39)
+- [objective_c_cpp/codeforces_script/.github/workflows/main.yml](../objective_c_cpp/codeforces_script/.github/workflows/main.yml#L73-L89) - Heredoc-written `.mm` source then `clang++ -std=c++11 -framework Foundation -o hellos hellos.mm && ./hellos` (file form, second occurrence in the same workflow)
+  - Remote: [objective_c_cpp/codeforces_script/.github/workflows/main.yml#L73-L89](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_/.github/workflows/main.yml#L73-L89)
+- [objective_c_cpp/codeforces_script/.github/workflows/main.yml](../objective_c_cpp/codeforces_script/.github/workflows/main.yml#L91-L102) - `echo '…' | clang++ -std=c++11 -framework Foundation -x objective-c++ -o hello0 - && ./hello0` (echo-pipe form — same technique as §1.3 but with `clang++ -x objective-c++`)
+  - Remote: [objective_c_cpp/codeforces_script/.github/workflows/main.yml#L91-L102](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_/.github/workflows/main.yml#L91-L102)
 
 **Example:**
 ```bash
@@ -97,6 +111,9 @@ clang++ -std=c++17 hello.cpp -o hello && ./hello
 **Method:** GitHub Actions step that installs `libboost-all-dev`, then iterates every `*.cpp` in a directory, links each against multiple Boost components (`-lboost_system -lboost_filesystem -lboost_regex`), then a second step iterates the resulting executables and runs them.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [CPP/codeforces_script/.github/workflows/main.yml](../CPP/codeforces_script/.github/workflows/main.yml#L24-L48) - Install Boost + compile loop + run loop
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/main.yml#L24-L48](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml#L24-L48)
 
@@ -120,9 +137,11 @@ clang++ -std=c++17 hello.cpp -o hello && ./hello
 **Method:** GitHub Actions step that compiles a single source file twice — once as C (with `-DBUILD_AS_C -xc … -c`) and once as C++ — then links both objects with `g++` into a single executable that's run in a follow-up step. Demonstrates the C/C++ linkage boundary in one workflow.
 
 **Locations:**
+- [CPP/codeforces_script/combo.cpp](../CPP/codeforces_script/combo.cpp) - Source file with `BUILD_AS_C` ifdef guards
+
+**Workflow yml (executes in CI):**
 - [CPP/codeforces_script/.github/workflows/builds.yml](../CPP/codeforces_script/.github/workflows/builds.yml#L1-L24) - `combo.cpp` compiled twice + linked + executed
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/builds.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/builds.yml)
-- [CPP/codeforces_script/combo.cpp](../CPP/codeforces_script/combo.cpp) - Source file with `BUILD_AS_C` ifdef guards
 
 **Example:**
 ```bash
@@ -143,6 +162,9 @@ g++ combo.cpp combo_c.o -o runme
 - [java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle](../java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle#L18-L27) - `externalNativeBuild { cmake { path "src/main/cpp/CMakeLists.txt" } }`
 - [java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp](../java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp), [test/adder_test.cpp](../java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp) - Source under test
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ./gradlew connectedAndroidTest
@@ -161,6 +183,9 @@ g++ combo.cpp combo_c.o -o runme
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/trial.cpp#L7-L20](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L7-L20)
 - [CPP/readme.txt](../CPP/readme.txt#L50-L80) - Documented embedding pattern
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```cpp
 #include <cstdlib>
@@ -178,6 +203,9 @@ int main() {
 - [CPP/codeforces_script/cpp_/trial.cpp](../CPP/codeforces_script/cpp_/trial.cpp#L29-L37) - Live example
 - [CPP/readme.txt](../CPP/readme.txt#L80-L110) - Documented embedding pattern
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```cpp
 std::string cmd = "node -e \"console.log(2+3+' from nodejs');\"";
@@ -190,6 +218,9 @@ system(cmd.c_str());
 **Locations:**
 - [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](../CPP/codeforces_script/cpp_/rust_in_cpp.cpp#L1-L45) - Full pattern with stdin + file IO Rust example
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```cpp
@@ -209,6 +240,10 @@ system("rm -f /tmp/h");
 - [java/codeforces_script/execute1/cpp_in_java.java](../java/codeforces_script/execute1/cpp_in_java.java#L50-L65) - Full implementation including file IO integration
   - Remote (submodule `java/codeforces_script` @ branch `javac_`): [java/codeforces_script/execute1/cpp_in_java.java#L50-L65](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/execute1/cpp_in_java.java#L50-L65)
 
+**Workflow yml (executes in CI):**
+- [java/codeforces_script/.github/workflows/main.yml](../java/codeforces_script/.github/workflows/main.yml#L17-L79) - CI workflow: installs `g++` (L18), sets up Rust toolchain (L20-L23), then `cd execute1 && javac *.java` + loop `java "$class_name"` (L62-L79) which exercises the ProcessBuilder → g++ bridge end-to-end
+  - Remote: [java/codeforces_script/.github/workflows/main.yml#L17-L79](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main.yml#L17-L79)
+
 **Example:**
 ```java
 ProcessBuilder pb = new ProcessBuilder("bash", "-c",
@@ -224,6 +259,10 @@ pb.start().waitFor();
 - [rust/codeforces_script/execute/cpp_.rs](../rust/codeforces_script/execute/cpp_.rs#L1-L30) - Basic embedded C++
 - [rust/codeforces_script/execute/cpp_1.rs](../rust/codeforces_script/execute/cpp_1.rs#L1-L50) - Variant with file IO + parameter substitution
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/execute/cpp_.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_.rs)
+
+**Workflow yml (executes in CI):**
+- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L17-L30) - CI workflow: installs `g++` (L17-L18) then loop `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done` (L26-L30) which exercises the Rust→g++ bridge end-to-end
+  - Remote: [rust/codeforces_script/.github/workflows/main.yml#L17-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L17-L30)
 
 **Example:**
 ```rust

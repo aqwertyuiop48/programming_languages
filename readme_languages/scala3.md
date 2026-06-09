@@ -53,6 +53,9 @@ Scala 3 supports top-level `@main` annotated functions as a lightweight entry-po
 - [kotlin/java_embed/codeforces_script/interviews/scala3_/Hello.scala](../kotlin/java_embed/codeforces_script/interviews/scala3_/Hello.scala) - `@main def first(): Unit = println("Hello from Scala 3!")`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/interviews/scala3_/Hello.scala](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/interviews/scala3_/Hello.scala)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 ---
 
 ## 1. **Direct Compilation & Execution**
@@ -61,6 +64,9 @@ Scala 3 supports top-level `@main` annotated functions as a lightweight entry-po
 **Method:** Compile a `.scala` source to JVM `.class` files with `scalac`, then run the resulting object/class with `scala`. The Scala 3 toolchain comes from `sdk install scala 3.3.1` or `cs install scala:3.3.1` (Scala 3 has no APT package — see §9).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L127-L128) - SDKMAN-installed Scala 3.3.1: `scalac Hello1.scala && scala Hello1`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L127-L128](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala.yml#L127-L128)
 
@@ -76,6 +82,9 @@ scalac Hello2.scala && scala Hello2
 **Method:** Compile with `scalac` and run with plain `java -cp`, providing both the Scala 3 standard library (`scala3-library_3`) and the underlying Scala 2 stdlib (`scala-library`) JARs via Coursier's `cs fetch`. The Scala 3 compiler emits bytecode that depends on both libraries.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L38-L41) - `JARS=$(cs fetch org.scala-lang:scala3-library_3:3.3.1 org.scala-lang:scala-library:2.13.12 | tr '\n' ':')` then `scalac Hello1.scala && java -cp ".:${JARS}" Hello1`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L38-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala3_coursier.yml#L38-L41)
 
@@ -94,6 +103,9 @@ scalac Hello1.scala && java -cp ".:${JARS}" Hello1
 **Method:** Pass a `.scala` source directly to the `scala` launcher; it compiles and runs in one step. With Scala 3 this also accepts `@main`-annotated sources.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L131-L133) - SDKMAN Scala 3.3.1: `scala Hello.scala`, `scala Hello1.scala`, `scala Hello2.scala`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L131-L133](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala.yml#L131-L133)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L48-L50) - Coursier-installed Scala 3
@@ -109,6 +121,9 @@ scala Hello1.scala
 **Method:** Evaluate a Scala 3 expression supplied as a shell argument.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L135) - SDKMAN: `scala -e "println(22)"`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L135](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala.yml#L135)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L51)
@@ -123,6 +138,9 @@ scala -e "println(22)"
 **Method:** Pipe Scala source on stdin to the REPL with `-Dscala.repl.no-tty=true` so it runs unattended.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L52-L54)
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L52-L54](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala3_coursier.yml#L52-L54)
 
@@ -143,6 +161,9 @@ Scala 3 `.sc` scripts use top-level expressions natively — no enclosing `objec
 **Method:** Run a Scala 3 `.sc` script via scala-cli with the version pinned to 3.3.1.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L56-L60) - `scala-cli run --scala ${ver} hello_scala.sc` / `vars.sc`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L56-L60](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_sc3_coursier.yml#L56-L60)
 
@@ -156,6 +177,9 @@ scala-cli run --scala 3.3.1 hello_scala.sc
 **Method:** Pipe a complete Scala 3 source on stdin (`-` as the source name) to scala-cli for compile+run, without creating any source file on disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L63-L69) - `cat <<'EOF' | scala-cli run --scala 3.3.1 -`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L63-L69](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_sc3_coursier.yml#L63-L69)
 
@@ -175,6 +199,9 @@ EOF
 **Method:** [Scala CLI](https://scala-cli.virtuslab.org) compiles and runs `.scala` sources in a single command, with `--scala 3.3.1` to pin Scala 3.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml](../kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L47-L49) - `scala-cli run Hello.scala`, `Hello1.scala`, `Hello2.scala` (Scala 3.3.1 path)
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L47-L49](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/scala_.yml#L47-L49)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L56-L58)
@@ -192,6 +219,9 @@ scala-cli run --scala 3.3.1 Hello1.scala
 **Method:** Drive the Scala CLI REPL non-interactively by feeding a heredoc of Scala 3 statements on stdin.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml](../kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L51-L58)
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L51-L58](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/scala_.yml#L51-L58)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L59-L65) - `scala-cli repl --scala 3.3.1 <<EOF ... EOF`
@@ -211,6 +241,9 @@ EOF
 **Method:** Evaluate a one-liner with Scala 3 pinned via `--scala`. Cross-version analogue of `scala -e`.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml](../kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L59) - `scala-cli --scala 3.3.1 -e "println(42 + 1)"`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L59](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/scala_.yml#L59)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L161)
@@ -229,6 +262,9 @@ scala-cli --scala 3.3.1 -e "println(42 + 1)"
 **Method:** [Ammonite](https://ammonite.io) runs a `.sc` file directly. The Scala 3 Coursier setup installs `ammonite` (no pinned version) for compatibility with Scala 3.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L72-L76) - `amm hello_scala.sc`, `amm vars.sc`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L72-L76](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_sc3_coursier.yml#L72-L76)
 
@@ -242,6 +278,9 @@ amm vars.sc
 **Method:** Execute an inline Scala snippet via Ammonite's batch mode.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L78-L85) - `amm -c '...'` multi-line snippet
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L78-L85](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_sc3_coursier.yml#L78-L85)
 
@@ -262,6 +301,9 @@ println(s"Sum: ${numbers.sum}")
 **Method:** Build and execute the project's main class via sbt. Scala version is set in `build.sbt` and overridden in CI matrix to `3.3.1`.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [scala/codeforces_script/.github/workflows/main.yml](../scala/codeforces_script/.github/workflows/main.yml#L48) - `sbt run` (matrix includes `3.3.1`)
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main.yml#L48](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main.yml#L48)
 - [scala/codeforces_script/.github/workflows/main.yml](../scala/codeforces_script/.github/workflows/main.yml#L16) - matrix `scala-version: [2.13.8, 3.3.1]`
@@ -276,6 +318,9 @@ sbt run
 **Method:** Run the project's ScalaTest suite via sbt; the test framework dependency is selected by Maven profile / sbt config.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [scala/codeforces_script/.github/workflows/main.yml](../scala/codeforces_script/.github/workflows/main.yml#L45) - `sbt test`
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main.yml#L45](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main.yml#L45)
 
@@ -288,6 +333,9 @@ sbt test
 **Method:** Pipe Scala source into the `sbt console` REPL via shell here-string; the REPL has the project classpath loaded. With Scala 3 the matrix entry uses Scala 3.3.1.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [scala/codeforces_script/.github/workflows/main.yml](../scala/codeforces_script/.github/workflows/main.yml#L50-L60) - `sbt console <<< 'println(...)'` then awk-filtered variant
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main.yml#L50-L60](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main.yml#L50-L60)
 
@@ -306,10 +354,12 @@ This is a multiline string!""")' | tail -n +8
 **Method:** Use Gradle's `scala` + `application` plugins. `-PscalaVersion=3.3.1` triggers the `scala3-library_3` dependency branch in `build.gradle`.
 
 **Locations:**
-- [scala/codeforces_script/.github/workflows/main_gradle.yml](../scala/codeforces_script/.github/workflows/main_gradle.yml#L34-L37) - `./gradlew build -PscalaVersion=3.3.1` then `./gradlew run -PscalaVersion=3.3.1`
-  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_gradle.yml#L34-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_gradle.yml#L34-L37)
 - [scala/codeforces_script/build.gradle](../scala/codeforces_script/build.gradle#L10-L22) - dynamic dependency: `scala3-library_3` when `scalaVersion` starts with `3`
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/build.gradle#L10-L22](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/build.gradle#L10-L22)
+
+**Workflow yml (executes in CI):**
+- [scala/codeforces_script/.github/workflows/main_gradle.yml](../scala/codeforces_script/.github/workflows/main_gradle.yml#L34-L37) - `./gradlew build -PscalaVersion=3.3.1` then `./gradlew run -PscalaVersion=3.3.1`
+  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_gradle.yml#L34-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_gradle.yml#L34-L37)
 
 **Example:**
 ```bash
@@ -325,10 +375,12 @@ This is a multiline string!""")' | tail -n +8
 **Method:** Use [scala-maven-plugin](https://davidb.github.io/scala-maven-plugin/) for compilation and `exec-maven-plugin` for execution. Profile `scala-3` selects `scala3-library_3` + `scalatest_3` dependencies.
 
 **Locations:**
-- [scala/codeforces_script/.github/workflows/main_maven.yml](../scala/codeforces_script/.github/workflows/main_maven.yml#L31-L34) - `mvn -B clean compile -Dscala.version=3.3.1 -Pscala-3` then `mvn exec:java -Pscala-3 -Dexec.mainClass=Main`
-  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_maven.yml#L31-L34](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_maven.yml#L31-L34)
 - [scala/codeforces_script/pom.xml](../scala/codeforces_script/pom.xml#L107-L113) - `scala-3` profile: `scala3-library_3` + `scalatest_3`
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/pom.xml#L107-L113](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/pom.xml#L107-L113)
+
+**Workflow yml (executes in CI):**
+- [scala/codeforces_script/.github/workflows/main_maven.yml](../scala/codeforces_script/.github/workflows/main_maven.yml#L31-L34) - `mvn -B clean compile -Dscala.version=3.3.1 -Pscala-3` then `mvn exec:java -Pscala-3 -Dexec.mainClass=Main`
+  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_maven.yml#L31-L34](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_maven.yml#L31-L34)
 
 **Example:**
 ```bash
@@ -348,6 +400,9 @@ These do not execute Scala 3 code by themselves, but each is the in-CI provision
 **Method:** GitHub Action that installs [scala-cli](https://scala-cli.virtuslab.org), enabling §4 methods. scala-cli auto-fetches Scala 3 toolchain when `--scala 3.x` is requested.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml](../kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L17) - `uses: VirtusLab/scala-cli-setup@v1`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/scala_.yml#L17](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/scala_.yml#L17)
 
@@ -355,6 +410,9 @@ These do not execute Scala 3 code by themselves, but each is the in-CI provision
 **Method:** Coursier sets up a JVM and the `cs` launcher; `cs install scala scalac ammonite scala-cli` provisions §1, §3, §4, §5 (versions resolve to Scala 3 latest).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L17-L24) - `coursier/setup-action@v1` + `cs install scala scalac ammonite scala-cli`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L17-L24](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala3_coursier.yml#L17-L24)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_sc3_coursier.yml#L24-L34)
@@ -364,6 +422,9 @@ These do not execute Scala 3 code by themselves, but each is the in-CI provision
 **Method:** Action that provisions a Scala JDK + sbt; `scala-version: '3.3.1'` (or matrix value) selects the Scala 3 toolchain for §6.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [scala/codeforces_script/.github/workflows/main.yml](../scala/codeforces_script/.github/workflows/main.yml#L31-L34) - `uses: olafurpg/setup-scala@v12` with matrix `[2.13.8, 3.3.1]`
   - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main.yml#L31-L34](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main.yml#L31-L34)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L105-L108) - `scala-version: '3.3.1'`
@@ -373,6 +434,9 @@ These do not execute Scala 3 code by themselves, but each is the in-CI provision
 **Method:** Install Scala 3.3.1 via SDKMAN.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L121-L123) - `sdk install scala 3.3.1` + `sdk use scala 3.3.1`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L121-L123](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala.yml#L121-L123)
 

@@ -62,6 +62,9 @@ Each method takes TS source as input and produces program output. Pure type-chec
 - [typescript/ts_node_server/ts_node_server/package.json](../typescript/ts_node_server/ts_node_server/package.json#L7) - `"start": "ts-node index.ts"`
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/ts_node_server/blob/main/package.json#L7)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ts-node index.ts
@@ -73,6 +76,9 @@ npm start    # if package.json's start is "ts-node index.ts"
 
 **Locations:**
 - [javascript/saas-microservices/apps/api/package.json](../javascript/saas-microservices/apps/api/package.json#L10) - `"dev": "tsx src/index.ts"`
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -89,6 +95,9 @@ npm run dev
 - [javascript/turborepo-with-hono/apps/web/README.md](../javascript/turborepo-with-hono/apps/web/README.md#L14) - `bun dev`
   - Remote (submodule @ branch `main`): [README.md#L14](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/apps/web/README.md#L14)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 bun run src/index.ts
@@ -100,6 +109,9 @@ bun dev
 **Method:** Evaluate a TypeScript expression supplied as a shell argument — the TS analog of `node -e` ([javascript.md §1.2](javascript.md#12-node--e--inline-expression)). When the surrounding `package.json` declares `"type": "module"` (or under Node 20+ defaults), `ts-node` defaults to ESM and emits `export {};` which fails under `vm`; force CommonJS via `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}'` and isolate from the workspace tsconfig with `--cwd`.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L102-L105) - `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp -e '<expr>'`
 
 **Example:**
@@ -112,6 +124,9 @@ TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
 **Method:** Print the value of a TypeScript expression. ts-node's `-p` flag requires `-e` (unlike `node -p`); together they evaluate the expression and `console.log` the result. Useful for one-liners that emit runtime metadata.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L107-L110) - ``TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp -p -e '`ts-node -p :: ${process.version} on ${process.platform}`' ``
 
 **Example:**
@@ -124,6 +139,9 @@ TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
 **Method:** Pipe a TypeScript program into ts-node's stdin via a shell heredoc. ts-node auto-detects piped stdin when no script path is given. Same CommonJS / `--cwd` workarounds as §1.4.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L112-L122) - `TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp <<'EOF' ... EOF`
 
 **Example:**
@@ -139,6 +157,9 @@ EOF
 **Method:** One-liner form of §1.6 — any shell command whose stdout is TypeScript source can drive a ts-node run.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L124-L127) - `echo '<ts>' | TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp`
 
 **Example:**
@@ -151,6 +172,9 @@ echo 'const x: number = 42; console.log(x);' \
 **Method:** Evaluate a TypeScript expression supplied as a shell argument under Bun. Bun parses TypeScript natively so no compiler-option workaround is needed (unlike ts-node).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L153-L155) - `bun -e 'const msg: string = "Hello from bun -e!"; console.log(msg); console.log("Bun version: " + Bun.version);'`
 
 **Example:**
@@ -162,6 +186,9 @@ bun -e 'const msg: string = "hi"; console.log(msg, Bun.version);'
 **Method:** Print the value of a TypeScript expression under Bun — analog of `node -p` but for TS source. Bun does not expose a `-p` short flag; only `--print` works.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L157-L159) - ``bun --print '`bun --print :: Bun ${Bun.version} on ${process.platform}`'``
 
 **Example:**
@@ -173,6 +200,9 @@ bun --print '`Bun ${Bun.version} on ${process.platform}`'
 **Method:** Pass `-` as the script argument so Bun reads program source from stdin, then feed it a shell heredoc. TypeScript-aware sibling of `node - <<EOF` ([javascript.md §1.5](javascript.md#15-node----eof-stdin-heredoc)).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L161-L167) - `bun - <<'EOF' ... const greeting: string = "Hello from bun stdin heredoc!"; ... EOF`
 
 **Example:**
@@ -201,6 +231,9 @@ These frameworks are TypeScript by convention — their CLI accepts `.ts` source
 - [java/angular_springboot/angular-springboot-crud/crud-angular/package.json](../java/angular_springboot/angular-springboot-crud/crud-angular/package.json#L6) - `ng serve` (Angular front-end of a Spring Boot CRUD)
   - Remote (submodule @ branch `main`): [package.json#L6](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/crud-angular/package.json#L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ng serve
@@ -219,6 +252,9 @@ ng test --browsers=ChromeHeadless
 - [typescript/nest_/nestjs_tsx/package.json](../typescript/nest_/nestjs_tsx/package.json#L13)
   - Remote (submodule @ branch `main`): [package.json#L13](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L13)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 nest start
@@ -235,6 +271,9 @@ nest start --debug --watch
 - [typescript/solid_/solid_ts/solid_app/package.json](../typescript/solid_/solid_ts/solid_app/package.json) - SolidJS-TS variant
   - Remote (submodule @ branch `typescript`): [package.json](https://github.com/aqwertyuiop48/solid_app/blob/typescript/package.json)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 vinxi dev
@@ -247,6 +286,9 @@ vinxi build && vinxi start
 **Locations:**
 - [typescript/qwik_/qwik-app/package.json](../typescript/qwik_/qwik-app/package.json#L7-L16) - `"build": "qwik build"`, `"dev": "vite --mode ssr"`, `"start": "vite --open --mode ssr"`, `"preview": "qwik build preview && vite preview --open"`
   - Remote (submodule @ branch `main`): [package.json#L7-L16](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L7-L16)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -263,6 +305,9 @@ qwik build preview && vite preview --open
   - Remote (submodule @ branch `typescript`): [package.json#L9](https://github.com/aqwertyuiop48/serverless-adonis/blob/typescript/package.json#L9)
 - [typescript/adonis_/serverless-adonis-ts/package.json](../typescript/adonis_/serverless-adonis-ts/package.json#L10) - `"serve": "node server.js"` (TS-typed Adonis project)
   - Remote (submodule @ branch `typescript`): [package.json#L10](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/typescript/package.json#L10)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -287,6 +332,9 @@ Frameworks listed in [javascript.md](javascript.md#3-framework-dev-servers-singl
 - [javascript/new_frameworks/storybook/package.json](../javascript/new_frameworks/storybook/package.json#L4-L6) - `"dev": "next dev"`, `"build": "next build"`, `"start": "next start"` (TS deps incl. `typescript`)
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L4-L6)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 next dev
@@ -301,6 +349,9 @@ next build && next start
 - [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L6-L8) - `vite dev --port 3000`, `vite preview` (TS sources)
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"` (TS dep on Vite + Vitest)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 vite
@@ -314,6 +365,9 @@ vite preview
 - [typescript/redwood_/netlify-deploy/README.md](../typescript/redwood_/netlify-deploy/README.md#L20) - `yarn redwood dev` (Redwood TS variant uses the same `remix`-style dev pattern internally)
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 remix dev
@@ -325,6 +379,9 @@ remix dev
 **Locations:**
 - [typescript/redwood_/netlify-deploy/README.md](../typescript/redwood_/netlify-deploy/README.md#L20)
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -345,6 +402,9 @@ yarn rw test
 - [typescript/nest_/nestjs_js/package.json](../typescript/nest_/nestjs_js/package.json#L17) - `"test": "jest"` (TS specs)
 - [typescript/nest_/nestjs_tsx/package.json](../typescript/nest_/nestjs_tsx/package.json#L18) - `"test": "jest"`
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 jest                                # uses ts-jest config
@@ -357,6 +417,9 @@ jest --config ./test/jest-e2e.json
 **Locations:**
 - [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L9) - `"test": "vitest run"`
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"`
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -372,6 +435,9 @@ vitest run --coverage
   - [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L27) - `npx playwright install` (`npx playwright test` over TS specs follows the same pattern)
     - Remote (submodule @ branch `golang_`): [main.yml#L27](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 npx playwright install
@@ -384,6 +450,9 @@ npx playwright test
 **Locations:**
 - [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L9) - `"test": "stencil test --spec --e2e"`
   - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -402,6 +471,9 @@ stencil test --spec --e2e
   - Remote (submodule @ branch `typescript`): [Dockerfile#L2-L17](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2-L17)
 - [javascript/angular_/my_angular_app/Dockerfile](../javascript/angular_/my_angular_app/Dockerfile#L4-L19) - `FROM node:22-alpine AS build-stage` + `RUN npm run build` (Angular TS → static files)
   - Remote (submodule @ branch `main`): [Dockerfile#L4-L19](https://github.com/aqwertyuiop48/my_angular_app/blob/main/Dockerfile#L4-L19)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```dockerfile
@@ -428,6 +500,9 @@ CMD ["node", "dist/main.js"]
 
 **Locations:**
 - [typescript/inputs/nested_child_process.ts](../typescript/inputs/nested_child_process.ts#L3) - `exec(\`node -e "console.log(2)"\`)` from TypeScript
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```ts

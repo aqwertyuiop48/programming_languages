@@ -29,10 +29,12 @@ This document catalogues **all distinct Perl-only methods** discovered for runni
 **Method:** Invoke the Perl interpreter on a `.pl` script file. Simplest form; works regardless of whether the file has a shebang or executable bit.
 
 **Locations:**
-- [perl/codeforces_script/.github/workflows/main.yml](../perl/codeforces_script/.github/workflows/main.yml#L24) - `perl script.pl`
-  - Remote (submodule `perl/codeforces_script` @ branch `perl_`): [perl/codeforces_script/.github/workflows/main.yml#L24](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/.github/workflows/main.yml#L24)
 - [perl/codeforces_script/script.pl](../perl/codeforces_script/script.pl) - Multi-line string demo (`q{...}`)
   - Remote: [script.pl](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl)
+
+**Workflow yml (executes in CI):**
+- [perl/codeforces_script/.github/workflows/main.yml](../perl/codeforces_script/.github/workflows/main.yml#L24) - `perl script.pl`
+  - Remote (submodule `perl/codeforces_script` @ branch `perl_`): [perl/codeforces_script/.github/workflows/main.yml#L24](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/.github/workflows/main.yml#L24)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L235-L242) - Canonical inline demo
 
 **Example:**
@@ -46,6 +48,9 @@ perl script.pl
 **Locations:**
 - [perl/codeforces_script/script.pl](../perl/codeforces_script/script.pl#L1) - `#!/usr/bin/perl` shebang
   - Remote: [script.pl#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl#L1)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```perl
@@ -66,9 +71,11 @@ chmod +x script.pl
 **Method:** `-e` evaluates its argument as a Perl program. Direct Perl analog of `python -c` / `node -e`. No file required.
 
 **Locations:**
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L244-L246) - Direct canonical demo
 - [javascript/readme.ipynb](../javascript/readme.ipynb#L1017-L1137) - Used inside Node.js `execFile('perl', ['-e', code])` polyglot (see §3.1)
 - [golang/readme.txt](../golang/readme.txt#L97) - Used inside Go-driven Node.js polyglot (see §3.2)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L244-L246) - Direct canonical demo
 
 **Example:**
 ```bash
@@ -79,6 +86,9 @@ perl -e 'print "Hello!\n"; print "Perl $^V\n";'
 **Method:** `-E` is like `-e` but additionally enables all features of the matching Perl version — most notably `say` (print with newline). Use when you want `say` without an explicit `use feature 'say'`.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L248-L250) - Direct canonical demo
 
 **Example:**
@@ -90,6 +100,9 @@ perl -E 'say "Hello!"; say "Perl $^V";'
 **Method:** `-n` wraps the program in an implicit `while (<>) { ... }` line-loop reading from stdin or files. No auto-print — you must `print` explicitly. Filter / extract / count-per-line idiom.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L252-L254) - `printf '…\n' | perl -n -e 'print "got: $_"'`
 
 **Example:**
@@ -101,6 +114,9 @@ printf 'apple\nbanana\ncherry\n' | perl -n -e 'print "got: $_"'
 **Method:** Like `-n` but additionally auto-prints `$_` at the end of each iteration. Sed-style stream-edit idiom.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L256-L258) - `printf '…\n' | perl -p -e 's/a/A/g'`
 
 **Example:**
@@ -112,6 +128,9 @@ printf 'apple\nbanana\ncherry\n' | perl -p -e 's/a/A/g'
 **Method:** Pass `-` as the script argument so Perl reads source from stdin, then feed it a shell heredoc. Multi-line Perl program without a file on disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L260-L268) - `perl - <<'EOF' … EOF`
 
 **Example:**
@@ -128,6 +147,9 @@ EOF
 **Method:** One-liner pipe form of §2.5 — stdin source comes from `echo` (or any command emitting Perl on stdout) instead of a heredoc.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L270-L272) - `echo '…' | perl -`
 
 **Example:**
@@ -139,6 +161,9 @@ echo 'print "hi $^V\n";' | perl -
 **Method:** `-i` rewrites the named file(s) in place; combined with `-pe` it becomes a streaming sed-style editor. The output replaces the original file.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L274-L277) - `perl -i -pe 's/foo/FOO/' /tmp/edit.txt`
 
 **Example:**
@@ -161,6 +186,9 @@ perl -i.bak -pe 's/foo/FOO/' file.txt
 - [javascript/readme.ipynb](../javascript/readme.ipynb#L1090-L1091) - Socket server
 - [javascript/readme.ipynb](../javascript/readme.ipynb#L1136-L1137) - Additional networking
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```js
 const cp = require('child_process');
@@ -173,6 +201,9 @@ cp.execFile('perl', ['-e', code], (e, out) => console.log(out));
 
 **Locations:**
 - [golang/readme.txt](../golang/readme.txt#L50-L97) - Full nested example; Perl code embedded in Go-generated Node string at line 59
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```go

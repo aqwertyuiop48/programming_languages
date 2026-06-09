@@ -54,6 +54,9 @@ Each method takes Kotlin source code as input and produces the program's output.
 **Method:** Compile `.kt` files into a runnable fat JAR with `-include-runtime`, then execute with `java -jar`
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L56-L73) - `kotlinc src/main/kotlin/com/example/Main.kt -include-runtime -d Main.jar` → `java -jar Main.jar`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L56-L73](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L56-L73)
 - [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L22-L29) - Multiple `kotlinc … -include-runtime` + `java -jar` patterns
@@ -71,6 +74,9 @@ java -jar Main.jar
 **Method:** Compile `.kt` sources to `.class` files, then run with `kotlin -cp` against the output directory
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/codeforces_script/.github/workflows/main.yml](../kotlin/codeforces_script/.github/workflows/main.yml#L44-L51) - `kotlinc -cp out/classes -d out/classes "$file" Utils.kt` → `kotlin -cp out/classes com.execute."$base_name"Kt`
   - Remote (submodule `kotlin/codeforces_script` @ branch `kotlin1_`): [kotlin/codeforces_script/.github/workflows/main.yml#L44-L51](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin1_/.github/workflows/main.yml#L44-L51)
 
@@ -88,12 +94,14 @@ kotlin -cp out/classes com.execute.MyFileKt
 **Method:** Execute a `.kts` script via the Kotlin compiler script mode
 
 **Locations:**
+- [kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh](../kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh#L1-L10) - `kotlinc -script intro.kts`, `kotlinc -script basics.kts`
+  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh#L1-L10](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/interviews/kotlin_/execution.sh#L1-L10)
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L67) - `kotlinc -script leetcode.kts`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L67](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L67)
 - [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L32) - `kotlinc -script leetcode.kts`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/preinstalled.yml#L32)
-- [kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh](../kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh#L1-L10) - `kotlinc -script intro.kts`, `kotlinc -script basics.kts`
-  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/interviews/kotlin_/execution.sh#L1-L10](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/interviews/kotlin_/execution.sh#L1-L10)
 
 **Example:**
 ```bash
@@ -105,6 +113,9 @@ kotlinc -script intro.kts
 **Method:** Run a `.kts` script directly via the `kotlin` runner
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L52) - `kotlin leetcode.kts`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L52](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/preinstalled.yml#L52)
 - [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L26-L37) - `kotlin Main.kts`
@@ -122,6 +133,8 @@ kotlin leetcode.kts
 **Locations:**
 - [kotlin/java_embed/codeforces_script/hello.kts](../kotlin/java_embed/codeforces_script/hello.kts#L1) - `#!/usr/bin/env kscript` shebang with `println("Hello, KScript!")`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/hello.kts#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/hello.kts#L1)
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L48) - `sdk install kscript`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L48](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L48)
 
@@ -142,6 +155,9 @@ kscript hello.kts
 **Method:** Execute a single Kotlin expression inline with the `-e` flag
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L47) - `kotlin -e "print(245400)"`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L47](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/preinstalled.yml#L47)
 - [.github/workflows/java_mysql.yml](../.github/workflows/java_mysql.yml#L109) - `kotlin -cp "../../../commons-lang3-3.20.0.jar" -e 'import org.apache.commons.lang3.StringUtils; println(StringUtils.capitalize("hello kotlin"))'`
@@ -156,6 +172,9 @@ kotlin -cp "lib.jar" -e 'import org.apache.commons.lang3.StringUtils; println(St
 **Method:** Pipe Kotlin code into the REPL via stdin using `-Xrepl`
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L80-L81) - `echo 'print(245)' | kotlin -Xrepl` and `echo 'print(2454)' | kotlinc -Xrepl`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L80-L81](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L80-L81)
 - [kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml](../kotlin/java_embed/codeforces_script/.github/workflows/preinstalled.yml#L45-L46) - Same pipe pattern with both `kotlin` and `kotlinc`
@@ -176,6 +195,9 @@ echo 'print(2454)' | kotlinc -Xrepl
 **Method:** Compile Kotlin source to a native `.kexe` executable with `kotlinc-native`, then run directly
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [kotlin/java_embed/codeforces_script/.github/workflows/main.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L90-L96) - `kotlinc-native -version`, `kotlinc-native native.kt -o native-app`, then `./native-app.kexe`
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main.yml#L90-L96](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main.yml#L90-L96)
 
@@ -195,6 +217,8 @@ kotlinc-native native.kt -o native-app
 **Locations:**
 - [kotlin/KotlinProject/build.gradle.kts](../kotlin/KotlinProject/build.gradle.kts#L30) - `mainClass.set("org.example.MainKt")` (run target for `./gradlew run`)
 - [kotlin/javalin_/build.gradle.kts](../kotlin/javalin_/build.gradle.kts#L19-L20) - `mainClass.set("MainKt")` (Javalin run target)
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L103) - `./gradlew clean build && ./gradlew run` (`kotlin/KotlinProject`)
 - [kotlin/algorithms/Kotlin/.github/workflows/build.yml](../kotlin/algorithms/Kotlin/.github/workflows/build.yml#L20) - `./gradlew build` (Kotlin algorithms)
   - Remote (submodule `kotlin/algorithms/Kotlin` @ branch `master`): [kotlin/algorithms/Kotlin/.github/workflows/build.yml#L20](https://github.com/aqwertyuiop48/Kotlin/blob/master/.github/workflows/build.yml#L20)
@@ -212,8 +236,10 @@ gradle build && gradle run
 **Method:** Build a Kotlin/JS project to browser-ready JavaScript bundles via the Gradle Kotlin/JS plugin
 
 **Locations:**
-- [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L33) - `gradle browserProductionWebpack`
 - [kotlin/kotlin_js/build.gradle.kts](../kotlin/kotlin_js/build.gradle.kts) - Kotlin/JS Gradle DSL configuration
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L33) - `gradle browserProductionWebpack`
 
 **Example:**
 ```bash
@@ -230,13 +256,15 @@ mv build/js/packages/kotlin_js/kotlin/kotlin_js.js .
 **Method:** Build a Kotlin project with Maven (`kotlin-maven-plugin`) then execute the produced JAR
 
 **Locations:**
-- [.github/workflows/sprint_boot_API_maven_kotlin.yml](../.github/workflows/sprint_boot_API_maven_kotlin.yml#L42-L48) - `mvn clean package` → `java -jar target/*.jar`
 - [kotlin/spring_boot/Dockerfile](../kotlin/spring_boot/Dockerfile#L13) - `RUN mvn clean package -DskipTests`
 - [kotlin/ktor_/Dockerfile](../kotlin/ktor_/Dockerfile#L18) - `RUN mvn clean package -DskipTests`
 - [kotlin/helidon_/codeforces_script/Dockerfile](../kotlin/helidon_/codeforces_script/Dockerfile#L9) - `RUN mvn package -DskipTests`
   - Remote (submodule `kotlin/helidon_/codeforces_script` @ branch `helidon_kotlin_`): [kotlin/helidon_/codeforces_script/Dockerfile#L9](https://github.com/aqwertyuiop48/codeforces_script/blob/helidon_kotlin_/Dockerfile#L9)
 - [kotlin/quarkus_/Dockerfile](../kotlin/quarkus_/Dockerfile#L4) - `RUN mvn clean package -DskipTests`
 - [kotlin/spring_boot/pom.xml](../kotlin/spring_boot/pom.xml#L104) - `kotlin-maven-plugin` compile config
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/sprint_boot_API_maven_kotlin.yml](../.github/workflows/sprint_boot_API_maven_kotlin.yml#L42-L48) - `mvn clean package` → `java -jar target/*.jar`
 
 **Example:**
 ```bash
@@ -249,7 +277,6 @@ java -jar target/*.jar
 **Method:** Run a Kotlin main class via Maven's `exec` plugin (Kt-suffixed class)
 
 **Locations:**
-- [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L50) - Kotlin Verticle execution via `mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"`
 - [kotlin/http4j_/http4j_java/pom.xml](../kotlin/http4j_/http4j_java/pom.xml#L67) - HTTP4j Kotlin exec config
   - Remote (submodule `kotlin/http4j_/http4j_java` @ branch `kotlin_`): [kotlin/http4j_/http4j_java/pom.xml#L67](https://github.com/aqwertyuiop48/http4j_java/blob/kotlin_/pom.xml#L67)
 - [kotlin/helidon_/codeforces_script/pom.xml](../kotlin/helidon_/codeforces_script/pom.xml#L67) - Helidon Kotlin exec config
@@ -257,6 +284,9 @@ java -jar target/*.jar
 - [kotlin/vertx_/pom.xml](../kotlin/vertx_/pom.xml#L48) - Vertx Kotlin compile/exec config
 - [kotlin/ktor_/pom.xml](../kotlin/ktor_/pom.xml#L52) - Ktor Kotlin compile/exec config
 - [kotlin/quarkus_/pom.xml](../kotlin/quarkus_/pom.xml#L63) - Quarkus Kotlin compile/exec config
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L50) - Kotlin Verticle execution via `mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"`
 
 **Example:**
 ```bash
@@ -269,6 +299,9 @@ mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"
 **Locations:**
 - [kotlin/quarkus_/README.md](../kotlin/quarkus_/README.md#L36) - `./mvnw quarkus:dev`
 - [quarkus_/README.md](../quarkus_/README.md#L36) - Same instructions (top-level Quarkus README)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -319,6 +352,8 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 **Locations:**
 - [java/android_/testing-samples/ui/espresso/BasicSample/build.gradle](../java/android_/testing-samples/ui/espresso/BasicSample/build.gradle#L13) - Uses `kotlin-gradle-plugin`
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/ui/espresso/BasicSample/build.gradle#L13](https://github.com/aqwertyuiop48/testing-samples/blob/main/ui/espresso/BasicSample/build.gradle#L13)
+
+**Workflow yml (executes in CI):**
 - [java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci.yml](../java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci.yml#L48) - `./gradlew test` (Kotlin Android app CI)
   - Remote (submodule `java/android_/automated-build-android-app-with-github-action` @ branch `main`): [java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci.yml#L48](https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action/blob/main/.github/workflows/android-ci.yml#L48)
 
@@ -336,6 +371,9 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 **Method:** Build a Kotlin program that links against an external JDBC driver, then run with the driver on the classpath
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/java_mysql.yml](../.github/workflows/java_mysql.yml#L106-L109) - `kotlinc -cp ".:mysql-connector-j-9.3.0.jar" kotlinMysql.kt -include-runtime -d kotlinMysql.jar` then `kotlin -cp "kotlinMysql.jar:mysql-connector-j-9.3.0.jar" KotlinMysqlKt`
 
 **Example:**
@@ -352,6 +390,9 @@ kotlin -cp "kotlinMysql.jar:mysql-connector-j-9.3.0.jar" KotlinMysqlKt
 **Method:** Compile Kotlin sources and consume them from Clojure (or vice versa) via Gradle build
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L57) - `kotlinc src/main/kotlin -d target/kotlin -classpath "$(clojure -Spath)"`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L57](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57)
 - [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L88-L89) - `./gradlew clean compileKotlin` then `./gradlew build run`
@@ -372,6 +413,9 @@ kotlinc src/main/kotlin -d target/kotlin -classpath "$(clojure -Spath)"
 **Method:** Use the official Kotlin Jupyter kernel (`kotlin-jupyter-kernel`) either inline via `jupyter-console --kernel=kotlin <<EOF ... EOF` or by executing a `.ipynb` notebook with `jupyter nbconvert --execute --ExecutePreprocessor.kernel_name=kotlin`
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [Python/codeforces_script/.github/workflows/main_kotlin.yml](../Python/codeforces_script/.github/workflows/main_kotlin.yml#L14-L46) - `pip install kotlin-jupyter-kernel`, inline `jupyter-console --kernel=kotlin <<EOF` step, plus `jupyter nbconvert --execute notebook.ipynb`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_kotlin.yml#L14-L46](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_kotlin.yml#L14-L46)
 

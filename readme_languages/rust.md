@@ -34,11 +34,13 @@ This document catalogues **all distinct Rust-only methods** discovered for build
 **Method:** Standard `rustc` compile of a `.rs` source file followed by execution of the resulting binary. The two commands are paired into one end-to-end step.
 
 **Locations:**
-- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L26-L30) - Loop: `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done`
-  - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/.github/workflows/main.yml#L26-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L26-L30)
 - [rust/codeforces_script/execute/_1_hello.rs](../rust/codeforces_script/execute/_1_hello.rs), [_4_lists.rs](../rust/codeforces_script/execute/_4_lists.rs), [hello.rs](../rust/codeforces_script/execute/hello.rs) - Source files driven by the loop
 - [rust/_3_server.rs](../rust/_3_server.rs) - Standalone TCP server compiled the same way
 - [rust/readme.txt](../rust/readme.txt#L2-L5) - Documented pattern
+
+**Workflow yml (executes in CI):**
+- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L26-L30) - Loop: `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done`
+  - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/.github/workflows/main.yml#L26-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L26-L30)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L120-L127) - Canonical inline demo
 
 **Example:**
@@ -54,9 +56,11 @@ done
 **Method:** Compile a `.rs` file with `rustc`, then pipe a shell heredoc into the resulting binary's stdin so the program receives multi-line input without an input file. Used for testing Rust programs that read from `io::stdin()`.
 
 **Locations:**
+- [rust/codeforces_script/_5_input.rs](../rust/codeforces_script/_5_input.rs) - stdin-reading source
+
+**Workflow yml (executes in CI):**
 - [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L32-L37) - `rustc _5_input.rs && cat <<EOF | ./_5_input ... EOF`
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/.github/workflows/main.yml#L32-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L32-L37)
-- [rust/codeforces_script/_5_input.rs](../rust/codeforces_script/_5_input.rs) - stdin-reading source
 
 **Example:**
 ```bash
@@ -70,6 +74,9 @@ EOF
 **Method:** Pass `-` as the source argument so `rustc` reads source from stdin, then feed it a shell heredoc. The compiled binary is written via `-o <path>` and then executed. No `.rs` file touches disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L129-L136) - `rustc - -o /tmp/hello_rs_heredoc <<'EOF' … EOF` then run
 
 **Example:**
@@ -88,6 +95,9 @@ EOF
 **Method:** Inside a Cargo project (`Cargo.toml` + `src/main.rs`), `cargo run` resolves dependencies, compiles the binary target, and executes it in a single command. This is the canonical single-command compile-and-run for Rust projects.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L138-L147) - Canonical demo: `cargo init --bin` → write `src/main.rs` → `cargo run --quiet`
 
 **Example:**
@@ -103,6 +113,9 @@ cargo run --quiet
 **Method:** `cargo test` discovers `#[test]`-annotated functions across the crate, compiles a separate test binary, and executes it — all in one command. End-to-end source → test results.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L149-L163) - Canonical demo with `add` function + `#[test] fn it_adds`
 
 **Example:**
@@ -126,6 +139,9 @@ cargo test --quiet
 **Method:** [`rust-script`](https://rust-script.org) treats a single `.rs` file as a Rust script — it generates a hidden Cargo project, builds, and runs in one command. No manual `cargo init`. Direct Rust analog of `java <file.java>` (single-file launcher).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L165-L176) - `cargo install rust-script` then `rust-script /tmp/hello_script.rs`
 
 **Example:**
@@ -150,6 +166,9 @@ rust-script /tmp/hi.rs
 - [rust/rust-axum/vercel.json](../rust/rust-axum/vercel.json) - Rewrites all requests to the Rust handler
 - [rust/rust-axum/README.md](../rust/rust-axum/README.md) - Setup + `vc dev` instructions
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 # Local
@@ -170,6 +189,10 @@ vercel --prod
 - [rust/codeforces_script/execute/cpp_1.rs](../rust/codeforces_script/execute/cpp_1.rs#L1-L50) - With file IO + parameter substitution
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/execute/cpp_.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_.rs)
 
+**Workflow yml (executes in CI):**
+- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L17-L30) - CI workflow: installs `g++` (L17-L18) then loop `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done` (L26-L30) which exercises `cpp_.rs` / `cpp_1.rs` and the embedded g++ bridge end-to-end
+  - Remote: [rust/codeforces_script/.github/workflows/main.yml#L17-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L17-L30)
+
 **Example:**
 ```rust
 use std::process::Command;
@@ -186,6 +209,9 @@ println!("{}", String::from_utf8_lossy(&output.stdout));
 
 **Locations:**
 - [rust/_2_child_process_input.rs](../rust/_2_child_process_input.rs#L1-L45) - Multiple `python -c` invocations with `Stdio::piped`
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```rust
@@ -208,6 +234,9 @@ println!("{}", String::from_utf8_lossy(&out.stdout));
 **Locations:**
 - [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](../CPP/codeforces_script/cpp_/rust_in_cpp.cpp#L1-L45) - Full pattern with stdin + file IO Rust example
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```cpp

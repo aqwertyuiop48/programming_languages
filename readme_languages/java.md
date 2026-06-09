@@ -69,6 +69,8 @@ Each method takes Java source code as input and produces the program's output. I
   - Remote (submodule `profiles` @ branch `main`): [profiles/.bash_profile#L79](https://github.com/aqwertyuiop48/profiles/blob/main/.bash_profile#L79)
 - [profiles/bash_profile_windows.txt](../profiles/bash_profile_windows.txt#L136) - Windows bash alias
   - Remote (submodule `profiles` @ branch `main`): [profiles/bash_profile_windows.txt#L136](https://github.com/aqwertyuiop48/profiles/blob/main/bash_profile_windows.txt#L136)
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/java_mysql.yml](../.github/workflows/java_mysql.yml#L101-L102) - Direct compilation and execution
 - [AI_nization/codeforces_script/.github/workflows/main.yml](../AI_nization/codeforces_script/.github/workflows/main.yml#L38) - With JUnit classpath
   - Remote (submodule `AI_nization/codeforces_script` @ branch `bito_`): [AI_nization/codeforces_script/.github/workflows/main.yml#L38](https://github.com/aqwertyuiop48/codeforces_script/blob/bito_/.github/workflows/main.yml#L38)
@@ -87,11 +89,13 @@ java -cp ".:mysql-connector-j-9.3.0.jar" javaMysql
 **Method:** Java 11+ single-file source-code launcher — compile and run a `.java` file in one command without writing a `.class` file to disk (inline shell-friendly execution analogous to `kotlin <file.kts>`)
 
 **Locations:**
+- [typescript/inputs/shell_java.js](../typescript/inputs/shell_java.js#L79-L80) - Inline heredoc-style: `echo ${java_code} > /tmp/TmpClass.java && java /tmp/TmpClass.java`
+
+**Workflow yml (executes in CI):**
 - [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L25-L26) - `java MainOracle.java`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L25-L26](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L25-L26)
 - [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L36) - `java Main.java < input.txt` (stdin redirection)
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L36](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L36)
-- [typescript/inputs/shell_java.js](../typescript/inputs/shell_java.js#L79-L80) - Inline heredoc-style: `echo ${java_code} > /tmp/TmpClass.java && java /tmp/TmpClass.java`
 
 **Example:**
 ```bash
@@ -104,6 +108,9 @@ echo 'class Hi { public static void main(String[] a) { System.out.println("hi");
 **Method:** Use zsh's `=( ... )` process substitution to feed an inline heredoc directly into the Java source launcher — no temp file written by the user, no manual cleanup. The Java code is embedded literally in the shell command (true inline-in-shell execution, analogous to `kotlin -e` for a full class)
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L36-L46) - `shell: zsh {0}` step with `java --source 21 =(cat <<'EOF' ... EOF)`
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L36-L46](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L36-L46)
 
@@ -125,6 +132,8 @@ EOF
 **Locations:**
 - [javascript/java_embed/codeforces_script/shebang_job.sh](../javascript/java_embed/codeforces_script/shebang_job.sh#L1) - `#!/usr/local/bin/java --source 21` with a `public class sum { public static void main(String[] args) { ... } }` body that sums CLI args
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/shebang_job.sh#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/shebang_job.sh#L1)
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L68-L69) - `chmod +x shebang_job.sh && java --source 21 shebang_job.sh 1 3 5`
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L68-L69](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L68-L69)
 
@@ -144,6 +153,10 @@ java --source 21 shebang_job.sh 1 3 5
 **Method:** Standard Maven dependency resolution, build, and run
 
 **Locations:**
+- [java/angular_springboot/Expense_Tracker/Jenkinsfile](../java/angular_springboot/Expense_Tracker/Jenkinsfile#L31)
+  - Remote (submodule `java/angular_springboot/Expense_Tracker` @ branch `main`): [java/angular_springboot/Expense_Tracker/Jenkinsfile#L31](https://github.com/aqwertyuiop48/Expense_Tracker/blob/main/Jenkinsfile#L31)
+
+**Workflow yml (executes in CI):**
 - [AI_nization/bito1__/codeforces_script/.github/workflows/maven.yml](../AI_nization/bito1__/codeforces_script/.github/workflows/maven.yml#L41)
   - Remote (submodule `AI_nization/bito1__/codeforces_script` @ branch `bito1_`): [AI_nization/bito1__/codeforces_script/.github/workflows/maven.yml#L41](https://github.com/aqwertyuiop48/codeforces_script/blob/bito1_/.github/workflows/maven.yml#L41)
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L63)
@@ -152,8 +165,6 @@ java --source 21 shebang_job.sh 1 3 5
   - Remote (submodule `java/cucumber_/codeforces_script` @ branch `java_cucumber`): [java/cucumber_/codeforces_script/.github/workflows/main.yml#L44](https://github.com/aqwertyuiop48/codeforces_script/blob/java_cucumber/.github/workflows/main.yml#L44)
 - [java/codeforces_script/.github/workflows/main_kotlin.yml](../java/codeforces_script/.github/workflows/main_kotlin.yml#L51)
   - Remote (submodule `java/codeforces_script` @ branch `javac_`): [java/codeforces_script/.github/workflows/main_kotlin.yml#L51](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main_kotlin.yml#L51)
-- [java/angular_springboot/Expense_Tracker/Jenkinsfile](../java/angular_springboot/Expense_Tracker/Jenkinsfile#L31)
-  - Remote (submodule `java/angular_springboot/Expense_Tracker` @ branch `main`): [java/angular_springboot/Expense_Tracker/Jenkinsfile#L31](https://github.com/aqwertyuiop48/Expense_Tracker/blob/main/Jenkinsfile#L31)
 
 **Example:**
 ```bash
@@ -171,6 +182,9 @@ java -jar target/app.jar
 - [java/angular_springboot/spring-boot-angular-15-mysql-example/spring-boot-server/README.md](../java/angular_springboot/spring-boot-angular-15-mysql-example/spring-boot-server/README.md#L103)
   - Remote (submodule `java/angular_springboot/spring-boot-angular-15-mysql-example` @ branch `main`): [java/angular_springboot/spring-boot-angular-15-mysql-example/spring-boot-server/README.md#L103](https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example/blob/main/spring-boot-server/README.md#L103)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 mvn spring-boot:run
@@ -180,16 +194,18 @@ mvn spring-boot:run
 **Method:** Executing Java main class using Maven exec plugin
 
 **Locations:**
-- [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L50) - Kotlin Verticle execution
-- [.github/workflows/kafka_.yml](../.github/workflows/kafka_.yml#L58-L63) - Kafka producer/consumer examples
-- [scala/codeforces_script/.github/workflows/main_maven.yml](../scala/codeforces_script/.github/workflows/main_maven.yml#L34) - Scala with Maven
-  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_maven.yml#L34](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_maven.yml#L34)
 - [java/temporal/edu-101-java-code/README.md](../java/temporal/edu-101-java-code/README.md#L60-L61) - Temporal workflow examples
   - Remote (submodule `java/temporal/edu-101-java-code` @ branch `main`): [java/temporal/edu-101-java-code/README.md#L60-L61](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/README.md#L60-L61)
 - [kotlin/http4j_/http4j_java/pom.xml](../kotlin/http4j_/http4j_java/pom.xml#L67) - HTTP4j framework
   - Remote (submodule `kotlin/http4j_/http4j_java` @ branch `kotlin_`): [kotlin/http4j_/http4j_java/pom.xml#L67](https://github.com/aqwertyuiop48/http4j_java/blob/kotlin_/pom.xml#L67)
 - [kotlin/helidon_/codeforces_script/pom.xml](../kotlin/helidon_/codeforces_script/pom.xml#L67) - Helidon framework
   - Remote (submodule `kotlin/helidon_/codeforces_script` @ branch `helidon_kotlin_`): [kotlin/helidon_/codeforces_script/pom.xml#L67](https://github.com/aqwertyuiop48/codeforces_script/blob/helidon_kotlin_/pom.xml#L67)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/vertx_.yml](../.github/workflows/vertx_.yml#L50) - Kotlin Verticle execution
+- [.github/workflows/kafka_.yml](../.github/workflows/kafka_.yml#L58-L63) - Kafka producer/consumer examples
+- [scala/codeforces_script/.github/workflows/main_maven.yml](../scala/codeforces_script/.github/workflows/main_maven.yml#L34) - Scala with Maven
+  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_maven.yml#L34](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_maven.yml#L34)
 
 **Example:**
 ```bash
@@ -203,6 +219,9 @@ mvn exec:exec -Dexec.executable="jshell" -Dexec.args="-"
 **Locations:**
 - [java/quarkus_/README.md](../java/quarkus_/README.md#L36) - `./mvnw quarkus:dev`
 - [quarkus_/README.md](../quarkus_/README.md#L36) - Same instructions (top-level Quarkus README)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash
@@ -219,9 +238,6 @@ cd java/quarkus_
 **Method:** Using Gradle wrapper or gradle build tool
 
 **Locations:**
-- [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L103) - Kotlin compilation with Gradle
-- [scala/codeforces_script/.github/workflows/main_gradle.yml](../scala/codeforces_script/.github/workflows/main_gradle.yml#L37) - Scala with Gradle
-  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_gradle.yml#L37](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_gradle.yml#L37)
 - [java/micronaut_/codeforces_script/README.md](../java/micronaut_/codeforces_script/README.md#L24)
   - Remote (submodule `java/micronaut_/codeforces_script` @ branch `micronaut_java_`): [java/micronaut_/codeforces_script/README.md#L24](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_java_/README.md#L24)
 - [java/helidon/codeforces_script/README.md](../java/helidon/codeforces_script/README.md#L33)
@@ -230,6 +246,11 @@ cd java/quarkus_
   - Remote (submodule `kotlin/micronaut_/codeforces_script` @ branch `micronaut_kotlin_`): [kotlin/micronaut_/codeforces_script/README.md#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/micronaut_kotlin_/README.md#L32)
 - [kotlin/helidon_/codeforces_script/README.md](../kotlin/helidon_/codeforces_script/README.md#L33)
   - Remote (submodule `kotlin/helidon_/codeforces_script` @ branch `helidon_kotlin_`): [kotlin/helidon_/codeforces_script/README.md#L33](https://github.com/aqwertyuiop48/codeforces_script/blob/helidon_kotlin_/README.md#L33)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/kotlin_js.yml](../.github/workflows/kotlin_js.yml#L103) - Kotlin compilation with Gradle
+- [scala/codeforces_script/.github/workflows/main_gradle.yml](../scala/codeforces_script/.github/workflows/main_gradle.yml#L37) - Scala with Gradle
+  - Remote (submodule `scala/codeforces_script` @ branch `scala_`): [scala/codeforces_script/.github/workflows/main_gradle.yml#L37](https://github.com/aqwertyuiop48/codeforces_script/blob/scala_/.github/workflows/main_gradle.yml#L37)
 
 **Example:**
 ```bash
@@ -246,17 +267,22 @@ gradle build && gradle run
 **Method:** Running Java code interactively via JShell
 
 **Locations:**
-- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L91) - Piping code to jshell
-  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L91](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L91)
 - [Python/codeforces_script/test.py](../Python/codeforces_script/test.py#L25) - JShell with classpath
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/test.py#L25](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/test.py#L25)
 - [kotlin/java_embed/codeforces_script/java_inMemory_inKotlin1.kt](../kotlin/java_embed/codeforces_script/java_inMemory_inKotlin1.kt#L78) - JShell in Kotlin
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/java_inMemory_inKotlin1.kt#L78](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/java_inMemory_inKotlin1.kt#L78)
 
+**Workflow yml (executes in CI):**
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L91) - Piping code to jshell
+  - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L91](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L91)
+
 ### 4.2 Maven Exec with JShell
 **Method:** Using Maven exec plugin to run JShell
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L97)
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L97](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L97)
 - [kotlin/java_embed/codeforces_script/.github/workflows/main1.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main1.yml#L43-L44)
@@ -273,6 +299,9 @@ jshell --class-path "path/to/classpath" --startup /dev/stdin
 **Method:** Pass `-` as the script argument so JShell reads source from stdin, then feed it a shell heredoc with multiple statements and a trailing `/exit`. Direct Java analog of `python3 - <<EOF` ([python.md §2.2](python.md#22-python3---eof-stdin-heredoc)) and `node - <<EOF` ([javascript.md §1.5](javascript.md#15-node----eof-stdin-heredoc)).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L235-L244) - `jshell - <<'EOF' ... System.out.println("Hello from jshell heredoc!"); ... /exit ... EOF`
 
 **Example:**
@@ -290,6 +319,9 @@ EOF
 **Method:** Pipe Java source into JShell's stdin via a shell pipe — one-liner sibling of §4.3. Each JShell command must be on its own line, so use `printf '%s\n' '<stmt>;' '/exit'` rather than `echo '<stmt>; /exit'` (a single-line `/exit` is parsed as part of the prior expression).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L246-L248) - `printf '%s\n' 'System.out.println("Hello from jshell via pipe! Java " + System.getProperty("java.version"));' '/exit' | jshell -`
 
 **Example:**
@@ -301,6 +333,9 @@ printf '%s\n' 'System.out.println("hi");' '/exit' | jshell -
 **Method:** Pass a `.jsh` script file as a positional argument. JShell reads the file like a sequence of REPL inputs, executes each statement, and exits when it reaches `/exit` (or EOF). The file-based companion to §4.3 / §4.4 — same execution semantics, just sourced from disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L250-L256) - `jshell /tmp/hello.jsh` (file written via `cat > /tmp/hello.jsh <<'EOF' ... /exit ... EOF`)
 
 **Example:**
@@ -320,14 +355,16 @@ jshell hello.jsh
 **Method:** Using the IJava kernel in Jupyter for interactive Java — supports both inline execution via `jupyter-console --kernel=java <<EOF ... EOF` and full notebook execution via `jupyter nbconvert --execute`
 
 **Locations:**
-- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L44-L88) - IJava install, inline `jupyter-console --kernel=java <<EOF` step, and notebook execution via `nbconvert`
-  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L44-L88](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L44-L88)
 - [javascript/java_embed/codeforces_script/README.md](../javascript/java_embed/codeforces_script/README.md#L80-L86)
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/README.md#L80-L86](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/README.md#L80-L86)
 - [Python/codeforces_script/execute/notebook_java.ipynb](../Python/codeforces_script/execute/notebook_java.ipynb) - Jupyter notebook with IJava
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook_java.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook_java.ipynb)
 - [Python/codeforces_script/execute/notebook_java2.ipynb](../Python/codeforces_script/execute/notebook_java2.ipynb)
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook_java2.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook_java2.ipynb)
+
+**Workflow yml (executes in CI):**
+- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L44-L88) - IJava install, inline `jupyter-console --kernel=java <<EOF` step, and notebook execution via `nbconvert`
+  - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_java.yml#L44-L88](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L44-L88)
 
 **Example:**
 ```bash
@@ -390,6 +427,9 @@ CMD ["java", "-jar", "target/app.jar"]
 **Method:** Running JUnit tests through Maven
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [AI_nization/bito1__/codeforces_script/.github/workflows/main1.yml](../AI_nization/bito1__/codeforces_script/.github/workflows/main1.yml#L35)
   - Remote (submodule `AI_nization/bito1__/codeforces_script` @ branch `bito1_`): [AI_nization/bito1__/codeforces_script/.github/workflows/main1.yml#L35](https://github.com/aqwertyuiop48/codeforces_script/blob/bito1_/.github/workflows/main1.yml#L35)
 - [AI_nization/codeforces_script/.github/workflows/main.yml](../AI_nization/codeforces_script/.github/workflows/main.yml#L38)
@@ -416,6 +456,9 @@ java -cp .:junit-platform-console-standalone-1.9.3.jar org.junit.platform.consol
 - [java/android_/testing-samples/common_defs.bzl](../java/android_/testing-samples/common_defs.bzl) - Bazel build definitions
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/common_defs.bzl](https://github.com/aqwertyuiop48/testing-samples/blob/main/common_defs.bzl)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```bash
 ./gradlew assemble
@@ -430,6 +473,9 @@ java -cp .:junit-platform-console-standalone-1.9.3.jar org.junit.platform.consol
 **Method:** Maven command to run JUnit tests in the project
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/spring_boot_web_apps_gradle_java_applications.yml](../.github/workflows/spring_boot_web_apps_gradle_java_applications.yml#L91)
 - [.github/workflows/spring_boot_API_maven_java_applications.yml](../.github/workflows/spring_boot_API_maven_java_applications.yml#L66)
 - [AI_nization/bito1__/codeforces_script/.github/workflows/maven.yml](../AI_nization/bito1__/codeforces_script/.github/workflows/maven.yml#L42)
@@ -464,6 +510,9 @@ mvn test -Dtest='!AmazonTest,!AmazeTest'
   - Remote (submodule `java/codeforces_script` @ branch `javac_`): [java/codeforces_script/execute1/cpp_in_java.java#L50](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/execute1/cpp_in_java.java#L50)
 - [java/spring_boot_web_apps_gradle/java_applications/src/main/java/com/example/demo/HelloWorldController.java](../java/spring_boot_web_apps_gradle/java_applications/src/main/java/com/example/demo/HelloWorldController.java#L323) - ProcessBuilder in Spring Boot
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```java
 ProcessBuilder pb = new ProcessBuilder("bash", "-c", command);
@@ -485,6 +534,9 @@ Process process = pb.start();
 - [Python/codeforces_script/test.py](../Python/codeforces_script/test.py#L50) - Runtime in Python-embedded Java
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/test.py#L50](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/test.py#L50)
 
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+
 **Example:**
 ```java
 Runtime r = Runtime.getRuntime();
@@ -499,6 +551,9 @@ r.exec(new String[] { "python", "-c", command });
 **Method:** Run a `.java` file directly with [JBang](https://www.jbang.dev) — like the built-in `java <file.java>` launcher but with dependency declarations via `//DEPS` comments and automatic JDK provisioning
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L70) - `jbang Mains.java`
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L70](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L70)
 
@@ -511,6 +566,9 @@ jbang Mains.java
 **Method:** Execute an inline Java expression/statement directly from the shell — the true Java analogue of `kotlin -e`
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L67) - `jbang -c 'System.out.println(System.getProperty("java.version"));'`
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L67](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L67)
 
@@ -523,6 +581,9 @@ jbang -c 'System.out.println(System.getProperty("java.version"));'
 **Method:** Resolve and run a named Java script from a remote catalog (the source is fetched, compiled, and executed in one command)
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L54) - `jbang properties@jbangdev`
   - Remote (submodule `javascript/java_embed/codeforces_script` @ branch `java_`): [javascript/java_embed/codeforces_script/.github/workflows/main.yml#L54](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L54)
 
@@ -547,6 +608,9 @@ jbang properties@jbangdev
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/README.md#L112-L118](https://github.com/aqwertyuiop48/testing-samples/blob/main/README.md#L112-L118)
 - [java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel](../java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel#L48) - `android_instrumentation_test` target declaration
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel#L48](https://github.com/aqwertyuiop48/testing-samples/blob/main/ui/uiautomator/BasicSample/BUILD.bazel#L48)
+
+**Workflow yml (executes in CI):**
+None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
 
 **Example:**
 ```bash

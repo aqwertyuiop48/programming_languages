@@ -45,7 +45,12 @@ This document catalogues **all distinct Go-only methods** discovered for buildin
 - [golang/7_mysql_connector/readme.md](../golang/7_mysql_connector/readme.md#L11-L12) - `go run mysql_connector_.go`, `go run mysql_connector_2.go`
 - [java/temporal/edu-101-java-code/.bash.cfg](../java/temporal/edu-101-java-code/.bash.cfg#L34) - `go run worker/main.go` (Temporal worker)
 - [java/temporal/edu-101-java-code/.bash.cfg](../java/temporal/edu-101-java-code/.bash.cfg#L37) - `go run start/main.go "${1}"` (Temporal starter)
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L187-L196) - Canonical inline demo
+  - Remote (submodule `java/temporal/edu-101-java-code` @ branch `main`): [java/temporal/edu-101-java-code/.bash.cfg#L33-L37](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/.bash.cfg#L33-L37)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L187-L196) - Canonical inline demo step `go run /tmp/hello_go.go`
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L62-L80) - "Run all Go files in the folders" step loops `go run "$file"` over `execute/*.go` and `2_intro/*.go` (see also §1.2)
+  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L62-L80](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L62-L80)
 
 **Example:**
 ```bash
@@ -58,9 +63,11 @@ go run worker/main.go
 **Method:** CI step iterates every `*.go` in a directory and invokes `go run` on each file. Useful for repos that hold many small standalone `package main` files (codeforces solutions, snippets, demos).
 
 **Locations:**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L66-L80) - Two consecutive loops over `execute/` and `2_intro/`
-  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L66-L80](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L66-L80)
 - [golang/codeforces_script/execute/](../golang/codeforces_script/execute/), [2_intro/](../golang/codeforces_script/2_intro/) - Source dirs driven by the loops
+
+**Workflow yml (executes in CI):**
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L62-L80) - "Run all Go files in the folders" step: two consecutive loops `cd execute && for file in *.go; do go run "$file"; done` then the same for `2_intro/`
+  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L62-L80](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L62-L80)
 
 **Example:**
 ```bash
@@ -75,9 +82,14 @@ done
 **Method:** `nohup go run server.go &` launches a long-running Go server in the background of a CI step, followed by `sleep` to wait for the port to bind. Subsequent steps can `curl` the server and a Playwright step can screenshot rendered pages.
 
 **Locations:**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L81-L100) - `nohup go run server_/server_1.go &` + `sleep 10` + curl + Playwright screenshots
-  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L81-L100](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L81-L100)
 - [golang/codeforces_script/server_/server_1.go](../golang/codeforces_script/server_/server_1.go) - The backgrounded server source
+  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/server_/server_1.go](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/server_/server_1.go)
+
+**Workflow yml (executes in CI):**
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L84) - "Run Go Server" step: `mkdir -p videos && nohup go run server_/server_1.go & && sleep 10`
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L84](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L84)
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L85-L100) - Follow-on "Capture HTML content" + "Take screenshot" steps drive the backgrounded server via `curl` and `npx playwright screenshot`
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L85-L100](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L85-L100)
 
 **Example:**
 ```bash
@@ -90,7 +102,9 @@ curl http://localhost:8080
 ### 1.4 go build + ./binary (Compile + Run Pair)
 **Method:** `go build -o <path> <pkg>` emits a persistent binary; the next command runs it. Differs from `go run` in that the binary is kept on disk and can be re-invoked, shipped, or signed.
 
-**Locations:**
+**Locations:** No persistent `go build`-based example lives outside the demo workflow yet.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L198-L200) - `go build -o /tmp/hello_go_bin /tmp/hello_go.go && /tmp/hello_go_bin`
 
 **Example:**
@@ -101,8 +115,10 @@ go build -o /tmp/app ./cmd/server && /tmp/app
 ### 1.5 go test (Compile + Run Tests)
 **Method:** `go test ./...` discovers `*_test.go` files across the package set, compiles a per-package test binary, and runs it in one command. End-to-end source → test results.
 
-**Locations:**
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L202-L217) - Canonical demo: `add.go` + `add_test.go` + `go test -v ./...`
+**Locations:** No checked-in `*_test.go` files outside the inline demo; pattern documented for future suites.
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L202-L217) - Canonical demo: writes `add.go` + `add_test.go` then `go test -v ./...`
 
 **Example:**
 ```go
@@ -127,9 +143,11 @@ go test -v ./...
 **Method:** [`goeval`](https://github.com/dolmen-go/goeval) is an inline Go evaluator. `goeval -i fmt '<expr>'` imports the package and evaluates the expression — the Go analog of `python -c` / `node -e`. Multiple `-i` flags chain imports.
 
 **Locations:**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L59) - Clone + `go install .` + `goeval -i fmt '...'` + `goeval -i fmt -i math '...'`
-  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L40-L59](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L40-L59)
 - [golang/readme.txt](../golang/readme.txt#L268-L271) - Installation reference
+
+**Workflow yml (executes in CI):**
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L60) - "Clone goeval repository" + "Install goeval" + "Add Go bin directory to PATH" + "Verify goeval installation" (`goeval -i fmt '…'`) + "Run Go code with goeval" (`goeval -i fmt -i math '…'`)
+  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [golang/codeforces_script/.github/workflows/main.yml#L40-L60](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L40-L60)
 
 **Example:**
 ```bash
@@ -140,8 +158,10 @@ goeval -i fmt -i math 'fmt.Printf("sqrt(16) = %.2f\n", math.Sqrt(16))'
 ### 2.2 yaegi run \<file.go\> (Go Interpreter)
 **Method:** [`yaegi`](https://github.com/traefik/yaegi) is a pure-Go interpreter (no compiler step). `yaegi run <file.go>` parses and executes the file directly. Useful for scripting, hot-reload, and embedded Go evaluation. Alternative to `goeval` for whole-file execution.
 
-**Locations:**
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L219-L229) - `go install github.com/traefik/yaegi/cmd/yaegi@latest` + `yaegi run /tmp/hello_yaegi.go`
+**Locations:** No checked-in `.go` source yet; pattern documented via the inline demo workflow.
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L219-L229) - `go install github.com/traefik/yaegi/cmd/yaegi@latest` then `yaegi run /tmp/hello_yaegi.go`
 
 **Example:**
 ```bash
@@ -158,10 +178,23 @@ yaegi run /tmp/hello.go
 
 **Locations:**
 - [java/temporal/edu-101-java-code/exercises/finale-workflow/README.md](../java/temporal/edu-101-java-code/exercises/finale-workflow/README.md#L34-L45) - `go run worker/main.go` (terminal 1) + `go run start/main.go "Mason Egger"` (terminal 2)
+  - Remote (submodule `java/temporal/edu-101-java-code` @ branch `main`): [exercises/finale-workflow/README.md#L34-L45](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/exercises/finale-workflow/README.md#L34-L45)
 - [java/temporal/edu-101-java-code/exercises/finale-workflow/go/worker/main.go](../java/temporal/edu-101-java-code/exercises/finale-workflow/go/worker/main.go) - Worker implementation
+  - Remote: [exercises/finale-workflow/go/worker/main.go](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/exercises/finale-workflow/go/worker/main.go)
 - [java/temporal/edu-101-java-code/exercises/finale-workflow/go/start/main.go](../java/temporal/edu-101-java-code/exercises/finale-workflow/go/start/main.go) - Starter implementation
+  - Remote: [exercises/finale-workflow/go/start/main.go](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/exercises/finale-workflow/go/start/main.go)
 - [java/temporal/edu-101-java-code/exercises/finale-workflow/go/workflow.go](../java/temporal/edu-101-java-code/exercises/finale-workflow/go/workflow.go) - Workflow definition
+  - Remote: [exercises/finale-workflow/go/workflow.go](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/exercises/finale-workflow/go/workflow.go)
 - [java/temporal/edu-101-java-code/.bash.cfg](../java/temporal/edu-101-java-code/.bash.cfg#L33-L37) - Bash aliases `ex4w` / `ex4s`
+  - Remote: [.bash.cfg#L33-L37](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/.bash.cfg#L33-L37)
+
+**Workflow yml (executes in CI):** No GitHub Actions workflow runs Temporal end-to-end (worker + starter need a live Temporal server). The equivalent automation lives in a Gitpod task instead:
+- [java/temporal/edu-101-java-code/.gitpod.yml](../java/temporal/edu-101-java-code/.gitpod.yml#L10-L20) - "Temporal Local Development Server" task spawns `temporal server start-dev` so the worker + starter `go run` commands can connect
+  - Remote: [.gitpod.yml#L10-L20](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/.gitpod.yml#L10-L20)
+- [java/temporal/edu-101-java-code/.gitpod.yml](../java/temporal/edu-101-java-code/.gitpod.yml#L51-L70) - "Temporal server" / additional task entries
+  - Remote: [.gitpod.yml#L51-L70](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/.gitpod.yml#L51-L70)
+
+Invoked manually via two terminals or the `ex4w` / `ex4s` bash aliases.
 
 **Example:**
 ```bash
@@ -180,8 +213,13 @@ cd go && go run start/main.go "Your Name"
 
 **Locations:**
 - [golang/codeforces_script/server_/server_1.go](../golang/codeforces_script/server_/server_1.go#L26) - `http.ListenAndServe(":8080", nil)`
+  - Remote (submodule `golang/codeforces_script` @ branch `golang_`): [server_/server_1.go#L26](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/server_/server_1.go#L26)
 - [golang/3_go_server/server_2/main.go](../golang/3_go_server/server_2/main.go#L41) - Same pattern
 - [golang/readme.txt](../golang/readme.txt#L216-L245) - HTTP server example
+
+**Workflow yml (executes in CI):**
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L100) - End-to-end run: "Run Go Server" backgrounds `server_/server_1.go` (L78-L84) → "Capture HTML content" curls `/`, `/hello`, `/hello2` (L85-L93) → "Take screenshot" / "Record video" Playwright steps (L94-L155) drive the live `ListenAndServe`
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L100](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L100)
 
 **Example:**
 ```bash
@@ -196,6 +234,14 @@ curl http://localhost:8080/hello
 **Locations:**
 - [golang/6_go_movies_crud/main.go](../golang/6_go_movies_crud/main.go#L117) - `log.Fatal(http.ListenAndServe(":8080", r))`
 - [golang/6_go_movies_crud_1/main_3.go](../golang/6_go_movies_crud_1/main_3.go#L116) - Same pattern
+- [golang/6_go_movies_crud/readme.md](../golang/6_go_movies_crud/readme.md#L4) - Run instructions
+- [golang/6_go_movies_crud_1/readme.md](../golang/6_go_movies_crud_1/readme.md#L4) - Run instructions
+
+**Workflow yml (executes in CI):** None. No GitHub Actions workflow in this repo exercises the gorilla/mux servers end-to-end. The reusable skeleton that *would* drive them is the §1.3 / §4.1 background-server pattern:
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L100) - Reference template: `nohup go run … &` + `sleep` + `curl` (could be retargeted at `6_go_movies_crud/main.go` with `:8080/movies`)
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L100](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L100)
+
+Invoked manually with `go run main.go` then `curl http://localhost:8080/movies`.
 
 **Example:**
 ```bash
@@ -210,6 +256,12 @@ curl http://localhost:8080/movies
 - [golang/5_socket_programming/server.go](../golang/5_socket_programming/server.go), [client.go](../golang/5_socket_programming/client.go) - Primary server/client pair
 - [golang/5_socket_programming/server_2.go](../golang/5_socket_programming/server_2.go), [client_2.go](../golang/5_socket_programming/client_2.go) - Variant pair
 - [golang/5_socket_programming/readme.md](../golang/5_socket_programming/readme.md#L1-L20) - Run instructions
+
+**Workflow yml (executes in CI):** None. No GitHub Actions workflow exercises the TCP socket pair end-to-end (would require backgrounding the server before launching the client). The reusable background-then-foreground skeleton is:
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L84) - Reference template: `nohup go run … &` + `sleep 10` (would background `server.go`, then a follow-on step would `go run client.go`)
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L84](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L84)
+
+Invoked manually in two terminals.
 
 **Example:**
 ```bash
@@ -228,10 +280,17 @@ go run client.go
 
 **Locations:**
 - [golang/golang_/golang_vercel/api/entrypoint.go](../golang/golang_/golang_vercel/api/entrypoint.go) - gin-gonic-based handler
+  - Remote (submodule `golang/golang_/golang_vercel` @ branch `main`): [api/entrypoint.go](https://github.com/aqwertyuiop48/golang_vercel/blob/main/api/entrypoint.go)
 - [golang/golang_/golang_vercel/vercel.json](../golang/golang_/golang_vercel/vercel.json) - Routes config
+  - Remote: [vercel.json](https://github.com/aqwertyuiop48/golang_vercel/blob/main/vercel.json)
 - [golang/golang_/golang_vercel/go.mod](../golang/golang_/golang_vercel/go.mod) - Module declaration
+  - Remote: [go.mod](https://github.com/aqwertyuiop48/golang_vercel/blob/main/go.mod)
 - [golang/golang_/golang_vercel/readme.md](../golang/golang_/golang_vercel/readme.md#L11-L13) - Deploy commands
+  - Remote: [readme.md#L11-L13](https://github.com/aqwertyuiop48/golang_vercel/blob/main/readme.md#L11-L13)
 - [javascript/next_/nextjs_app/api/entrypoint.go](../javascript/next_/nextjs_app/api/entrypoint.go) - Same pattern under a Next.js project
+  - Remote (submodule `javascript/next_/nextjs_app` @ branch `main`): [api/entrypoint.go](https://github.com/aqwertyuiop48/nextjs_app/blob/main/api/entrypoint.go)
+
+**Workflow yml (executes in CI):** None. There is no GitHub Actions workflow that compiles the Vercel Go function — by design, the build runs on Vercel's infrastructure after `git push`. Vercel auto-detects `api/*.go`, runs `go build` server-side, and deploys the binary as a serverless function. The deploy is invoked manually via `vercel --prod` (see readme above) or by Vercel's git-push integration. (Neither submodule — `golang_vercel` nor `nextjs_app` — ships a `.github/workflows/*.yml` step that exercises the Go function.)
 
 **Example:**
 ```bash
@@ -251,6 +310,10 @@ vercel . && vercel --prod
 - [golang/6_go_movies_crud_1/main_2.py](../golang/6_go_movies_crud_1/main_2.py#L2) - `subprocess.run(["goeval", '''<go>'''])`
 - [golang/3_go_server/server_2/main_2.py](../golang/3_go_server/server_2/main_2.py#L2) - Same pattern
 
+**Workflow yml (executes in CI):** None for the bridge itself — no GitHub Actions step invokes `main_2.py`. The prerequisite `goeval` install + PATH setup that this bridge depends on lives in:
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L51) - "Clone goeval repository" + "Install goeval" + "Add Go bin directory to PATH" (reusable preamble)
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L40-L51](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L40-L51)
+
 **Example:**
 ```python
 import subprocess
@@ -267,6 +330,10 @@ fmt.Println("hi from python-driven goeval")
 - [golang/4_nodejs_embed/server_go_js.go](../golang/4_nodejs_embed/server_go_js.go#L65-L68) - Node.js inside a Go-string-template invoking `goeval` for a TCP server
 - [golang/4_nodejs_embed/client_go_js.go](../golang/4_nodejs_embed/client_go_js.go#L41-L43) - Same pattern for the client side
 - [golang/4_nodejs_embed/node_embed.go](../golang/4_nodejs_embed/node_embed.go) - Embedder shell
+
+**Workflow yml (executes in CI):** None for the bridge itself. As with §6.1, the prerequisite `goeval` install + PATH setup that this bridge depends on lives in:
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L51) - Reusable goeval preamble
+  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L40-L51](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L40-L51)
 
 **Example:**
 ```js

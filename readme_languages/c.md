@@ -23,10 +23,12 @@ This document catalogues **all distinct C-only methods** discovered for building
 **Method:** Standard `gcc` compilation of a `.c` source file followed by execution of the resulting binary. The two commands are paired into one end-to-end step (chained with `&&` or run sequentially in CI).
 
 **Locations:**
-- [CPP/codeforces_script/.github/workflows/main.yml](../CPP/codeforces_script/.github/workflows/main.yml#L50-L63) - Loop: `gcc "$file" -o "${file%.c}"` then loop runs each `./"$exe"`
-  - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/main.yml#L50-L63](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml#L50-L63)
 - [CPP/codeforces_script/c_/helloc.c](../CPP/codeforces_script/c_/helloc.c) and [advanced.c](../CPP/codeforces_script/c_/advanced.c) - Source files driven by the above loop
   - Remote: [helloc.c](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/c_/helloc.c), [advanced.c](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/c_/advanced.c)
+
+**Workflow yml (executes in CI):**
+- [CPP/codeforces_script/.github/workflows/main.yml](../CPP/codeforces_script/.github/workflows/main.yml#L50-L63) - Loop: `gcc "$file" -o "${file%.c}"` then loop runs each `./"$exe"`
+  - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/.github/workflows/main.yml#L50-L63](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml#L50-L63)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L26-L35) - Canonical inline demo (file written via heredoc, then `gcc … && ./out`)
 
 **Example:**
@@ -45,6 +47,9 @@ done
 **Method:** Pipe C source code directly into `gcc` via a shell heredoc with the `-x c` flag (force language) and `-` (read source from stdin). Compiles to a named output file, which is then executed. Avoids writing a source file to disk.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L37-L46) - `gcc -x c -o /tmp/hello_c_heredoc - <<'EOF' … EOF` then `/tmp/hello_c_heredoc`
 
 **Example:**
@@ -60,6 +65,9 @@ EOF
 **Method:** One-liner pipe of C source from `echo` (or any command emitting C source on stdout) into `gcc -x c -`, chained with `&&` to run the produced binary. Direct C analog of [python -c](python.md#21-python--c--inline-expression) / [node -e](javascript.md#12-node--e--inline-expression).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L48-L52) - `echo '<C source>' | gcc -x c -o /tmp/hello_c_pipe - && /tmp/hello_c_pipe`
 
 **Example:**
@@ -73,6 +81,9 @@ int main(void){printf("hi\n");return 0;}' \
 **Method:** TinyCC's single-step `-run` mode compiles and immediately executes the file in memory — no intermediate `.o` or binary on disk. Direct C analog of `java <file.java>` (single-file launcher).
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L54-L63) - `tcc -run /tmp/hello_tcc.c`
 
 **Example:**
@@ -84,6 +95,9 @@ tcc -run /tmp/hello.c
 **Method:** Combine TinyCC's in-memory `-run` with `-` (stdin) and a shell heredoc — neither source file nor binary touches disk. The most minimal "C as a scripting language" form available.
 
 **Locations:**
+None tracked outside the workflow citations below.
+
+**Workflow yml (executes in CI):**
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L65-L69) - `tcc -run - <<'EOF' … EOF`
 
 **Example:**
@@ -105,6 +119,10 @@ EOF
 - [java/codeforces_script/execute1/cpp_in_java.java](../java/codeforces_script/execute1/cpp_in_java.java#L50-L65) - C/C++ both supported via the same bash bridge
   - Remote (submodule `java/codeforces_script` @ branch `javac_`): [java/codeforces_script/execute1/cpp_in_java.java#L50-L65](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/execute1/cpp_in_java.java#L50-L65)
 
+**Workflow yml (executes in CI):**
+- [java/codeforces_script/.github/workflows/main.yml](../java/codeforces_script/.github/workflows/main.yml#L17-L79) - CI workflow: installs `g++` (L18), sets up Rust (L20-L23), then `cd execute1 && javac *.java` + loop `java "$class_name"` (L62-L79) which exercises the ProcessBuilder → gcc bridge end-to-end
+  - Remote: [java/codeforces_script/.github/workflows/main.yml#L17-L79](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main.yml#L17-L79)
+
 **Example:**
 ```java
 ProcessBuilder pb = new ProcessBuilder("bash", "-c",
@@ -119,6 +137,10 @@ pb.start().waitFor();
 **Locations:**
 - [rust/codeforces_script/execute/cpp_.rs](../rust/codeforces_script/execute/cpp_.rs#L1-L30) - Same bridge pattern used for C and C++ (file is named `cpp_.rs` but the technique is identical for plain C with `-x c`)
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/execute/cpp_.rs#L1-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_.rs#L1-L30)
+
+**Workflow yml (executes in CI):**
+- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L17-L30) - CI workflow: installs `g++` (L17-L18) then loop `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done` (L26-L30) which exercises the Rust→gcc bridge end-to-end
+  - Remote: [rust/codeforces_script/.github/workflows/main.yml#L17-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L17-L30)
 
 **Example:**
 ```rust
