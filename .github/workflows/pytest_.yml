@@ -106,13 +106,11 @@ jobs:
 
     - name: ts-node -p  (print expression value)
       run: |
-        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
-          ts-node --cwd /tmp -p '`ts-node -p :: ${process.version} on ${process.platform}`'
+        ts-node -p '`ts-node -p :: ${process.version} on ${process.platform}`'
 
-    - name: ts-node <<EOF  (stdin heredoc)
+    - name: ts-node - <<EOF  (stdin heredoc)
       run: |
-        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
-          ts-node --cwd /tmp <<'EOF'
+        ts-node - <<'EOF'
         const greeting: string = "Hello from ts-node heredoc!";
         console.log(greeting);
         console.log("Node version: " + process.version);
@@ -123,8 +121,7 @@ jobs:
 
     - name: ts-node via shell pipe  (echo | ts-node)
       run: |
-        echo 'const msg: string = "Hello from ts-node via pipe!"; console.log(msg);' \
-          | TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node --cwd /tmp
+        echo 'const msg: string = "Hello from ts-node via pipe!"; console.log(msg);' | ts-node -
 
     # ---------- tsx ----------
 
@@ -138,13 +135,13 @@ jobs:
         EOF
         tsx /tmp/hello_tsx.ts
 
-    - name: tsx -e  (inline expression)
+    - name: tsx eval  (inline expression)
       run: |
-        tsx -e 'const msg: string = "Hello from tsx -e!"; console.log(msg); console.log("Node version: " + process.version);'
+        tsx eval 'const msg: string = "Hello from tsx eval!"; console.log(msg); console.log("Node version: " + process.version);'
 
-    - name: tsx -p  (print expression value)
+    - name: tsx eval (print expression value workaround)
       run: |
-        tsx -p '`tsx -p :: ${process.version}`'
+        tsx eval 'console.log(`tsx eval :: ${process.version}`)'
 
     - name: tsx <<EOF  (stdin heredoc)
       run: |
@@ -226,9 +223,9 @@ jobs:
       run: |
         node -p '`node -p :: ${process.version} on ${process.platform}`'
 
-    - name: node <<EOF  (stdin heredoc via process substitution)
+    - name: node - <<EOF  (stdin heredoc via process substitution)
       run: |
-        node <<'EOF'
+        node - <<'EOF'
         const greeting = "Hello from node stdin heredoc!";
         console.log(greeting);
         console.log("Node version: " + process.version);
@@ -237,7 +234,7 @@ jobs:
 
     - name: echo | node  (piped REPL stdin)
       run: |
-        echo 'console.log("Hello from node via pipe! Node " + process.version)' | node
+        echo 'console.log("Hello from node via pipe! Node " + process.version)' | node -
 
     - name: node --check  (syntax-check a JS file without running it)
       run: |
@@ -277,7 +274,6 @@ jobs:
         EOF
         jshell /tmp/hello.jsh
 
-    # -----------------------------------------------------------------------
     # -----------------------------------------------------------------------
     # ClojureScript inline / file execution via nbb (Node-hosted)
     # -----------------------------------------------------------------------
