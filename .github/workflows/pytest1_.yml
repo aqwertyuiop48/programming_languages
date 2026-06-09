@@ -1,0 +1,278 @@
+name: Run compiled-language execution variants (C / C++ / Rust / Go / Perl)
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # =====================================================================
+    # C execution methods
+    # =====================================================================
+
+    - name: Install TinyCC
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y tcc
+
+    - name: gcc <file.c> + ./out  (paired compile + run)
+      run: |
+        cat > /tmp/hello_c.c <<'EOF'
+        #include <stdio.h>
+        int main(void) {
+            printf("Hello from gcc file!\n");
+            return 0;
+        }
+        EOF
+        gcc /tmp/hello_c.c -o /tmp/hello_c && /tmp/hello_c
+
+    - name: gcc -x c - <<EOF  (stdin heredoc + run)
+      run: |
+        gcc -x c -o /tmp/hello_c_heredoc - <<'EOF'
+        #include <stdio.h>
+        int main(void) {
+            printf("Hello from gcc heredoc!\n");
+            return 0;
+        }
+        EOF
+        /tmp/hello_c_heredoc
+
+    - name: echo | gcc -x c -  (piped stdin + run)
+      run: |
+        echo '#include <stdio.h>
+        int main(void){printf("Hello from gcc via pipe!\n");return 0;}' \
+          | gcc -x c -o /tmp/hello_c_pipe - && /tmp/hello_c_pipe
+
+    - name: tcc -run <file.c>  (TinyCC single-step interpret mode)
+      run: |
+        cat > /tmp/hello_tcc.c <<'EOF'
+        #include <stdio.h>
+        int main(void) {
+            printf("Hello from tcc -run!\n");
+            return 0;
+        }
+        EOF
+        tcc -run /tmp/hello_tcc.c
+
+    - name: tcc -run -  (TinyCC stdin heredoc, no temp file)
+      run: |
+        tcc -run - <<'EOF'
+        #include <stdio.h>
+        int main(void){printf("Hello from tcc -run stdin!\n");return 0;}
+        EOF
+
+    # =====================================================================
+    # C++ execution methods
+    # =====================================================================
+
+    - name: g++ <file.cpp> + ./out  (paired compile + run)
+      run: |
+        cat > /tmp/hello_cpp.cpp <<'EOF'
+        #include <iostream>
+        int main() {
+            std::cout << "Hello from g++ file!" << std::endl;
+            return 0;
+        }
+        EOF
+        g++ /tmp/hello_cpp.cpp -o /tmp/hello_cpp && /tmp/hello_cpp
+
+    - name: g++ -x c++ - <<EOF  (stdin heredoc + run)
+      run: |
+        g++ -x c++ -o /tmp/hello_cpp_heredoc - <<'EOF'
+        #include <iostream>
+        int main() {
+            std::cout << "Hello from g++ heredoc!" << std::endl;
+            return 0;
+        }
+        EOF
+        /tmp/hello_cpp_heredoc
+
+    - name: echo | g++ -x c++ -  (piped stdin + run)
+      run: |
+        echo '#include <iostream>
+        int main(){std::cout<<"Hello from g++ via pipe!"<<std::endl;return 0;}' \
+          | g++ -x c++ -o /tmp/hello_cpp_pipe - && /tmp/hello_cpp_pipe
+
+    - name: clang++ <file.cpp> + ./out  (alternate compiler)
+      run: |
+        sudo apt-get install -y clang
+        cat > /tmp/hello_clangpp.cpp <<'EOF'
+        #include <iostream>
+        int main() { std::cout << "Hello from clang++!" << std::endl; return 0; }
+        EOF
+        clang++ /tmp/hello_clangpp.cpp -o /tmp/hello_clangpp && /tmp/hello_clangpp
+
+    # =====================================================================
+    # Rust execution methods
+    # =====================================================================
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: rustc <file.rs> + ./out  (paired compile + run)
+      run: |
+        cat > /tmp/hello_rs.rs <<'EOF'
+        fn main() {
+            println!("Hello from rustc file!");
+        }
+        EOF
+        rustc /tmp/hello_rs.rs -o /tmp/hello_rs_bin && /tmp/hello_rs_bin
+
+    - name: rustc - <<EOF  (stdin heredoc → compile + run)
+      run: |
+        rustc - -o /tmp/hello_rs_heredoc <<'EOF'
+        fn main() {
+            println!("Hello from rustc stdin heredoc!");
+        }
+        EOF
+        /tmp/hello_rs_heredoc
+
+    - name: cargo run  (single-step compile + run in a project)
+      run: |
+        mkdir -p /tmp/cargo_demo && cd /tmp/cargo_demo
+        cargo init --name hello_cargo --bin --quiet
+        cat > src/main.rs <<'EOF'
+        fn main() {
+            println!("Hello from cargo run!");
+        }
+        EOF
+        cargo run --quiet
+
+    - name: cargo test  (compile + run test binary in one step)
+      run: |
+        cd /tmp/cargo_demo
+        cat > src/main.rs <<'EOF'
+        fn add(a: i32, b: i32) -> i32 { a + b }
+        fn main() { println!("{}", add(2, 3)); }
+
+        #[cfg(test)]
+        mod tests {
+            use super::*;
+            #[test]
+            fn it_adds() { assert_eq!(add(2, 3), 5); }
+        }
+        EOF
+        cargo test --quiet
+
+    - name: Install rust-script  (cargo-script-style single-file launcher)
+      run: cargo install rust-script
+
+    - name: rust-script <file.rs>  (single-file launcher, no manual cargo)
+      run: |
+        cat > /tmp/hello_script.rs <<'EOF'
+        //! Simple rust-script demo
+        fn main() {
+            println!("Hello from rust-script!");
+        }
+        EOF
+        rust-script /tmp/hello_script.rs
+
+    # =====================================================================
+    # Go execution methods
+    # =====================================================================
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.21'
+
+    - name: go run <file.go>  (single-step compile + run)
+      run: |
+        cat > /tmp/hello_go.go <<'EOF'
+        package main
+        import "fmt"
+        func main() {
+            fmt.Println("Hello from go run!")
+        }
+        EOF
+        go run /tmp/hello_go.go
+
+    - name: go build + ./binary  (paired compile + run, persistent binary)
+      run: |
+        go build -o /tmp/hello_go_bin /tmp/hello_go.go && /tmp/hello_go_bin
+
+    - name: go test  (compile + run test binary in one step)
+      run: |
+        mkdir -p /tmp/gotest && cd /tmp/gotest
+        go mod init example.com/gotest >/dev/null 2>&1 || true
+        cat > add.go <<'EOF'
+        package gotest
+        func Add(a, b int) int { return a + b }
+        EOF
+        cat > add_test.go <<'EOF'
+        package gotest
+        import "testing"
+        func TestAdd(t *testing.T) {
+            if Add(2, 3) != 5 { t.Fatal("expected 5") }
+        }
+        EOF
+        go test -v ./...
+
+    - name: Install yaegi  (Go interpreter, no compile step)
+      run: go install github.com/traefik/yaegi/cmd/yaegi@latest
+
+    - name: yaegi run <file.go>  (Go interpreter mode)
+      run: |
+        cat > /tmp/hello_yaegi.go <<'EOF'
+        package main
+        import "fmt"
+        func main() { fmt.Println("Hello from yaegi!") }
+        EOF
+        "$(go env GOPATH)/bin/yaegi" run /tmp/hello_yaegi.go
+
+    # =====================================================================
+    # Perl execution methods
+    # =====================================================================
+
+    - name: perl <file.pl>  (direct file execution)
+      run: |
+        cat > /tmp/hello.pl <<'EOF'
+        use strict; use warnings;
+        print "Hello from perl file!\n";
+        print "Perl version: $^V\n";
+        EOF
+        perl /tmp/hello.pl
+
+    - name: perl -e  (inline one-liner)
+      run: |
+        perl -e 'print "Hello from perl -e!\n"; print "Perl version: $^V\n";'
+
+    - name: perl -E  (inline with `say` enabled)
+      run: |
+        perl -E 'say "Hello from perl -E!"; say "Perl version: $^V";'
+
+    - name: perl -n -e  (implicit line loop, no auto-print)
+      run: |
+        printf 'apple\nbanana\ncherry\n' | perl -n -e 'print "got: $_"'
+
+    - name: perl -p -e  (implicit line loop, auto-print)
+      run: |
+        printf 'apple\nbanana\ncherry\n' | perl -p -e 's/a/A/g'
+
+    - name: perl - <<EOF  (stdin heredoc)
+      run: |
+        perl - <<'EOF'
+        use strict; use warnings;
+        print "Hello from perl heredoc!\n";
+        my @nums = (1,2,3,4,5);
+        my $sum = 0; $sum += $_ for @nums;
+        print "Sum: $sum\n";
+        EOF
+
+    - name: echo | perl -  (piped REPL stdin)
+      run: |
+        echo 'print "Hello from perl via pipe! $^V\n";' | perl -
+
+    - name: perl -i -pe  (in-place edit of a file)
+      run: |
+        printf 'foo\nbar\nbaz\n' > /tmp/edit.txt
+        perl -i -pe 's/foo/FOO/' /tmp/edit.txt
+        cat /tmp/edit.txt
