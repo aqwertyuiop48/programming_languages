@@ -245,7 +245,7 @@ jobs:
 
     - name: echo | jshell  (piped REPL stdin)
       run: |
-        echo 'System.out.println("Hello from jshell via pipe! Java " + System.getProperty("java.version")); /exit' | jshell -
+        printf '%s\n' 'System.out.println("Hello from jshell via pipe! Java " + System.getProperty("java.version"));' '/exit' | jshell -
 
     - name: jshell <file.jsh>  (script file)
       run: |
