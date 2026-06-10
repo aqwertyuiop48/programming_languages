@@ -183,7 +183,13 @@ java -jar target/app.jar
   - Remote (submodule `java/angular_springboot/spring-boot-angular-15-mysql-example` @ branch `main`): [java/angular_springboot/spring-boot-angular-15-mysql-example/spring-boot-server/README.md#L103](https://github.com/aqwertyuiop48/spring-boot-angular-15-mysql-example/blob/main/spring-boot-server/README.md#L103)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/docker3.yml](.github/workflows/docker3.yml) _(rule R2, R5)_ — covers `java/spring_boot_rest_API_app_maven/Dockerfile`
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `java/angular_springboot/spring-boot-angular-15-mysql-example/README.md`; `java/angular_springboot/spring-boot-angular-15-mysql-example/spring-boot-server/README.md`
+- [.github/workflows/spring_boot_API_maven_java_applications.yml](.github/workflows/spring_boot_API_maven_java_applications.yml) _(rule R2)_ — covers `java/spring_boot_rest_API_app_maven/Dockerfile`
 
 **Example:**
 ```bash
@@ -221,7 +227,11 @@ mvn exec:exec -Dexec.executable="jshell" -Dexec.args="-"
 - [quarkus_/README.md](../quarkus_/README.md#L36) - Same instructions (top-level Quarkus README)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/docker1.yml](.github/workflows/docker1.yml) _(rule R2)_ — covers `java/quarkus_/README.md`
 
 **Example:**
 ```bash
@@ -407,10 +417,10 @@ jupyter nbconvert --to notebook --execute notebook_java.ipynb --output executed_
 - [java/algorithms/Java/.devcontainer/Dockerfile](../java/algorithms/Java/.devcontainer/Dockerfile)
   - Remote (submodule `java/algorithms/Java` @ branch `master`): [java/algorithms/Java/.devcontainer/Dockerfile](https://github.com/aqwertyuiop48/Java/blob/master/.devcontainer/Dockerfile)
 
-**Workflow References:**
-- [.github/workflows/docker1.yml](../.github/workflows/docker1.yml)
-- [.github/workflows/docker2.yml](../.github/workflows/docker2.yml)
-- [.github/workflows/docker3.yml](../.github/workflows/docker3.yml)
+**Workflow yml (executes in CI):**
+- [.github/workflows/docker1.yml](../.github/workflows/docker1.yml) — `docker build` for `java/vertx_/Dockerfile`, `java/javalin_/Dockerfile`, `java/quarkus_/Dockerfile`, `java/spring_boot_web_apps_gradle/java_applications/Dockerfile` (lines 31, 39, 48, 58)
+- [.github/workflows/docker3.yml](../.github/workflows/docker3.yml) — `docker build` for `java/spring_boot_rest_API_app_maven/Dockerfile` (line 30)
+- [.github/workflows/docker2.yml](../.github/workflows/docker2.yml) — `docker build` for `java/javalin_/Dockerfile` (line 31; shared with `docker1.yml`)
 
 **Example:**
 ```dockerfile
@@ -455,9 +465,16 @@ java -cp .:junit-platform-console-standalone-1.9.3.jar org.junit.platform.consol
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/update_versions.sh#L45-L61](https://github.com/aqwertyuiop48/testing-samples/blob/main/update_versions.sh#L45-L61)
 - [java/android_/testing-samples/common_defs.bzl](../java/android_/testing-samples/common_defs.bzl) - Bazel build definitions
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/common_defs.bzl](https://github.com/aqwertyuiop48/testing-samples/blob/main/common_defs.bzl)
+- [java/android_/automated-build-android-app-with-github-action/app/build.gradle.kts](../java/android_/automated-build-android-app-with-github-action/app/build.gradle.kts#L2) - `id("com.android.application")` plugin declaration
+  - Remote (submodule `java/android_/automated-build-android-app-with-github-action` @ branch `master`): [app/build.gradle.kts#L2](https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action/blob/master/app/build.gradle.kts#L2)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-download.yml](../java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-download.yml#L44-L60) - `./gradlew test`, `./gradlew build`, `./gradlew assembleDebug`, `./gradlew assemble`, `./gradlew app:bundleRelease` over a project with `com.android.application` plugin — full Android Gradle Plugin pipeline.
+  - Remote (submodule): [android-ci-generate-apk-aab-download.yml#L44-L60](https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action/blob/master/.github/workflows/android-ci-generate-apk-aab-download.yml#L44-L60)
+- [java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-upload.yml](../java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-upload.yml#L54) - `./gradlew assembleDebug` with artifact upload.
+  - Remote (submodule): [android-ci-generate-apk-aab-upload.yml#L54](https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action/blob/master/.github/workflows/android-ci-generate-apk-aab-upload.yml#L54)
+- [java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-upload-2.yml](../java/android_/automated-build-android-app-with-github-action/.github/workflows/android-ci-generate-apk-aab-upload-2.yml#L78) - `./gradlew assembleDebug` variant with signed artifact upload.
+  - Remote (submodule): [android-ci-generate-apk-aab-upload-2.yml#L78](https://github.com/aqwertyuiop48/automated-build-android-app-with-github-action/blob/master/.github/workflows/android-ci-generate-apk-aab-upload-2.yml#L78)
 
 **Example:**
 ```bash
@@ -511,7 +528,8 @@ mvn test -Dtest='!AmazonTest,!AmazeTest'
 - [java/spring_boot_web_apps_gradle/java_applications/src/main/java/com/example/demo/HelloWorldController.java](../java/spring_boot_web_apps_gradle/java_applications/src/main/java/com/example/demo/HelloWorldController.java#L323) - ProcessBuilder in Spring Boot
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [java/codeforces_script/.github/workflows/main.yml](../java/codeforces_script/.github/workflows/main.yml#L62-L66) - "Compile and Run Java Files 1 - CPP and Rust" step runs `cd execute1 && javac *.java && java cpp_in_java && java rust_in_java`, which executes the `new ProcessBuilder(...)` invocations at [cpp_in_java.java#L50](../java/codeforces_script/execute1/cpp_in_java.java#L50) and [rust_in_java.java#L39](../java/codeforces_script/execute1/rust_in_java.java#L39).
+  - Remote: [java/codeforces_script/.github/workflows/main.yml#L62-L66](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main.yml#L62-L66)
 
 **Example:**
 ```java
@@ -535,7 +553,8 @@ Process process = pb.start();
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/test.py#L50](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/test.py#L50)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L75-L77) - "Run scripts" step runs `python test.py`, which builds a JShell heredoc containing `Runtime.getRuntime().exec(new String[] { "python", "-c", command })` (see [test.py#L50](../Python/codeforces_script/test.py#L50)) and executes it via `subprocess.run(shell_script, shell=True, ...)` — transitive coverage.
+  - Remote: [Python/codeforces_script/.github/workflows/main.yml#L75-L77](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L75-L77)
 
 **Example:**
 ```java
@@ -610,7 +629,14 @@ jbang properties@jbangdev
   - Remote (submodule `java/android_/testing-samples` @ branch `main`): [java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel#L48](https://github.com/aqwertyuiop48/testing-samples/blob/main/ui/uiautomator/BasicSample/BUILD.bazel#L48)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `java/android_/testing-samples/README.md`; `java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel`
+- [java/android_/testing-samples/.github/workflows/composescreenshot.yml](java/android_/testing-samples/.github/workflows/composescreenshot.yml) _(rule R1)_ — covers `java/android_/testing-samples/README.md`; `java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel`
+- [java/android_/testing-samples/.github/workflows/gradle-wrapper-validation.yml](java/android_/testing-samples/.github/workflows/gradle-wrapper-validation.yml) _(rule R1)_ — covers `java/android_/testing-samples/README.md`; `java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel`
+- [java/android_/testing-samples/.github/workflows/test-all.yml](java/android_/testing-samples/.github/workflows/test-all.yml) _(rule R1)_ — covers `java/android_/testing-samples/README.md`; `java/android_/testing-samples/ui/uiautomator/BasicSample/BUILD.bazel`
 
 **Example:**
 ```bash

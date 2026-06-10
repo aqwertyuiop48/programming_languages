@@ -85,7 +85,8 @@ clojure -e "(println \"Hello from -e!\")"
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L44-L47](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44-L47)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - "Run Clojure -e example and Python" step runs `chmod +x testing.sh && ./testing.sh`, which executes [testing.sh#L44-L47](../clojure_/codeforces_script/testing.sh#L44-L47) (`clojure - <<'EOF' ... EOF`) — transitive coverage via shell script.
+  - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
 ```bash
@@ -230,7 +231,8 @@ mvn clean compile exec:java -Dexec.mainClass=clojuregradle.core
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L5-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5-L41)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - step runs `python testing.py` (which does `subprocess.run(['clojure','-e',inner_code])` at [testing.py#L17](../clojure_/codeforces_script/testing.py#L17)) and `./testing.sh` (same pattern at [testing.sh#L5-L41](../clojure_/codeforces_script/testing.sh#L5-L41)) — transitive coverage.
+  - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
 ```python
@@ -247,7 +249,8 @@ subprocess.run(['clojure', '-e', inner_code])
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - runs `./testing.sh`, whose embedded python heredoc spawns `clojure -e "..."` whose `clojure.java.shell/sh` invocation re-enters `python3 -c "..."` — the full nested polyglot chain runs end-to-end in CI.
+  - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
 ```clojure

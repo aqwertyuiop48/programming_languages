@@ -54,7 +54,11 @@ Scala 3 supports top-level `@main` annotated functions as a lightweight entry-po
   - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/interviews/scala3_/Hello.scala](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/interviews/scala3_/Hello.scala)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+The `@main` annotation is the entry point exercised by §2.1 below — both workflows run `scala Hello.scala` against the `@main def first()` source:
+- [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L133) - SDKMAN Scala 3.3.1: `scala Hello.scala`
+  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala.yml#L133](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala.yml#L133)
+- [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml](../kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L48) - Coursier-installed Scala 3.3.1: `scala Hello.scala`
+  - Remote (submodule `kotlin/java_embed/codeforces_script` @ branch `kotlin_`): [kotlin/java_embed/codeforces_script/.github/workflows/main_scala3_coursier.yml#L48](https://github.com/aqwertyuiop48/codeforces_script/blob/kotlin_/.github/workflows/main_scala3_coursier.yml#L48)
 
 ---
 

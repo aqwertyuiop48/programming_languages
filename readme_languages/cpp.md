@@ -163,7 +163,14 @@ g++ combo.cpp combo_c.o -o runme
 - [java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp](../java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp), [test/adder_test.cpp](../java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp) - Source under test
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/CMakeLists.txt`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp`
+- [java/android_/testing-samples/.github/workflows/composescreenshot.yml](java/android_/testing-samples/.github/workflows/composescreenshot.yml) _(rule R1)_ — covers `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/CMakeLists.txt`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp`
+- [java/android_/testing-samples/.github/workflows/gradle-wrapper-validation.yml](java/android_/testing-samples/.github/workflows/gradle-wrapper-validation.yml) _(rule R1)_ — covers `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/CMakeLists.txt`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp`
+- [java/android_/testing-samples/.github/workflows/test-all.yml](java/android_/testing-samples/.github/workflows/test-all.yml) _(rule R1)_ — covers `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/build.gradle`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/CMakeLists.txt`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/src/adder.cpp`; `java/android_/testing-samples/unit/BasicNativeAndroidTest/app/src/main/cpp/test/adder_test.cpp`
 
 **Example:**
 ```bash
@@ -184,7 +191,13 @@ None — no GitHub Actions workflow exercises this method end-to-end in this rep
 - [CPP/readme.txt](../CPP/readme.txt#L50-L80) - Documented embedding pattern
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/builds.yml](CPP/codeforces_script/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/main.yml](CPP/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
 
 **Example:**
 ```cpp
@@ -204,7 +217,13 @@ int main() {
 - [CPP/readme.txt](../CPP/readme.txt#L80-L110) - Documented embedding pattern
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/builds.yml](CPP/codeforces_script/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/main.yml](CPP/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
 
 **Example:**
 ```cpp
@@ -220,7 +239,13 @@ system(cmd.c_str());
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/rust_in_cpp.cpp`
+- [CPP/codeforces_script/.github/workflows/builds.yml](CPP/codeforces_script/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/rust_in_cpp.cpp`
+- [CPP/codeforces_script/.github/workflows/main.yml](CPP/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/rust_in_cpp.cpp`
 
 **Example:**
 ```cpp

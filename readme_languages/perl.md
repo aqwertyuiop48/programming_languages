@@ -50,7 +50,12 @@ perl script.pl
   - Remote: [script.pl#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl#L1)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `perl/codeforces_script/script.pl`
+- [perl/codeforces_script/.github/workflows/main.yml](perl/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `perl/codeforces_script/script.pl`
 
 **Example:**
 ```perl

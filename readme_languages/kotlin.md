@@ -301,7 +301,11 @@ mvn exec:java -Dexec.mainClass="com.example.MainVerticleKt"
 - [quarkus_/README.md](../quarkus_/README.md#L36) - Same instructions (top-level Quarkus README)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/docker2.yml](.github/workflows/docker2.yml) _(rule R2)_ — covers `kotlin/quarkus_/README.md`
 
 **Example:**
 ```bash
@@ -329,6 +333,12 @@ cd kotlin/quarkus_
   - Remote (submodule `kotlin/helidon_/codeforces_script` @ branch `helidon_kotlin_`): [kotlin/helidon_/codeforces_script/Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/helidon_kotlin_/Dockerfile)
 - [kotlin/http4j_/http4j_java/Dockerfile](../kotlin/http4j_/http4j_java/Dockerfile) - HTTP4j Kotlin via Maven
   - Remote (submodule `kotlin/http4j_/http4j_java` @ branch `kotlin_`): [kotlin/http4j_/http4j_java/Dockerfile](https://github.com/aqwertyuiop48/http4j_java/blob/kotlin_/Dockerfile)
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/docker_.yml](../.github/workflows/docker_.yml) — `docker build` for `kotlin/spring_boot/Dockerfile` (L29-L31), `kotlin/vertx_/Dockerfile` (L37-L39), `kotlin/ktor_/Dockerfile` (L45-L47)
+- [.github/workflows/docker2.yml](../.github/workflows/docker2.yml) — `docker build` for `kotlin/javalin_/Dockerfile` (L29-L31), `kotlin/quarkus_/Dockerfile` (L38-L40)
+- Submodule own-CI (R1): [kotlin/micronaut_/codeforces_script/.github/workflows/](../kotlin/micronaut_/codeforces_script/.github/workflows/) and [kotlin/http4j_/http4j_java/.github/workflows/](../kotlin/http4j_/http4j_java/.github/workflows/) — exercise their respective Dockerfiles on every push.
+- [.github/workflows/main.yml](../.github/workflows/main.yml) — root bulk-sync workflow does `cd kotlin/helidon_/codeforces_script && git pull` (sync only; no `docker build`).
 
 **Example:**
 ```dockerfile

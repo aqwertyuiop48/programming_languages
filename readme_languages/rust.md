@@ -167,7 +167,11 @@ rust-script /tmp/hi.rs
 - [rust/rust-axum/README.md](../rust/rust-axum/README.md) - Setup + `vc dev` instructions
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `rust/rust-axum/Cargo.toml`; `rust/rust-axum/README.md`; `rust/rust-axum/api/axum.rs`; `rust/rust-axum/vercel.json`
 
 **Example:**
 ```bash
@@ -236,7 +240,7 @@ println!("{}", String::from_utf8_lossy(&out.stdout));
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L125-L140) - "rustc - <<EOF (stdin heredoc → compile + run)" step pipes a multi-line Rust program into `rustc` via shell heredoc and runs the produced binary — the rustc-heredoc execution path used by the C++ wrapper. Demonstration coverage added this session; the C++-driven `system("... | rustc ...")` chain in [rust_in_cpp.cpp](../CPP/codeforces_script/cpp_/rust_in_cpp.cpp) is not yet wired into a workflow.
 
 **Example:**
 ```cpp

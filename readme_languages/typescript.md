@@ -63,7 +63,7 @@ Each method takes TS source as input and produces program output. Pure type-chec
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/ts_node_server/blob/main/package.json#L7)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L89-L100) - "ts-node <file.ts> (file run)" step writes `/tmp/hello_tsnode.cts` then runs `ts-node /tmp/hello_tsnode.cts` — direct CI coverage.
 
 **Example:**
 ```bash
@@ -78,7 +78,7 @@ npm start    # if package.json's start is "ts-node index.ts"
 - [javascript/saas-microservices/apps/api/package.json](../javascript/saas-microservices/apps/api/package.json#L10) - `"dev": "tsx src/index.ts"`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L129-L139) - "tsx <file.ts> (file run)" step writes `/tmp/hello_tsx.ts` then runs `tsx /tmp/hello_tsx.ts` — direct CI coverage.
 
 **Example:**
 ```bash
@@ -96,7 +96,7 @@ npm run dev
   - Remote (submodule @ branch `main`): [README.md#L14](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/apps/web/README.md#L14)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L141-L151) - "bun run <file.ts>" step writes `/tmp/hello_bun.ts` then runs `bun run /tmp/hello_bun.ts` — direct CI coverage.
 
 **Example:**
 ```bash
@@ -232,7 +232,7 @@ These frameworks are TypeScript by convention — their CLI accepts `.ts` source
   - Remote (submodule @ branch `main`): [package.json#L6](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/crud-angular/package.json#L6)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [java/angular_springboot/angular-springboot-crud/.github/workflows/build.yml](../java/angular_springboot/angular-springboot-crud/.github/workflows/build.yml#L48-L51) - runs `npm run test:ci` (→ `ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadless`) and `npm run build` (→ `ng build`) — transitive coverage via npm scripts in [crud-angular/package.json#L7-L10](../java/angular_springboot/angular-springboot-crud/crud-angular/package.json#L7-L10).
 
 **Example:**
 ```bash
@@ -253,7 +253,8 @@ ng test --browsers=ChromeHeadless
   - Remote (submodule @ branch `main`): [package.json#L13](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L13)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](../typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml#L31) - `npm run build` resolves via [package.json#L10](../typescript/nest_/nestjs_tsx/package.json#L10) to `nest build` — transitive coverage via npm script (production-side of the same Nest CLI).
+  - Remote (submodule @ branch `main`): [.github/workflows/deploy.yml#L31](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/.github/workflows/deploy.yml#L31)
 
 **Example:**
 ```bash
@@ -272,7 +273,11 @@ nest start --debug --watch
   - Remote (submodule @ branch `typescript`): [package.json](https://github.com/aqwertyuiop48/solid_app/blob/typescript/package.json)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/solid_/solid_app/package.json`; `typescript/solid_/solid_ts/solid_app/package.json`
 
 **Example:**
 ```bash
@@ -288,7 +293,11 @@ vinxi build && vinxi start
   - Remote (submodule @ branch `main`): [package.json#L7-L16](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L7-L16)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/qwik_/qwik-app/package.json`
 
 **Example:**
 ```bash
@@ -307,7 +316,11 @@ qwik build preview && vite preview --open
   - Remote (submodule @ branch `typescript`): [package.json#L10](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/typescript/package.json#L10)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/adonis_/serverless-adonis-ts/package.json`; `typescript/adonis_/serverless-adonis/package.json`
 
 **Example:**
 ```bash
@@ -333,7 +346,7 @@ Frameworks listed in [javascript.md](javascript.md#3-framework-dev-servers-singl
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](../javascript/next_/nextjs_news_search_microservices/package.json#L8) to `next build` — transitive coverage of the TypeScript Next.js pipeline (TS sources confirmed via [tsconfig.json](../javascript/next_/nextjs_news_search_microservices/tsconfig.json) and `*.tsx` app routes).
 
 **Example:**
 ```bash
@@ -350,7 +363,11 @@ next build && next start
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"` (TS dep on Vite + Vitest)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`; `javascript/new_frameworks/tanstack-start/package.json`; `typescript/qwik_/qwik-app/package.json`
 
 **Example:**
 ```bash
@@ -366,7 +383,11 @@ vite preview
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -381,7 +402,11 @@ remix dev
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -403,7 +428,13 @@ yarn rw test
 - [typescript/nest_/nestjs_tsx/package.json](../typescript/nest_/nestjs_tsx/package.json#L18) - `"test": "jest"`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nest_/nestjs_app/package.json`; `typescript/nest_/nestjs_js/package.json`; `typescript/nest_/nestjs_tsx/package.json`
+- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml) _(rule R1)_ — covers `javascript/nest_/nestjs_app/package.json`
+- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml) _(rule R1)_ — covers `typescript/nest_/nestjs_tsx/package.json`
 
 **Example:**
 ```bash
@@ -419,7 +450,7 @@ jest --config ./test/jest-e2e.json
 - [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) - `npx vitest run --coverage` — direct CI coverage over TS specs at [tests/lib/nyt.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/lib/nyt.test.ts), [tests/lib/guardian.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/lib/guardian.test.ts), and [tests/api/search.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/api/search.test.ts).
 
 **Example:**
 ```bash
@@ -436,7 +467,12 @@ vitest run --coverage
     - Remote (submodule @ branch `golang_`): [main.yml#L27](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
+- [golang/codeforces_script/.github/workflows/main.yml](golang/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
 
 **Example:**
 ```bash
@@ -452,7 +488,11 @@ npx playwright test
   - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
 
 **Example:**
 ```bash
@@ -473,7 +513,13 @@ stencil test --spec --e2e
   - Remote (submodule @ branch `main`): [Dockerfile#L4-L19](https://github.com/aqwertyuiop48/my_angular_app/blob/main/Dockerfile#L4-L19)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/angular_/my_angular_app/Dockerfile`; `javascript/next_/nextjs_app_typescript/Dockerfile`
+- [javascript/angular_/my_angular_app/.github/workflows/main.yml](javascript/angular_/my_angular_app/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/angular_/my_angular_app/Dockerfile`
+- [javascript/next_/nextjs_app_typescript/.github/workflows/main.yml](javascript/next_/nextjs_app_typescript/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app_typescript/Dockerfile`
 
 **Example:**
 ```dockerfile

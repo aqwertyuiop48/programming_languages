@@ -194,6 +194,9 @@ yaegi run /tmp/hello.go
 - [java/temporal/edu-101-java-code/.gitpod.yml](../java/temporal/edu-101-java-code/.gitpod.yml#L51-L70) - "Temporal server" / additional task entries
   - Remote: [.gitpod.yml#L51-L70](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/.gitpod.yml#L51-L70)
 
+Related root CI that syncs the submodule (but does not run the worker/starter):
+- [.github/workflows/main.yml#L193](../.github/workflows/main.yml#L193) — root bulk-sync workflow does `cd java/temporal/edu-101-java-code && git pull` (submodule sync only; no `go run` of the Temporal worker/starter).
+
 Invoked manually via two terminals or the `ex4w` / `ex4s` bash aliases.
 
 **Example:**
@@ -290,7 +293,11 @@ go run client.go
 - [javascript/next_/nextjs_app/api/entrypoint.go](../javascript/next_/nextjs_app/api/entrypoint.go) - Same pattern under a Next.js project
   - Remote (submodule `javascript/next_/nextjs_app` @ branch `main`): [api/entrypoint.go](https://github.com/aqwertyuiop48/nextjs_app/blob/main/api/entrypoint.go)
 
-**Workflow yml (executes in CI):** None. There is no GitHub Actions workflow that compiles the Vercel Go function — by design, the build runs on Vercel's infrastructure after `git push`. Vercel auto-detects `api/*.go`, runs `go build` server-side, and deploys the binary as a serverless function. The deploy is invoked manually via `vercel --prod` (see readme above) or by Vercel's git-push integration. (Neither submodule — `golang_vercel` nor `nextjs_app` — ships a `.github/workflows/*.yml` step that exercises the Go function.)
+**Workflow yml (executes in CI):** None that compiles the Vercel Go function itself — by design, the Go build runs on Vercel's infrastructure after `git push`. Vercel auto-detects `api/*.go`, runs `go build` server-side, and deploys the binary as a serverless function. The deploy is invoked manually via `vercel --prod` (see readme above) or by Vercel's git-push integration.
+
+Related submodule CI that runs adjacent to (but does not exercise) the Go function:
+- [javascript/next_/nextjs_app/.github/workflows/main.yml](../javascript/next_/nextjs_app/.github/workflows/main.yml) — the `nextjs_app` submodule does ship a workflow, but it only does `docker build` of the Next.js image (which packages the JS app, not `api/entrypoint.go`). The Go function stays a Vercel-only deploy artifact.
+- [.github/workflows/main.yml#L94](../.github/workflows/main.yml#L94) — root bulk-sync workflow does `cd golang/golang_/golang_vercel && git pull` (submodule sync only; no `go build` invoked).
 
 **Example:**
 ```bash

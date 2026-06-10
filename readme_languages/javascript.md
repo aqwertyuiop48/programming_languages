@@ -113,7 +113,7 @@ node scripts/solidity_in_js.js
 - [java/readme.txt](../java/readme.txt#L557) - `processBuilder.command("node", "-e", strings)` (Java → Node)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L196-L205) - dedicated "node -e" demo step runs `node -e 'const msg = "Hello from node -e!"; console.log(msg); ...'` — direct CI coverage.
 
 **Example:**
 ```bash
@@ -274,7 +274,8 @@ Each entry below is a single CLI invocation that takes the framework's source tr
 - [javascript/turborepo-with-hono/apps/web/package.json](../javascript/turborepo-with-hono/apps/web/package.json#L7) - `next dev --turbopack --port 3001`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](../javascript/next_/nextjs_news_search_microservices/package.json#L8) to `next build` — transitive coverage via npm script.
+- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](../javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml#L38) - `npm run build` (within a Next-adjacent NestJS deploy) similarly invokes the framework CLI build pipeline.
 
 **Example:**
 ```bash
@@ -290,7 +291,11 @@ next build && next start
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/nuxtjs-boilerplate/blob/main/package.json#L4-L5)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nuxt_/nuxtjs-boilerplate/package.json`
 
 **Example:**
 ```bash
@@ -310,7 +315,11 @@ nuxt dev
   - Remote (submodule @ branch `main`): [package.json#L38-L40](https://github.com/aqwertyuiop48/ionic_app/blob/main/package.json#L38-L40)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/app_clones/Video-Meeting/package.json`; `javascript/ionic__/ionic_app/package.json`; `javascript/react_/my_react_app/package.json`; `javascript/react_/my_react_app_main/package.json`
 
 **Example:**
 ```bash
@@ -328,7 +337,11 @@ react-scripts test
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L6-L8)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/tanstack-start/package.json`; `javascript/vue_/vue_project/package.json`
 
 **Example:**
 ```bash
@@ -344,7 +357,11 @@ vite preview      # serve build output
   - Remote (submodule @ branch `main`): [package.json#L4-L7](https://github.com/aqwertyuiop48/gatsby/blob/main/package.json#L4-L7)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/gatsby_/gatsby/package.json`
 
 **Example:**
 ```bash
@@ -360,7 +377,11 @@ gatsby serve
   - Remote (submodule @ branch `main`): [package.json#L5-L6](https://github.com/aqwertyuiop48/remix/blob/main/package.json#L5-L6)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/remix_/remix/package.json`
 
 **Example:**
 ```bash
@@ -375,7 +396,11 @@ remix dev
   - Remote (submodule @ branch `main`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/main/README.md#L20)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -391,7 +416,11 @@ yarn rw test
   - Remote (submodule @ branch `main`): [package.json#L7-L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L7-L9)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
 
 **Example:**
 ```bash
@@ -406,7 +435,11 @@ stencil build --dev --watch --serve
   - Remote (submodule @ branch `main`): [package.json#L9-L11](https://github.com/aqwertyuiop48/brunch/blob/main/package.json#L9-L11)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/brunch_/brunch/package.json`
 
 **Example:**
 ```bash
@@ -421,7 +454,11 @@ brunch watch --server
   - Remote (submodule @ branch `main`): [package.json#L4](https://github.com/aqwertyuiop48/umijs/blob/main/package.json#L4)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/umijs_/umijs/package.json`
 
 **Example:**
 ```bash
@@ -436,7 +473,11 @@ NODE_OPTIONS=--openssl-legacy-provider umi dev
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/nx-monorepo/blob/main/package.json#L5-L7)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nx_/nx-monorepo/package.json`
 
 **Example:**
 ```bash
@@ -452,7 +493,11 @@ nx serve
 - [javascript/saas-microservices/package.json](../javascript/saas-microservices/package.json#L7-L10) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/saas-microservices/package.json`; `javascript/turborepo-with-hono/package.json`
 
 **Example:**
 ```bash
@@ -471,7 +516,11 @@ turbo run build
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L7)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/adonis/serverless-adonis/package.json`; `javascript/express_/JavaScript-Applications/package.json`; `javascript/koa_/koa_project/package.json`
 
 **Example:**
 ```bash
@@ -508,7 +557,12 @@ sirv public --no-clear
   - Remote (submodule @ branch `main`): [package.json#L17-L19](https://github.com/aqwertyuiop48/ember/blob/main/package.json#L17-L19)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/ember_/ember/package.json`
+- [javascript/ember_/ember/.travis.yml](javascript/ember_/ember/.travis.yml) _(rule R1)_ — covers `javascript/ember_/ember/package.json`
 
 **Example:**
 ```bash
@@ -525,7 +579,11 @@ ember test
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L6-L8)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/svelte_/svelte/package.json`
 
 **Example:**
 ```bash
@@ -541,7 +599,11 @@ sirv public --no-clear   # serve the build/
   - Remote (submodule @ branch `main`): [package.json#L6-L7](https://github.com/aqwertyuiop48/parcel/blob/main/package.json#L6-L7)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/parcel/package.json`
 
 **Example:**
 ```bash
@@ -557,7 +619,11 @@ parcel build
   - Remote (submodule @ branch `main`): [package.json#L4-L9](https://github.com/aqwertyuiop48/nitro/blob/main/package.json#L4-L9)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/nitro/package.json`
 
 **Example:**
 ```bash
@@ -573,7 +639,11 @@ nitro build
   - Remote (submodule @ branch `main`): [package.json#L9-L14](https://github.com/aqwertyuiop48/polymer/blob/main/package.json#L9-L14)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/polymer/package.json`
 
 **Example:**
 ```bash
@@ -590,7 +660,11 @@ polymer test
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
 
 **Example:**
 ```bash
@@ -606,7 +680,11 @@ preact build
   - Remote (submodule @ branch `main`): [package.json#L8-L10](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L8-L10)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`
 
 **Example:**
 ```bash
@@ -622,7 +700,11 @@ shopify hydrogen build
   - Remote (submodule @ branch `main`): [package.json#L8-L9](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L8-L9)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/storybook/package.json`
 
 **Example:**
 ```bash
@@ -642,7 +724,11 @@ storybook build
   - Remote (submodule @ branch `main`): [package.json#L18-L21](https://github.com/aqwertyuiop48/eleventy/blob/main/package.json#L18-L21)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/eleventy/package.json`
 
 **Example:**
 ```bash
@@ -658,7 +744,11 @@ eleventy --watch
   - Remote (submodule @ branch `main`): [package.json#L20-L21](https://github.com/aqwertyuiop48/hexo/blob/main/package.json#L20-L21)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hexo/package.json`
 
 **Example:**
 ```bash
@@ -674,7 +764,11 @@ hexo generate
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/vuepress/blob/main/package.json#L4-L5)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vuepress/package.json`
 
 **Example:**
 ```bash
@@ -690,7 +784,11 @@ vuepress build src
   - Remote (submodule @ branch `main`): [package.json#L11-L13](https://github.com/aqwertyuiop48/vitepress/blob/main/package.json#L11-L13)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vitepress/package.json`
 
 **Example:**
 ```bash
@@ -706,7 +804,11 @@ vitepress serve docs
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/docusaurus/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus/package.json`
 
 **Example:**
 ```bash
@@ -722,7 +824,11 @@ docusaurus-build
   - Remote (submodule @ branch `main`): [package.json#L5-L10](https://github.com/aqwertyuiop48/docusaurus-2/blob/main/package.json#L5-L10)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus-2/package.json`
 
 **Example:**
 ```bash
@@ -743,7 +849,11 @@ docusaurus serve
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L8)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
 
 **Example:**
 ```bash
@@ -780,7 +890,15 @@ npx vitest run --coverage
 - [javascript/webdriver_io/package.json](../javascript/webdriver_io/package.json#L7) - `@wdio/mocha-framework` (WebdriverIO using Mocha as its test runner)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/package.json`; `solidity__/codeforces_script/package-lock.json`
+- [.github/workflows/webdriver_io.yml](.github/workflows/webdriver_io.yml) _(rule R2)_ — covers `javascript/webdriver_io/package.json`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](QA/cypress_/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/package.json`
+- [solidity__/codeforces_script/.github/workflows/main.yml](solidity__/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
+- [solidity__/codeforces_script/.github/workflows/mains.yml](solidity__/codeforces_script/.github/workflows/mains.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
 
 **Example:**
 ```bash
@@ -897,7 +1015,14 @@ nbb hello.cljs
   - Remote (submodule @ branch `cypress_testing`): [Dockerfile#L22-L25](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/Dockerfile#L22-L25)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/Dockerfile`; `javascript/next_/nextjs_app/Dockerfile`; `javascript/next_/nextjs_news_search_microservices/Dockerfile`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](QA/cypress_/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/Dockerfile`
+- [javascript/next_/nextjs_app/.github/workflows/main.yml](javascript/next_/nextjs_app/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app/Dockerfile`
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml) _(rule R1)_ — covers `javascript/next_/nextjs_news_search_microservices/Dockerfile`
 
 **Example:**
 ```dockerfile
@@ -927,7 +1052,14 @@ docker run -p 3000:3000 my-node-app
   - Remote (submodule @ branch `javac_`): [DataStructures.java#L1040](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L1040)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main.yml](java/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main_kotlin.yml](java/codeforces_script/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main_kotlin_gradle.yml](java/codeforces_script/.github/workflows/main_kotlin_gradle.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
 
 **Example:**
 ```java
@@ -967,7 +1099,16 @@ child.stdout.pipe(process.stdout);
   - Remote (submodule @ branch `cpp_`): [trial.cpp#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+Transitively exercised in CI via the following workflow(s) — the
+subsection's documented file(s) are inside submodules/directories
+that are built, tested, or referenced by these workflows:
+
+- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`; `golang/codeforces_script/execute/1_nested_functions.go`; `objective_c_cpp/codeforces_script/hello.mm`; `ruby/codeforces_script/execute/child.rb`
+- [CPP/codeforces_script/.github/workflows/builds.yml](CPP/codeforces_script/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/main.yml](CPP/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [golang/codeforces_script/.github/workflows/main.yml](golang/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/execute/1_nested_functions.go`
+- [objective_c_cpp/codeforces_script/.github/workflows/main.yml](objective_c_cpp/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `objective_c_cpp/codeforces_script/hello.mm`
+- [ruby/codeforces_script/.github/workflows/main.yml](ruby/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `ruby/codeforces_script/execute/child.rb`
 
 **Example (Go):**
 ```go
