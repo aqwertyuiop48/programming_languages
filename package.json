@@ -5,5 +5,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "mac": "git pull origin main && git submodule update --init --force --remote && git add . && git commit -m \"Message\" && git push origin main",
     "windows": "git pull origin main ; git submodule update --init --force --remote ; git add . ; git commit -m \"Message\" ; git push origin main"
+  },
+  "dependencies": {
+    "sprintf-js": "^1.1.3"
   }
 }

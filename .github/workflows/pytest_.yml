@@ -277,3 +277,50 @@ jobs:
         (println (str "Sum: " (reduce + [1 2 3 4 5])))
         EOF
         nbb /tmp/hello.cljs
+
+    - name: node child_process.spawn/exec("node", ...) from JS  (javascript.md §9.2)
+      run: |
+        node -e "require('child_process').spawn('node',['-e','console.log(2+3)']).stdout.pipe(process.stdout)"
+        node -e "require('child_process').exec('node -e \"console.log(42)\"', (e,o)=>process.stdout.write(o))"
+
+    - name: node child_process.execFile -> perl -e  (perl.md §3.1)
+      run: |
+        node -e "require('child_process').execFile('perl',['-e','print \"hi from perl-via-node\\n\"'],(e,o)=>process.stdout.write(o))"
+
+    - name: go -> node -e -> perl -e  (perl.md §3.2 — nested polyglot)
+      run: |
+        cat > /tmp/g2np.go <<'EOF'
+        package main
+        import ("os/exec"; "os")
+        func main() {
+            out, _ := exec.Command("node", "-e", `require('child_process').execFile('perl',['-e','print "hi from go-via-node-via-perl\n"'],(e,o)=>process.stdout.write(o))`).Output()
+            os.Stdout.Write(out)
+        }
+        EOF
+        go run /tmp/g2np.go
+
+    - name: rust Command -> python -c  (rust.md §5.2)
+      run: |
+        cat > /tmp/r2py.rs <<'EOF'
+        use std::process::{Command, Stdio};
+        fn main() {
+            let out = Command::new("python3")
+                .args(&["-c", "print('hi from python-via-rust', 2+2)"])
+                .stdout(Stdio::piped())
+                .output()
+                .expect("failed");
+            print!("{}", String::from_utf8_lossy(&out.stdout));
+        }
+        EOF
+        rustc -O /tmp/r2py.rs -o /tmp/r2py
+        /tmp/r2py | tee /tmp/r2py.out
+        grep -F 'hi from python-via-rust 4' /tmp/r2py.out
+
+    - name: ts-node <file.ts> -> child_process.exec("node -e …")  (typescript.md §6.1)
+      run: |
+        cat > /tmp/ts_cp_exec.ts <<'EOF'
+        import { exec } from 'child_process';
+        exec(`node -e "console.log(2 + 3)"`, (_e, stdout) => process.stdout.write(stdout));
+        EOF
+        TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' ts-node /tmp/ts_cp_exec.ts | tee /tmp/ts_cp_exec.out
+        grep -F '5' /tmp/ts_cp_exec.out

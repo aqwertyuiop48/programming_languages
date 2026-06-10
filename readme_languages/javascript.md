@@ -1075,7 +1075,7 @@ int result = (int) Context.create("js").eval("js", "1 + 2 * 3").asDouble();
 - [typescript/inputs/nested_child_process.js](../typescript/inputs/nested_child_process.js#L4) - `exec(\`node -e "console.log(2)"\`)` (compiled JS form)
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L271-L274) - inline shim runs `node -e "require('child_process').spawn('node',['-e','console.log(2+3)'])…"` and the analogous `exec(\`node -e "console.log(42)"\`)` form. The two `typescript/inputs/*.js` files in Locations above are not invoked directly (`shell_java_.js` has hardcoded macOS paths in its `child1`), but the §9.2 method itself — `spawn`/`exec` of a fresh `node` subprocess — is exercised end-to-end.
 
 **Example:**
 ```js

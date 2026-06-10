@@ -248,7 +248,10 @@ curl http://localhost:8080/hello
 
 The pattern is the same `nohup go run … &` + `curl` skeleton as the reference template in [`golang/codeforces_script/.github/workflows/main.yml#L78-L100`](../golang/codeforces_script/.github/workflows/main.yml#L78-L100), but retargeted at `6_go_movies_crud/main.go` with `:8080/movies` instead of the single-file `:8080/hello` server, and uses `jq` for assertions instead of Playwright (no value in screenshotting raw JSON responses).
 
-> The polyglot bridge in [golang/6_go_movies_crud_1/main_3.go](../golang/6_go_movies_crud_1/main_3.go) (Go → Python `subprocess` → `goeval` embedded REST server) is NOT covered by this workflow — it requires the `goeval` install preamble exercised separately in [`golang/codeforces_script/.github/workflows/main.yml#L40-L51`](../golang/codeforces_script/.github/workflows/main.yml#L40-L51).
+The `6_go_movies_crud_1/main_3.go` variant (same gorilla/mux server, but reached through a Go → Python `os/exec` → goeval polyglot chain) is exercised by the `go` matrix entry of:
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L89-L106) - `nohup go run main_3.go &` then the same 5-endpoint CRUD battery + jq assertions
+
+The other two polyglot variants in `6_go_movies_crud_1/` (Python-driven, Node-driven) wrap the same server through `goeval` and are documented under §6.1 and §6.3 respectively.
 
 **Example:**
 ```bash
@@ -268,11 +271,14 @@ curl -X POST -H "Content-Type: application/json" \
 - [golang/5_socket_programming/server_2.go](../golang/5_socket_programming/server_2.go), [client_2.go](../golang/5_socket_programming/client_2.go) - Variant pair
 - [golang/5_socket_programming/readme.md](../golang/5_socket_programming/readme.md#L1-L20) - Run instructions
 
-**Workflow yml (executes in CI):** None. No GitHub Actions workflow exercises the TCP socket pair end-to-end (would require backgrounding the server before launching the client). The reusable background-then-foreground skeleton is:
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L84) - Reference template: `nohup go run … &` + `sleep 10` (would background `server.go`, then a follow-on step would `go run client.go`)
-  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L84](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L84)
+**Workflow yml (executes in CI):**
+- [.github/workflows/go_socket_programming.yml](../.github/workflows/go_socket_programming.yml#L27-L46) - matrix over `pair1` (server.go + client.go on :9988, single request/response) and `pair2` (server_2.go + client_2.go on :8000, streaming numbered lines)
+- [.github/workflows/go_socket_programming.yml](../.github/workflows/go_socket_programming.yml#L60-L78) - per matrix entry: `nohup go run <server> &` then 60 s readiness loop using bash's `/dev/tcp/127.0.0.1/<port>` probe (no `nc` needed)
+- [.github/workflows/go_socket_programming.yml](../.github/workflows/go_socket_programming.yml#L80-L93) - runs the client; for the streaming pair2 it's wrapped in `timeout --preserve-status -s INT 5 go run client_2.go` so the infinite reconnect loop exits cleanly
+- [.github/workflows/go_socket_programming.yml](../.github/workflows/go_socket_programming.yml#L95-L104) - asserts both halves saw the expected exchange via `grep -F`: pair1 checks `Received:  Hello Server! Greetings.` / `Thanks! Got your message:Hello Server! Greetings.`; pair2 checks `data from server` in both logs
+- [.github/workflows/go_socket_programming.yml](../.github/workflows/go_socket_programming.yml#L106-L117) - teardown + uploads `socket_out_<pair>/{server,client}.log` as `go-socket-<pair>-artifacts`
 
-Invoked manually in two terminals.
+The pattern mirrors the reference background-then-foreground skeleton at [`golang/codeforces_script/.github/workflows/main.yml#L78-L84`](../golang/codeforces_script/.github/workflows/main.yml#L78-L84) (`nohup go run … &` + `sleep`), but replaces `sleep`/`curl` with `/dev/tcp` (TCP socket, no HTTP) and adds `timeout` for the streaming variant.
 
 **Example:**
 ```bash
@@ -325,9 +331,13 @@ vercel . && vercel --prod
 - [golang/6_go_movies_crud_1/main_2.py](../golang/6_go_movies_crud_1/main_2.py#L2) - `subprocess.run(["goeval", '''<go>'''])`
 - [golang/3_go_server/server_2/main_2.py](../golang/3_go_server/server_2/main_2.py#L2) - Same pattern
 
-**Workflow yml (executes in CI):** None for the bridge itself — no GitHub Actions step invokes `main_2.py`. The prerequisite `goeval` install + PATH setup that this bridge depends on lives in:
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L51) - "Clone goeval repository" + "Install goeval" + "Add Go bin directory to PATH" (reusable preamble)
+**Workflow yml (executes in CI):**
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L57-L67) - installs `goeval` (clone + `go install .`) and exposes it on PATH — the prerequisite for the whole bridge
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L89-L106) - `python main_2.py` matrix entry: launches the Python script in the background, polls `:8080/movies` up to 60 s (goeval first compiles the embedded snippet), then runs the 5-endpoint CRUD battery (§4.2-style) + jq assertions
+- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L40-L51) - reference `goeval` preamble that this workflow mirrors
   - Remote: [golang/codeforces_script/.github/workflows/main.yml#L40-L51](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L40-L51)
+
+> The second `main_2.py` listed under Locations (in `golang/3_go_server/server_2/`) follows the same pattern but is not bundled into a workflow — its Go server target is different from the gorilla/mux CRUD server.
 
 **Example:**
 ```python
@@ -358,4 +368,23 @@ import "fmt"
 fmt.Println("hi from nodejs-driven goeval")
 `;
 cp.execFile("goeval", [goSrc], (e, out) => console.log(out));
+```
+
+### 6.3 Node.js child_process.execFile ➜ python -c ➜ subprocess ➜ goeval
+**Method:** A three-language chain — Node.js builds a Python snippet (which itself contains a Go snippet as a `subprocess.run(["goeval", ...])` call), then spawns `python -c "<that snippet>"` via `child_process.execFile`. Node receives the goeval-emitted Go stdout transitively, through Python, back through the Node callback. Effectively `node main_2.js` boots the same gorilla/mux REST server that §4.2 runs natively, but through two extra interpreter hops.
+
+**Locations:**
+- [golang/6_go_movies_crud_1/main_2.js](../golang/6_go_movies_crud_1/main_2.js#L1-L116) - `runner.execFile("python", ["-c", python_go_main], ...)` where `python_go_main` wraps the gorilla/mux server in `subprocess.run(["goeval", ...])`
+
+**Workflow yml (executes in CI):**
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L57-L67) - shared `goeval` install + PATH setup
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L70-L73) - `npm install sprintf-js` (Node helper dep required by `main_2.js`)
+- [.github/workflows/go_movies_crud_1.yml](../.github/workflows/go_movies_crud_1.yml#L89-L106) - `node main_2.js` matrix entry: same background-launch + 60 s readiness poll + 5-endpoint CRUD battery + jq assertions as §6.1
+
+**Example:**
+```bash
+cd golang/6_go_movies_crud_1
+npm install sprintf-js
+node main_2.js &
+curl http://localhost:8080/movies
 ```

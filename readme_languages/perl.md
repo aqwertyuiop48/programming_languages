@@ -192,7 +192,7 @@ perl -i.bak -pe 's/foo/FOO/' file.txt
 - [javascript/readme.ipynb](../javascript/readme.ipynb#L1136-L1137) - Additional networking
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L286-L288) - inline shim `node -e "require('child_process').execFile('perl',['-e','print \"hi from perl-via-node\\n\"'],...)"`. Perl is preinstalled on the `ubuntu-latest` runner, so no setup action is needed. The `.ipynb` cells in Locations above are not run directly (no `jupyter nbconvert`/`papermill` runner in the repo), but the §3.1 method itself — Node → Perl via `execFile` — is exercised end-to-end.
 
 **Example:**
 ```js
@@ -208,7 +208,7 @@ cp.execFile('perl', ['-e', code], (e, out) => console.log(out));
 - [golang/readme.txt](../golang/readme.txt#L50-L97) - Full nested example; Perl code embedded in Go-generated Node string at line 59
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L290-L300) - inline shim writes a minimal `/tmp/g2np.go` whose `main()` does `exec.Command("node", "-e", \`require('child_process').execFile('perl',['-e','print "hi from go-via-node-via-perl\\n"'],...)\`)`, then `go run /tmp/g2np.go`. Go is preinstalled at `/usr/local/go/bin/go` on `ubuntu-latest`, Node from `setup-node@v4` earlier in the job, Perl from the base image — all three runtimes available without extra setup. The `golang/readme.txt` reference in Locations is a plain doc file (never executed directly), but the §3.2 method itself — Go → Node → Perl — is exercised end-to-end.
 
 **Example:**
 ```go

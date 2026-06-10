@@ -366,7 +366,10 @@ pytest    # runs the .feature via pytest-bdd
 - [Python/robot_/requirements.txt](../Python/robot_/requirements.txt#L1) - `robotframework==...`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/robot_.yml](../.github/workflows/robot_.yml#L22-L26) - `pip install -r Python/robot_/requirements.txt` (pulls `robotframework==4.0.3`, `robotframework-requests==0.9.3`, `requests==2.26.0`)
+- [.github/workflows/robot_.yml](../.github/workflows/robot_.yml#L28-L31) - `robot --outputdir robot_out search_test.robot` runs the suite end-to-end (single test `Test Robot Get Data` hits `https://jsonplaceholder.typicode.com/posts`)
+- [.github/workflows/robot_.yml](../.github/workflows/robot_.yml#L33-L40) - asserts `output.xml`/`log.html`/`report.html` exist and that `output.xml` contains both the test name and `status="PASS"`
+- [.github/workflows/robot_.yml](../.github/workflows/robot_.yml#L42-L47) - uploads `Python/robot_/robot_out/` as `robot-framework-artifacts`
 
 **Example:**
 ```bash

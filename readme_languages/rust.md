@@ -215,7 +215,7 @@ println!("{}", String::from_utf8_lossy(&output.stdout));
 - [rust/_2_child_process_input.rs](../rust/_2_child_process_input.rs#L1-L45) - Multiple `python -c` invocations with `Stdio::piped`
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L302-L317) - inline shim writes a minimal `/tmp/r2py.rs` whose `main()` does `Command::new("python3").args(&["-c", "print('hi from python-via-rust', 2+2)"]).stdout(Stdio::piped()).output()`, then `rustc -O /tmp/r2py.rs -o /tmp/r2py && /tmp/r2py`, asserted with `grep -F 'hi from python-via-rust 4'`. Rust (`rustc`/`cargo`) and `python3` are both preinstalled on `ubuntu-latest`, so no setup action is needed. The `rust/_2_child_process_input.rs` file in Locations also reads from stdin (`Enter the number of apples`) so it can't be invoked directly in non-interactive CI, but the §5.2 method itself — `Command::new("python").args(&["-c", …]).stdout(Stdio::piped()).output()` — is exercised end-to-end.
 
 **Example:**
 ```rust

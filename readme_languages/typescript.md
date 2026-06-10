@@ -548,7 +548,7 @@ CMD ["node", "dist/main.js"]
 - [typescript/inputs/nested_child_process.ts](../typescript/inputs/nested_child_process.ts#L3) - `exec(\`node -e "console.log(2)"\`)` from TypeScript
 
 **Workflow yml (executes in CI):**
-None — no GitHub Actions workflow exercises this method end-to-end in this repository. Invoked manually per the example below.
+- [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L319-L326) - writes a minimal `/tmp/ts_cp_exec.ts` whose body is `import { exec } from 'child_process'; exec(\`node -e "console.log(2 + 3)"\`, (_e, stdout) => process.stdout.write(stdout));`, then `ts-node /tmp/ts_cp_exec.ts`, asserted with `grep -F '5'`. `ts-node` and `typescript` are installed globally earlier in the job (`npm install -g ts-node typescript tsx`), and the spawned `node -e` uses the same Node runtime — no extra setup needed. The repo's own [typescript/inputs/nested_child_process.ts](../typescript/inputs/nested_child_process.ts) (and the sibling `_helper.ts`) carry hardcoded `/Users/sreedhar.k/.nvm/versions/node/v16.10.0/...` macOS paths in their `tsc --typeRoots …` invocations and so can't be run directly in Linux CI, but the §6.1 method itself — `.ts` source → `ts-node` → `child_process.exec("node -e …")` — is exercised end-to-end.
 
 **Example:**
 ```ts
