@@ -240,16 +240,24 @@ curl http://localhost:8080/hello
 - [golang/6_go_movies_crud/readme.md](../golang/6_go_movies_crud/readme.md#L4) - Run instructions
 - [golang/6_go_movies_crud_1/readme.md](../golang/6_go_movies_crud_1/readme.md#L4) - Run instructions
 
-**Workflow yml (executes in CI):** None. No GitHub Actions workflow in this repo exercises the gorilla/mux servers end-to-end. The reusable skeleton that *would* drive them is the §1.3 / §4.1 background-server pattern:
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L78-L100) - Reference template: `nohup go run … &` + `sleep` + `curl` (could be retargeted at `6_go_movies_crud/main.go` with `:8080/movies`)
-  - Remote: [golang/codeforces_script/.github/workflows/main.yml#L78-L100](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L78-L100)
+**Workflow yml (executes in CI):**
+- [.github/workflows/go_movies_crud.yml](../.github/workflows/go_movies_crud.yml#L26-L48) - dedicated pipeline: `go mod tidy` + `go mod download` in `golang/6_go_movies_crud/`, then `nohup go run main.go &` with a 30 s readiness loop polling `:8080/movies`
+- [.github/workflows/go_movies_crud.yml](../.github/workflows/go_movies_crud.yml#L50-L85) - exercises all 5 CRUD endpoints with `curl`: `GET /movies`, `GET /movies/1`, `POST /movies`, `PUT /movies/1`, `DELETE /movies/2`, then re-`GET`s to capture final state — each response saved to `crud_out/0N_*.json`
+- [.github/workflows/go_movies_crud.yml](../.github/workflows/go_movies_crud.yml#L87-L101) - `jq` assertions: initial length is 2, `GET /movies/1` returns "Movie One", `POST` returns "Movie Three", `PUT` updates title, final length is 2 after DELETE + POST, and `id == "2"` is gone
+- [.github/workflows/go_movies_crud.yml](../.github/workflows/go_movies_crud.yml#L103-L122) - teardown: kills the background `go run` PID, tails `server.log`, uploads `crud_out/` as the `go-movies-crud-artifacts` artifact
 
-Invoked manually with `go run main.go` then `curl http://localhost:8080/movies`.
+The pattern is the same `nohup go run … &` + `curl` skeleton as the reference template in [`golang/codeforces_script/.github/workflows/main.yml#L78-L100`](../golang/codeforces_script/.github/workflows/main.yml#L78-L100), but retargeted at `6_go_movies_crud/main.go` with `:8080/movies` instead of the single-file `:8080/hello` server, and uses `jq` for assertions instead of Playwright (no value in screenshotting raw JSON responses).
+
+> The polyglot bridge in [golang/6_go_movies_crud_1/main_3.go](../golang/6_go_movies_crud_1/main_3.go) (Go → Python `subprocess` → `goeval` embedded REST server) is NOT covered by this workflow — it requires the `goeval` install preamble exercised separately in [`golang/codeforces_script/.github/workflows/main.yml#L40-L51`](../golang/codeforces_script/.github/workflows/main.yml#L40-L51).
 
 **Example:**
 ```bash
-go run main.go
+cd golang/6_go_movies_crud
+go run main.go &
 curl http://localhost:8080/movies
+curl -X POST -H "Content-Type: application/json" \
+  -d '{"isbn":"99999","title":"Movie Three","director":{"firstname":"Ada","lastname":"Lovelace"}}' \
+  http://localhost:8080/movies
 ```
 
 ### 4.3 TCP Socket Server + Client (paired go run)
