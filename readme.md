@@ -94,6 +94,7 @@ alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_mod
 
 alias mac_public='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules_public.sh && ./add_modules_public.sh && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --force --recursive && git add . && git commit -m "Message" && git push origin main'
 
+
 <hr>
 
 Windows:
