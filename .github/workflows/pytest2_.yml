@@ -1,0 +1,321 @@
+name: Run Additional Language Execution Methods (pytest2)
+
+# Additional ways to run the languages newly catalogued in
+# readme_languages/*.md (assembly, csharp, dart, elm, julia, matlab,
+# pascal, r, ruby, scilab, solidity). Each step exercises a method that
+# is NOT already covered by the language's existing CI workflow.
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # =====================================================================
+    # Toolchain setup
+    # =====================================================================
+
+    - name: Set up R
+      uses: r-lib/actions/setup-r@v2
+      with:
+        r-version: '4.3.0'
+
+    - name: Set up Julia
+      uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.11'
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+
+    - name: Set up Dart
+      uses: dart-lang/setup-dart@v1
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.x'
+
+    - name: Install Linux toolchain packages (fpc, octave, nasm, yasm, binutils)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y fpc octave nasm yasm binutils
+
+    # =====================================================================
+    # R — additional methods (r.md §2.3, §2.4, §2.5)
+    # =====================================================================
+
+    - name: R -e "..."  (interactive front-end inline expression — r.md §2.3)
+      run: |
+        R -e 'print("Hello from R -e!")'
+
+    - name: echo | Rscript -  (Rscript reads program from stdin — r.md §2.4)
+      run: |
+        echo 'print("Hello from Rscript via stdin!")' | Rscript -
+
+    - name: R CMD BATCH file.R  (legacy non-interactive batch — r.md §2.5)
+      run: |
+        cat > /tmp/hello_batch.R <<'EOF'
+        cat("Hello from R CMD BATCH!\n")
+        cat("R version: ", R.version.string, "\n", sep = "")
+        EOF
+        R CMD BATCH --no-save /tmp/hello_batch.R /tmp/hello_batch.Rout
+        cat /tmp/hello_batch.Rout
+
+    # =====================================================================
+    # Julia — additional methods (julia.md §2.1, §2.2, §2.3, §2.4)
+    # =====================================================================
+
+    - name: julia -e "..."  (inline expression — julia.md §2.1)
+      run: |
+        julia -e 'println("Hello from julia -e!"); println("Julia ", VERSION)'
+
+    - name: julia -E "..."  (print expression value — julia.md §2.2)
+      run: |
+        julia -E 'string("julia -E :: ", VERSION)'
+
+    - name: julia <<EOF  (heredoc on stdin — julia.md §2.3)
+      run: |
+        julia <<'EOF'
+        println("Hello from julia heredoc!")
+        nums = [1, 2, 3, 4, 5]
+        println("Sum: ", sum(nums))
+        EOF
+
+    - name: echo | julia  (program from stdin via pipe — julia.md §2.4)
+      run: |
+        echo 'println("Hello from julia via pipe!")' | julia
+
+    # =====================================================================
+    # Ruby — additional methods (ruby.md §6.1, §6.2, §6.3, §6.4)
+    # =====================================================================
+
+    - name: ruby -e "..."  (inline expression — ruby.md §6.1)
+      run: |
+        ruby -e 'puts "Hello from ruby -e!"; puts "Ruby: #{RUBY_VERSION}"'
+
+    - name: ruby -n -e "..."  (sed-like loop over stdin — ruby.md §6.2)
+      run: |
+        printf 'line1\nline2\nline3\n' | ruby -n -e 'puts "got: #{$_.chomp}"'
+
+    - name: irb <<EOF  (interactive REPL via heredoc — ruby.md §6.3)
+      run: |
+        irb --noprompt --noecho <<'EOF'
+        puts "Hello from irb heredoc!"
+        puts "Ruby: #{RUBY_VERSION}"
+        nums = [1, 2, 3, 4, 5]
+        puts "Sum: #{nums.sum}"
+        exit
+        EOF
+
+    - name: ruby -c file.rb  (syntax check only, no execution — ruby.md §6.4)
+      run: |
+        cat > /tmp/syntax_ok.rb <<'EOF'
+        puts "this is parsed but never executed"
+        EOF
+        ruby -c /tmp/syntax_ok.rb
+
+    # =====================================================================
+    # Dart — additional methods (dart.md §4.1, §4.2, §4.3)
+    # =====================================================================
+
+    - name: dart compile exe <file.dart> + ./binary  (AOT native — dart.md §4.1)
+      run: |
+        cat > /tmp/hello_aot.dart <<'EOF'
+        void main() {
+          print('Hello from dart compile exe (AOT)!');
+          final nums = [1, 2, 3, 4, 5];
+          print('Sum: ${nums.reduce((a, b) => a + b)}');
+        }
+        EOF
+        dart compile exe /tmp/hello_aot.dart -o /tmp/hello_aot_bin
+        /tmp/hello_aot_bin
+
+    - name: dart compile js <file.dart> + node out.js  (Dart -> JavaScript — dart.md §4.2)
+      run: |
+        cat > /tmp/hello_djs.dart <<'EOF'
+        void main() { print('Hello from dart compile js!'); }
+        EOF
+        dart compile js /tmp/hello_djs.dart -o /tmp/hello_djs.js
+        node /tmp/hello_djs.js | tee /tmp/hello_djs.out
+        grep -F 'Hello from dart compile js!' /tmp/hello_djs.out
+
+    - name: dart analyze  (static analysis — dart.md §4.3)
+      run: |
+        mkdir -p /tmp/dart_proj/bin
+        cd /tmp/dart_proj
+        cat > pubspec.yaml <<'EOF'
+        name: hello_analyze
+        environment:
+          sdk: ">=3.0.0 <4.0.0"
+        EOF
+        cat > bin/main.dart <<'EOF'
+        void main() { print('analyzed'); }
+        EOF
+        dart pub get
+        dart analyze
+
+    # =====================================================================
+    # Pascal — additional method (pascal.md §2.1)
+    # =====================================================================
+
+    - name: instantfpc <file.pas>  (script-mode runner, no separate compile — pascal.md §2.1)
+      run: |
+        if command -v instantfpc >/dev/null 2>&1; then
+          cat > /tmp/hello_inst.pas <<'EOF'
+        #!/usr/bin/env instantfpc
+        program Hello;
+        begin
+          writeln('Hello from instantfpc!');
+        end.
+        EOF
+          instantfpc /tmp/hello_inst.pas
+        else
+          echo "instantfpc not packaged in this fpc release; skipping"
+        fi
+
+    # =====================================================================
+    # Matlab — additional methods via GNU Octave (matlab.md §4.1, §4.2)
+    # Octave is a FOSS MATLAB-compatible runtime; runs the same .m sources.
+    # =====================================================================
+
+    - name: octave --eval "..."  (Octave inline expression — matlab.md §4.1)
+      run: |
+        octave --no-gui --eval 'disp("Hello from octave --eval!"); a = 3; b = 5; disp(["Sum: ", num2str(a+b)])'
+
+    - name: octave file.m  (Octave runs a .m file — matlab.md §4.2)
+      run: |
+        cat > /tmp/hello_oct.m <<'EOF'
+        disp('Hello from octave file!')
+        a = 3; b = 5;
+        disp(['Sum: ', num2str(a+b)])
+        EOF
+        octave --no-gui -q /tmp/hello_oct.m
+
+    # =====================================================================
+    # Solidity — additional method (solidity.md §3.1)
+    # =====================================================================
+
+    - name: Install solcjs (npm-published solc wrapper)
+      run: |
+        npm install -g solc
+
+    - name: solcjs --bin --abi <file.sol>  (direct CLI compile, no Hardhat — solidity.md §3.1)
+      run: |
+        mkdir -p /tmp/sol_out
+        cat > /tmp/sol_out/HelloWorld.sol <<'EOF'
+        // SPDX-License-Identifier: MIT
+        pragma solidity ^0.8.0;
+        contract HelloWorld {
+            string public greet = "Hello from solcjs!";
+        }
+        EOF
+        cd /tmp/sol_out
+        solcjs --bin --abi HelloWorld.sol
+        ls /tmp/sol_out/*.bin /tmp/sol_out/*.abi
+
+    # =====================================================================
+    # C# — additional method (csharp.md §4.1)
+    # =====================================================================
+
+    - name: Install dotnet-script
+      run: |
+        dotnet tool install -g dotnet-script --version 1.5.0
+        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+    - name: dotnet-script <file.csx>  (script file mode — csharp.md §4.1)
+      run: |
+        export PATH="$PATH:$HOME/.dotnet/tools"
+        cat > /tmp/hello.csx <<'EOF'
+        using System;
+        using System.Linq;
+        Console.WriteLine("Hello from dotnet-script file!");
+        var nums = new[] { 1, 2, 3, 4, 5 };
+        Console.WriteLine($"Sum: {nums.Sum()}");
+        EOF
+        dotnet-script /tmp/hello.csx
+
+    # =====================================================================
+    # Assembly — additional methods (assembly.md §4.1, §4.2)
+    # =====================================================================
+
+    - name: GNU as (AT&T syntax) + ld  (alternate assembler — assembly.md §4.1)
+      run: |
+        cat > /tmp/hello_gas.s <<'EOF'
+                .data
+        msg:    .ascii "Hello from GNU as (AT&T)!\n"
+        len = . - msg
+                .text
+                .globl _start
+        _start:
+                movq $1, %rax
+                movq $1, %rdi
+                leaq msg(%rip), %rsi
+                movq $len, %rdx
+                syscall
+                movq $60, %rax
+                xorq %rdi, %rdi
+                syscall
+        EOF
+        as /tmp/hello_gas.s -o /tmp/hello_gas.o
+        ld /tmp/hello_gas.o -o /tmp/hello_gas
+        /tmp/hello_gas | tee /tmp/hello_gas.out
+        grep -F 'Hello from GNU as' /tmp/hello_gas.out
+
+    - name: yasm -f elf64 + ld  (NASM-compatible alternate assembler — assembly.md §4.2)
+      run: |
+        cat > /tmp/hello_yasm.asm <<'EOF'
+        section .data
+            msg db "Hello from yasm!", 10
+            len equ $ - msg
+        section .text
+            global _start
+        _start:
+            mov rax, 1
+            mov rdi, 1
+            lea rsi, [rel msg]
+            mov rdx, len
+            syscall
+            mov rax, 60
+            xor rdi, rdi
+            syscall
+        EOF
+        yasm -f elf64 /tmp/hello_yasm.asm -o /tmp/hello_yasm.o
+        ld /tmp/hello_yasm.o -o /tmp/hello_yasm
+        /tmp/hello_yasm | tee /tmp/hello_yasm.out
+        grep -F 'Hello from yasm!' /tmp/hello_yasm.out
+
+    # =====================================================================
+    # Elm — additional method (elm.md §4.1)
+    # =====================================================================
+
+    - name: Install Elm
+      run: |
+        npm install -g elm
+
+    - name: elm repl <<EOF  (heredoc REPL stdin — elm.md §4.1)
+      run: |
+        mkdir -p /tmp/elm_repl_demo
+        cd /tmp/elm_repl_demo
+        # elm init asks for confirmation; pipe "Y" to accept.
+        yes | elm init >/dev/null 2>&1 || true
+        elm repl <<'EOF' || true
+        "Hello from elm repl heredoc!"
+        1 + 2
+        :exit
+        EOF
