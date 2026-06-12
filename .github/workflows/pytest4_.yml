@@ -5,6 +5,10 @@ name: Run more uncovered-language execution variants (D / Nim / Smalltalk / Prol
 # /workspaces/programming_languages/, complementing the languages
 # already exercised in pytest_.yml, pytest1_.yml, pytest2_.yml, and
 # pytest3_.yml. Same file / inline / stdin / heredoc / pipe style.
+#
+# Note: Smalltalk is installed via the Pharo one-liner
+# (curl https://get.pharo.org/64/ | bash), NOT apt — the
+# `gnu-smalltalk` package was dropped from Ubuntu 24.04 (noble).
 
 on:
   # push:
@@ -30,7 +34,6 @@ jobs:
         sudo apt-get install -y \
           gdc \
           nim \
-          gnu-smalltalk \
           swi-prolog \
           guile-3.0 \
           gforth \
@@ -90,23 +93,34 @@ jobs:
         echo 'echo "Hello from nim e! Sum: ", (1+2+3+4+5)' | nim e -
 
     # =====================================================================
-    # Smalltalk — apt: gnu-smalltalk (provides `gst`)
+    # Smalltalk (Pharo) — not in apt on Ubuntu 24.04; install via
+    # get.pharo.org one-liner (downloads VM + image into cwd).
     # =====================================================================
 
-    - name: gst <file.st>  (GNU Smalltalk file execution)
+    - name: Install Pharo (headless Smalltalk VM + image)
       run: |
+        mkdir -p /tmp/pharo && cd /tmp/pharo
+        # Downloads `pharo` launcher + `Pharo.image` + `Pharo.changes`.
+        curl -fsSL https://get.pharo.org/64/ | bash
+        ls -la /tmp/pharo
+
+    - name: pharo Pharo.image eval "..."  (Smalltalk inline expression)
+      run: |
+        cd /tmp/pharo
+        ./pharo --headless Pharo.image eval --save \
+          "'Hello from Pharo eval! Sum: ', ((1 to: 5) inject: 0 into: [:a :b | a + b]) printString"
+
+    - name: pharo Pharo.image st <file.st>  (Smalltalk file execution)
+      run: |
+        cd /tmp/pharo
         cat > /tmp/hello.st <<'EOF'
-        Transcript showCr: 'Hello from gst file!'.
         | sum |
+        Transcript show: 'Hello from Pharo st file!'; cr.
         sum := 0.
         1 to: 5 do: [:i | sum := sum + i].
-        Transcript showCr: 'Sum: ', sum printString.
+        Transcript show: 'Sum: ', sum printString; cr.
         EOF
-        gst /tmp/hello.st
-
-    - name: echo '...' | gst -  (Smalltalk program from stdin)
-      run: |
-        printf "Transcript showCr: 'Hello from gst via stdin!'.\n" | gst -
+        ./pharo --headless Pharo.image st --quit /tmp/hello.st
 
     # =====================================================================
     # Prolog — apt: swi-prolog

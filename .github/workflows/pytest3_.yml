@@ -166,9 +166,9 @@ jobs:
         EOF
         dotnet fsi /tmp/hello.fsx
 
-    - name: dotnet fsi --use:- <<EOF  (F# Interactive reading from stdin)
+    - name: dotnet fsi /dev/stdin <<EOF  (F# Interactive reading from stdin)
       run: |
-        dotnet fsi --use:- <<'EOF'
+        dotnet fsi /dev/stdin <<'EOF'
         printfn "Hello from dotnet fsi stdin heredoc!"
         let nums = [1; 2; 3; 4; 5]
         printfn "Sum: %d" (List.sum nums)
@@ -176,7 +176,7 @@ jobs:
 
     - name: dotnet fsi -e  (F# inline expression — emulated via stdin)
       run: |
-        echo 'printfn "Hello from dotnet fsi -e!"' | dotnet fsi --use:-
+        echo 'printfn "Hello from dotnet fsi -e!"' | dotnet fsi /dev/stdin
 
     # =====================================================================
     # OCaml — apt: ocaml
