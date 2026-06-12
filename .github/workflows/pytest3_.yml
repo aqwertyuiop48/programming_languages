@@ -7,9 +7,9 @@ name: Run uncovered-language execution variants (PHP / Haskell / Elixir / Erlang
 # pytest_.yml, pytest1_.yml, and pytest2_.yml.
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 jobs:

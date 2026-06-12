@@ -11,9 +11,9 @@ name: Run more uncovered-language execution variants (D / Nim / Smalltalk / Prol
 # `gnu-smalltalk` package was dropped from Ubuntu 24.04 (noble).
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 jobs:
