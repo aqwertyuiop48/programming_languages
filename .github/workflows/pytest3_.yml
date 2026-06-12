@@ -1,0 +1,358 @@
+name: Run uncovered-language execution variants (PHP / Haskell / Elixir / Erlang / F# / OCaml / Groovy / Tcl / Common Lisp / Racket / Fortran / Ada / AWK)
+
+# Languages that have NO dedicated folder anywhere under
+# /workspaces/programming_languages/ (and therefore no submodule
+# workflow exercising them). Each step exercises one execution method
+# in the same file / inline / stdin / heredoc style used by
+# pytest_.yml, pytest1_.yml, and pytest2_.yml.
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # =====================================================================
+    # Toolchain setup (single apt-get install for all apt-available langs)
+    # =====================================================================
+
+    - name: Install language toolchains from apt
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          php-cli \
+          ghc \
+          elixir erlang \
+          ocaml \
+          groovy \
+          tcl \
+          sbcl \
+          racket \
+          gfortran \
+          gnat \
+          gawk
+
+    - name: Set up .NET (for F# / dotnet fsi)
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.x'
+
+    # =====================================================================
+    # PHP — apt: php-cli
+    # =====================================================================
+
+    - name: php <file.php>  (direct file execution)
+      run: |
+        cat > /tmp/hello.php <<'EOF'
+        <?php
+        echo "Hello from php file!\n";
+        echo "PHP version: " . PHP_VERSION . "\n";
+        $nums = [1, 2, 3, 4, 5];
+        echo "Sum: " . array_sum($nums) . "\n";
+        EOF
+        php /tmp/hello.php
+
+    - name: php -r "..."  (inline expression — no <?php tags)
+      run: |
+        php -r 'echo "Hello from php -r! PHP " . PHP_VERSION . PHP_EOL;'
+
+    - name: php -a <<EOF  (interactive REPL via heredoc)
+      run: |
+        php -a <<'EOF' || true
+        echo "Hello from php -a heredoc!\n";
+        echo "Sum: " . array_sum([1,2,3,4,5]) . "\n";
+        exit;
+        EOF
+
+    - name: cat file.php | php  (program from stdin via pipe)
+      run: |
+        printf '<?php echo "Hello from php via stdin pipe!\\n";\n' | php
+
+    # =====================================================================
+    # Haskell — apt: ghc (provides ghc, runghc, runhaskell, ghci)
+    # =====================================================================
+
+    - name: runghc <file.hs>  (interpret + run in one step)
+      run: |
+        cat > /tmp/hello.hs <<'EOF'
+        module Main where
+        main :: IO ()
+        main = do
+            putStrLn "Hello from runghc file!"
+            putStrLn ("Sum: " ++ show (sum [1..5 :: Int]))
+        EOF
+        runghc /tmp/hello.hs
+
+    - name: runhaskell <file.hs>  (alias for runghc)
+      run: |
+        runhaskell /tmp/hello.hs
+
+    - name: ghc <file.hs> + ./binary  (compile to native + run)
+      run: |
+        cd /tmp
+        ghc -o /tmp/hello_hs /tmp/hello.hs
+        /tmp/hello_hs
+
+    - name: ghci <<EOF  (Haskell REPL via heredoc)
+      run: |
+        ghci -v0 <<'EOF'
+        putStrLn "Hello from ghci heredoc!"
+        let nums = [1,2,3,4,5 :: Int]
+        putStrLn ("Sum: " ++ show (sum nums))
+        :quit
+        EOF
+
+    # =====================================================================
+    # Elixir — apt: elixir (also installs erlang)
+    # =====================================================================
+
+    - name: elixir <file.exs>  (script file execution)
+      run: |
+        cat > /tmp/hello.exs <<'EOF'
+        IO.puts "Hello from elixir script!"
+        IO.puts "Elixir: #{System.version()}"
+        nums = [1, 2, 3, 4, 5]
+        IO.puts "Sum: #{Enum.sum(nums)}"
+        EOF
+        elixir /tmp/hello.exs
+
+    - name: elixir -e "..."  (inline expression)
+      run: |
+        elixir -e 'IO.puts "Hello from elixir -e!"; IO.puts "Sum: #{Enum.sum([1,2,3,4,5])}"'
+
+    - name: iex -e "..."  (Elixir interactive shell, one-shot expression)
+      run: |
+        echo '' | iex -e 'IO.puts("Hello from iex -e!"); IO.puts("Sum: #{Enum.sum([1,2,3,4,5])}")'
+
+    # =====================================================================
+    # Erlang — installed alongside elixir
+    # =====================================================================
+
+    - name: escript <file>  (Erlang script runner, shebang-friendly)
+      run: |
+        cat > /tmp/hello.escript <<'EOF'
+        #!/usr/bin/env escript
+        main(_) ->
+            io:format("Hello from escript!~n"),
+            Nums = [1,2,3,4,5],
+            Sum  = lists:sum(Nums),
+            io:format("Sum: ~p~n", [Sum]).
+        EOF
+        chmod +x /tmp/hello.escript
+        escript /tmp/hello.escript
+
+    - name: erl -noshell -eval "..."  (Erlang inline expression)
+      run: |
+        erl -noshell -eval 'io:format("Hello from erl -eval!~n"), io:format("Sum: ~p~n",[lists:sum([1,2,3,4,5])]), init:stop().'
+
+    # =====================================================================
+    # F# — comes with the .NET SDK (dotnet fsi)
+    # =====================================================================
+
+    - name: dotnet fsi <file.fsx>  (F# Interactive on a script file)
+      run: |
+        cat > /tmp/hello.fsx <<'EOF'
+        printfn "Hello from dotnet fsi file!"
+        let nums = [1; 2; 3; 4; 5]
+        printfn "Sum: %d" (List.sum nums)
+        EOF
+        dotnet fsi /tmp/hello.fsx
+
+    - name: dotnet fsi --use:- <<EOF  (F# Interactive reading from stdin)
+      run: |
+        dotnet fsi --use:- <<'EOF'
+        printfn "Hello from dotnet fsi stdin heredoc!"
+        let nums = [1; 2; 3; 4; 5]
+        printfn "Sum: %d" (List.sum nums)
+        EOF
+
+    - name: dotnet fsi -e  (F# inline expression — emulated via stdin)
+      run: |
+        echo 'printfn "Hello from dotnet fsi -e!"' | dotnet fsi --use:-
+
+    # =====================================================================
+    # OCaml — apt: ocaml
+    # =====================================================================
+
+    - name: ocaml <file.ml>  (direct file execution)
+      run: |
+        cat > /tmp/hello.ml <<'EOF'
+        let () =
+          print_endline "Hello from ocaml file!";
+          let nums = [1; 2; 3; 4; 5] in
+          Printf.printf "Sum: %d\n" (List.fold_left (+) 0 nums)
+        EOF
+        ocaml /tmp/hello.ml
+
+    - name: echo '...' | ocaml  (program from stdin)
+      run: |
+        printf 'print_endline "Hello from ocaml via pipe!";;\n' | ocaml
+
+    - name: ocaml <<EOF  (heredoc on stdin)
+      run: |
+        ocaml <<'EOF'
+        print_endline "Hello from ocaml heredoc!";;
+        let nums = [1; 2; 3; 4; 5] in
+        Printf.printf "Sum: %d\n" (List.fold_left (+) 0 nums);;
+        EOF
+
+    # =====================================================================
+    # Groovy — apt: groovy
+    # =====================================================================
+
+    - name: groovy <file.groovy>  (direct file execution)
+      run: |
+        cat > /tmp/hello.groovy <<'EOF'
+        println "Hello from groovy file!"
+        def nums = [1, 2, 3, 4, 5]
+        println "Sum: ${nums.sum()}"
+        EOF
+        groovy /tmp/hello.groovy
+
+    - name: groovy -e "..."  (inline expression)
+      run: |
+        groovy -e 'println "Hello from groovy -e!"; println "Sum: " + [1,2,3,4,5].sum()'
+
+    - name: cat file.groovy | groovy -  (program from stdin)
+      run: |
+        cat /tmp/hello.groovy | groovy -
+
+    # =====================================================================
+    # Tcl — apt: tcl
+    # =====================================================================
+
+    - name: tclsh <file.tcl>  (direct file execution)
+      run: |
+        cat > /tmp/hello.tcl <<'EOF'
+        puts "Hello from tclsh file!"
+        set nums {1 2 3 4 5}
+        set sum 0
+        foreach n $nums { incr sum $n }
+        puts "Sum: $sum"
+        EOF
+        tclsh /tmp/hello.tcl
+
+    - name: echo '...' | tclsh  (program from stdin via pipe)
+      run: |
+        echo 'puts "Hello from tclsh via pipe!"' | tclsh
+
+    # =====================================================================
+    # Common Lisp (SBCL) — apt: sbcl
+    # =====================================================================
+
+    - name: sbcl --script <file.lisp>  (Lisp script mode)
+      run: |
+        cat > /tmp/hello.lisp <<'EOF'
+        (format t "Hello from sbcl --script!~%")
+        (format t "Sum: ~a~%" (reduce #'+ '(1 2 3 4 5)))
+        EOF
+        sbcl --script /tmp/hello.lisp
+
+    - name: sbcl --noinform --non-interactive --eval "..."  (inline expression)
+      run: |
+        sbcl --noinform --non-interactive \
+          --eval '(format t "Hello from sbcl --eval!~%")' \
+          --eval '(format t "Sum: ~a~%" (reduce (function +) (list 1 2 3 4 5)))' \
+          --quit
+
+    # =====================================================================
+    # Racket — apt: racket
+    # =====================================================================
+
+    - name: racket <file.rkt>  (direct file execution)
+      run: |
+        cat > /tmp/hello.rkt <<'EOF'
+        #lang racket
+        (displayln "Hello from racket file!")
+        (printf "Sum: ~a~n" (apply + '(1 2 3 4 5)))
+        EOF
+        racket /tmp/hello.rkt
+
+    - name: racket -e "..."  (inline expression)
+      run: |
+        racket -e '(begin (displayln "Hello from racket -e!") (printf "Sum: ~a~n" (apply + (list 1 2 3 4 5))))'
+
+    # =====================================================================
+    # Fortran — apt: gfortran
+    # =====================================================================
+
+    - name: gfortran <file.f90> + ./binary  (compile + run)
+      run: |
+        cat > /tmp/hello.f90 <<'EOF'
+        program hello
+            implicit none
+            integer :: i, s
+            s = 0
+            do i = 1, 5
+                s = s + i
+            end do
+            print *, "Hello from gfortran!"
+            print *, "Sum:", s
+        end program hello
+        EOF
+        gfortran /tmp/hello.f90 -o /tmp/hello_f90
+        /tmp/hello_f90
+
+    - name: gfortran -x f95 - <<EOF  (stdin heredoc compile + run)
+      run: |
+        gfortran -x f95 -o /tmp/hello_f95_pipe - <<'EOF'
+        program hi
+            implicit none
+            print *, "Hello from gfortran stdin heredoc!"
+        end program hi
+        EOF
+        /tmp/hello_f95_pipe
+
+    # =====================================================================
+    # Ada — apt: gnat
+    # =====================================================================
+
+    - name: gnatmake <file.adb> + ./binary  (compile + run)
+      run: |
+        mkdir -p /tmp/ada_demo && cd /tmp/ada_demo
+        cat > hello.adb <<'EOF'
+        with Ada.Text_IO; use Ada.Text_IO;
+        procedure Hello is
+           Sum : Integer := 0;
+        begin
+           Put_Line ("Hello from Ada gnatmake!");
+           for I in 1 .. 5 loop
+              Sum := Sum + I;
+           end loop;
+           Put_Line ("Sum:" & Integer'Image (Sum));
+        end Hello;
+        EOF
+        gnatmake hello.adb
+        ./hello
+
+    # =====================================================================
+    # AWK — apt: gawk (GNU awk)
+    # =====================================================================
+
+    - name: awk 'BEGIN{...}'  (inline program, no input)
+      run: |
+        awk 'BEGIN { s=0; for (i=1; i<=5; i++) s+=i; printf "Hello from awk BEGIN! Sum: %d\n", s }'
+
+    - name: awk -f <file.awk>  (program from file)
+      run: |
+        cat > /tmp/hello.awk <<'EOF'
+        BEGIN {
+            s = 0
+            for (i = 1; i <= 5; i++) s += i
+            printf "Hello from awk -f file! Sum: %d\n", s
+        }
+        EOF
+        awk -f /tmp/hello.awk
+
+    - name: printf ... | awk '...'  (pipeline mode — line processor)
+      run: |
+        printf 'apple 3\nbanana 5\ncherry 7\n' \
+          | awk '{ s += $2; print "got:", $0 } END { print "Total:", s }'

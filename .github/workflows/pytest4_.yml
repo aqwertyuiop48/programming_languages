@@ -1,0 +1,298 @@
+name: Run more uncovered-language execution variants (D / Nim / Smalltalk / Prolog / Scheme / Forth / Vala / COBOL / CoffeeScript / Bash / bc)
+
+# Continuation of pytest3_.yml — covers more programming languages that
+# have NO dedicated folder anywhere under
+# /workspaces/programming_languages/, complementing the languages
+# already exercised in pytest_.yml, pytest1_.yml, pytest2_.yml, and
+# pytest3_.yml. Same file / inline / stdin / heredoc / pipe style.
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # =====================================================================
+    # Toolchain setup (single apt-get install for all apt-available langs)
+    # =====================================================================
+
+    - name: Install language toolchains from apt
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          gdc \
+          nim \
+          gnu-smalltalk \
+          swi-prolog \
+          guile-3.0 \
+          gforth \
+          valac \
+          gnucobol \
+          bc
+
+    - name: Set up Node.js (for CoffeeScript)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install CoffeeScript via npm
+      run: |
+        npm install -g coffeescript
+
+    # =====================================================================
+    # D — apt: gdc
+    # =====================================================================
+
+    - name: gdc <file.d> + ./binary  (compile + run)
+      run: |
+        cat > /tmp/hello.d <<'EOF'
+        import std.stdio;
+        import std.algorithm : sum;
+        import std.range : iota;
+        void main() {
+            writeln("Hello from gdc!");
+            writeln("Sum: ", iota(1, 6).sum);
+        }
+        EOF
+        gdc /tmp/hello.d -o /tmp/hello_d
+        /tmp/hello_d
+
+    # =====================================================================
+    # Nim — apt: nim
+    # =====================================================================
+
+    - name: nim r <file.nim>  (compile + run in one step)
+      run: |
+        cat > /tmp/hello.nim <<'EOF'
+        echo "Hello from nim r!"
+        let nums = @[1, 2, 3, 4, 5]
+        var s = 0
+        for n in nums: s += n
+        echo "Sum: ", s
+        EOF
+        nim r --hints:off --verbosity:0 /tmp/hello.nim
+
+    - name: nim c <file.nim> + ./binary  (compile to native + run)
+      run: |
+        nim c --hints:off --verbosity:0 -o:/tmp/hello_nim /tmp/hello.nim
+        /tmp/hello_nim
+
+    - name: nim e -  (Nim NimScript inline expression via stdin)
+      run: |
+        echo 'echo "Hello from nim e! Sum: ", (1+2+3+4+5)' | nim e -
+
+    # =====================================================================
+    # Smalltalk — apt: gnu-smalltalk (provides `gst`)
+    # =====================================================================
+
+    - name: gst <file.st>  (GNU Smalltalk file execution)
+      run: |
+        cat > /tmp/hello.st <<'EOF'
+        Transcript showCr: 'Hello from gst file!'.
+        | sum |
+        sum := 0.
+        1 to: 5 do: [:i | sum := sum + i].
+        Transcript showCr: 'Sum: ', sum printString.
+        EOF
+        gst /tmp/hello.st
+
+    - name: echo '...' | gst -  (Smalltalk program from stdin)
+      run: |
+        printf "Transcript showCr: 'Hello from gst via stdin!'.\n" | gst -
+
+    # =====================================================================
+    # Prolog — apt: swi-prolog
+    # =====================================================================
+
+    - name: swipl -g main -t halt <file.pl>  (consult + run goal)
+      run: |
+        cat > /tmp/hello.pl <<'EOF'
+        :- initialization(main).
+        sum_list_([], 0).
+        sum_list_([H|T], S) :- sum_list_(T, S0), S is S0 + H.
+        main :-
+            write('Hello from swipl file!'), nl,
+            sum_list_([1,2,3,4,5], S),
+            format("Sum: ~w~n", [S]).
+        EOF
+        swipl -q -g main -t halt /tmp/hello.pl
+
+    - name: swipl -g "..." -t halt  (Prolog inline goal)
+      run: |
+        swipl -q -g 'write("Hello from swipl -g inline!"), nl, S is 1+2+3+4+5, format("Sum: ~w~n",[S])' -t halt
+
+    # =====================================================================
+    # Scheme (GNU Guile) — apt: guile-3.0
+    # =====================================================================
+
+    - name: guile <file.scm>  (Scheme file execution)
+      run: |
+        cat > /tmp/hello.scm <<'EOF'
+        (display "Hello from guile file!") (newline)
+        (display (string-append "Sum: " (number->string (apply + '(1 2 3 4 5)))))
+        (newline)
+        EOF
+        guile /tmp/hello.scm
+
+    - name: guile -c "..."  (Scheme inline expression)
+      run: |
+        guile -c '(begin (display "Hello from guile -c!") (newline) (display (apply + (list 1 2 3 4 5))) (newline))'
+
+    - name: echo '...' | guile  (Scheme program from stdin)
+      run: |
+        echo '(display "Hello from guile via pipe!") (newline)' | guile
+
+    # =====================================================================
+    # Forth — apt: gforth
+    # =====================================================================
+
+    - name: gforth <file.fs>  (Forth file execution)
+      run: |
+        cat > /tmp/hello.fs <<'EOF'
+        ." Hello from gforth file!" cr
+        : sum-to ( n -- s ) 0 swap 1+ 1 ?do i + loop ;
+        ." Sum: " 5 sum-to . cr
+        bye
+        EOF
+        gforth /tmp/hello.fs
+
+    - name: gforth -e "..."  (Forth inline expression)
+      run: |
+        gforth -e '." Hello from gforth -e!" cr 1 2 + 3 + 4 + 5 + . cr bye'
+
+    # =====================================================================
+    # Vala — apt: valac (compiles Vala to C, then to native binary)
+    # =====================================================================
+
+    - name: valac <file.vala> + ./binary  (compile + run)
+      run: |
+        cat > /tmp/hello.vala <<'EOF'
+        void main () {
+            print ("Hello from vala!\n");
+            int sum = 0;
+            for (int i = 1; i <= 5; i++) sum += i;
+            print ("Sum: %d\n", sum);
+        }
+        EOF
+        valac -o /tmp/hello_vala /tmp/hello.vala
+        /tmp/hello_vala
+
+    # =====================================================================
+    # COBOL — apt: gnucobol (provides `cobc`)
+    # =====================================================================
+
+    - name: cobc -x <file.cob> + ./binary  (compile + run)
+      run: |
+        cat > /tmp/hello.cob <<'EOF'
+               IDENTIFICATION DIVISION.
+               PROGRAM-ID. HELLO.
+               DATA DIVISION.
+               WORKING-STORAGE SECTION.
+               01 I        PIC 9(2) VALUE 0.
+               01 S        PIC 9(4) VALUE 0.
+               PROCEDURE DIVISION.
+                   DISPLAY "Hello from COBOL!".
+                   PERFORM VARYING I FROM 1 BY 1 UNTIL I > 5
+                       ADD I TO S
+                   END-PERFORM.
+                   DISPLAY "Sum: " S.
+                   STOP RUN.
+        EOF
+        cobc -x -o /tmp/hello_cobol /tmp/hello.cob
+        /tmp/hello_cobol
+
+    # =====================================================================
+    # CoffeeScript — npm: coffeescript
+    # =====================================================================
+
+    - name: coffee <file.coffee>  (direct file execution)
+      run: |
+        cat > /tmp/hello.coffee <<'EOF'
+        console.log "Hello from coffee file!"
+        nums = [1, 2, 3, 4, 5]
+        sum = nums.reduce ((a, b) -> a + b), 0
+        console.log "Sum: #{sum}"
+        EOF
+        coffee /tmp/hello.coffee
+
+    - name: coffee -e "..."  (inline expression)
+      run: |
+        coffee -e 'console.log "Hello from coffee -e!"; console.log "Sum: " + [1,2,3,4,5].reduce ((a,b)->a+b), 0'
+
+    - name: coffee -p -e "..."  (compile to JS without executing)
+      run: |
+        coffee -p -e 'console.log "Hello from coffee -p -e!"'
+
+    # =====================================================================
+    # Bash (the language itself, not just a shell driver)
+    # =====================================================================
+
+    - name: bash <file.sh>  (script file execution)
+      run: |
+        cat > /tmp/hello.sh <<'EOF'
+        #!/usr/bin/env bash
+        echo "Hello from bash file!"
+        sum=0
+        for i in 1 2 3 4 5; do (( sum += i )); done
+        echo "Sum: $sum"
+        echo "Bash version: $BASH_VERSION"
+        EOF
+        bash /tmp/hello.sh
+
+    - name: bash -c "..."  (inline command string)
+      run: |
+        bash -c 'echo "Hello from bash -c!"; s=0; for i in 1 2 3 4 5; do (( s += i )); done; echo "Sum: $s"'
+
+    - name: bash <<EOF  (heredoc on stdin)
+      run: |
+        bash <<'EOF'
+        echo "Hello from bash heredoc!"
+        nums=(1 2 3 4 5)
+        sum=0
+        for n in "${nums[@]}"; do (( sum += n )); done
+        echo "Sum: $sum"
+        EOF
+
+    - name: echo '...' | bash  (program from stdin via pipe)
+      run: |
+        echo 'echo "Hello from bash via pipe! $BASH_VERSION"' | bash
+
+    # =====================================================================
+    # bc — POSIX arbitrary-precision calculator language
+    # =====================================================================
+
+    - name: bc <file.bc>  (bc program from file via stdin redirect)
+      run: |
+        cat > /tmp/hello.bc <<'EOF'
+        "Hello from bc file!
+        "
+        s = 0
+        for (i = 1; i <= 5; i++) s += i
+        "Sum: "; s
+        quit
+        EOF
+        bc -q /tmp/hello.bc
+
+    - name: echo '...' | bc  (bc inline expression via pipe)
+      run: |
+        echo 'scale=10; 4*a(1)' | bc -l
+        echo '"Hello from bc via pipe! Sum: "; 1+2+3+4+5' | bc -q
+
+    - name: bc <<EOF  (heredoc on stdin)
+      run: |
+        bc -q <<'EOF'
+        "Hello from bc heredoc!
+        "
+        s = 0
+        for (i = 1; i <= 5; i++) s += i
+        "Sum: "; s
+        quit
+        EOF
