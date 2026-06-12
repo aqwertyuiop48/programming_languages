@@ -11,9 +11,9 @@ name: Run more uncovered-language execution variants (D / Nim / Smalltalk / Prol
 # `gnu-smalltalk` package was dropped from Ubuntu 24.04 (noble).
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -113,9 +113,13 @@ jobs:
     - name: pharo Pharo.image st <file.st>  (Smalltalk file execution)
       run: |
         cd /tmp/pharo
+        # Pharo's `st` command reads .st files in CHUNK format, where `!`
+        # is the chunk terminator. To put a literal `!` inside a string,
+        # double it (`!!`). Otherwise the string is silently truncated
+        # at the first `!` and the parser reports "Unmatched '".
         cat > /tmp/hello.st <<'EOF'
         | sum |
-        Transcript show: 'Hello from Pharo st file!'; cr.
+        Transcript show: 'Hello from Pharo st file!!'; cr.
         sum := 0.
         1 to: 5 do: [:i | sum := sum + i].
         Transcript show: 'Sum: ', sum printString; cr.

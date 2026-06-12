@@ -7,9 +7,9 @@ name: Run uncovered-language execution variants (PHP / Haskell / Elixir / Erlang
 # pytest_.yml, pytest1_.yml, and pytest2_.yml.
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -168,15 +168,20 @@ jobs:
 
     - name: dotnet fsi /dev/stdin <<EOF  (F# Interactive reading from stdin)
       run: |
-        dotnet fsi /dev/stdin <<'EOF'
+        # dotnet fsi requires a seekable source, so pipes / /dev/stdin fail with
+        # FS0193 ("Stream does not support seeking"). Materialize the heredoc to
+        # a temp .fsx file and run it instead.
+        cat > /tmp/stdin.fsx <<'EOF'
         printfn "Hello from dotnet fsi stdin heredoc!"
         let nums = [1; 2; 3; 4; 5]
         printfn "Sum: %d" (List.sum nums)
         EOF
+        dotnet fsi /tmp/stdin.fsx
 
-    - name: dotnet fsi -e  (F# inline expression — emulated via stdin)
+    - name: dotnet fsi -e  (F# inline expression — emulated via temp file)
       run: |
-        echo 'printfn "Hello from dotnet fsi -e!"' | dotnet fsi /dev/stdin
+        echo 'printfn "Hello from dotnet fsi -e!"' > /tmp/inline.fsx
+        dotnet fsi /tmp/inline.fsx
 
     # =====================================================================
     # OCaml — apt: ocaml
