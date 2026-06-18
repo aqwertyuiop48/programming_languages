@@ -38,6 +38,7 @@ git submodule update --recursive
 
 
 3. To fetch the all the submodules according to the latest remote repo changes:
+git config pull.rebase false   # ensures merge (no rebase) on pull
 git pull --recurse-submodules
 
 
@@ -56,6 +57,7 @@ To remove a submodule:
  - rm -rf <path_to_submodule>
 
 5. Steps:
+(0) git config pull.rebase false   # ensures merge (no rebase) on pull
 (i) git pull origin main
 (ii) git submodule update --init --force --remote
 (iii) git add .
@@ -87,19 +89,19 @@ git add . && git commit -m "Message" && git push origin main
 <hr>
 - For local system: <br>
 
-alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
+alias mac='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules.sh && ./add_modules.sh && git config pull.rebase false && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m "Message" && git push origin main'
 
 <hr>
 - For Github codespace: <br>
 
-alias mac_public='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules_public.sh && ./add_modules_public.sh && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --force --recursive && git add . && git commit -m "Message" && git push origin main'
+alias mac_public='cd ~/Desktop/sreedhar/git4_/programming_languages && chmod +x add_modules_public.sh && ./add_modules_public.sh && git config pull.rebase false && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --force --recursive && git add . && git commit -m "Message" && git push origin main'
 
 
 <hr>
 
 Windows:
 git add . ; git commit -m "Message" ; git push origin main
-git pull origin main ; git submodule update --init --force --remote ; git add . ; git commit -m "Message" ; git push origin main
+git config pull.rebase false ; git pull origin main ; git submodule update --init --force --remote ; git add . ; git commit -m "Message" ; git push origin main
 
 
 Windows long file name issue:

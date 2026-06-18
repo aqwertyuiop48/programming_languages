@@ -1,6 +1,7 @@
 #!/bin/bash
 # 1. Set global config ONCE outside the loop
 git config --global credential.https://github.com.username aqwertyuiop48
+git config --global pull.rebase false   # always merge on pull (no rebase)
 
 # Format: "path|url|branch"
 modules=(

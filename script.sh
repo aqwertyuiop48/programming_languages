@@ -1,3 +1,4 @@
+git config --global pull.rebase false   # always merge on pull (no rebase)
 git pull origin main --allow-unrelated-histories
 
 git submodule foreach --recursive '
