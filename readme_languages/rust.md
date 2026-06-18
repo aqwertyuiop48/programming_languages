@@ -34,12 +34,12 @@ This document catalogues **all distinct Rust-only methods** discovered for build
 **Method:** Standard `rustc` compile of a `.rs` source file followed by execution of the resulting binary. The two commands are paired into one end-to-end step.
 
 **Locations:**
-- [rust/codeforces_script/execute/_1_hello.rs](../rust/codeforces_script/execute/_1_hello.rs), [_4_lists.rs](../rust/codeforces_script/execute/_4_lists.rs), [hello.rs](../rust/codeforces_script/execute/hello.rs) - Source files driven by the loop
+- [rust/codeforces_script/execute/_1_hello.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/_1_hello.rs), [_4_lists.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/_4_lists.rs), [hello.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/hello.rs) - Source files driven by the loop
 - [rust/_3_server.rs](../rust/_3_server.rs) - Standalone TCP server compiled the same way
 - [rust/readme.txt](../rust/readme.txt#L2-L5) - Documented pattern
 
 **Workflow yml (executes in CI):**
-- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L26-L30) - Loop: `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done`
+- [rust/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L26-L30) - Loop: `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done`
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/.github/workflows/main.yml#L26-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L26-L30)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L120-L127) - Canonical inline demo
 
@@ -56,10 +56,10 @@ done
 **Method:** Compile a `.rs` file with `rustc`, then pipe a shell heredoc into the resulting binary's stdin so the program receives multi-line input without an input file. Used for testing Rust programs that read from `io::stdin()`.
 
 **Locations:**
-- [rust/codeforces_script/_5_input.rs](../rust/codeforces_script/_5_input.rs) - stdin-reading source
+- [rust/codeforces_script/_5_input.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/_5_input.rs) - stdin-reading source
 
 **Workflow yml (executes in CI):**
-- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L32-L37) - `rustc _5_input.rs && cat <<EOF | ./_5_input ... EOF`
+- [rust/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L32-L37) - `rustc _5_input.rs && cat <<EOF | ./_5_input ... EOF`
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/.github/workflows/main.yml#L32-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L32-L37)
 
 **Example:**
@@ -161,17 +161,17 @@ rust-script /tmp/hi.rs
 **Method:** A Cargo project with a `[[bin]]` target wired to Vercel's `vercel_runtime` adapter. Vercel detects `Cargo.toml`, runs `cargo build --release` server-side, and routes HTTP traffic to the compiled binary. Local development uses `vc dev`. End-to-end source → live HTTP responses via one deploy.
 
 **Locations:**
-- [rust/rust-axum/Cargo.toml](../rust/rust-axum/Cargo.toml) - `[[bin]] name = "vercel-rust-axum" path = "api/axum.rs"`
-- [rust/rust-axum/api/axum.rs](../rust/rust-axum/api/axum.rs) - Axum + tokio + vercel_runtime handler
-- [rust/rust-axum/vercel.json](../rust/rust-axum/vercel.json) - Rewrites all requests to the Rust handler
-- [rust/rust-axum/README.md](../rust/rust-axum/README.md) - Setup + `vc dev` instructions
+- [rust/rust-axum/Cargo.toml](https://github.com/aqwertyuiop48/rust-axum/blob/main/Cargo.toml) - `[[bin]] name = "vercel-rust-axum" path = "api/axum.rs"`
+- [rust/rust-axum/api/axum.rs](https://github.com/aqwertyuiop48/rust-axum/blob/main/api/axum.rs) - Axum + tokio + vercel_runtime handler
+- [rust/rust-axum/vercel.json](https://github.com/aqwertyuiop48/rust-axum/blob/main/vercel.json) - Rewrites all requests to the Rust handler
+- [rust/rust-axum/README.md](https://github.com/aqwertyuiop48/rust-axum/blob/main/README.md) - Setup + `vc dev` instructions
 
 **Workflow yml (executes in CI):**
 Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `rust/rust-axum/Cargo.toml`; `rust/rust-axum/README.md`; `rust/rust-axum/api/axum.rs`; `rust/rust-axum/vercel.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `rust/rust-axum/Cargo.toml`; `rust/rust-axum/README.md`; `rust/rust-axum/api/axum.rs`; `rust/rust-axum/vercel.json`
 
 **Example:**
 ```bash
@@ -189,12 +189,12 @@ vercel --prod
 **Method:** Rust uses `std::process::Command::new("bash").arg("-c").arg("echo '<cpp>' | g++ -x c++ -o a - && ./a")` to compile + run C++ source built as a Rust `&str`. Rust captures the binary's stdout via `Command::output()`. See [cpp.md §5.2](cpp.md#52-rust-command--bash--g) for the C++-side perspective.
 
 **Locations:**
-- [rust/codeforces_script/execute/cpp_.rs](../rust/codeforces_script/execute/cpp_.rs#L1-L30) - Basic embedded C++
-- [rust/codeforces_script/execute/cpp_1.rs](../rust/codeforces_script/execute/cpp_1.rs#L1-L50) - With file IO + parameter substitution
+- [rust/codeforces_script/execute/cpp_.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_.rs#L1-L30) - Basic embedded C++
+- [rust/codeforces_script/execute/cpp_1.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_1.rs#L1-L50) - With file IO + parameter substitution
   - Remote (submodule `rust/codeforces_script` @ branch `rust_`): [rust/codeforces_script/execute/cpp_.rs](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/execute/cpp_.rs)
 
 **Workflow yml (executes in CI):**
-- [rust/codeforces_script/.github/workflows/main.yml](../rust/codeforces_script/.github/workflows/main.yml#L17-L30) - CI workflow: installs `g++` (L17-L18) then loop `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done` (L26-L30) which exercises `cpp_.rs` / `cpp_1.rs` and the embedded g++ bridge end-to-end
+- [rust/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L17-L30) - CI workflow: installs `g++` (L17-L18) then loop `for file in execute/*.rs; do rustc "$file" && ./$(basename "$file" .rs); done` (L26-L30) which exercises `cpp_.rs` / `cpp_1.rs` and the embedded g++ bridge end-to-end
   - Remote: [rust/codeforces_script/.github/workflows/main.yml#L17-L30](https://github.com/aqwertyuiop48/codeforces_script/blob/rust_/.github/workflows/main.yml#L17-L30)
 
 **Example:**
@@ -236,11 +236,11 @@ println!("{}", String::from_utf8_lossy(&out.stdout));
 **Method:** A C++ program builds a Rust source string, then runs `system("echo '<rust>' | rustc -o /tmp/h - && /tmp/h")` followed by cleanup. The compiled Rust binary's stdout becomes the C++ program's stdout. See [cpp.md §4.3](cpp.md#43-c-system--rustc-heredoc) for the C++-side perspective.
 
 **Locations:**
-- [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](../CPP/codeforces_script/cpp_/rust_in_cpp.cpp#L1-L45) - Full pattern with stdin + file IO Rust example
+- [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp#L1-L45) - Full pattern with stdin + file IO Rust example
   - Remote (submodule `CPP/codeforces_script` @ branch `cpp_`): [CPP/codeforces_script/cpp_/rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp)
 
 **Workflow yml (executes in CI):**
-- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L125-L140) - "rustc - <<EOF (stdin heredoc → compile + run)" step pipes a multi-line Rust program into `rustc` via shell heredoc and runs the produced binary — the rustc-heredoc execution path used by the C++ wrapper. Demonstration coverage added this session; the C++-driven `system("... | rustc ...")` chain in [rust_in_cpp.cpp](../CPP/codeforces_script/cpp_/rust_in_cpp.cpp) is not yet wired into a workflow.
+- [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L125-L140) - "rustc - <<EOF (stdin heredoc → compile + run)" step pipes a multi-line Rust program into `rustc` via shell heredoc and runs the produced binary — the rustc-heredoc execution path used by the C++ wrapper. Demonstration coverage added this session; the C++-driven `system("... | rustc ...")` chain in [rust_in_cpp.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/rust_in_cpp.cpp) is not yet wired into a workflow.
 
 **Example:**
 ```cpp

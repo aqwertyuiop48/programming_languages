@@ -21,11 +21,11 @@ This document catalogues **all distinct Julia methods** discovered for running J
 **Method:** Invoke the `julia` interpreter on a `.jl` source file. The workflow iterates the `execute/` directory and runs every Julia source it finds.
 
 **Locations:**
-- [julia_/codeforces_script/execute/hello.jl](../julia_/codeforces_script/execute/hello.jl) - `println("Hello, Julia World!")`
+- [julia_/codeforces_script/execute/hello.jl](https://github.com/aqwertyuiop48/codeforces_script/blob/julia_/execute/hello.jl) - `println("Hello, Julia World!")`
   - Remote (submodule `julia_/codeforces_script` @ branch `julia_`): [julia_/codeforces_script/execute/hello.jl](https://github.com/aqwertyuiop48/codeforces_script/blob/julia_/execute/hello.jl)
 
 **Workflow yml (executes in CI):**
-- [julia_/codeforces_script/.github/workflows/main.yml](../julia_/codeforces_script/.github/workflows/main.yml#L19-L23) - installs Julia via `julia-actions/setup-julia@v1` (version `1.11`), then `for file in execute/*.jl; do julia "$file"; done`
+- [julia_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/julia_/.github/workflows/main.yml#L19-L23) - installs Julia via `julia-actions/setup-julia@v1` (version `1.11`), then `for file in execute/*.jl; do julia "$file"; done`
   - Remote: [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/julia_/.github/workflows/main.yml)
 
 Transitively exercised in CI via the following workflow(s):
@@ -95,7 +95,7 @@ echo 'println("Hello from julia via pipe!")' | julia
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `julia <file.jl>` | Run a Julia source file end-to-end | [hello.jl](../julia_/codeforces_script/execute/hello.jl) |
+| `julia <file.jl>` | Run a Julia source file end-to-end | [hello.jl](https://github.com/aqwertyuiop48/codeforces_script/blob/julia_/execute/hello.jl) |
 | `julia -e "<julia expr>"` | Inline Julia expression | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `julia -E "<julia expr>"` | Inline expression + print value | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `julia <<EOF … EOF` | Multi-line heredoc on stdin | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

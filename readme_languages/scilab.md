@@ -24,14 +24,14 @@ This document catalogues **all distinct Scilab methods** discovered for running 
 **Method:** `scilab-cli` is the no-display CLI front-end; `-nb` suppresses the banner; `-f <file>` runs the named `.sci` script and exits. Equivalent to "headless batch mode" for Scilab.
 
 **Locations:**
-- [scilab__/codeforces_script/files/hello.sci](../scilab__/codeforces_script/files/hello.sci) - Factorial computation
-- [scilab__/codeforces_script/files/shell_.sci](../scilab__/codeforces_script/files/shell_.sci) - Shell-bridge via `unix(...)` (see §3.1)
-- [scilab__/codeforces_script/run_all_scilab_files.sh](../scilab__/codeforces_script/run_all_scilab_files.sh#L11) - Bash wrapper that loops `for scilab_file in files/*.sci` invoking `scilab-cli -nb -f "$scilab_file"`
+- [scilab__/codeforces_script/files/hello.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/hello.sci) - Factorial computation
+- [scilab__/codeforces_script/files/shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci) - Shell-bridge via `unix(...)` (see §3.1)
+- [scilab__/codeforces_script/run_all_scilab_files.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/run_all_scilab_files.sh#L11) - Bash wrapper that loops `for scilab_file in files/*.sci` invoking `scilab-cli -nb -f "$scilab_file"`
   - Remote (submodule `scilab__/codeforces_script` @ branch `scilab_`): [run_all_scilab_files.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/run_all_scilab_files.sh)
 
 **Workflow yml (executes in CI):**
-- [scilab__/codeforces_script/.github/workflows/main.yml](../scilab__/codeforces_script/.github/workflows/main.yml#L23-L27) - downloads Scilab 6.1.1, symlinks `/usr/local/bin/scilab-cli`
-- [scilab__/codeforces_script/.github/workflows/main.yml](../scilab__/codeforces_script/.github/workflows/main.yml#L53-L58) - `chmod +x ./run_all_scilab_files.sh && ./run_all_scilab_files.sh` (iterates all `.sci` files)
+- [scilab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml#L23-L27) - downloads Scilab 6.1.1, symlinks `/usr/local/bin/scilab-cli`
+- [scilab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml#L53-L58) - `chmod +x ./run_all_scilab_files.sh && ./run_all_scilab_files.sh` (iterates all `.sci` files)
   - Remote: [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml)
 
 Transitively exercised in CI via the following workflow(s):
@@ -54,7 +54,7 @@ scilab-cli -nb -f files/hello.sci
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [scilab__/codeforces_script/.github/workflows/main.yml](../scilab__/codeforces_script/.github/workflows/main.yml#L60-L61) - `scilab-cli -nb -e "disp('Hello from inline Scilab!');"`
+- [scilab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml#L60-L61) - `scilab-cli -nb -e "disp('Hello from inline Scilab!');"`
   - Remote: [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml)
 
 **Example:**
@@ -70,13 +70,13 @@ scilab-cli -nb -e "disp('Hello from inline Scilab!');"
 **Method:** Scilab's built-in `unix(cmd)` function shells out to `/bin/sh -c cmd`. Used inside a `.sci` script, it lets Scilab orchestrate arbitrary shell commands — including spawning Python (`python3 -c '…'`) and bridging the result back. This is the canonical Scilab → external-tool polyglot pattern.
 
 **Locations:**
-- [scilab__/codeforces_script/files/shell_.sci](../scilab__/codeforces_script/files/shell_.sci#L4) - `unix('echo ''Hello from shell Scilab!''')`
-- [scilab__/codeforces_script/files/shell_.sci](../scilab__/codeforces_script/files/shell_.sci#L8) - `unix('ls -l')`
-- [scilab__/codeforces_script/files/shell_.sci](../scilab__/codeforces_script/files/shell_.sci#L10) - `unix('pwd')`
-- [scilab__/codeforces_script/files/shell_.sci](../scilab__/codeforces_script/files/shell_.sci#L12) - `unix('python3 -c ''print(2222222)''')` (Scilab → Python)
+- [scilab__/codeforces_script/files/shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci#L4) - `unix('echo ''Hello from shell Scilab!''')`
+- [scilab__/codeforces_script/files/shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci#L8) - `unix('ls -l')`
+- [scilab__/codeforces_script/files/shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci#L10) - `unix('pwd')`
+- [scilab__/codeforces_script/files/shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci#L12) - `unix('python3 -c ''print(2222222)''')` (Scilab → Python)
 
 **Workflow yml (executes in CI):**
-- [scilab__/codeforces_script/.github/workflows/main.yml](../scilab__/codeforces_script/.github/workflows/main.yml#L53-L58) - the same `run_all_scilab_files.sh` loop picks up `shell_.sci`, so every `unix(...)` line runs end-to-end
+- [scilab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml#L53-L58) - the same `run_all_scilab_files.sh` loop picks up `shell_.sci`, so every `unix(...)` line runs end-to-end
 
 **Example:**
 ```scilab
@@ -105,7 +105,7 @@ echo "disp('Hello from scilab via pipe!'); quit;" | scilab-cli -nb
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `scilab-cli -nb -f <file.sci>` | Run a Scilab script in batch mode | [hello.sci](../scilab__/codeforces_script/files/hello.sci) |
-| `scilab-cli -nb -e "<sci expr>"` | Inline Scilab expression | [main.yml#L60](../scilab__/codeforces_script/.github/workflows/main.yml#L60) |
-| `unix('<shell cmd>')` inside `.sci` | Scilab → shell / Python bridge | [shell_.sci](../scilab__/codeforces_script/files/shell_.sci) |
+| `scilab-cli -nb -f <file.sci>` | Run a Scilab script in batch mode | [hello.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/hello.sci) |
+| `scilab-cli -nb -e "<sci expr>"` | Inline Scilab expression | [main.yml#L60](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/.github/workflows/main.yml#L60) |
+| `unix('<shell cmd>')` inside `.sci` | Scilab → shell / Python bridge | [shell_.sci](https://github.com/aqwertyuiop48/codeforces_script/blob/scilab_/files/shell_.sci) |
 | `echo '…' \| scilab-cli -nb` | Program from stdin (documented only) | _no CI workflow_ |

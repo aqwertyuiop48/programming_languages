@@ -29,11 +29,11 @@ This document catalogues **all distinct Perl-only methods** discovered for runni
 **Method:** Invoke the Perl interpreter on a `.pl` script file. Simplest form; works regardless of whether the file has a shebang or executable bit.
 
 **Locations:**
-- [perl/codeforces_script/script.pl](../perl/codeforces_script/script.pl) - Multi-line string demo (`q{...}`)
+- [perl/codeforces_script/script.pl](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl) - Multi-line string demo (`q{...}`)
   - Remote: [script.pl](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl)
 
 **Workflow yml (executes in CI):**
-- [perl/codeforces_script/.github/workflows/main.yml](../perl/codeforces_script/.github/workflows/main.yml#L24) - `perl script.pl`
+- [perl/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/.github/workflows/main.yml#L24) - `perl script.pl`
   - Remote (submodule `perl/codeforces_script` @ branch `perl_`): [perl/codeforces_script/.github/workflows/main.yml#L24](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/.github/workflows/main.yml#L24)
 - [.github/workflows/pytest1_.yml](../.github/workflows/pytest1_.yml#L235-L242) - Canonical inline demo
 
@@ -46,7 +46,7 @@ perl script.pl
 **Method:** Place `#!/usr/bin/perl` (or `#!/usr/bin/env perl`) on the first line of a `.pl` file, mark it executable with `chmod +x`, and invoke it directly as `./script.pl`. The kernel reads the shebang and invokes Perl.
 
 **Locations:**
-- [perl/codeforces_script/script.pl](../perl/codeforces_script/script.pl#L1) - `#!/usr/bin/perl` shebang
+- [perl/codeforces_script/script.pl](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl#L1) - `#!/usr/bin/perl` shebang
   - Remote: [script.pl#L1](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/script.pl#L1)
 
 **Workflow yml (executes in CI):**
@@ -54,8 +54,8 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `perl/codeforces_script/script.pl`
-- [perl/codeforces_script/.github/workflows/main.yml](perl/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `perl/codeforces_script/script.pl`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `perl/codeforces_script/script.pl`
+- [perl/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/perl_/.github/workflows/main.yml) _(rule R1)_ — covers `perl/codeforces_script/script.pl`
 
 **Example:**
 ```perl

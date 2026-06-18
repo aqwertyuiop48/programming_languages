@@ -21,7 +21,7 @@ Each method takes ClojureScript source as input and produces the program's outpu
 4. **GitHub Action Setups (Toolchain Provisioning)**
    - 4.1 [actions/setup-node@v3 + npm install -g <runtime>](#41-actionssetup-nodev3--npm-install--g-runtime)
 
-> **Note:** A `planck`-based execution path is present but **commented out** in the workflow ([clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L21-L27](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L21-L27)) and therefore not an active execution method.
+> **Note:** A `planck`-based execution path is present but **commented out** in the workflow ([clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L21-L27](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L21-L27)) and therefore not an active execution method.
 
 ---
 
@@ -33,11 +33,11 @@ Each method takes ClojureScript source as input and produces the program's outpu
 **Method:** Pass a `.cljs` file directly to `nbb`; it loads the namespace and executes top-level forms. Stdin can be piped via shell redirection.
 
 **Locations:**
-- [Python/codeforces_script/direct/run.sh](../Python/codeforces_script/direct/run.sh#L52-L53) - `nbb "$script" < "$f" | tee "cljs_output/${testname}.txt"` (pipes test input on stdin)
+- [Python/codeforces_script/direct/run.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L52-L53) - `nbb "$script" < "$f" | tee "cljs_output/${testname}.txt"` (pipes test input on stdin)
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/direct/run.sh#L52-L53](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L52-L53)
 
 **Workflow yml (executes in CI):**
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L108-L113) - matrix-driven `./run.sh ${{ matrix.problem }}.cljs`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L108-L113) - matrix-driven `./run.sh ${{ matrix.problem }}.cljs`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L108-L113](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L108-L113)
 
 **Example:**
@@ -53,9 +53,9 @@ nbb 1A.cljs < test1.in
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L32) - `nbb -e '(+ 1 2 3)'`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L32) - `nbb -e '(+ 1 2 3)'`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L32)
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L49) - `nbb -e '(+ 1 2 3)'`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L49) - `nbb -e '(+ 1 2 3)'`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L49](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L49)
 
 **Example:**
@@ -67,11 +67,11 @@ nbb -e '(+ 1 2 3)'
 **Method:** A long heredoc-free form passed to `nbb -e` exercising npm interop (`csv-parse`, `shelljs`, `term-size`, `zx`) via `(:require ["pkg$default" :as alias])` style.
 
 **Locations:**
-- [clojure_/clojure_script_/codeforces_script/hello.cljs](../clojure_/clojure_script_/codeforces_script/hello.cljs) - the equivalent file form
+- [clojure_/clojure_script_/codeforces_script/hello.cljs](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/hello.cljs) - the equivalent file form
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/hello.cljs](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/hello.cljs)
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L36-L58) - multi-line `nbb -e '(ns hello ...)'` with `csv-parse/sync`, `fs`, `path`, `shelljs`, `term-size`, `zx`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36-L58) - multi-line `nbb -e '(ns hello ...)'` with `csv-parse/sync`, `fs`, `path`, `shelljs`, `term-size`, `zx`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L36-L58](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36-L58)
 
 **Example:**
@@ -88,11 +88,11 @@ nbb -e '(ns hello
 **Method:** `package.json`'s `"start"` script points at `nbb hello.cljs` so `npm run start` runs the ClojureScript file via the npm script runner.
 
 **Locations:**
-- [clojure_/clojure_script_/codeforces_script/package.json](../clojure_/clojure_script_/codeforces_script/package.json#L2-L4) - `"start": "nbb hello.cljs"`
+- [clojure_/clojure_script_/codeforces_script/package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L2-L4) - `"start": "nbb hello.cljs"`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/package.json#L2-L4](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L2-L4)
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L33) - `npm run start`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L33) - `npm run start`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L33](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L33)
 
 **Example:**
@@ -110,13 +110,13 @@ npm run start    # → nbb hello.cljs
 **Method:** Compile a named shadow-cljs build to a Node.js script, then execute the emitted JS via `node`. The compile and run halves are inseparable from a "source-in → output-out" perspective.
 
 **Locations:**
-- [clojure_/clojure_script_/codeforces_script/my-cljs-node-app/shadow-cljs.edn](../clojure_/clojure_script_/codeforces_script/my-cljs-node-app/shadow-cljs.edn) - `:app` and `:eval` build definitions
+- [clojure_/clojure_script_/codeforces_script/my-cljs-node-app/shadow-cljs.edn](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/my-cljs-node-app/shadow-cljs.edn) - `:app` and `:eval` build definitions
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/my-cljs-node-app/shadow-cljs.edn](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/my-cljs-node-app/shadow-cljs.edn)
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L60-L65) - `npx shadow-cljs compile app` then `node out/main.js`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L60-L65) - `npx shadow-cljs compile app` then `node out/main.js`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L60-L65](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L60-L65)
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L72-L77) - `npx shadow-cljs compile eval` then `node out/eval.js`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L72-L77) - `npx shadow-cljs compile eval` then `node out/eval.js`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L72-L77](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L72-L77)
 
 **Example:**
@@ -142,7 +142,7 @@ node out/eval.js
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L67-L70) - `npm install -g lumo-cljs` then `lumo -e "(println (+ 1 2))"`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L67-L70) - `npm install -g lumo-cljs` then `lumo -e "(println (+ 1 2))"`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L67-L70](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L67-L70)
 
 **Example:**
@@ -162,11 +162,11 @@ lumo -e "(println (+ 1 2))"
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L17-L19) - `uses: actions/setup-node@v3` with `node-version: '20'`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L17-L19) - `uses: actions/setup-node@v3` with `node-version: '20'`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L17-L19](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L17-L19)
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L31) - `npm install nbb -g`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L31) - `npm install nbb -g`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L31)
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L69) - `npm install -g lumo-cljs`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L69) - `npm install -g lumo-cljs`
   - Remote (submodule `clojure_/clojure_script_/codeforces_script` @ branch `clojure_script`): [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L69](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L69)
 
 ---
@@ -175,12 +175,12 @@ None tracked outside the workflow citations below.
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| nbb &lt;file.cljs&gt; | Run .cljs file directly | [Python/codeforces_script/direct/run.sh](../Python/codeforces_script/direct/run.sh#L53)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L53) |
-| nbb -e '...' | Inline expression | [main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L32)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L32) |
-| nbb -e (multi-line + npm) | npm-interop expression | [main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L36)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36) |
-| npm run start | package.json script → nbb | [package.json](../clojure_/clojure_script_/codeforces_script/package.json#L3)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3) |
-| shadow-cljs compile + node | Build → Node target | [main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L64)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L64) |
-| lumo -e '...' | Standalone self-hosted CLJS | [main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L70)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L70) |
+| nbb &lt;file.cljs&gt; | Run .cljs file directly | [Python/codeforces_script/direct/run.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L53)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L53) |
+| nbb -e '...' | Inline expression | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L32)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L32) |
+| nbb -e (multi-line + npm) | npm-interop expression | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36) |
+| npm run start | package.json script → nbb | [package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3) |
+| shadow-cljs compile + node | Build → Node target | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L64)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L64) |
+| lumo -e '...' | Standalone self-hosted CLJS | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L70)<br/>[remote @ `clojure_script`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L70) |
 
 ---
 

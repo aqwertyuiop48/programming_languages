@@ -22,18 +22,18 @@ This document catalogues **all distinct Solidity methods** discovered for compil
 ## 1. **Hardhat Toolchain**
 
 ### 1.1 npx hardhat compile (Compile Contracts)
-**Method:** Hardhat reads [hardhat.config.js](../solidity__/codeforces_script/hardhat.config.js), invokes `solc` against every `.sol` under `contracts/`, and emits ABIs + bytecode under `artifacts/`. The CI compiles both `Lock.sol` and `HelloWorld.sol`.
+**Method:** Hardhat reads [hardhat.config.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/hardhat.config.js), invokes `solc` against every `.sol` under `contracts/`, and emits ABIs + bytecode under `artifacts/`. The CI compiles both `Lock.sol` and `HelloWorld.sol`.
 
 **Locations:**
-- [solidity__/codeforces_script/contracts/Lock.sol](../solidity__/codeforces_script/contracts/Lock.sol) - time-locked withdrawal contract (Hardhat's default sample)
-- [solidity__/codeforces_script/contracts/HelloWorld.sol](../solidity__/codeforces_script/contracts/HelloWorld.sol) - "Hello, World!" smart contract
-- [solidity__/codeforces_script/hardhat.config.js](../solidity__/codeforces_script/hardhat.config.js) - solc version + networks config
-- [solidity__/codeforces_script/package.json](../solidity__/codeforces_script/package.json) - `hardhat`, `@nomicfoundation/hardhat-toolbox`, `ethers`
+- [solidity__/codeforces_script/contracts/Lock.sol](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/contracts/Lock.sol) - time-locked withdrawal contract (Hardhat's default sample)
+- [solidity__/codeforces_script/contracts/HelloWorld.sol](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/contracts/HelloWorld.sol) - "Hello, World!" smart contract
+- [solidity__/codeforces_script/hardhat.config.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/hardhat.config.js) - solc version + networks config
+- [solidity__/codeforces_script/package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/package.json) - `hardhat`, `@nomicfoundation/hardhat-toolbox`, `ethers`
   - Remote (submodule `solidity__/codeforces_script` @ branch `solidity_`): [contracts/](https://github.com/aqwertyuiop48/codeforces_script/tree/solidity_/contracts)
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L20-L23) - `actions/setup-node@v3` (Node.js 18) + `npm install`
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L25-L26) - `npx hardhat compile`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L20-L23) - `actions/setup-node@v3` (Node.js 18) + `npm install`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L26) - `npx hardhat compile`
 
 Transitively exercised in CI via the following workflow(s):
 
@@ -49,10 +49,10 @@ npx hardhat compile
 **Method:** Hardhat's bundled Mocha runner discovers tests under `test/` and runs each in a fresh in-process EVM (`hardhat` network). Assertions use Chai + `@nomicfoundation/hardhat-toolbox` matchers.
 
 **Locations:**
-- [solidity__/codeforces_script/test/Lock.js](../solidity__/codeforces_script/test/Lock.js) - Mocha test suite for `Lock.sol`
+- [solidity__/codeforces_script/test/Lock.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/test/Lock.js) - Mocha test suite for `Lock.sol`
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L28-L29) - `npx hardhat test`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L28-L29) - `npx hardhat test`
 
 **Example:**
 ```bash
@@ -63,7 +63,7 @@ npx hardhat test
 **Method:** Starts a JSON-RPC EVM at `http://localhost:8545` seeded with 20 funded accounts. Long-running process — in CI it is launched in the background with `&` and given `sleep 5` before the next step. Required for `--network localhost` deploys (§1.4) and external clients.
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L32-L34) - `npx hardhat node & sleep 5`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L32-L34) - `npx hardhat node & sleep 5`
 
 **Example:**
 ```bash
@@ -75,10 +75,10 @@ sleep 5    # let the RPC port come up
 **Method:** Runs an arbitrary Node.js script with Hardhat's ethers.js helpers injected into scope. The standard "deploy" script calls `ethers.getContractFactory(...)`, `.deploy()`, and `.waitForDeployment()`. `--network localhost` targets the node from §1.3.
 
 **Locations:**
-- [solidity__/codeforces_script/scripts/deploy.js](../solidity__/codeforces_script/scripts/deploy.js) - deploys `HelloWorld` and `Lock`
+- [solidity__/codeforces_script/scripts/deploy.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/deploy.js) - deploys `HelloWorld` and `Lock`
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L36-L37) - `npx hardhat run scripts/deploy.js --network localhost`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L36-L37) - `npx hardhat run scripts/deploy.js --network localhost`
 
 **Example:**
 ```bash
@@ -99,10 +99,10 @@ npx hardhat run scripts/deploy.js --network localhost
 This is "Solidity in JS" — the compiler runs in-process and the deploy uses raw ethers.js, no Hardhat helpers.
 
 **Locations:**
-- [solidity__/codeforces_script/scripts/solidity_in_js.js](../solidity__/codeforces_script/scripts/solidity_in_js.js) - `solc.compile(...)` + `new ethers.ContractFactory(...).deploy()`
+- [solidity__/codeforces_script/scripts/solidity_in_js.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/solidity_in_js.js) - `solc.compile(...)` + `new ethers.ContractFactory(...).deploy()`
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L38) - `node scripts/solidity_in_js.js`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L38) - `node scripts/solidity_in_js.js`
 
 **Example:**
 ```bash
@@ -113,10 +113,10 @@ node scripts/solidity_in_js.js
 **Method:** Same flow as §2.1 — `solc.compile` + ethers deploy — but exercises additional behaviour (event emission / multi-contract compile).
 
 **Locations:**
-- [solidity__/codeforces_script/scripts/solidity_in_js_1.js](../solidity__/codeforces_script/scripts/solidity_in_js_1.js) - variant of `solidity_in_js.js`
+- [solidity__/codeforces_script/scripts/solidity_in_js_1.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/solidity_in_js_1.js) - variant of `solidity_in_js.js`
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L41) - `node scripts/solidity_in_js_1.js`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L41) - `node scripts/solidity_in_js_1.js`
 
 **Example:**
 ```bash
@@ -149,10 +149,10 @@ ls *.bin *.abi
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `npx hardhat compile` | Compile every `contracts/*.sol` | [Lock.sol](../solidity__/codeforces_script/contracts/Lock.sol) |
-| `npx hardhat test` | Run Mocha/Chai test suite | [test/Lock.js](../solidity__/codeforces_script/test/Lock.js) |
-| `npx hardhat node` | Long-running local EVM at :8545 | [main.yml#L32-L34](../solidity__/codeforces_script/.github/workflows/main.yml#L32-L34) |
-| `npx hardhat run scripts/deploy.js --network localhost` | Deploy via ethers + Hardhat helpers | [deploy.js](../solidity__/codeforces_script/scripts/deploy.js) |
-| `node scripts/solidity_in_js.js` | Inline `solc.compile` + ethers deploy | [solidity_in_js.js](../solidity__/codeforces_script/scripts/solidity_in_js.js) |
-| `node scripts/solidity_in_js_1.js` | Variant of §2.1 | [solidity_in_js_1.js](../solidity__/codeforces_script/scripts/solidity_in_js_1.js) |
+| `npx hardhat compile` | Compile every `contracts/*.sol` | [Lock.sol](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/contracts/Lock.sol) |
+| `npx hardhat test` | Run Mocha/Chai test suite | [test/Lock.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/test/Lock.js) |
+| `npx hardhat node` | Long-running local EVM at :8545 | [main.yml#L32-L34](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L32-L34) |
+| `npx hardhat run scripts/deploy.js --network localhost` | Deploy via ethers + Hardhat helpers | [deploy.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/deploy.js) |
+| `node scripts/solidity_in_js.js` | Inline `solc.compile` + ethers deploy | [solidity_in_js.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/solidity_in_js.js) |
+| `node scripts/solidity_in_js_1.js` | Variant of §2.1 | [solidity_in_js_1.js](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/scripts/solidity_in_js_1.js) |
 | `solcjs --bin --abi <file.sol>` | Direct CLI compile (no Hardhat, no JS driver) | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

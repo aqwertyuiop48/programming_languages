@@ -28,11 +28,11 @@ This document catalogues **all distinct Dart methods** discovered for running Da
 **Method:** Reads `pubspec.yaml`, fetches all declared packages (e.g. `dart_eval`, `interactive`), and writes `pubspec.lock`. Mandatory first step before `dart run` for any project that has dependencies.
 
 **Locations:**
-- [dart/codeforces_script/pubspec.yaml](../dart/codeforces_script/pubspec.yaml) - declares deps including `dart_eval`
+- [dart/codeforces_script/pubspec.yaml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/pubspec.yaml) - declares deps including `dart_eval`
   - Remote (submodule `dart/codeforces_script` @ branch `dart_`): [pubspec.yaml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/pubspec.yaml)
 
 **Workflow yml (executes in CI):**
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L14-L17) - `dart-lang/setup-dart@v1` then `dart pub get`
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L14-L17) - `dart-lang/setup-dart@v1` then `dart pub get`
 
 Transitively exercised in CI via the following workflow(s):
 
@@ -47,13 +47,13 @@ dart pub get
 **Method:** Compiles the `.dart` source on the fly with the Dart VM JIT and executes its `main()`. Standard way to run a Dart program from source.
 
 **Locations:**
-- [dart/codeforces_script/execute/hello.dart](../dart/codeforces_script/execute/hello.dart) - `print('Hello, Dart World!');`
-- [dart/codeforces_script/execute/stub.dart](../dart/codeforces_script/execute/stub.dart) - exercises `dart_eval` (see §2.1)
+- [dart/codeforces_script/execute/hello.dart](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/execute/hello.dart) - `print('Hello, Dart World!');`
+- [dart/codeforces_script/execute/stub.dart](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/execute/stub.dart) - exercises `dart_eval` (see §2.1)
   - Remote: [execute/](https://github.com/aqwertyuiop48/codeforces_script/tree/dart_/execute)
 
 **Workflow yml (executes in CI):**
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L20-L21) - `dart run execute/hello.dart`
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L24) - `dart run execute/stub.dart`
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L20-L21) - `dart run execute/hello.dart`
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L24) - `dart run execute/stub.dart`
 
 **Example:**
 ```bash
@@ -64,7 +64,7 @@ dart run execute/hello.dart
 **Method:** Downloads a pub.dev package and exposes its executables on `$PATH` via `~/.pub-cache/bin`. Used here to install the `interactive` REPL-style tool.
 
 **Workflow yml (executes in CI):**
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L22) - `dart pub global activate interactive`
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L22) - `dart pub global activate interactive`
 
 **Example:**
 ```bash
@@ -79,10 +79,10 @@ dart pub global activate interactive
 **Method:** The `dart_eval` package compiles arbitrary Dart source strings at runtime and executes them inside the host Dart program — analogous to `eval()` in JavaScript. Allows dynamic generation and evaluation of Dart code without invoking a separate compiler.
 
 **Locations:**
-- [dart/codeforces_script/execute/stub.dart](../dart/codeforces_script/execute/stub.dart) - imports `package:dart_eval/dart_eval.dart`, calls `eval('2 + 2')` and `eval(program, function: 'main')`
+- [dart/codeforces_script/execute/stub.dart](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/execute/stub.dart) - imports `package:dart_eval/dart_eval.dart`, calls `eval('2 + 2')` and `eval(program, function: 'main')`
 
 **Workflow yml (executes in CI):**
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L24) - the `dart run execute/stub.dart` step exercises the `eval(...)` calls
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L24) - the `dart run execute/stub.dart` step exercises the `eval(...)` calls
 
 **Example:**
 ```dart
@@ -102,7 +102,7 @@ void main() {
 **Method:** Pull the official `dart:stable` image, mount an in-memory `tmpfs` at `/tmp/my_tmpfs`, write a Dart source file into the tmpfs from the host, then invoke `dart /tmp/my_tmpfs/myscript.dart` inside the container. Everything beyond `dart:stable` is ephemeral.
 
 **Workflow yml (executes in CI):**
-- [dart/codeforces_script/.github/workflows/main.yml](../dart/codeforces_script/.github/workflows/main.yml#L27-L45) - `docker pull dart:stable`, then `docker run --rm --mount type=tmpfs,dst=/tmp/my_tmpfs dart:stable bash -c "<heredoc'd Dart source>"` and `dart /tmp/my_tmpfs/myscript.dart`
+- [dart/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L27-L45) - `docker pull dart:stable`, then `docker run --rm --mount type=tmpfs,dst=/tmp/my_tmpfs dart:stable bash -c "<heredoc'd Dart source>"` and `dart /tmp/my_tmpfs/myscript.dart`
 
 **Example:**
 ```bash
@@ -161,11 +161,11 @@ dart analyze
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `dart pub get` | Resolve `pubspec.yaml` deps | [pubspec.yaml](../dart/codeforces_script/pubspec.yaml) |
-| `dart run <file.dart>` | Run a Dart program (JIT) | [hello.dart](../dart/codeforces_script/execute/hello.dart) |
-| `dart pub global activate <pkg>` | Install a global Dart tool | [main.yml#L22](../dart/codeforces_script/.github/workflows/main.yml#L22) |
-| `dart_eval` runtime `eval()` | In-process Dart string evaluation | [stub.dart](../dart/codeforces_script/execute/stub.dart) |
-| `docker run --mount type=tmpfs … dart` | Ephemeral tmpfs runtime | [main.yml#L27-L45](../dart/codeforces_script/.github/workflows/main.yml#L27-L45) |
+| `dart pub get` | Resolve `pubspec.yaml` deps | [pubspec.yaml](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/pubspec.yaml) |
+| `dart run <file.dart>` | Run a Dart program (JIT) | [hello.dart](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/execute/hello.dart) |
+| `dart pub global activate <pkg>` | Install a global Dart tool | [main.yml#L22](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L22) |
+| `dart_eval` runtime `eval()` | In-process Dart string evaluation | [stub.dart](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/execute/stub.dart) |
+| `docker run --mount type=tmpfs … dart` | Ephemeral tmpfs runtime | [main.yml#L27-L45](https://github.com/aqwertyuiop48/codeforces_script/blob/dart_/.github/workflows/main.yml#L27-L45) |
 | `dart compile exe <file.dart>` + `./bin` | AOT native binary | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `dart compile js <file.dart>` + `node out.js` | Dart → JavaScript transpile | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `dart analyze` | Static analysis | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

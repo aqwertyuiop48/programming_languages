@@ -18,13 +18,13 @@ This document catalogues **all distinct Pascal methods** discovered for compilin
 **Method:** Invoke the Free Pascal Compiler (`fpc`) on a `.pas` source file. It produces a native ELF executable named after the source file (no extension). Then execute the binary directly.
 
 **Locations:**
-- [pascal/codeforces_script/hello.pas](../pascal/codeforces_script/hello.pas) - `program Hello; begin writeln('Hello, Pascal World!') end.`
+- [pascal/codeforces_script/hello.pas](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/hello.pas) - `program Hello; begin writeln('Hello, Pascal World!') end.`
   - Remote (submodule `pascal/codeforces_script` @ branch `pascal_`): [pascal/codeforces_script/hello.pas](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/hello.pas)
 
 **Workflow yml (executes in CI):**
-- [pascal/codeforces_script/.github/workflows/main.yml](../pascal/codeforces_script/.github/workflows/main.yml#L22-L23) - `sudo apt-get install -y fpc` (install Free Pascal Compiler)
-- [pascal/codeforces_script/.github/workflows/main.yml](../pascal/codeforces_script/.github/workflows/main.yml#L26-L27) - `fpc hello.pas` (compile)
-- [pascal/codeforces_script/.github/workflows/main.yml](../pascal/codeforces_script/.github/workflows/main.yml#L30-L31) - `./hello` (run the produced binary)
+- [pascal/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/.github/workflows/main.yml#L22-L23) - `sudo apt-get install -y fpc` (install Free Pascal Compiler)
+- [pascal/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/.github/workflows/main.yml#L26-L27) - `fpc hello.pas` (compile)
+- [pascal/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/.github/workflows/main.yml#L30-L31) - `./hello` (run the produced binary)
   - Remote: [main.yml#L26-L31](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/.github/workflows/main.yml#L26-L31)
 
 Transitively exercised in CI via the following workflow(s) — the
@@ -67,5 +67,5 @@ instantfpc hello.pas
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `fpc <file.pas>` + `./<binary>` | Compile with Free Pascal then execute | [hello.pas](../pascal/codeforces_script/hello.pas) |
+| `fpc <file.pas>` + `./<binary>` | Compile with Free Pascal then execute | [hello.pas](https://github.com/aqwertyuiop48/codeforces_script/blob/pascal_/hello.pas) |
 | `instantfpc <file.pas>` | Script-mode compile+run, cached binary | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

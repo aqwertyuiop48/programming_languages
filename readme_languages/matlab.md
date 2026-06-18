@@ -25,20 +25,20 @@ This document catalogues **all distinct Matlab methods** discovered for running 
 **Method:** `matlab -batch <stmt>` is the headless / non-interactive launcher. Wrapping `run('<file.m>')` inside it tells Matlab to execute the named script file and exit. The CI uses a Bash wrapper that loops over every `.m` under `files/`.
 
 **Locations:**
-- [matlab__/codeforces_script/files/hello_world.m](../matlab__/codeforces_script/files/hello_world.m) - `disp('Hello, Matlab World!')`
-- [matlab__/codeforces_script/files/data_analysis.m](../matlab__/codeforces_script/files/data_analysis.m) - Statistical analysis demo
-- [matlab__/codeforces_script/files/plot_sine_wave.m](../matlab__/codeforces_script/files/plot_sine_wave.m) - Plot with `saveas()` → `output/`
-- [matlab__/codeforces_script/files/polynomial_fit.m](../matlab__/codeforces_script/files/polynomial_fit.m) - Polynomial fit demo
-- [matlab__/codeforces_script/files/solve_linear_system.m](../matlab__/codeforces_script/files/solve_linear_system.m) - Linear system solver
-- [matlab__/codeforces_script/files/pendulum_simulation.m](../matlab__/codeforces_script/files/pendulum_simulation.m) - Physics simulation
-- [matlab__/codeforces_script/files/shell_script.m](../matlab__/codeforces_script/files/shell_script.m) - Shell bridge via `system(...)` (see §3.1)
-- [matlab__/codeforces_script/run_all_matlab_files.sh](../matlab__/codeforces_script/run_all_matlab_files.sh#L11) - Bash wrapper: `for matlab_file in files/*.m; do matlab -batch "run('$matlab_file')"; done`
+- [matlab__/codeforces_script/files/hello_world.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/hello_world.m) - `disp('Hello, Matlab World!')`
+- [matlab__/codeforces_script/files/data_analysis.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/data_analysis.m) - Statistical analysis demo
+- [matlab__/codeforces_script/files/plot_sine_wave.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/plot_sine_wave.m) - Plot with `saveas()` → `output/`
+- [matlab__/codeforces_script/files/polynomial_fit.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/polynomial_fit.m) - Polynomial fit demo
+- [matlab__/codeforces_script/files/solve_linear_system.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/solve_linear_system.m) - Linear system solver
+- [matlab__/codeforces_script/files/pendulum_simulation.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/pendulum_simulation.m) - Physics simulation
+- [matlab__/codeforces_script/files/shell_script.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/shell_script.m) - Shell bridge via `system(...)` (see §3.1)
+- [matlab__/codeforces_script/run_all_matlab_files.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/run_all_matlab_files.sh#L11) - Bash wrapper: `for matlab_file in files/*.m; do matlab -batch "run('$matlab_file')"; done`
   - Remote (submodule `matlab__/codeforces_script` @ branch `matlab_`): [run_all_matlab_files.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/run_all_matlab_files.sh)
 
 **Workflow yml (executes in CI):**
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L20-L23) - sets up Matlab R2023b via `matlab-actions/setup-matlab@v1`
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L30-L36) - `chmod +x ./run_all_matlab_files.sh && ./run_all_matlab_files.sh` (iterates every `.m` file)
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L40-L45) - uploads the produced plots in `output/` as an artifact
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L20-L23) - sets up Matlab R2023b via `matlab-actions/setup-matlab@v1`
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L30-L36) - `chmod +x ./run_all_matlab_files.sh && ./run_all_matlab_files.sh` (iterates every `.m` file)
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L40-L45) - uploads the produced plots in `output/` as an artifact
   - Remote: [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml)
 
 Transitively exercised in CI via the following workflow(s):
@@ -61,7 +61,7 @@ matlab -batch "run('files/hello_world.m')"
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L37) - `matlab -batch "disp('Running MATLAB code inline!'); a = 3; b = 5; disp(['Sum: ', num2str(a+b)])"`
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L37) - `matlab -batch "disp('Running MATLAB code inline!'); a = 3; b = 5; disp(['Sum: ', num2str(a+b)])"`
   - Remote: [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml)
 
 **Example:**
@@ -77,12 +77,12 @@ matlab -batch "disp('Running MATLAB code inline!'); a = 3; b = 5; disp(['Sum: ',
 **Method:** Matlab's built-in `system(cmd)` function shells out to the OS. Combined with the batch driver, it lets Matlab orchestrate arbitrary shell commands — including spawning Python (`python3 -c '…'`). Canonical Matlab → external-tool polyglot pattern. The CI installs Python 3.8 alongside Matlab specifically so this bridge works.
 
 **Locations:**
-- [matlab__/codeforces_script/files/shell_script.m](../matlab__/codeforces_script/files/shell_script.m#L2-L7) - multi-line `shell_command` joining `echo`, `pwd`, `ls`, `python3 -c "print(222222)"`
-- [matlab__/codeforces_script/files/shell_script.m](../matlab__/codeforces_script/files/shell_script.m#L10) - `[status, cmdout] = system(shell_command)` (executes it)
+- [matlab__/codeforces_script/files/shell_script.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/shell_script.m#L2-L7) - multi-line `shell_command` joining `echo`, `pwd`, `ls`, `python3 -c "print(222222)"`
+- [matlab__/codeforces_script/files/shell_script.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/shell_script.m#L10) - `[status, cmdout] = system(shell_command)` (executes it)
 
 **Workflow yml (executes in CI):**
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L25-L28) - sets up Python 3.8 (needed by `shell_script.m`'s `python3` bridge)
-- [matlab__/codeforces_script/.github/workflows/main.yml](../matlab__/codeforces_script/.github/workflows/main.yml#L30-L36) - the `run_all_matlab_files.sh` loop picks up `shell_script.m` and runs it, exercising the `system(...)` bridge
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L25-L28) - sets up Python 3.8 (needed by `shell_script.m`'s `python3` bridge)
+- [matlab__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L30-L36) - the `run_all_matlab_files.sh` loop picks up `shell_script.m` and runs it, exercising the `system(...)` bridge
 
 **Example:**
 ```matlab
@@ -127,8 +127,8 @@ octave --no-gui -q hello.m
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `matlab -batch "run('<file.m>')"` | Headless run of a `.m` script | [hello_world.m](../matlab__/codeforces_script/files/hello_world.m) |
-| `matlab -batch "<inline code>"` | Inline Matlab expression | [main.yml#L37](../matlab__/codeforces_script/.github/workflows/main.yml#L37) |
-| `system('<shell cmd>')` inside `.m` | Matlab → shell / Python bridge | [shell_script.m](../matlab__/codeforces_script/files/shell_script.m) |
+| `matlab -batch "run('<file.m>')"` | Headless run of a `.m` script | [hello_world.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/hello_world.m) |
+| `matlab -batch "<inline code>"` | Inline Matlab expression | [main.yml#L37](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/.github/workflows/main.yml#L37) |
+| `system('<shell cmd>')` inside `.m` | Matlab → shell / Python bridge | [shell_script.m](https://github.com/aqwertyuiop48/codeforces_script/blob/matlab_/files/shell_script.m) |
 | `octave --eval "<code>"` | FOSS inline expression | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `octave <file.m>` | FOSS run a `.m` file | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

@@ -22,11 +22,11 @@ This document catalogues **all distinct R-language methods** discovered for runn
 **Method:** Invoke the `Rscript` front-end on a `.R` source file. `Rscript` is the headless / non-interactive launcher (as opposed to `R` which drops into the REPL). Standard way to run R scripts in CI.
 
 **Locations:**
-- [R__/codeforces_script/hello_world.R](../R__/codeforces_script/hello_world.R) - `print(paste("Hello, R World!", ":", "2"))`
+- [R__/codeforces_script/hello_world.R](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/hello_world.R) - `print(paste("Hello, R World!", ":", "2"))`
   - Remote (submodule `R__/codeforces_script` @ branch `R_`): [R__/codeforces_script/hello_world.R](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/hello_world.R)
 
 **Workflow yml (executes in CI):**
-- [R__/codeforces_script/.github/workflows/main.yml](../R__/codeforces_script/.github/workflows/main.yml#L30) - `Rscript hello_world.R` (after `r-lib/actions/setup-r@v2` with R 4.3.0)
+- [R__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L30) - `Rscript hello_world.R` (after `r-lib/actions/setup-r@v2` with R 4.3.0)
   - Remote: [main.yml#L30](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L30)
 
 Transitively exercised in CI via the following workflow(s) — the
@@ -51,7 +51,7 @@ Rscript hello_world.R
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [R__/codeforces_script/.github/workflows/main.yml](../R__/codeforces_script/.github/workflows/main.yml#L31) - `Rscript -e "print('Hello, R embedded world!')"`
+- [R__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L31) - `Rscript -e "print('Hello, R embedded world!')"`
   - Remote: [main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L31)
 
 **Example:**
@@ -66,7 +66,7 @@ Rscript -e 'print("Hello, R embedded world!")'
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [R__/codeforces_script/.github/workflows/main.yml](../R__/codeforces_script/.github/workflows/main.yml#L32) - `Rscript -e "system(\"echo 'Hello from the R shell!'\")"`
+- [R__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L32) - `Rscript -e "system(\"echo 'Hello from the R shell!'\")"`
   - Remote: [main.yml#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L32)
 
 **Example:**
@@ -114,9 +114,9 @@ cat script.Rout
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `Rscript <file.R>` | Run an R script file | [hello_world.R](../R__/codeforces_script/hello_world.R) |
-| `Rscript -e "<R expr>"` | Inline R expression | [main.yml#L31](../R__/codeforces_script/.github/workflows/main.yml#L31) |
-| `Rscript -e "system(...)"` | Inline R → shell bridge | [main.yml#L32](../R__/codeforces_script/.github/workflows/main.yml#L32) |
+| `Rscript <file.R>` | Run an R script file | [hello_world.R](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/hello_world.R) |
+| `Rscript -e "<R expr>"` | Inline R expression | [main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L31) |
+| `Rscript -e "system(...)"` | Inline R → shell bridge | [main.yml#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/R_/.github/workflows/main.yml#L32) |
 | `R -e "<R expr>"` | Interactive front-end inline | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `echo '...' \| Rscript -` | Program from stdin | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `R CMD BATCH <file.R> <out.Rout>` | Legacy batch mode | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

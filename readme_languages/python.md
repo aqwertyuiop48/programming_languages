@@ -58,9 +58,9 @@ Each method takes Python source as input and produces the program's output. Tool
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L76) - `python test.py`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76) - `python test.py`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L76](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76)
-- [Python/codeforces_script/.github/workflows/main2.yml](../Python/codeforces_script/.github/workflows/main2.yml#L32) - `python shell_script.py`
+- [Python/codeforces_script/.github/workflows/main2.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main2.yml#L32) - `python shell_script.py`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main2.yml#L32](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main2.yml#L32)
 - [.github/workflows/cybersecurity_.yml](../.github/workflows/cybersecurity_.yml#L29) - `python vulnerability_scanner.py --ip 127.0.0.1 ...`
 - [.github/workflows/big_data.yml](../.github/workflows/big_data.yml#L40) - `python big_data_processing.py`
@@ -77,7 +77,7 @@ python vulnerability_scanner.py --ip 127.0.0.1 --start-port 1 --end-port 1024
 **Method:** Pipe a fixture file into a Python script's stdin via shell redirection. Used by the codeforces runner to feed problem input.
 
 **Locations:**
-- [Python/codeforces_script/direct/run.sh](../Python/codeforces_script/direct/run.sh#L40-L41) - `python3 "$script" < "$f" | tee "py_output/${testname}.txt"`
+- [Python/codeforces_script/direct/run.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L40-L41) - `python3 "$script" < "$f" | tee "py_output/${testname}.txt"`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/direct/run.sh#L40-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L40-L41)
 
 **Workflow yml (executes in CI):**
@@ -85,18 +85,18 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/docker_.yml](Python/codeforces_script/.github/workflows/docker_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/docker_1.yml](Python/codeforces_script/.github/workflows/docker_1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main.yml](Python/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main1.yml](Python/codeforces_script/.github/workflows/main1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main2.yml](Python/codeforces_script/.github/workflows/main2.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main_java.yml](Python/codeforces_script/.github/workflows/main_java.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main_java1.yml](Python/codeforces_script/.github/workflows/main_java1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main_kotlin.yml](Python/codeforces_script/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/main_release.yml](Python/codeforces_script/.github/workflows/main_release.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/mysql_.yml](Python/codeforces_script/.github/workflows/mysql_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
-- [Python/codeforces_script/.github/workflows/selenium_.yml](Python/codeforces_script/.github/workflows/selenium_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/docker_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/docker_1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main2.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main2.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main_java.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main_java1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java1.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main_kotlin.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/main_release.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_release.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/mysql_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/mysql_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
+- [Python/codeforces_script/.github/workflows/selenium_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/selenium_.yml) _(rule R1)_ — covers `Python/codeforces_script/direct/run.sh`
 
 **Example:**
 ```bash
@@ -107,7 +107,7 @@ python3 1A.py < test1.in
 **Method:** A script whose first line declares a Python interpreter (`#!/usr/bin/env python`) and which has the executable bit can be run directly. Django's `manage.py` entrypoint uses this.
 
 **Locations:**
-- [Python/django_/vercel_django_example1/manage.py](../Python/django_/vercel_django_example1/manage.py#L1) - `#!/usr/bin/env python`
+- [Python/django_/vercel_django_example1/manage.py](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1) - `#!/usr/bin/env python`
   - Remote (submodule `Python/django_/vercel_django_example1` @ branch `main`): [Python/django_/vercel_django_example1/manage.py#L1](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1)
 
 **Workflow yml (executes in CI):**
@@ -115,8 +115,8 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/django_/vercel_django_example1/manage.py`
-- [Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml](Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml) _(rule R1)_ — covers `Python/django_/vercel_django_example1/manage.py`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/django_/vercel_django_example1/manage.py`
+- [Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/.github/workflows/django_vercel.yml) _(rule R1)_ — covers `Python/django_/vercel_django_example1/manage.py`
 
 **Example:**
 ```bash
@@ -130,17 +130,17 @@ chmod +x manage.py
 What distinguishes IPython execution from plain `python` is access to the IPython runtime API and shell/magic syntax (§6.2). Repo-internal proof points:
 
 - The `ipython` kernel must be installed into the active env before notebooks can run — the canonical command for that is recorded in [Python/readme.ipynb#L1296](../Python/readme.ipynb#L1296) (`ipython kernel install --user --name=venv`).
-- A real `.py` source file in the repo calls the IPython runtime API directly: [Python/algorithms/Python/machine_learning/logistic_regression.py#L22](../Python/algorithms/Python/machine_learning/logistic_regression.py#L22) (`get_ipython().run_line_magic('matplotlib', 'inline')`) — this line only executes when the file is run under IPython (`ipython logistic_regression.py`) or imported into an IPython session; under plain `python` it would raise `NameError`.
-- Every Python notebook in the repo declares `"name": "ipython"` in its kernel metadata, e.g. [javascript/readme.ipynb#L2142](../javascript/readme.ipynb#L2142) and [java/temporal/edu-101-java-code/temporal_.ipynb#L1574](../java/temporal/edu-101-java-code/temporal_.ipynb#L1574) — i.e. their entire executable content is run by IPython.
+- A real `.py` source file in the repo calls the IPython runtime API directly: [Python/algorithms/Python/machine_learning/logistic_regression.py#L22](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22) (`get_ipython().run_line_magic('matplotlib', 'inline')`) — this line only executes when the file is run under IPython (`ipython logistic_regression.py`) or imported into an IPython session; under plain `python` it would raise `NameError`.
+- Every Python notebook in the repo declares `"name": "ipython"` in its kernel metadata, e.g. [javascript/readme.ipynb#L2142](../javascript/readme.ipynb#L2142) and [java/temporal/edu-101-java-code/temporal_.ipynb#L1574](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/temporal_.ipynb#L1574) — i.e. their entire executable content is run by IPython.
 
 **Locations:**
 - [Python/readme.ipynb](../Python/readme.ipynb#L1296) - `ipython kernel install --user --name=venv`
-- [Python/algorithms/Python/machine_learning/logistic_regression.py](../Python/algorithms/Python/machine_learning/logistic_regression.py#L22) - `get_ipython().run_line_magic('matplotlib', 'inline')`
+- [Python/algorithms/Python/machine_learning/logistic_regression.py](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22) - `get_ipython().run_line_magic('matplotlib', 'inline')`
   - Remote (submodule `Python/algorithms/Python` @ branch `master`): [Python/algorithms/Python/machine_learning/logistic_regression.py#L22](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22)
-- [Python/codeforces_script/execute/ipython_.ipynb](../Python/codeforces_script/execute/ipython_.ipynb) - sample notebook of IPython cells (`!ls`, `!pwd`, `print(2222)`)
+- [Python/codeforces_script/execute/ipython_.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/ipython_.ipynb) - sample notebook of IPython cells (`!ls`, `!pwd`, `print(2222)`)
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/ipython_.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/ipython_.ipynb)
 - [javascript/readme.ipynb](../javascript/readme.ipynb#L2142) - `"name": "ipython"` kernel metadata
-- [java/temporal/edu-101-java-code/temporal_.ipynb](../java/temporal/edu-101-java-code/temporal_.ipynb#L1574) - `"name": "ipython"` kernel metadata
+- [java/temporal/edu-101-java-code/temporal_.ipynb](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/temporal_.ipynb#L1574) - `"name": "ipython"` kernel metadata
   - Remote (submodule `java/temporal/edu-101-java-code` @ branch `main`): [java/temporal/edu-101-java-code/temporal_.ipynb#L1574](https://github.com/aqwertyuiop48/edu-101-java-code/blob/main/temporal_.ipynb#L1574)
 
 **Workflow yml (executes in CI):**
@@ -148,21 +148,21 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`; `Python/codeforces_script/execute/ipython_.ipynb`; `java/temporal/edu-101-java-code/temporal_.ipynb`
-- [Python/algorithms/Python/.github/workflows/build.yml](Python/algorithms/Python/.github/workflows/build.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
-- [Python/algorithms/Python/.github/workflows/project_euler.yml](Python/algorithms/Python/.github/workflows/project_euler.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
-- [Python/algorithms/Python/.github/workflows/ruff.yml](Python/algorithms/Python/.github/workflows/ruff.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
-- [Python/codeforces_script/.github/workflows/docker_.yml](Python/codeforces_script/.github/workflows/docker_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/docker_1.yml](Python/codeforces_script/.github/workflows/docker_1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main.yml](Python/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main1.yml](Python/codeforces_script/.github/workflows/main1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main2.yml](Python/codeforces_script/.github/workflows/main2.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main_java.yml](Python/codeforces_script/.github/workflows/main_java.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main_java1.yml](Python/codeforces_script/.github/workflows/main_java1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main_kotlin.yml](Python/codeforces_script/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/main_release.yml](Python/codeforces_script/.github/workflows/main_release.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/mysql_.yml](Python/codeforces_script/.github/workflows/mysql_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
-- [Python/codeforces_script/.github/workflows/selenium_.yml](Python/codeforces_script/.github/workflows/selenium_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`; `Python/codeforces_script/execute/ipython_.ipynb`; `java/temporal/edu-101-java-code/temporal_.ipynb`
+- [Python/algorithms/Python/.github/workflows/build.yml](https://github.com/aqwertyuiop48/Python/blob/master/.github/workflows/build.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
+- [Python/algorithms/Python/.github/workflows/project_euler.yml](https://github.com/aqwertyuiop48/Python/blob/master/.github/workflows/project_euler.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
+- [Python/algorithms/Python/.github/workflows/ruff.yml](https://github.com/aqwertyuiop48/Python/blob/master/.github/workflows/ruff.yml) _(rule R1)_ — covers `Python/algorithms/Python/machine_learning/logistic_regression.py`
+- [Python/codeforces_script/.github/workflows/docker_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/docker_1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main2.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main2.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main_java.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main_java1.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java1.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main_kotlin.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/main_release.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_release.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/mysql_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/mysql_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
+- [Python/codeforces_script/.github/workflows/selenium_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/selenium_.yml) _(rule R1)_ — covers `Python/codeforces_script/execute/ipython_.ipynb`
 
 **Example:**
 ```bash
@@ -196,13 +196,13 @@ python -c "print(2 + 3)"
 **Method:** Pass `-` as the script argument so the interpreter reads source from stdin; supply a shell heredoc to inline a multi-line Python program.
 
 **Locations:**
-- [clojure_/codeforces_script/testing.sh](../clojure_/codeforces_script/testing.sh#L5) - `python3 - <<'EOF'` (shell heredoc piping multi-line Python)
+- [clojure_/codeforces_script/testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5) - `python3 - <<'EOF'` (shell heredoc piping multi-line Python)
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L5](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5)
-- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L6) - `"python3 - <<'EOF'..."` (Clojure-built shell string)
+- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L6) - `"python3 - <<'EOF'..."` (Clojure-built shell string)
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L6](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L6)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - step runs `./testing.sh`, which contains `python3 - <<'EOF'` at [testing.sh#L5](../clojure_/codeforces_script/testing.sh#L5) — transitive coverage via shell script.
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39) - step runs `./testing.sh`, which contains `python3 - <<'EOF'` at [testing.sh#L5](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5) — transitive coverage via shell script.
   - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
@@ -295,7 +295,7 @@ printf '%s\n' 'for i in range(3):' '    print(i)' | python
 
 **Workflow yml (executes in CI):**
 - [.github/workflows/pyunit_.yml](../.github/workflows/pyunit_.yml#L26) - `python -m unittest discover -s . -p "test_*.py"`
-- [Python/codeforces_script/.github/workflows/selenium_.yml](../Python/codeforces_script/.github/workflows/selenium_.yml#L63) - `python -m unittest discover -s Python/selenium_ -p local_.py`
+- [Python/codeforces_script/.github/workflows/selenium_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/selenium_.yml#L63) - `python -m unittest discover -s Python/selenium_ -p local_.py`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/selenium_.yml#L63](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/selenium_.yml#L63)
 
 **Example:**
@@ -311,9 +311,9 @@ None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L27) - `pytest && python app/decorator.py && pytest -m slow`
-- [Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml](../Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml#L36) - `pytest -v --html=results/report.html`
+- [Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml](https://github.com/aqwertyuiop48/selenium_python_example/blob/main/.github/workflows/daily-test.yml#L36) - `pytest -v --html=results/report.html`
   - Remote (submodule `Python/selenium_/selenium_python_example` @ branch `main`): [Python/selenium_/selenium_python_example/.github/workflows/daily-test.yml#L36](https://github.com/aqwertyuiop48/selenium_python_example/blob/main/.github/workflows/daily-test.yml#L36)
-- [Python/selenium_/SeleniumBase/azure-pipelines.yml](../Python/selenium_/SeleniumBase/azure-pipelines.yml#L69) - `python -m pytest examples/boilerplates/boilerplate_test.py --browser=chrome --headless ...`
+- [Python/selenium_/SeleniumBase/azure-pipelines.yml](https://github.com/aqwertyuiop48/SeleniumBase/blob/main/azure-pipelines.yml#L69) - `python -m pytest examples/boilerplates/boilerplate_test.py --browser=chrome --headless ...`
   - Remote (submodule `Python/selenium_/SeleniumBase` @ branch `main`): [Python/selenium_/SeleniumBase/azure-pipelines.yml#L69](https://github.com/aqwertyuiop48/SeleniumBase/blob/main/azure-pipelines.yml#L69)
 
 **Example:**
@@ -384,17 +384,17 @@ robot search_test.robot
 **Method:** Django's bootstrap CLI runs `manage.py`, which dispatches `runserver` to launch the dev WSGI server using `vercel_app/settings.py`.
 
 **Locations:**
-- [Python/django_/vercel_django_example1/manage.py](../Python/django_/vercel_django_example1/manage.py#L1-L22) - `execute_from_command_line(sys.argv)`
+- [Python/django_/vercel_django_example1/manage.py](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1-L22) - `execute_from_command_line(sys.argv)`
   - Remote (submodule `Python/django_/vercel_django_example1` @ branch `main`): [Python/django_/vercel_django_example1/manage.py#L1-L22](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1-L22)
-- [Python/django_/vercel_django_example1/readme.md](../Python/django_/vercel_django_example1/readme.md#L12) - `python manage.py runserver`
+- [Python/django_/vercel_django_example1/readme.md](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/readme.md#L12) - `python manage.py runserver`
 
 **Workflow yml (executes in CI):**
 Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/django_/vercel_django_example1/manage.py`; `Python/django_/vercel_django_example1/readme.md`
-- [Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml](Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml) _(rule R1)_ — covers `Python/django_/vercel_django_example1/manage.py`; `Python/django_/vercel_django_example1/readme.md`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/django_/vercel_django_example1/manage.py`; `Python/django_/vercel_django_example1/readme.md`
+- [Python/django_/vercel_django_example1/.github/workflows/django_vercel.yml](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/.github/workflows/django_vercel.yml) _(rule R1)_ — covers `Python/django_/vercel_django_example1/manage.py`; `Python/django_/vercel_django_example1/readme.md`
 
 **Example:**
 ```bash
@@ -405,9 +405,9 @@ python manage.py runserver
 **Method:** Flask CLI inspects `FLASK_APP` (env var) and starts the app's dev WSGI server. Source is a `.py` module exposing a `Flask` instance.
 
 **Locations:**
-- [Python/flask_/vercel_flask_app/README.md](../Python/flask_/vercel_flask_app/README.md#L19) - `FLASK_APP=index.py flask run`
+- [Python/flask_/vercel_flask_app/README.md](https://github.com/aqwertyuiop48/vercel_flask_app/blob/main/README.md#L19) - `FLASK_APP=index.py flask run`
   - Remote (submodule `Python/flask_/vercel_flask_app` @ branch `main`): [Python/flask_/vercel_flask_app/README.md#L19](https://github.com/aqwertyuiop48/vercel_flask_app/blob/main/README.md#L19)
-- [Python/flask_/flask_pythonanywhere/readme2.md](../Python/flask_/flask_pythonanywhere/readme2.md#L29) - `FLASK_APP=flask_app.py flask run`
+- [Python/flask_/flask_pythonanywhere/readme2.md](https://github.com/aqwertyuiop48/flask_pythonanywhere/blob/main/readme2.md#L29) - `FLASK_APP=flask_app.py flask run`
   - Remote (submodule `Python/flask_/flask_pythonanywhere` @ branch `main`): [Python/flask_/flask_pythonanywhere/readme2.md#L29](https://github.com/aqwertyuiop48/flask_pythonanywhere/blob/main/readme2.md#L29)
 
 **Workflow yml (executes in CI):**
@@ -415,7 +415,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/flask_/vercel_flask_app/README.md`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/flask_/vercel_flask_app/README.md`
 
 **Example:**
 ```bash
@@ -426,7 +426,7 @@ FLASK_APP=index.py flask run
 **Method:** [uvicorn](https://www.uvicorn.org/) runs an ASGI application; invoked either via the CLI (`uvicorn module:app`) or programmatically (`uvicorn.run(...)`).
 
 **Locations:**
-- [Python/fastapi_/fastapi_python/main.py](../Python/fastapi_/fastapi_python/main.py#L1-L4) - `import uvicorn; uvicorn.run("server.api:app", host="0.0.0.0", port=8001, reload=True)`
+- [Python/fastapi_/fastapi_python/main.py](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1-L4) - `import uvicorn; uvicorn.run("server.api:app", host="0.0.0.0", port=8001, reload=True)`
   - Remote (submodule `Python/fastapi_/fastapi_python` @ branch `main`): [Python/fastapi_/fastapi_python/main.py#L1-L4](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1-L4)
 
 **Workflow yml (executes in CI):**
@@ -434,7 +434,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `Python/fastapi_/fastapi_python/main.py`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `Python/fastapi_/fastapi_python/main.py`
 
 **Example:**
 ```bash
@@ -468,13 +468,13 @@ celery -A tasks worker --loglevel=info
 **Method:** Execute every cell in a `.ipynb` file with the Python kernel and write the executed version out. Single command takes notebook source → produces output.
 
 **Locations:**
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb) - the input notebook
+- [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb) - the input notebook
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb)
 
 **Workflow yml (executes in CI):**
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L81) - `jupyter nbconvert --to notebook --execute notebook.ipynb --output executed_notebook.ipynb`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81) - `jupyter nbconvert --to notebook --execute notebook.ipynb --output executed_notebook.ipynb`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L81](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81)
-- [Python/codeforces_script/.github/workflows/main_release.yml](../Python/codeforces_script/.github/workflows/main_release.yml#L47) - same pattern targeting `outputs/`
+- [Python/codeforces_script/.github/workflows/main_release.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_release.yml#L47) - same pattern targeting `outputs/`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main_release.yml#L47](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_release.yml#L47)
 
 **Example:**
@@ -493,25 +493,25 @@ jupyter nbconvert --to notebook --execute notebook.ipynb \
 When executed via `jupyter nbconvert --execute` (§6.1) or directly in the notebook UI, the IPython kernel evaluates these alongside regular Python in one pass.
 
 **Locations:**
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb#L18) - `%%writefile HelloWorld.java` cell magic
+- [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L18) - `%%writefile HelloWorld.java` cell magic
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb#L18](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L18)
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb#L32-L33) - `!javac HelloWorld.java` / `!java HelloWorld` shell escapes
+- [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L32-L33) - `!javac HelloWorld.java` / `!java HelloWorld` shell escapes
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb#L32-L33](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L32-L33)
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb#L42) - second `%%writefile HelloWorld1.java` cell
+- [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L42) - second `%%writefile HelloWorld1.java` cell
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb#L42](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L42)
-- [Python/codeforces_script/execute/notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb#L75-L76) - `!javac HelloWorld1.java` / `!java HelloWorld1`
+- [Python/codeforces_script/execute/notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L75-L76) - `!javac HelloWorld1.java` / `!java HelloWorld1`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/notebook.ipynb#L75-L76](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L75-L76)
-- [Python/codeforces_script/execute/ipython_.ipynb](../Python/codeforces_script/execute/ipython_.ipynb) - sample cells: `!ls`, `!pwd`, `print(2222)`
+- [Python/codeforces_script/execute/ipython_.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/ipython_.ipynb) - sample cells: `!ls`, `!pwd`, `print(2222)`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/execute/ipython_.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/ipython_.ipynb)
-- [Python/algorithms/Python/machine_learning/logistic_regression.py](../Python/algorithms/Python/machine_learning/logistic_regression.py#L22) - `get_ipython().run_line_magic('matplotlib', 'inline')` (the programmatic form of `%matplotlib inline`)
+- [Python/algorithms/Python/machine_learning/logistic_regression.py](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22) - `get_ipython().run_line_magic('matplotlib', 'inline')` (the programmatic form of `%matplotlib inline`)
   - Remote (submodule `Python/algorithms/Python` @ branch `master`): [Python/algorithms/Python/machine_learning/logistic_regression.py#L22](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22)
 
 **Workflow yml (executes in CI):**
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L78-L82) - "Run Jupyter Notebook" step runs `jupyter nbconvert --to notebook --execute notebook.ipynb` against [notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb) whose cells contain `%%writefile` and `!javac` magics — direct CI coverage.
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L78-L82) - "Run Jupyter Notebook" step runs `jupyter nbconvert --to notebook --execute notebook.ipynb` against [notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb) whose cells contain `%%writefile` and `!javac` magics — direct CI coverage.
   - Remote: [Python/codeforces_script/.github/workflows/main.yml#L78-L82](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L78-L82)
-- [Python/codeforces_script/.github/workflows/main_kotlin.yml](../Python/codeforces_script/.github/workflows/main_kotlin.yml#L27-L42) - "Execute Kotlin notebook" step runs `jupyter nbconvert --to notebook --execute notebook.ipynb` (same magic-cell evaluation pipeline, Kotlin kernel).
+- [Python/codeforces_script/.github/workflows/main_kotlin.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_kotlin.yml#L27-L42) - "Execute Kotlin notebook" step runs `jupyter nbconvert --to notebook --execute notebook.ipynb` (same magic-cell evaluation pipeline, Kotlin kernel).
   - Remote: [Python/codeforces_script/.github/workflows/main_kotlin.yml#L27-L42](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_kotlin.yml#L27-L42)
-- [Python/codeforces_script/.github/workflows/main_java.yml](../Python/codeforces_script/.github/workflows/main_java.yml#L52-L70) - "IJava inline" step executes a `jupyter-console --kernel=java <<EOF` block containing the `%maven org.knowm.xchart:xchart:3.5.2` line magic — kernel-magic evaluation in CI.
+- [Python/codeforces_script/.github/workflows/main_java.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L52-L70) - "IJava inline" step executes a `jupyter-console --kernel=java <<EOF` block containing the `%maven org.knowm.xchart:xchart:3.5.2` line magic — kernel-magic evaluation in CI.
   - Remote: [Python/codeforces_script/.github/workflows/main_java.yml#L52-L70](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main_java.yml#L52-L70)
 
 **Example (notebook cells executed by `nbconvert --execute`):**
@@ -564,11 +564,11 @@ EOF
 **Method:** Build a Docker image whose `Dockerfile` installs Python and copies in source; run the image and the entrypoint executes the Python program. End-to-end: source → image → running program → artifacts copied out.
 
 **Locations:**
-- [Python/codeforces_script/Dockerfile](../Python/codeforces_script/Dockerfile#L1-L2) - `FROM ubuntu:20.04`
+- [Python/codeforces_script/Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/Dockerfile#L1-L2) - `FROM ubuntu:20.04`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/Dockerfile#L1-L2](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/Dockerfile#L1-L2)
 
 **Workflow yml (executes in CI):**
-- [Python/codeforces_script/.github/workflows/docker_.yml](../Python/codeforces_script/.github/workflows/docker_.yml#L20-L26) - `docker build -t my-app .` then `docker run --name my-container -d my-app`
+- [Python/codeforces_script/.github/workflows/docker_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20-L26) - `docker build -t my-app .` then `docker run --name my-container -d my-app`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/docker_.yml#L20-L26](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20-L26)
 
 **Example:**
@@ -586,7 +586,7 @@ docker cp my-container:/app/output/output.txt ./output.txt
 **Method:** Node.js spawns CPython (with `-c` for inline source or a file path) to delegate computation to Python. Single end-to-end call: Python source string → program output captured via stdout.
 
 **Locations:**
-- [javascript/main_/codeforces_script/fixed_code.js](../javascript/main_/codeforces_script/fixed_code.js#L9) - `const pythonProcess = spawn('python3', pythonArgs);`
+- [javascript/main_/codeforces_script/fixed_code.js](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/fixed_code.js#L9) - `const pythonProcess = spawn('python3', pythonArgs);`
 - [javascript/mysql_connector_/mysql_connector_.js](../javascript/mysql_connector_/mysql_connector_.js#L44) - `spawnSync('python3', ['-c', pythonCode], { ... })`
 - [typescript/inputs/final_inputs.js](../typescript/inputs/final_inputs.js#L6-L70) - multiple `spawn("python", ["-c", \`...\`])` calls
 - [golang/6_go_movies_crud_1/main_2.js](../golang/6_go_movies_crud_1/main_2.js#L117) - `runner.execFile("python", ["-c", python_go_main], ...)`
@@ -596,10 +596,10 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
-- [.github/workflows/mysql_.yml](.github/workflows/mysql_.yml) _(rule R3)_ — covers `javascript/mysql_connector_/mysql_connector_.js`
-- [javascript/main_/codeforces_script/.github/workflows/main.yml](javascript/main_/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
-- [javascript/main_/codeforces_script/.github/workflows/user_input.yml](javascript/main_/codeforces_script/.github/workflows/user_input.yml) _(rule R1)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
+- [.github/workflows/mysql_.yml](../.github/workflows/mysql_.yml) _(rule R3)_ — covers `javascript/mysql_connector_/mysql_connector_.js`
+- [javascript/main_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
+- [javascript/main_/codeforces_script/.github/workflows/user_input.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/.github/workflows/user_input.yml) _(rule R1)_ — covers `javascript/main_/codeforces_script/fixed_code.js`
 
 **Example:**
 ```javascript
@@ -612,13 +612,13 @@ child.stdout.on('data', d => process.stdout.write(d));
 **Method:** Clojure builds a Python program as a string and dispatches it to `python3 -c` via `clojure.java.shell`. Output is returned in the `:out` key of the resulting map.
 
 **Locations:**
-- [clojure_/codeforces_script/testing.sh](../clojure_/codeforces_script/testing.sh#L23-L32) - `(def python-code ...) (def result (shell/sh "python3" "-c" python-code))`
+- [clojure_/codeforces_script/testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L23-L32) - `(def python-code ...) (def result (shell/sh "python3" "-c" python-code))`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L23-L32](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L23-L32)
-- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65) - `(def python-code ...) (def result (shell/sh "python3" "-c" python-code))`
+- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65) - `(def python-code ...) (def result (shell/sh "python3" "-c" python-code))`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46-L65)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - runs `./testing.sh`, whose `clojure - <<EOF` block (at [testing.sh#L23-L32](../clojure_/codeforces_script/testing.sh#L23-L32)) executes `(require '[clojure.java.shell :as shell])` then `(shell/sh "python3" "-c" python-code)` — transitive coverage of the CLJ → Python bridge.
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39) - runs `./testing.sh`, whose `clojure - <<EOF` block (at [testing.sh#L23-L32](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L23-L32)) executes `(require '[clojure.java.shell :as shell])` then `(shell/sh "python3" "-c" python-code)` — transitive coverage of the CLJ → Python bridge.
   - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
@@ -635,26 +635,26 @@ child.stdout.on('data', d => process.stdout.write(d));
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| python <file.py> | Run script | [main.yml](../Python/codeforces_script/.github/workflows/main.yml#L76)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76) |
-| python3 <file> < input | Stdin redirection | [run.sh](../Python/codeforces_script/direct/run.sh#L41)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L41) |
-| ./script.py (shebang) | Executable script | [manage.py](../Python/django_/vercel_django_example1/manage.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1) |
-| ipython <file.py> | IPython interpreter & kernel | [logistic_regression.py](../Python/algorithms/Python/machine_learning/logistic_regression.py#L22)<br/>[remote @ `master`](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22) |
+| python <file.py> | Run script | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L76) |
+| python3 <file> < input | Stdin redirection | [run.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L41)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L41) |
+| ./script.py (shebang) | Executable script | [manage.py](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1) |
+| ipython <file.py> | IPython interpreter & kernel | [logistic_regression.py](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22)<br/>[remote @ `master`](https://github.com/aqwertyuiop48/Python/blob/master/machine_learning/logistic_regression.py#L22) |
 | python -c "..." | Inline expression | [mysql_connector_.js](../javascript/mysql_connector_/mysql_connector_.js#L44) |
-| python3 - <<EOF | Stdin heredoc | [testing.sh](../clojure_/codeforces_script/testing.sh#L5)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5) |
+| python3 - <<EOF | Stdin heredoc | [testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5) |
 | python -m unittest | Stdlib test runner | [pyunit_.yml](../.github/workflows/pyunit_.yml#L26) |
 | pytest / python -m pytest | Pytest runner | [pytest_.yml](../.github/workflows/pytest_.yml#L27) |
 | behave | BDD runner | [pytest_.yml](../.github/workflows/pytest_.yml#L35) |
 | pytest-bdd | BDD via pytest | [test_api_pytest_bdd_steps.py](../Python/cucumber_/features/test_api_pytest_bdd_steps.py#L1) |
 | robot <file.robot> | Robot Framework | [search_test.robot](../Python/robot_/search_test.robot#L1) |
-| python manage.py runserver | Django dev server | [manage.py](../Python/django_/vercel_django_example1/manage.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1) |
-| flask run | Flask CLI | [README.md](../Python/flask_/vercel_flask_app/README.md#L19)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_flask_app/blob/main/README.md#L19) |
-| uvicorn | ASGI server | [main.py](../Python/fastapi_/fastapi_python/main.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1) |
+| python manage.py runserver | Django dev server | [manage.py](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_django_example1/blob/main/manage.py#L1) |
+| flask run | Flask CLI | [README.md](https://github.com/aqwertyuiop48/vercel_flask_app/blob/main/README.md#L19)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/vercel_flask_app/blob/main/README.md#L19) |
+| uvicorn | ASGI server | [main.py](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/fastapi_python/blob/main/main.py#L1) |
 | celery -A worker | Task queue | [celery_.yml](../.github/workflows/celery_.yml#L36) |
-| jupyter nbconvert --execute | Run Python notebook | [main.yml](../Python/codeforces_script/.github/workflows/main.yml#L81)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81) |
-| IPython !shell / %%magic / %magic | Notebook cell magics | [notebook.ipynb](../Python/codeforces_script/execute/notebook.ipynb#L18)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L18) |
+| jupyter nbconvert --execute | Run Python notebook | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L81) |
+| IPython !shell / %%magic / %magic | Notebook cell magics | [notebook.ipynb](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L18)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/execute/notebook.ipynb#L18) |
 | jupyter-console --kernel=python3 <<EOF | Inline Python via Jupyter console | [pytest_.yml](../.github/workflows/pytest_.yml#L44-L52) |
-| docker build + run | Container | [docker_.yml](../Python/codeforces_script/.github/workflows/docker_.yml#L20)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20) |
-| Node spawn('python3') | JS → Python | [fixed_code.js](../javascript/main_/codeforces_script/fixed_code.js#L9) |
-| Clojure shell/sh "python3" | CLJ → Python | [cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L46)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46) |
+| docker build + run | Container | [docker_.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20)<br/>[remote @ `python_`](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/docker_.yml#L20) |
+| Node spawn('python3') | JS → Python | [fixed_code.js](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/fixed_code.js#L9) |
+| Clojure shell/sh "python3" | CLJ → Python | [cc.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L46) |
 
 ---

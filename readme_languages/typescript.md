@@ -55,11 +55,11 @@ Each method takes TS source as input and produces program output. Pure type-chec
 **Method:** `ts-node` registers a TS loader, transpiles `<file.ts>` in memory, and runs it under Node. Used here for both dev (`ts-node-dev`-style start) and production-style starts (no separate `tsc` build step).
 
 **Locations:**
-- [typescript/express_/ts_express_vercel_app/package.json](../typescript/express_/ts_express_vercel_app/package.json#L7) - `"start": "ts-node index.ts"`
+- [typescript/express_/ts_express_vercel_app/package.json](https://github.com/aqwertyuiop48/ts_express_vercel_app/blob/main/package.json#L7) - `"start": "ts-node index.ts"`
   - Remote (submodule `typescript/express_/ts_express_vercel_app` @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/ts_express_vercel_app/blob/main/package.json#L7)
-- [typescript/koa_/koa_project/package.json](../typescript/koa_/koa_project/package.json#L14) - `"start": "ts-node index.ts"`
+- [typescript/koa_/koa_project/package.json](https://github.com/aqwertyuiop48/koa_project/blob/typescript/package.json#L14) - `"start": "ts-node index.ts"`
   - Remote (submodule @ branch `typescript`): [package.json#L14](https://github.com/aqwertyuiop48/koa_project/blob/typescript/package.json#L14)
-- [typescript/ts_node_server/ts_node_server/package.json](../typescript/ts_node_server/ts_node_server/package.json#L7) - `"start": "ts-node index.ts"`
+- [typescript/ts_node_server/ts_node_server/package.json](https://github.com/aqwertyuiop48/ts_node_server/blob/main/package.json#L7) - `"start": "ts-node index.ts"`
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/ts_node_server/blob/main/package.json#L7)
 
 **Workflow yml (executes in CI):**
@@ -75,7 +75,7 @@ npm start    # if package.json's start is "ts-node index.ts"
 **Method:** `tsx` is an esbuild-backed alternative to `ts-node` — single command compiles and runs `.ts` / `.tsx` files under Node.
 
 **Locations:**
-- [javascript/saas-microservices/apps/api/package.json](../javascript/saas-microservices/apps/api/package.json#L10) - `"dev": "tsx src/index.ts"`
+- [javascript/saas-microservices/apps/api/package.json](https://github.com/aqwertyuiop48/saas-microservices/blob/main/apps/api/package.json#L10) - `"dev": "tsx src/index.ts"`
 
 **Workflow yml (executes in CI):**
 - [.github/workflows/pytest_.yml](../.github/workflows/pytest_.yml#L129-L139) - "tsx <file.ts> (file run)" step writes `/tmp/hello_tsx.ts` then runs `tsx /tmp/hello_tsx.ts` — direct CI coverage.
@@ -90,9 +90,9 @@ npm run dev
 **Method:** [Bun](https://bun.sh/) is a JavaScript runtime that natively executes TypeScript (no separate transpile step required) and provides a file-watcher with `--watch`.
 
 **Locations:**
-- [javascript/new_frameworks/elysia/package.json](../javascript/new_frameworks/elysia/package.json#L7) - `"dev": "bun run --watch src/index.ts"` (Elysia is a TS-first web framework for Bun)
+- [javascript/new_frameworks/elysia/package.json](https://github.com/aqwertyuiop48/elysia/blob/main/package.json#L7) - `"dev": "bun run --watch src/index.ts"` (Elysia is a TS-first web framework for Bun)
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/elysia/blob/main/package.json#L7)
-- [javascript/turborepo-with-hono/apps/web/README.md](../javascript/turborepo-with-hono/apps/web/README.md#L14) - `bun dev`
+- [javascript/turborepo-with-hono/apps/web/README.md](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/apps/web/README.md#L14) - `bun dev`
   - Remote (submodule @ branch `main`): [README.md#L14](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/apps/web/README.md#L14)
 
 **Workflow yml (executes in CI):**
@@ -223,16 +223,16 @@ These frameworks are TypeScript by convention — their CLI accepts `.ts` source
 **Method:** Angular CLI dev server. Compiles TypeScript components and serves with live reload. `ng test` launches Karma with TS specs; `ng build` produces a production bundle.
 
 **Locations:**
-- [javascript/angular_/my_angular_app/package.json](../javascript/angular_/my_angular_app/package.json#L6-L9) - `"start": "ng serve"`, `"build": "ng build"`, `"test": "ng test"`
+- [javascript/angular_/my_angular_app/package.json](https://github.com/aqwertyuiop48/my_angular_app/blob/main/package.json#L6-L9) - `"start": "ng serve"`, `"build": "ng build"`, `"test": "ng test"`
   - Remote (submodule @ branch `main`): [package.json#L6-L9](https://github.com/aqwertyuiop48/my_angular_app/blob/main/package.json#L6-L9)
-- [javascript/angular_/my_angular_app_main/package.json](../javascript/angular_/my_angular_app_main/package.json#L6-L7)
+- [javascript/angular_/my_angular_app_main/package.json](https://github.com/aqwertyuiop48/my_angular_app/blob/main_/package.json#L6-L7)
   - Remote (submodule @ branch `main_`): [package.json#L6-L7](https://github.com/aqwertyuiop48/my_angular_app/blob/main_/package.json#L6-L7)
-- [javascript/new_frameworks/ionic-angular/package.json](../javascript/new_frameworks/ionic-angular/package.json#L8-L11) - `ng serve` / `ng build` / `ng test` (Ionic + Angular)
-- [java/angular_springboot/angular-springboot-crud/crud-angular/package.json](../java/angular_springboot/angular-springboot-crud/crud-angular/package.json#L6) - `ng serve` (Angular front-end of a Spring Boot CRUD)
+- [javascript/new_frameworks/ionic-angular/package.json](https://github.com/aqwertyuiop48/ionic-angular/blob/main/package.json#L8-L11) - `ng serve` / `ng build` / `ng test` (Ionic + Angular)
+- [java/angular_springboot/angular-springboot-crud/crud-angular/package.json](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/crud-angular/package.json#L6) - `ng serve` (Angular front-end of a Spring Boot CRUD)
   - Remote (submodule @ branch `main`): [package.json#L6](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/crud-angular/package.json#L6)
 
 **Workflow yml (executes in CI):**
-- [java/angular_springboot/angular-springboot-crud/.github/workflows/build.yml](../java/angular_springboot/angular-springboot-crud/.github/workflows/build.yml#L48-L51) - runs `npm run test:ci` (→ `ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadless`) and `npm run build` (→ `ng build`) — transitive coverage via npm scripts in [crud-angular/package.json#L7-L10](../java/angular_springboot/angular-springboot-crud/crud-angular/package.json#L7-L10).
+- [java/angular_springboot/angular-springboot-crud/.github/workflows/build.yml](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/.github/workflows/build.yml#L48-L51) - runs `npm run test:ci` (→ `ng test --no-watch --no-progress --code-coverage --browsers=ChromeHeadless`) and `npm run build` (→ `ng build`) — transitive coverage via npm scripts in [crud-angular/package.json#L7-L10](https://github.com/aqwertyuiop48/angular-springboot-crud/blob/main/crud-angular/package.json#L7-L10).
 
 **Example:**
 ```bash
@@ -245,15 +245,15 @@ ng test --browsers=ChromeHeadless
 **Method:** NestJS is a TypeScript-first Node back-end framework. `nest start` launches the compiled app; `--watch` adds incremental rebuild + restart on save; `--debug --watch` adds the Node inspector.
 
 **Locations:**
-- [javascript/nest_/nestjs_app/package.json](../javascript/nest_/nestjs_app/package.json#L12-L15) - `"start": "nest start"`, `"start:dev": "nest start --watch"`, `"start:debug": "nest start --debug --watch"`
+- [javascript/nest_/nestjs_app/package.json](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L12-L15) - `"start": "nest start"`, `"start:dev": "nest start --watch"`, `"start:debug": "nest start --debug --watch"`
   - Remote (submodule @ branch `main`): [package.json#L12-L15](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L12-L15)
-- [typescript/nest_/nestjs_js/package.json](../typescript/nest_/nestjs_js/package.json#L12) - `"start": "nest start"`
+- [typescript/nest_/nestjs_js/package.json](https://github.com/aqwertyuiop48/nestjs_js/blob/main/package.json#L12) - `"start": "nest start"`
   - Remote (submodule @ branch `main`): [package.json#L12](https://github.com/aqwertyuiop48/nestjs_js/blob/main/package.json#L12)
-- [typescript/nest_/nestjs_tsx/package.json](../typescript/nest_/nestjs_tsx/package.json#L13)
+- [typescript/nest_/nestjs_tsx/package.json](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L13)
   - Remote (submodule @ branch `main`): [package.json#L13](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L13)
 
 **Workflow yml (executes in CI):**
-- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](../typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml#L31) - `npm run build` resolves via [package.json#L10](../typescript/nest_/nestjs_tsx/package.json#L10) to `nest build` — transitive coverage via npm script (production-side of the same Nest CLI).
+- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/.github/workflows/deploy.yml#L31) - `npm run build` resolves via [package.json#L10](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L10) to `nest build` — transitive coverage via npm script (production-side of the same Nest CLI).
   - Remote (submodule @ branch `main`): [.github/workflows/deploy.yml#L31](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/.github/workflows/deploy.yml#L31)
 
 **Example:**
@@ -267,9 +267,9 @@ nest start --debug --watch
 **Method:** [Vinxi](https://vinxi.vercel.app/) is the universal app framework that powers SolidJS Start — `vinxi dev` boots an HMR dev server from TypeScript / TSX entry files.
 
 **Locations:**
-- [typescript/solid_/solid_app/package.json](../typescript/solid_/solid_app/package.json#L5-L7) - `"dev": "vinxi dev"`, `"build": "vinxi build"`, `"start": "vinxi start"`
+- [typescript/solid_/solid_app/package.json](https://github.com/aqwertyuiop48/solid_app/blob/main/package.json#L5-L7) - `"dev": "vinxi dev"`, `"build": "vinxi build"`, `"start": "vinxi start"`
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/solid_app/blob/main/package.json#L5-L7)
-- [typescript/solid_/solid_ts/solid_app/package.json](../typescript/solid_/solid_ts/solid_app/package.json) - SolidJS-TS variant
+- [typescript/solid_/solid_ts/solid_app/package.json](https://github.com/aqwertyuiop48/solid_app/blob/typescript/package.json) - SolidJS-TS variant
   - Remote (submodule @ branch `typescript`): [package.json](https://github.com/aqwertyuiop48/solid_app/blob/typescript/package.json)
 
 **Workflow yml (executes in CI):**
@@ -277,7 +277,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/solid_/solid_app/package.json`; `typescript/solid_/solid_ts/solid_app/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `typescript/solid_/solid_app/package.json`; `typescript/solid_/solid_ts/solid_app/package.json`
 
 **Example:**
 ```bash
@@ -289,7 +289,7 @@ vinxi build && vinxi start
 **Method:** Qwik is a resumable framework whose dev mode runs Vite in SSR mode (`vite --mode ssr`) over TSX source; `qwik build` orchestrates the multi-stage build (`build.client`, `build.server`, `build.preview`) for production.
 
 **Locations:**
-- [typescript/qwik_/qwik-app/package.json](../typescript/qwik_/qwik-app/package.json#L7-L16) - `"build": "qwik build"`, `"dev": "vite --mode ssr"`, `"start": "vite --open --mode ssr"`, `"preview": "qwik build preview && vite preview --open"`
+- [typescript/qwik_/qwik-app/package.json](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L7-L16) - `"build": "qwik build"`, `"dev": "vite --mode ssr"`, `"start": "vite --open --mode ssr"`, `"preview": "qwik build preview && vite preview --open"`
   - Remote (submodule @ branch `main`): [package.json#L7-L16](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L7-L16)
 
 **Workflow yml (executes in CI):**
@@ -297,7 +297,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/qwik_/qwik-app/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `typescript/qwik_/qwik-app/package.json`
 
 **Example:**
 ```bash
@@ -310,9 +310,9 @@ qwik build preview && vite preview --open
 **Method:** The TypeScript Adonis variants in this repo boot via `ts-node server.ts` (alternatively a precompiled `node server.js`). Documented separately from the generic `ts-node` entry because the framework structure (`app/`, `config/`, `bootstrap/`, `.env`) is what produces the running HTTP server.
 
 **Locations:**
-- [typescript/adonis_/serverless-adonis/package.json](../typescript/adonis_/serverless-adonis/package.json#L9) - `"serve": "node server.js"` (post-build entry; sources are TS)
+- [typescript/adonis_/serverless-adonis/package.json](https://github.com/aqwertyuiop48/serverless-adonis/blob/typescript/package.json#L9) - `"serve": "node server.js"` (post-build entry; sources are TS)
   - Remote (submodule @ branch `typescript`): [package.json#L9](https://github.com/aqwertyuiop48/serverless-adonis/blob/typescript/package.json#L9)
-- [typescript/adonis_/serverless-adonis-ts/package.json](../typescript/adonis_/serverless-adonis-ts/package.json#L10) - `"serve": "node server.js"` (TS-typed Adonis project)
+- [typescript/adonis_/serverless-adonis-ts/package.json](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/main/package.json#L10) - `"serve": "node server.js"` (TS-typed Adonis project)
   - Remote (submodule @ branch `typescript`): [package.json#L10](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/typescript/package.json#L10)
 
 **Workflow yml (executes in CI):**
@@ -320,7 +320,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/adonis_/serverless-adonis-ts/package.json`; `typescript/adonis_/serverless-adonis/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `typescript/adonis_/serverless-adonis-ts/package.json`; `typescript/adonis_/serverless-adonis/package.json`
 
 **Example:**
 ```bash
@@ -339,14 +339,14 @@ Frameworks listed in [javascript.md](javascript.md#3-framework-dev-servers-singl
 **Method:** Same `next` CLI as the JS docs — these are the TS-source Next.js apps.
 
 **Locations:**
-- [javascript/next_/nextjs_app_typescript/package.json](../javascript/next_/nextjs_app_typescript/package.json) - TS-source Next.js app
+- [javascript/next_/nextjs_app_typescript/package.json](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/package.json) - TS-source Next.js app
   - Remote (submodule @ branch `typescript`): [package.json](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/package.json)
-- [javascript/next_/nextjs_news_search_microservices/package.json](../javascript/next_/nextjs_news_search_microservices/package.json#L7-L9) - `"dev": "next dev --turbopack"`, `"start": "next start -p 8080"` (TS sources)
-- [javascript/new_frameworks/storybook/package.json](../javascript/new_frameworks/storybook/package.json#L4-L6) - `"dev": "next dev"`, `"build": "next build"`, `"start": "next start"` (TS deps incl. `typescript`)
+- [javascript/next_/nextjs_news_search_microservices/package.json](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/package.json#L7-L9) - `"dev": "next dev --turbopack"`, `"start": "next start -p 8080"` (TS sources)
+- [javascript/new_frameworks/storybook/package.json](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L4-L6) - `"dev": "next dev"`, `"build": "next build"`, `"start": "next start"` (TS deps incl. `typescript`)
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](../javascript/next_/nextjs_news_search_microservices/package.json#L8) to `next build` — transitive coverage of the TypeScript Next.js pipeline (TS sources confirmed via [tsconfig.json](../javascript/next_/nextjs_news_search_microservices/tsconfig.json) and `*.tsx` app routes).
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/package.json#L8) to `next build` — transitive coverage of the TypeScript Next.js pipeline (TS sources confirmed via [tsconfig.json](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/tsconfig.json) and `*.tsx` app routes).
 
 **Example:**
 ```bash
@@ -358,16 +358,16 @@ next build && next start
 **Method:** Vite natively understands `.ts` / `.tsx` entry files — `vite` (no args) starts the dev server with HMR; `vite preview` serves the build.
 
 **Locations:**
-- [typescript/qwik_/qwik-app/package.json](../typescript/qwik_/qwik-app/package.json#L15) - `"dev": "vite --mode ssr"` (TSX entries)
-- [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L6-L8) - `vite dev --port 3000`, `vite preview` (TS sources)
-- [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"` (TS dep on Vite + Vitest)
+- [typescript/qwik_/qwik-app/package.json](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L15) - `"dev": "vite --mode ssr"` (TSX entries)
+- [javascript/new_frameworks/tanstack-start/package.json](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L6-L8) - `vite dev --port 3000`, `vite preview` (TS sources)
+- [javascript/new_frameworks/hydrogen/package.json](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L13) - `"test": "WATCH=true vitest"` (TS dep on Vite + Vitest)
 
 **Workflow yml (executes in CI):**
 Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`; `javascript/new_frameworks/tanstack-start/package.json`; `typescript/qwik_/qwik-app/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`; `javascript/new_frameworks/tanstack-start/package.json`; `typescript/qwik_/qwik-app/package.json`
 
 **Example:**
 ```bash
@@ -379,7 +379,7 @@ vite preview
 **Method:** Remix CLI dev server applied to a TS source tree.
 
 **Locations:**
-- [typescript/redwood_/netlify-deploy/README.md](../typescript/redwood_/netlify-deploy/README.md#L20) - `yarn redwood dev` (Redwood TS variant uses the same `remix`-style dev pattern internally)
+- [typescript/redwood_/netlify-deploy/README.md](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20) - `yarn redwood dev` (Redwood TS variant uses the same `remix`-style dev pattern internally)
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
 
 **Workflow yml (executes in CI):**
@@ -387,7 +387,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -398,7 +398,7 @@ remix dev
 **Method:** Redwood TS variant — same `yarn redwood dev` / `yarn rw test` CLI; sources are `.ts` / `.tsx`.
 
 **Locations:**
-- [typescript/redwood_/netlify-deploy/README.md](../typescript/redwood_/netlify-deploy/README.md#L20)
+- [typescript/redwood_/netlify-deploy/README.md](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
   - Remote (submodule @ branch `typescript`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)
 
 **Workflow yml (executes in CI):**
@@ -406,7 +406,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `typescript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -422,19 +422,19 @@ yarn rw test
 **Method:** `jest` is invoked the same way as for JS, but configured to load TypeScript via `ts-jest` or via NestJS's `@nestjs/testing` Jest preset (which discovers `*.spec.ts`).
 
 **Locations:**
-- [javascript/nest_/nestjs_app/package.json](../javascript/nest_/nestjs_app/package.json#L18-L24) - `"test": "jest"`, `"test:watch": "jest --watch"`, `"test:cov": "jest --coverage"`, `"test:e2e": "jest --config ./test/jest-e2e.json"` (configured for TS)
+- [javascript/nest_/nestjs_app/package.json](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L18-L24) - `"test": "jest"`, `"test:watch": "jest --watch"`, `"test:cov": "jest --coverage"`, `"test:e2e": "jest --config ./test/jest-e2e.json"` (configured for TS)
   - Remote (submodule @ branch `main`): [package.json#L18-L24](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L18-L24)
-- [typescript/nest_/nestjs_js/package.json](../typescript/nest_/nestjs_js/package.json#L17) - `"test": "jest"` (TS specs)
-- [typescript/nest_/nestjs_tsx/package.json](../typescript/nest_/nestjs_tsx/package.json#L18) - `"test": "jest"`
+- [typescript/nest_/nestjs_js/package.json](https://github.com/aqwertyuiop48/nestjs_js/blob/main/package.json#L17) - `"test": "jest"` (TS specs)
+- [typescript/nest_/nestjs_tsx/package.json](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/package.json#L18) - `"test": "jest"`
 
 **Workflow yml (executes in CI):**
 Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nest_/nestjs_app/package.json`; `typescript/nest_/nestjs_js/package.json`; `typescript/nest_/nestjs_tsx/package.json`
-- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml) _(rule R1)_ — covers `javascript/nest_/nestjs_app/package.json`
-- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml) _(rule R1)_ — covers `typescript/nest_/nestjs_tsx/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nest_/nestjs_app/package.json`; `typescript/nest_/nestjs_js/package.json`; `typescript/nest_/nestjs_tsx/package.json`
+- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](https://github.com/aqwertyuiop48/nestjs_app/blob/main/.github/workflows/deploy-to-vercel.yml) _(rule R1)_ — covers `javascript/nest_/nestjs_app/package.json`
+- [typescript/nest_/nestjs_tsx/.github/workflows/deploy.yml](https://github.com/aqwertyuiop48/nestjs_tsx/blob/main/.github/workflows/deploy.yml) _(rule R1)_ — covers `typescript/nest_/nestjs_tsx/package.json`
 
 **Example:**
 ```bash
@@ -446,11 +446,11 @@ jest --config ./test/jest-e2e.json
 **Method:** Vitest natively understands TypeScript via Vite — no extra config needed for `.test.ts` / `.spec.ts`.
 
 **Locations:**
-- [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L9) - `"test": "vitest run"`
-- [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"`
+- [javascript/new_frameworks/tanstack-start/package.json](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L9) - `"test": "vitest run"`
+- [javascript/new_frameworks/hydrogen/package.json](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L13) - `"test": "WATCH=true vitest"`
 
 **Workflow yml (executes in CI):**
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) - `npx vitest run --coverage` — direct CI coverage over TS specs at [tests/lib/nyt.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/lib/nyt.test.ts), [tests/lib/guardian.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/lib/guardian.test.ts), and [tests/api/search.test.ts](../javascript/next_/nextjs_news_search_microservices/tests/api/search.test.ts).
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml#L37) - `npx vitest run --coverage` — direct CI coverage over TS specs at [tests/lib/nyt.test.ts](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/tests/lib/nyt.test.ts), [tests/lib/guardian.test.ts](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/tests/lib/guardian.test.ts), and [tests/api/search.test.ts](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/tests/api/search.test.ts).
 
 **Example:**
 ```bash
@@ -463,7 +463,7 @@ vitest run --coverage
 
 **Locations:**
 - Implied by Playwright projects that produce `.spec.ts` artifacts; primary invocation pattern is identical to JS:
-  - [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L27) - `npx playwright install` (`npx playwright test` over TS specs follows the same pattern)
+  - [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27) - `npx playwright install` (`npx playwright test` over TS specs follows the same pattern)
     - Remote (submodule @ branch `golang_`): [main.yml#L27](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)
 
 **Workflow yml (executes in CI):**
@@ -471,8 +471,8 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
-- [golang/codeforces_script/.github/workflows/main.yml](golang/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/.github/workflows/main.yml`
 
 **Example:**
 ```bash
@@ -484,7 +484,7 @@ npx playwright test
 **Method:** Stencil's TypeScript-first compiler runs `*.spec.ts` (unit) and `*.e2e.ts` (Puppeteer-driven E2E) in one CLI call.
 
 **Locations:**
-- [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L9) - `"test": "stencil test --spec --e2e"`
+- [javascript/stencil_/stencil/package.json](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9) - `"test": "stencil test --spec --e2e"`
   - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9)
 
 **Workflow yml (executes in CI):**
@@ -492,7 +492,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
 
 **Example:**
 ```bash
@@ -507,9 +507,9 @@ stencil test --spec --e2e
 **Method:** Multi-stage `Dockerfile` — the **build** stage runs `npm install` + `tsc` (or `nest build` / `next build`); the **runtime** stage copies `dist/` and starts with `node dist/main.js`. The `docker build … && docker run …` pipeline takes TS source and produces a running container.
 
 **Locations:**
-- [javascript/next_/nextjs_app_typescript/Dockerfile](../javascript/next_/nextjs_app_typescript/Dockerfile#L2-L17) - `FROM node:22-alpine AS build` … `FROM node:22-alpine` (TS Next.js multi-stage)
+- [javascript/next_/nextjs_app_typescript/Dockerfile](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2-L17) - `FROM node:22-alpine AS build` … `FROM node:22-alpine` (TS Next.js multi-stage)
   - Remote (submodule @ branch `typescript`): [Dockerfile#L2-L17](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2-L17)
-- [javascript/angular_/my_angular_app/Dockerfile](../javascript/angular_/my_angular_app/Dockerfile#L4-L19) - `FROM node:22-alpine AS build-stage` + `RUN npm run build` (Angular TS → static files)
+- [javascript/angular_/my_angular_app/Dockerfile](https://github.com/aqwertyuiop48/my_angular_app/blob/main/Dockerfile#L4-L19) - `FROM node:22-alpine AS build-stage` + `RUN npm run build` (Angular TS → static files)
   - Remote (submodule @ branch `main`): [Dockerfile#L4-L19](https://github.com/aqwertyuiop48/my_angular_app/blob/main/Dockerfile#L4-L19)
 
 **Workflow yml (executes in CI):**
@@ -517,9 +517,9 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/angular_/my_angular_app/Dockerfile`; `javascript/next_/nextjs_app_typescript/Dockerfile`
-- [javascript/angular_/my_angular_app/.github/workflows/main.yml](javascript/angular_/my_angular_app/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/angular_/my_angular_app/Dockerfile`
-- [javascript/next_/nextjs_app_typescript/.github/workflows/main.yml](javascript/next_/nextjs_app_typescript/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app_typescript/Dockerfile`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/angular_/my_angular_app/Dockerfile`; `javascript/next_/nextjs_app_typescript/Dockerfile`
+- [javascript/angular_/my_angular_app/.github/workflows/main.yml](https://github.com/aqwertyuiop48/my_angular_app/blob/main/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/angular_/my_angular_app/Dockerfile`
+- [javascript/next_/nextjs_app_typescript/.github/workflows/main.yml](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app_typescript/Dockerfile`
 
 **Example:**
 ```dockerfile
@@ -564,22 +564,22 @@ exec('node -e "console.log(2 + 3)"', (_err, stdout) => console.log(stdout));
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `ts-node <file.ts>` | TS transpile-and-run under Node | [typescript/express_/ts_express_vercel_app/package.json](../typescript/express_/ts_express_vercel_app/package.json#L7)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/ts_express_vercel_app/blob/main/package.json#L7) |
-| `tsx <file.ts>` | esbuild-powered TS runner | [javascript/saas-microservices/apps/api/package.json](../javascript/saas-microservices/apps/api/package.json#L10) |
-| `bun run --watch <file.ts>` | Bun runtime (native TS) | [javascript/new_frameworks/elysia/package.json](../javascript/new_frameworks/elysia/package.json#L7)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/elysia/blob/main/package.json#L7) |
-| `ng serve` / `ng build` / `ng test` | Angular CLI | [javascript/angular_/my_angular_app/package.json](../javascript/angular_/my_angular_app/package.json#L6)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/my_angular_app/blob/main/package.json#L6) |
-| `nest start [--watch]` | NestJS | [javascript/nest_/nestjs_app/package.json](../javascript/nest_/nestjs_app/package.json#L13)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L13) |
-| `vinxi dev` | SolidJS Start | [typescript/solid_/solid_app/package.json](../typescript/solid_/solid_app/package.json#L5)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/solid_app/blob/main/package.json#L5) |
-| `qwik build` + `vite --mode ssr` | Qwik | [typescript/qwik_/qwik-app/package.json](../typescript/qwik_/qwik-app/package.json#L15)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L15) |
-| `ts-node server.ts` (Adonis-TS) | AdonisJS TS variants | [typescript/adonis_/serverless-adonis-ts/package.json](../typescript/adonis_/serverless-adonis-ts/package.json#L10)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/typescript/package.json#L10) |
-| `next dev` / `next build` / `next start` | TS Next.js apps | [javascript/next_/nextjs_app_typescript/package.json](../javascript/next_/nextjs_app_typescript/package.json)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/package.json) |
-| `vite` / `vite preview` | TS Vite projects | [typescript/qwik_/qwik-app/package.json](../typescript/qwik_/qwik-app/package.json#L15) |
-| `redwood dev` / `rw dev` | RedwoodJS TS | [typescript/redwood_/netlify-deploy/README.md](../typescript/redwood_/netlify-deploy/README.md#L20)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20) |
-| `jest` (ts-jest / Nest preset) | TS unit + E2E tests | [javascript/nest_/nestjs_app/package.json](../javascript/nest_/nestjs_app/package.json#L18)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L18) |
-| `vitest [run]` | TS specs via Vite | [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L9)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L9) |
-| `npx playwright test` | TS browser specs | [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L27)<br/>[remote @ `golang_`](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27) |
-| `stencil test --spec --e2e` | Stencil TS tests | [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L9)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9) |
-| Docker multi-stage (tsc + `node dist/`) | Containerized TS | [javascript/next_/nextjs_app_typescript/Dockerfile](../javascript/next_/nextjs_app_typescript/Dockerfile#L2)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2) |
+| `ts-node <file.ts>` | TS transpile-and-run under Node | [typescript/express_/ts_express_vercel_app/package.json](https://github.com/aqwertyuiop48/ts_express_vercel_app/blob/main/package.json#L7)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/ts_express_vercel_app/blob/main/package.json#L7) |
+| `tsx <file.ts>` | esbuild-powered TS runner | [javascript/saas-microservices/apps/api/package.json](https://github.com/aqwertyuiop48/saas-microservices/blob/main/apps/api/package.json#L10) |
+| `bun run --watch <file.ts>` | Bun runtime (native TS) | [javascript/new_frameworks/elysia/package.json](https://github.com/aqwertyuiop48/elysia/blob/main/package.json#L7)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/elysia/blob/main/package.json#L7) |
+| `ng serve` / `ng build` / `ng test` | Angular CLI | [javascript/angular_/my_angular_app/package.json](https://github.com/aqwertyuiop48/my_angular_app/blob/main/package.json#L6)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/my_angular_app/blob/main/package.json#L6) |
+| `nest start [--watch]` | NestJS | [javascript/nest_/nestjs_app/package.json](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L13)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L13) |
+| `vinxi dev` | SolidJS Start | [typescript/solid_/solid_app/package.json](https://github.com/aqwertyuiop48/solid_app/blob/main/package.json#L5)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/solid_app/blob/main/package.json#L5) |
+| `qwik build` + `vite --mode ssr` | Qwik | [typescript/qwik_/qwik-app/package.json](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L15)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L15) |
+| `ts-node server.ts` (Adonis-TS) | AdonisJS TS variants | [typescript/adonis_/serverless-adonis-ts/package.json](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/main/package.json#L10)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/serverless-adonis-ts/blob/typescript/package.json#L10) |
+| `next dev` / `next build` / `next start` | TS Next.js apps | [javascript/next_/nextjs_app_typescript/package.json](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/package.json)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/package.json) |
+| `vite` / `vite preview` | TS Vite projects | [typescript/qwik_/qwik-app/package.json](https://github.com/aqwertyuiop48/qwik-app/blob/main/package.json#L15) |
+| `redwood dev` / `rw dev` | RedwoodJS TS | [typescript/redwood_/netlify-deploy/README.md](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/netlify-deploy/blob/typescript/README.md#L20) |
+| `jest` (ts-jest / Nest preset) | TS unit + E2E tests | [javascript/nest_/nestjs_app/package.json](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L18)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/nestjs_app/blob/main/package.json#L18) |
+| `vitest [run]` | TS specs via Vite | [javascript/new_frameworks/tanstack-start/package.json](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L9)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L9) |
+| `npx playwright test` | TS browser specs | [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)<br/>[remote @ `golang_`](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27) |
+| `stencil test --spec --e2e` | Stencil TS tests | [javascript/stencil_/stencil/package.json](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9)<br/>[remote @ `main`](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L9) |
+| Docker multi-stage (tsc + `node dist/`) | Containerized TS | [javascript/next_/nextjs_app_typescript/Dockerfile](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2)<br/>[remote @ `typescript`](https://github.com/aqwertyuiop48/nextjs_app/blob/typescript/Dockerfile#L2) |
 | `child_process.exec("node -e …")` from .ts | TS → Node subprocess polyglot | [typescript/inputs/nested_child_process.ts](../typescript/inputs/nested_child_process.ts#L3) |
 
 ---

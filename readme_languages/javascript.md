@@ -83,16 +83,16 @@ Each method takes JS source as input and produces program output. Toolchain prov
 **Method:** Pass a `.js` / `.mjs` file directly to the `node` CLI. The V8 engine parses and executes the script in one step.
 
 **Locations:**
-- [javascript/adonis/serverless-adonis/package.json](../javascript/adonis/serverless-adonis/package.json#L9) - `"serve": "node server.js"` (AdonisJS v3 entry)
+- [javascript/adonis/serverless-adonis/package.json](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L9) - `"serve": "node server.js"` (AdonisJS v3 entry)
   - Remote (submodule @ branch `main`): [package.json#L9](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L9)
 
 **Workflow yml (executes in CI):**
 - [.github/workflows/mysql_.yml](../.github/workflows/mysql_.yml#L92) - `node javascript/mysql_connector_/mysql_connector_.js`
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L37) - `node scripts/solidity_in_js.js`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L37) - `node scripts/solidity_in_js.js`
   - Remote (submodule `solidity__/codeforces_script` @ branch `solidity_`): [main.yml#L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L37)
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L65) - `node out/main.js` (after `npx shadow-cljs compile app`)
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L65) - `node out/main.js` (after `npx shadow-cljs compile app`)
   - Remote (submodule @ branch `clojure_script`): [main.yml#L65](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L65)
-- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](../javascript/java_embed/codeforces_script/.github/workflows/main.yml#L60) - `node java_node.js`
+- [javascript/java_embed/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L60) - `node java_node.js`
   - Remote (submodule @ branch `java_`): [main.yml#L60](https://github.com/aqwertyuiop48/codeforces_script/blob/java_/.github/workflows/main.yml#L60)
 
 **Example:**
@@ -105,10 +105,10 @@ node scripts/solidity_in_js.js
 **Method:** Evaluate a JS string supplied as a shell argument — no file written. Used heavily as the polyglot bridge from Java / Go / Ruby / Objective-C / C++ into Node.
 
 **Locations:**
-- [CPP/codeforces_script/cpp_/trial.cpp](../CPP/codeforces_script/cpp_/trial.cpp#L29) - `node -e "console.log(2+3+' from nodejs');"` (C++ → Node)
+- [CPP/codeforces_script/cpp_/trial.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29) - `node -e "console.log(2+3+' from nodejs');"` (C++ → Node)
   - Remote (submodule @ branch `cpp_`): [trial.cpp#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29)
 - [typescript/inputs/shell_java_.js](../typescript/inputs/shell_java_.js#L3) - `spawn("node", ["-e", node_string])` (JS → Node)
-- [golang/codeforces_script/execute/1_nested_functions.go](../golang/codeforces_script/execute/1_nested_functions.go#L29) - `exec.Command("node", "-e", string_concat)` (Go → Node)
+- [golang/codeforces_script/execute/1_nested_functions.go](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29) - `exec.Command("node", "-e", string_concat)` (Go → Node)
   - Remote (submodule @ branch `golang_`): [1_nested_functions.go#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29)
 - [java/readme.txt](../java/readme.txt#L557) - `processBuilder.command("node", "-e", strings)` (Java → Node)
 
@@ -124,11 +124,11 @@ node -e "console.log(2 + 3)"
 **Method:** Feed a multi-line JS program into `node -e` via a shell-quoted heredoc-style string. Lets a single CI step embed a non-trivial JS program — including `require(...)` imports — without a separate file.
 
 **Locations:**
-- [ruby/codeforces_script/execute/child.rb](../ruby/codeforces_script/execute/child.rb#L1-L7) - Ruby `exec <<~CMD ... node -e "console.log('Hi from nested nodejs!');" ... CMD`
+- [ruby/codeforces_script/execute/child.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7) - Ruby `exec <<~CMD ... node -e "console.log('Hi from nested nodejs!');" ... CMD`
   - Remote (submodule @ branch `ruby_`): [child.rb#L1-L7](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7)
 
 **Workflow yml (executes in CI):**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L105-L130) - multi-line `node -e "..."` driving Playwright's `chromium.launch` to record videos
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105-L130) - multi-line `node -e "..."` driving Playwright's `chromium.launch` to record videos
   - Remote (submodule @ branch `golang_`): [main.yml#L105-L130](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105-L130)
 
 **Example:**
@@ -219,9 +219,9 @@ node --check src/index.js && echo "Syntax OK"
 **Workflow yml (executes in CI):**
 - [.github/workflows/mains.yml](../.github/workflows/mains.yml#L27-L28) - `npm run asbuild` then `npm start` (AssemblyScript → Node)
 - [.github/workflows/mains.yml](../.github/workflows/mains.yml#L35) - `npm run asbuild:optimized -- --memoryBase 40000`
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L34) - `npm run start` (resolves to `nbb hello.cljs`)
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L34) - `npm run start` (resolves to `nbb hello.cljs`)
   - Remote (submodule @ branch `clojure_script`): [main.yml#L34](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L34)
-- [javascript/main_/codeforces_script/.github/workflows/main.yml](../javascript/main_/codeforces_script/.github/workflows/main.yml#L107-L108) - `npm run pystart` / `npm run pystartmac`
+- [javascript/main_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/.github/workflows/main.yml#L107-L108) - `npm run pystart` / `npm run pystartmac`
   - Remote (submodule @ branch `main_`): [main.yml#L107-L108](https://github.com/aqwertyuiop48/codeforces_script/blob/main_/.github/workflows/main.yml#L107-L108)
 
 **Example:**
@@ -239,12 +239,12 @@ npm run start:dev      # arbitrary named script
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L25-L37) - `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37) - `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost`
   - Remote (submodule @ branch `solidity_`): [main.yml#L25-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37)
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L64) - `npx shadow-cljs compile app`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L64) - `npx shadow-cljs compile app`
 - [.github/workflows/mains.yml](../.github/workflows/mains.yml#L36) - `npx ws -p 1234 &` (local-web-server)
 - [.github/workflows/webdriver_io.yml](../.github/workflows/webdriver_io.yml#L33) - `npx wdio run wdio.conf.js`
-- [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L31) - `npx cypress run`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31) - `npx cypress run`
   - Remote (submodule @ branch `cypress_testing`): [main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31)
 
 **Example:**
@@ -264,18 +264,18 @@ Each entry below is a single CLI invocation that takes the framework's source tr
 **Method:** `next dev` boots the Next.js dev server (Webpack / Turbopack-driven) with HMR; `next start` runs a pre-built production server.
 
 **Locations:**
-- [javascript/next_/nextjs_project/package.json](../javascript/next_/nextjs_project/package.json#L6-L8) - `"dev": "next dev"`, `"build": "next build"`, `"start": "next start"`
+- [javascript/next_/nextjs_project/package.json](https://github.com/aqwertyuiop48/nextjs_project/blob/main/package.json#L6-L8) - `"dev": "next dev"`, `"build": "next build"`, `"start": "next start"`
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/nextjs_project/blob/main/package.json#L6-L8)
-- [javascript/next_/nextjs_news_search_microservices/package.json](../javascript/next_/nextjs_news_search_microservices/package.json#L7-L9) - `"dev": "next dev --turbopack"`, `"start": "next start -p 8080"`
-- [javascript/next_/nextjs_app/package.json](../javascript/next_/nextjs_app/package.json#L7-L8) - `next build` / `next start`
+- [javascript/next_/nextjs_news_search_microservices/package.json](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/package.json#L7-L9) - `"dev": "next dev --turbopack"`, `"start": "next start -p 8080"`
+- [javascript/next_/nextjs_app/package.json](https://github.com/aqwertyuiop48/nextjs_app/blob/main/package.json#L7-L8) - `next build` / `next start`
   - Remote (submodule @ branch `main`): [package.json#L7-L8](https://github.com/aqwertyuiop48/nextjs_app/blob/main/package.json#L7-L8)
-- [javascript/app_clones/whatsapp-2/package.json](../javascript/app_clones/whatsapp-2/package.json#L5-L7) - `next dev` / `next build` / `next start`
+- [javascript/app_clones/whatsapp-2/package.json](https://github.com/aqwertyuiop48/whatsapp-2/blob/main/package.json#L5-L7) - `next dev` / `next build` / `next start`
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/whatsapp-2/blob/main/package.json#L5-L7)
-- [javascript/turborepo-with-hono/apps/web/package.json](../javascript/turborepo-with-hono/apps/web/package.json#L7) - `next dev --turbopack --port 3001`
+- [javascript/turborepo-with-hono/apps/web/package.json](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/apps/web/package.json#L7) - `next dev --turbopack --port 3001`
 
 **Workflow yml (executes in CI):**
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](../javascript/next_/nextjs_news_search_microservices/package.json#L8) to `next build` — transitive coverage via npm script.
-- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](../javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml#L38) - `npm run build` (within a Next-adjacent NestJS deploy) similarly invokes the framework CLI build pipeline.
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml#L30) - `npm run build` resolves via [package.json#L8](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/package.json#L8) to `next build` — transitive coverage via npm script.
+- [javascript/nest_/nestjs_app/.github/workflows/deploy-to-vercel.yml](https://github.com/aqwertyuiop48/nestjs_app/blob/main/.github/workflows/deploy-to-vercel.yml#L38) - `npm run build` (within a Next-adjacent NestJS deploy) similarly invokes the framework CLI build pipeline.
 
 **Example:**
 ```bash
@@ -287,7 +287,7 @@ next build && next start
 **Method:** Nuxt CLI dev mode — single command compiles and serves the app with HMR.
 
 **Locations:**
-- [javascript/nuxt_/nuxtjs-boilerplate/package.json](../javascript/nuxt_/nuxtjs-boilerplate/package.json#L4-L5) - `"build": "nuxt build"`, `"dev": "nuxt dev"`
+- [javascript/nuxt_/nuxtjs-boilerplate/package.json](https://github.com/aqwertyuiop48/nuxtjs-boilerplate/blob/main/package.json#L4-L5) - `"build": "nuxt build"`, `"dev": "nuxt dev"`
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/nuxtjs-boilerplate/blob/main/package.json#L4-L5)
 
 **Workflow yml (executes in CI):**
@@ -295,7 +295,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nuxt_/nuxtjs-boilerplate/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nuxt_/nuxtjs-boilerplate/package.json`
 
 **Example:**
 ```bash
@@ -306,12 +306,12 @@ nuxt dev
 **Method:** CRA's wrapper boots a Webpack dev server (with HMR) for a React app from `src/`.
 
 **Locations:**
-- [javascript/react_/my_react_app/package.json](../javascript/react_/my_react_app/package.json#L19) - `"test": "react-scripts test"` (and `start` / `build`)
+- [javascript/react_/my_react_app/package.json](https://github.com/aqwertyuiop48/my_react_app/blob/main/package.json#L19) - `"test": "react-scripts test"` (and `start` / `build`)
   - Remote (submodule @ branch `main`): [package.json#L19](https://github.com/aqwertyuiop48/my_react_app/blob/main/package.json#L19)
-- [javascript/react_/my_react_app_main/package.json](../javascript/react_/my_react_app_main/package.json#L19)
+- [javascript/react_/my_react_app_main/package.json](https://github.com/aqwertyuiop48/my_react_app/blob/main_/package.json#L19)
   - Remote (submodule @ branch `main_`): [package.json#L19](https://github.com/aqwertyuiop48/my_react_app/blob/main_/package.json#L19)
-- [javascript/app_clones/Video-Meeting/package.json](../javascript/app_clones/Video-Meeting/package.json#L39) - `react-scripts test`
-- [javascript/ionic__/ionic_app/package.json](../javascript/ionic__/ionic_app/package.json#L38-L40) - `react-scripts start` / `react-scripts test` (Ionic + React)
+- [javascript/app_clones/Video-Meeting/package.json](https://github.com/aqwertyuiop48/Video-Meeting/blob/main/package.json#L39) - `react-scripts test`
+- [javascript/ionic__/ionic_app/package.json](https://github.com/aqwertyuiop48/ionic_app/blob/main/package.json#L38-L40) - `react-scripts start` / `react-scripts test` (Ionic + React)
   - Remote (submodule @ branch `main`): [package.json#L38-L40](https://github.com/aqwertyuiop48/ionic_app/blob/main/package.json#L38-L40)
 
 **Workflow yml (executes in CI):**
@@ -319,7 +319,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/app_clones/Video-Meeting/package.json`; `javascript/ionic__/ionic_app/package.json`; `javascript/react_/my_react_app/package.json`; `javascript/react_/my_react_app_main/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/app_clones/Video-Meeting/package.json`; `javascript/ionic__/ionic_app/package.json`; `javascript/react_/my_react_app/package.json`; `javascript/react_/my_react_app_main/package.json`
 
 **Example:**
 ```bash
@@ -331,9 +331,9 @@ react-scripts test
 **Method:** `vite` (no args) starts an ESM-native dev server with HMR. `vite preview` serves a pre-built bundle. `vite build` alone is build-only and excluded.
 
 **Locations:**
-- [javascript/vue_/vue_project/package.json](../javascript/vue_/vue_project/package.json#L3-L5) - `"dev": "vite"`, `"build": "vite build"`, `"preview": "vite preview"`
+- [javascript/vue_/vue_project/package.json](https://github.com/aqwertyuiop48/vue_project/blob/main/package.json#L3-L5) - `"dev": "vite"`, `"build": "vite build"`, `"preview": "vite preview"`
   - Remote (submodule @ branch `main`): [package.json#L3-L5](https://github.com/aqwertyuiop48/vue_project/blob/main/package.json#L3-L5)
-- [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L6-L8) - `vite dev --port 3000`, `vite preview`
+- [javascript/new_frameworks/tanstack-start/package.json](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L6-L8) - `vite dev --port 3000`, `vite preview`
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L6-L8)
 
 **Workflow yml (executes in CI):**
@@ -341,7 +341,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/tanstack-start/package.json`; `javascript/vue_/vue_project/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/tanstack-start/package.json`; `javascript/vue_/vue_project/package.json`
 
 **Example:**
 ```bash
@@ -353,7 +353,7 @@ vite preview      # serve build output
 **Method:** `gatsby develop` runs the dev server with HMR; `gatsby serve` serves a pre-built static bundle.
 
 **Locations:**
-- [javascript/gatsby_/gatsby/package.json](../javascript/gatsby_/gatsby/package.json#L4-L7) - `"develop"`, `"start"`, `"build"`, `"serve"`
+- [javascript/gatsby_/gatsby/package.json](https://github.com/aqwertyuiop48/gatsby/blob/main/package.json#L4-L7) - `"develop"`, `"start"`, `"build"`, `"serve"`
   - Remote (submodule @ branch `main`): [package.json#L4-L7](https://github.com/aqwertyuiop48/gatsby/blob/main/package.json#L4-L7)
 
 **Workflow yml (executes in CI):**
@@ -361,7 +361,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/gatsby_/gatsby/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/gatsby_/gatsby/package.json`
 
 **Example:**
 ```bash
@@ -373,7 +373,7 @@ gatsby serve
 **Method:** Remix CLI dev server.
 
 **Locations:**
-- [javascript/remix_/remix/package.json](../javascript/remix_/remix/package.json#L5-L6) - `"build": "remix build"`, `"dev": "remix dev"`
+- [javascript/remix_/remix/package.json](https://github.com/aqwertyuiop48/remix/blob/main/package.json#L5-L6) - `"build": "remix build"`, `"dev": "remix dev"`
   - Remote (submodule @ branch `main`): [package.json#L5-L6](https://github.com/aqwertyuiop48/remix/blob/main/package.json#L5-L6)
 
 **Workflow yml (executes in CI):**
@@ -381,7 +381,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/remix_/remix/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/remix_/remix/package.json`
 
 **Example:**
 ```bash
@@ -392,7 +392,7 @@ remix dev
 **Method:** Redwood's full-stack dev server starts the API and the web side simultaneously.
 
 **Locations:**
-- [javascript/redwood_/netlify-deploy/README.md](../javascript/redwood_/netlify-deploy/README.md#L20) - `yarn redwood dev`
+- [javascript/redwood_/netlify-deploy/README.md](https://github.com/aqwertyuiop48/netlify-deploy/blob/main/README.md#L20) - `yarn redwood dev`
   - Remote (submodule @ branch `main`): [README.md#L20](https://github.com/aqwertyuiop48/netlify-deploy/blob/main/README.md#L20)
 
 **Workflow yml (executes in CI):**
@@ -400,7 +400,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/redwood_/netlify-deploy/README.md`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/redwood_/netlify-deploy/README.md`
 
 **Example:**
 ```bash
@@ -412,7 +412,7 @@ yarn rw test
 **Method:** Single Stencil CLI command builds, watches, and serves web-component sources.
 
 **Locations:**
-- [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L7-L9) - `"build": "stencil build"`, `"start": "stencil build --dev --watch --serve"`, `"test": "stencil test --spec --e2e"`
+- [javascript/stencil_/stencil/package.json](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L7-L9) - `"build": "stencil build"`, `"start": "stencil build --dev --watch --serve"`, `"test": "stencil test --spec --e2e"`
   - Remote (submodule @ branch `main`): [package.json#L7-L9](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L7-L9)
 
 **Workflow yml (executes in CI):**
@@ -420,7 +420,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/stencil_/stencil/package.json`
 
 **Example:**
 ```bash
@@ -431,7 +431,7 @@ stencil build --dev --watch --serve
 **Method:** Brunch asset pipeline with auto-rebuild and a built-in HTTP server.
 
 **Locations:**
-- [javascript/brunch_/brunch/package.json](../javascript/brunch_/brunch/package.json#L9-L11) - `"start": "brunch watch --server"`, `"dev": "brunch watch --server --port $PORT"`, `"build": "brunch build --production"`
+- [javascript/brunch_/brunch/package.json](https://github.com/aqwertyuiop48/brunch/blob/main/package.json#L9-L11) - `"start": "brunch watch --server"`, `"dev": "brunch watch --server --port $PORT"`, `"build": "brunch build --production"`
   - Remote (submodule @ branch `main`): [package.json#L9-L11](https://github.com/aqwertyuiop48/brunch/blob/main/package.json#L9-L11)
 
 **Workflow yml (executes in CI):**
@@ -439,7 +439,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/brunch_/brunch/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/brunch_/brunch/package.json`
 
 **Example:**
 ```bash
@@ -450,7 +450,7 @@ brunch watch --server
 **Method:** UmiJS dev server. Needs `NODE_OPTIONS=--openssl-legacy-provider` here for compatibility with older OpenSSL APIs.
 
 **Locations:**
-- [javascript/umijs_/umijs/package.json](../javascript/umijs_/umijs/package.json#L4) - `"start": "NODE_OPTIONS=--openssl-legacy-provider umi dev"`
+- [javascript/umijs_/umijs/package.json](https://github.com/aqwertyuiop48/umijs/blob/main/package.json#L4) - `"start": "NODE_OPTIONS=--openssl-legacy-provider umi dev"`
   - Remote (submodule @ branch `main`): [package.json#L4](https://github.com/aqwertyuiop48/umijs/blob/main/package.json#L4)
 
 **Workflow yml (executes in CI):**
@@ -458,7 +458,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/umijs_/umijs/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/umijs_/umijs/package.json`
 
 **Example:**
 ```bash
@@ -469,7 +469,7 @@ NODE_OPTIONS=--openssl-legacy-provider umi dev
 **Method:** Nx task runner — `nx serve` resolves the default project's `serve` target and runs it (transitively invoking the project's framework dev server).
 
 **Locations:**
-- [javascript/nx_/nx-monorepo/package.json](../javascript/nx_/nx-monorepo/package.json#L5-L7) - `"start": "nx serve"`, `"build": "nx build"`, `"test": "nx test"`
+- [javascript/nx_/nx-monorepo/package.json](https://github.com/aqwertyuiop48/nx-monorepo/blob/main/package.json#L5-L7) - `"start": "nx serve"`, `"build": "nx build"`, `"test": "nx test"`
   - Remote (submodule @ branch `main`): [package.json#L5-L7](https://github.com/aqwertyuiop48/nx-monorepo/blob/main/package.json#L5-L7)
 
 **Workflow yml (executes in CI):**
@@ -477,7 +477,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nx_/nx-monorepo/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/nx_/nx-monorepo/package.json`
 
 **Example:**
 ```bash
@@ -488,16 +488,16 @@ nx serve
 **Method:** Turborepo orchestrates per-package tasks across a monorepo, fanning out to each workspace's own `dev` / `build` script in dependency order.
 
 **Locations:**
-- [javascript/turborepo-with-hono/package.json](../javascript/turborepo-with-hono/package.json#L5-L6) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
+- [javascript/turborepo-with-hono/package.json](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/package.json#L5-L6) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
   - Remote (submodule @ branch `main`): [package.json#L5-L6](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/package.json#L5-L6)
-- [javascript/saas-microservices/package.json](../javascript/saas-microservices/package.json#L7-L10) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
+- [javascript/saas-microservices/package.json](https://github.com/aqwertyuiop48/saas-microservices/blob/main/package.json#L7-L10) - `"build": "turbo run build"`, `"dev": "turbo run dev"`
 
 **Workflow yml (executes in CI):**
 Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/saas-microservices/package.json`; `javascript/turborepo-with-hono/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/saas-microservices/package.json`; `javascript/turborepo-with-hono/package.json`
 
 **Example:**
 ```bash
@@ -509,10 +509,10 @@ turbo run build
 **Method:** `nodemon` wraps `node`, restarting it when watched files change. Counts as a separate execution method because it produces continuous source-edit → re-run cycles from one command.
 
 **Locations:**
-- [javascript/express_/JavaScript-Applications/package.json](../javascript/express_/JavaScript-Applications/package.json#L8) - `"start": "nodemon ./public/javascript_apps.js"`
+- [javascript/express_/JavaScript-Applications/package.json](https://github.com/aqwertyuiop48/JavaScript-Applications/blob/main/package.json#L8) - `"start": "nodemon ./public/javascript_apps.js"`
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/JavaScript-Applications/blob/main/package.json#L8)
-- [javascript/koa_/koa_project/package.json](../javascript/koa_/koa_project/package.json#L13) - `"start": "nodemon index.js"`
-- [javascript/adonis/serverless-adonis/package.json](../javascript/adonis/serverless-adonis/package.json#L7) - `"serve:dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js"`
+- [javascript/koa_/koa_project/package.json](https://github.com/aqwertyuiop48/koa_project/blob/main/package.json#L13) - `"start": "nodemon index.js"`
+- [javascript/adonis/serverless-adonis/package.json](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L7) - `"serve:dev": "nodemon --watch app --watch bootstrap --watch config --watch .env -x node server.js"`
   - Remote (submodule @ branch `main`): [package.json#L7](https://github.com/aqwertyuiop48/serverless-adonis/blob/main/package.json#L7)
 
 **Workflow yml (executes in CI):**
@@ -520,7 +520,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/adonis/serverless-adonis/package.json`; `javascript/express_/JavaScript-Applications/package.json`; `javascript/koa_/koa_project/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/adonis/serverless-adonis/package.json`; `javascript/express_/JavaScript-Applications/package.json`; `javascript/koa_/koa_project/package.json`
 
 **Example:**
 ```bash
@@ -533,9 +533,9 @@ nodemon --watch app -x node server.js
 
 **Locations:**
 - [typescript/webassembly_/2d_game_/README.md](../typescript/webassembly_/2d_game_/README.md#L34) - `npx ws -p 1234`
-- [javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L8) - `"start": "sirv public --no-clear"`
+- [javascript/svelte_/svelte/package.json](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L8) - `"start": "sirv public --no-clear"`
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L8)
-- [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L5) - `"serve": "sirv build --port 8080 --cors --single"`
+- [javascript/new_frameworks/preact/package.json](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L5) - `"serve": "sirv build --port 8080 --cors --single"`
   - Remote (submodule @ branch `main`): [package.json#L5](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L5)
 
 **Workflow yml (executes in CI):**
@@ -553,7 +553,7 @@ sirv public --no-clear
 **Method:** Ember CLI dev server (Broccoli-driven asset pipeline + live-reload).
 
 **Locations:**
-- [javascript/ember_/ember/package.json](../javascript/ember_/ember/package.json#L17-L19) - `"dev": "ember serve --port $PORT"`, `"start": "ember serve"`, `"test": "ember test"`
+- [javascript/ember_/ember/package.json](https://github.com/aqwertyuiop48/ember/blob/main/package.json#L17-L19) - `"dev": "ember serve --port $PORT"`, `"start": "ember serve"`, `"test": "ember test"`
   - Remote (submodule @ branch `main`): [package.json#L17-L19](https://github.com/aqwertyuiop48/ember/blob/main/package.json#L17-L19)
 
 **Workflow yml (executes in CI):**
@@ -561,8 +561,8 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/ember_/ember/package.json`
-- [javascript/ember_/ember/.travis.yml](javascript/ember_/ember/.travis.yml) _(rule R1)_ — covers `javascript/ember_/ember/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/ember_/ember/package.json`
+- [javascript/ember_/ember/.travis.yml](https://github.com/aqwertyuiop48/ember/blob/main/.travis.yml) _(rule R1)_ — covers `javascript/ember_/ember/package.json`
 
 **Example:**
 ```bash
@@ -575,7 +575,7 @@ ember test
 **Method:** Classic Svelte 3 template — `rollup -c -w` rebuilds the bundle on every save, while `sirv public` serves the output directory. Two cooperating long-running processes form the dev loop. The combined `rollup -c -w` watcher counts as a distinct dev-server execution because it produces continuous source-in → bundle-out without manual restart.
 
 **Locations:**
-- [javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L6-L8) - `"build": "rollup -c"`, `"dev": "rollup -c -w"`, `"start": "sirv public --no-clear"`
+- [javascript/svelte_/svelte/package.json](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L6-L8) - `"build": "rollup -c"`, `"dev": "rollup -c -w"`, `"start": "sirv public --no-clear"`
   - Remote (submodule @ branch `main`): [package.json#L6-L8](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L6-L8)
 
 **Workflow yml (executes in CI):**
@@ -583,7 +583,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/svelte_/svelte/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/svelte_/svelte/package.json`
 
 **Example:**
 ```bash
@@ -595,7 +595,7 @@ sirv public --no-clear   # serve the build/
 **Method:** Parcel v2 zero-config bundler — `parcel <entry>` (or shorthand `parcel`) starts an HMR dev server; `parcel build` produces a production bundle.
 
 **Locations:**
-- [javascript/new_frameworks/parcel/package.json](../javascript/new_frameworks/parcel/package.json#L6-L7) - `"start": "parcel"`, `"build": "parcel build"`
+- [javascript/new_frameworks/parcel/package.json](https://github.com/aqwertyuiop48/parcel/blob/main/package.json#L6-L7) - `"start": "parcel"`, `"build": "parcel build"`
   - Remote (submodule @ branch `main`): [package.json#L6-L7](https://github.com/aqwertyuiop48/parcel/blob/main/package.json#L6-L7)
 
 **Workflow yml (executes in CI):**
@@ -603,7 +603,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/parcel/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/parcel/package.json`
 
 **Example:**
 ```bash
@@ -615,7 +615,7 @@ parcel build
 **Method:** [Nitro](https://nitro.unjs.io/) is the universal server engine that powers Nuxt 3 — `nitro dev` boots a hot-reloading HTTP server from a `routes/` tree.
 
 **Locations:**
-- [javascript/new_frameworks/nitro/package.json](../javascript/new_frameworks/nitro/package.json#L4-L9) - `"build": "nitro build"`, `"dev": "nitro dev"`, `"prepare": "nitro prepare"`
+- [javascript/new_frameworks/nitro/package.json](https://github.com/aqwertyuiop48/nitro/blob/main/package.json#L4-L9) - `"build": "nitro build"`, `"dev": "nitro dev"`, `"prepare": "nitro prepare"`
   - Remote (submodule @ branch `main`): [package.json#L4-L9](https://github.com/aqwertyuiop48/nitro/blob/main/package.json#L4-L9)
 
 **Workflow yml (executes in CI):**
@@ -623,7 +623,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/nitro/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/nitro/package.json`
 
 **Example:**
 ```bash
@@ -635,7 +635,7 @@ nitro build
 **Method:** Polymer CLI serves Web Components projects with module resolution and lite-server reload.
 
 **Locations:**
-- [javascript/new_frameworks/polymer/package.json](../javascript/new_frameworks/polymer/package.json#L9-L14) - `"start": "polymer serve"`, `"dev": "polymer serve --port $PORT"`, `"build": "polymer build"`, `"test": "polymer test"`, `"lint": "polymer lint"`
+- [javascript/new_frameworks/polymer/package.json](https://github.com/aqwertyuiop48/polymer/blob/main/package.json#L9-L14) - `"start": "polymer serve"`, `"dev": "polymer serve --port $PORT"`, `"build": "polymer build"`, `"test": "polymer test"`, `"lint": "polymer lint"`
   - Remote (submodule @ branch `main`): [package.json#L9-L14](https://github.com/aqwertyuiop48/polymer/blob/main/package.json#L9-L14)
 
 **Workflow yml (executes in CI):**
@@ -643,7 +643,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/polymer/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/polymer/package.json`
 
 **Example:**
 ```bash
@@ -656,7 +656,7 @@ polymer test
 **Method:** Preact CLI dev server with hot reload.
 
 **Locations:**
-- [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L4-L6) - `"build": "NODE_OPTIONS=--openssl-legacy-provider preact build"`, `"dev": "preact watch"`, `"serve": "sirv build --port 8080 --cors --single"`
+- [javascript/new_frameworks/preact/package.json](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L4-L6) - `"build": "NODE_OPTIONS=--openssl-legacy-provider preact build"`, `"dev": "preact watch"`, `"serve": "sirv build --port 8080 --cors --single"`
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
@@ -664,7 +664,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
 
 **Example:**
 ```bash
@@ -676,7 +676,7 @@ preact build
 **Method:** Shopify Hydrogen (Remix-based commerce framework) dev server.
 
 **Locations:**
-- [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L8-L10) - `"dev": "shopify hydrogen dev"`, `"build": "shopify hydrogen build"`, `"preview": "shopify hydrogen preview"`
+- [javascript/new_frameworks/hydrogen/package.json](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L8-L10) - `"dev": "shopify hydrogen dev"`, `"build": "shopify hydrogen build"`, `"preview": "shopify hydrogen preview"`
   - Remote (submodule @ branch `main`): [package.json#L8-L10](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L8-L10)
 
 **Workflow yml (executes in CI):**
@@ -684,7 +684,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hydrogen/package.json`
 
 **Example:**
 ```bash
@@ -696,7 +696,7 @@ shopify hydrogen build
 **Method:** `storybook dev -p <port>` launches the component explorer; `storybook build` exports a static site.
 
 **Locations:**
-- [javascript/new_frameworks/storybook/package.json](../javascript/new_frameworks/storybook/package.json#L8-L9) - `"storybook": "storybook dev -p 6006"`, `"build-storybook": "storybook build"`
+- [javascript/new_frameworks/storybook/package.json](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L8-L9) - `"storybook": "storybook dev -p 6006"`, `"build-storybook": "storybook build"`
   - Remote (submodule @ branch `main`): [package.json#L8-L9](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L8-L9)
 
 **Workflow yml (executes in CI):**
@@ -704,7 +704,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/storybook/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/storybook/package.json`
 
 **Example:**
 ```bash
@@ -720,7 +720,7 @@ storybook build
 **Method:** Eleventy ([11ty](https://www.11ty.dev/)) static-site generator — `eleventy --serve` rebuilds and serves on every change.
 
 **Locations:**
-- [javascript/new_frameworks/eleventy/package.json](../javascript/new_frameworks/eleventy/package.json#L18-L21) - `"build": "eleventy"`, `"watch": "eleventy --watch"`, `"serve": "eleventy --serve"`, `"start": "eleventy --serve"`
+- [javascript/new_frameworks/eleventy/package.json](https://github.com/aqwertyuiop48/eleventy/blob/main/package.json#L18-L21) - `"build": "eleventy"`, `"watch": "eleventy --watch"`, `"serve": "eleventy --serve"`, `"start": "eleventy --serve"`
   - Remote (submodule @ branch `main`): [package.json#L18-L21](https://github.com/aqwertyuiop48/eleventy/blob/main/package.json#L18-L21)
 
 **Workflow yml (executes in CI):**
@@ -728,7 +728,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/eleventy/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/eleventy/package.json`
 
 **Example:**
 ```bash
@@ -740,7 +740,7 @@ eleventy --watch
 **Method:** Hexo static blog generator. `hexo server` starts a dev server; `hexo generate` builds the static output.
 
 **Locations:**
-- [javascript/new_frameworks/hexo/package.json](../javascript/new_frameworks/hexo/package.json#L20-L21) - `"dev": "hexo server -p $PORT"`, `"build": "hexo generate"`
+- [javascript/new_frameworks/hexo/package.json](https://github.com/aqwertyuiop48/hexo/blob/main/package.json#L20-L21) - `"dev": "hexo server -p $PORT"`, `"build": "hexo generate"`
   - Remote (submodule @ branch `main`): [package.json#L20-L21](https://github.com/aqwertyuiop48/hexo/blob/main/package.json#L20-L21)
 
 **Workflow yml (executes in CI):**
@@ -748,7 +748,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hexo/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/hexo/package.json`
 
 **Example:**
 ```bash
@@ -760,7 +760,7 @@ hexo generate
 **Method:** VuePress documentation-site generator with HMR.
 
 **Locations:**
-- [javascript/new_frameworks/vuepress/package.json](../javascript/new_frameworks/vuepress/package.json#L4-L5) - `"dev": "vuepress dev src"`, `"build": "vuepress build src"`
+- [javascript/new_frameworks/vuepress/package.json](https://github.com/aqwertyuiop48/vuepress/blob/main/package.json#L4-L5) - `"dev": "vuepress dev src"`, `"build": "vuepress build src"`
   - Remote (submodule @ branch `main`): [package.json#L4-L5](https://github.com/aqwertyuiop48/vuepress/blob/main/package.json#L4-L5)
 
 **Workflow yml (executes in CI):**
@@ -768,7 +768,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vuepress/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vuepress/package.json`
 
 **Example:**
 ```bash
@@ -780,7 +780,7 @@ vuepress build src
 **Method:** VitePress — Vite-powered successor to VuePress.
 
 **Locations:**
-- [javascript/new_frameworks/vitepress/package.json](../javascript/new_frameworks/vitepress/package.json#L11-L13) - `"dev": "vitepress dev docs"`, `"build": "vitepress build docs"`, `"serve": "vitepress serve docs"`
+- [javascript/new_frameworks/vitepress/package.json](https://github.com/aqwertyuiop48/vitepress/blob/main/package.json#L11-L13) - `"dev": "vitepress dev docs"`, `"build": "vitepress build docs"`, `"serve": "vitepress serve docs"`
   - Remote (submodule @ branch `main`): [package.json#L11-L13](https://github.com/aqwertyuiop48/vitepress/blob/main/package.json#L11-L13)
 
 **Workflow yml (executes in CI):**
@@ -788,7 +788,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vitepress/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/vitepress/package.json`
 
 **Example:**
 ```bash
@@ -800,7 +800,7 @@ vitepress serve docs
 **Method:** Original (v1) Docusaurus CLI — separate `docusaurus-*` binaries per task.
 
 **Locations:**
-- [javascript/new_frameworks/docusaurus/package.json](../javascript/new_frameworks/docusaurus/package.json#L4-L6) - `"start": "docusaurus-start"`, `"dev": "docusaurus-start --port $PORT"`, `"build": "docusaurus-build"`
+- [javascript/new_frameworks/docusaurus/package.json](https://github.com/aqwertyuiop48/docusaurus/blob/main/package.json#L4-L6) - `"start": "docusaurus-start"`, `"dev": "docusaurus-start --port $PORT"`, `"build": "docusaurus-build"`
   - Remote (submodule @ branch `main`): [package.json#L4-L6](https://github.com/aqwertyuiop48/docusaurus/blob/main/package.json#L4-L6)
 
 **Workflow yml (executes in CI):**
@@ -808,7 +808,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus/package.json`
 
 **Example:**
 ```bash
@@ -820,7 +820,7 @@ docusaurus-build
 **Method:** Modern Docusaurus CLI uses a single `docusaurus` binary with subcommands.
 
 **Locations:**
-- [javascript/new_frameworks/docusaurus-2/package.json](../javascript/new_frameworks/docusaurus-2/package.json#L5-L10) - `"start": "docusaurus start"`, `"build": "docusaurus build"`, `"serve": "docusaurus serve"`
+- [javascript/new_frameworks/docusaurus-2/package.json](https://github.com/aqwertyuiop48/docusaurus-2/blob/main/package.json#L5-L10) - `"start": "docusaurus start"`, `"build": "docusaurus build"`, `"serve": "docusaurus serve"`
   - Remote (submodule @ branch `main`): [package.json#L5-L10](https://github.com/aqwertyuiop48/docusaurus-2/blob/main/package.json#L5-L10)
 
 **Workflow yml (executes in CI):**
@@ -828,7 +828,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus-2/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/docusaurus-2/package.json`
 
 **Example:**
 ```bash
@@ -845,7 +845,7 @@ docusaurus serve
 **Method:** `jest` discovers and runs `*.test.js` / `*.spec.js`. Single command takes test source → results.
 
 **Locations:**
-- [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L8) - `"test": "jest"`
+- [javascript/new_frameworks/preact/package.json](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L8) - `"test": "jest"`
   - Remote (submodule @ branch `main`): [package.json#L8](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L8)
 
 **Workflow yml (executes in CI):**
@@ -853,7 +853,7 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `javascript/new_frameworks/preact/package.json`
 
 **Example:**
 ```bash
@@ -866,12 +866,12 @@ jest --coverage
 **Method:** `vitest` is a Jest-API-compatible runner that reuses Vite's transform pipeline. `vitest run --coverage` executes once and reports.
 
 **Locations:**
-- [javascript/next_/nextjs_news_search_microservices/package.json](../javascript/next_/nextjs_news_search_microservices/package.json#L11) - `"test": "vitest"`
-- [javascript/new_frameworks/tanstack-start/package.json](../javascript/new_frameworks/tanstack-start/package.json#L9) - `"test": "vitest run"`
-- [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L13) - `"test": "WATCH=true vitest"`
+- [javascript/next_/nextjs_news_search_microservices/package.json](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/package.json#L11) - `"test": "vitest"`
+- [javascript/new_frameworks/tanstack-start/package.json](https://github.com/aqwertyuiop48/tanstack-start/blob/main/package.json#L9) - `"test": "vitest run"`
+- [javascript/new_frameworks/hydrogen/package.json](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L13) - `"test": "WATCH=true vitest"`
 
 **Workflow yml (executes in CI):**
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) - `npx vitest run --coverage`
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml#L37) - `npx vitest run --coverage`
 
 **Example:**
 ```bash
@@ -883,9 +883,9 @@ npx vitest run --coverage
 **Method:** Mocha is a flexible JS test runner — invoked directly (or via `npx mocha`) it discovers and runs spec files under `test/`. Hardhat depends on it transitively; some projects also use it standalone.
 
 **Locations:**
-- [solidity__/codeforces_script/package-lock.json](../solidity__/codeforces_script/package-lock.json#L4888-L4917) - declares the `mocha` and `_mocha` binaries (transitive dep of Hardhat)
+- [solidity__/codeforces_script/package-lock.json](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/package-lock.json#L4888-L4917) - declares the `mocha` and `_mocha` binaries (transitive dep of Hardhat)
   - Remote (submodule @ branch `solidity_`): [package-lock.json#L4888-L4917](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/package-lock.json#L4888-L4917)
-- [QA/cypress_/codeforces_script/package.json](../QA/cypress_/codeforces_script/package.json#L57) - `mocha-junit-reporter` (Cypress + Mocha reporter chain)
+- [QA/cypress_/codeforces_script/package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/package.json#L57) - `mocha-junit-reporter` (Cypress + Mocha reporter chain)
   - Remote (submodule @ branch `cypress_testing`): [package.json#L57](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/package.json#L57)
 - [javascript/webdriver_io/package.json](../javascript/webdriver_io/package.json#L7) - `@wdio/mocha-framework` (WebdriverIO using Mocha as its test runner)
 
@@ -894,11 +894,11 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/package.json`; `solidity__/codeforces_script/package-lock.json`
-- [.github/workflows/webdriver_io.yml](.github/workflows/webdriver_io.yml) _(rule R2)_ — covers `javascript/webdriver_io/package.json`
-- [QA/cypress_/codeforces_script/.github/workflows/main.yml](QA/cypress_/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/package.json`
-- [solidity__/codeforces_script/.github/workflows/main.yml](solidity__/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
-- [solidity__/codeforces_script/.github/workflows/mains.yml](solidity__/codeforces_script/.github/workflows/mains.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/package.json`; `solidity__/codeforces_script/package-lock.json`
+- [.github/workflows/webdriver_io.yml](../.github/workflows/webdriver_io.yml) _(rule R2)_ — covers `javascript/webdriver_io/package.json`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/package.json`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
+- [solidity__/codeforces_script/.github/workflows/mains.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/mains.yml) _(rule R1)_ — covers `solidity__/codeforces_script/package-lock.json`
 
 **Example:**
 ```bash
@@ -913,9 +913,9 @@ npx mocha 'test/**/*.spec.js'
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L31) - `npx cypress run`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31) - `npx cypress run`
   - Remote (submodule @ branch `cypress_testing`): [main.yml#L31](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31)
-- [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L51-L52) - report / video artifacts published
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L51-L52) - report / video artifacts published
 
 **Example:**
 ```bash
@@ -929,10 +929,10 @@ npx cypress run
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L27) - `npx playwright install`
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27) - `npx playwright install`
   - Remote (submodule @ branch `golang_`): [main.yml#L27](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L27)
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L98-L100) - `npx playwright screenshot http://localhost:8080 videos/index.png` (multiple endpoints)
-- [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L105-L130) - Playwright driven via `node -e` heredoc to record `chromium` video
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L98-L100) - `npx playwright screenshot http://localhost:8080 videos/index.png` (multiple endpoints)
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105-L130) - Playwright driven via `node -e` heredoc to record `chromium` video
 
 **Example:**
 ```bash
@@ -966,7 +966,7 @@ npx wdio run wdio.conf.js
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L25-L37) - `npm install --save-dev hardhat`, `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost && node scripts/solidity_in_js.js`
+- [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37) - `npm install --save-dev hardhat`, `npx hardhat compile`, `npx hardhat test`, `npx hardhat node`, `npx hardhat run scripts/deploy.js --network localhost && node scripts/solidity_in_js.js`
   - Remote (submodule @ branch `solidity_`): [main.yml#L25-L37](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L25-L37)
 
 **Example:**
@@ -987,12 +987,12 @@ npx hardhat test
 - `nbb -e '<expr>'` — inline ClojureScript expression, no file needed.
 
 **Locations:**
-- [clojure_/clojure_script_/codeforces_script/package.json](../clojure_/clojure_script_/codeforces_script/package.json#L3) - `"start": "nbb hello.cljs"`
+- [clojure_/clojure_script_/codeforces_script/package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3) - `"start": "nbb hello.cljs"`
   - Remote (submodule @ branch `clojure_script`): [package.json#L3](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3)
 
 **Workflow yml (executes in CI):**
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L31-L34) - `npm install nbb -g`, `nbb -e '(+ 1 2 3)'`, `npm run start`
-- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](../clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml#L36-L59) - multi-line `nbb -e '(ns hello (:require ["fs" :as fs] ...)) (println "Hello from nbb!") ...'`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L31-L34) - `npm install nbb -g`, `nbb -e '(+ 1 2 3)'`, `npm run start`
+- [clojure_/clojure_script_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/.github/workflows/main.yml#L36-L59) - multi-line `nbb -e '(ns hello (:require ["fs" :as fs] ...)) (println "Hello from nbb!") ...'`
 
 **Example:**
 ```bash
@@ -1008,10 +1008,10 @@ nbb hello.cljs
 **Method:** Build a Docker image whose `Dockerfile` starts `FROM node:<tag>`, copies sources, installs deps, and exposes a Node entrypoint. Running the image executes the JS program — `docker build … && docker run …` is the single source-in → running-app pipeline.
 
 **Locations:**
-- [javascript/next_/nextjs_app/Dockerfile](../javascript/next_/nextjs_app/Dockerfile#L2-L17) - `FROM node:22-alpine AS build` … `FROM node:22-alpine` (multi-stage build + runtime)
+- [javascript/next_/nextjs_app/Dockerfile](https://github.com/aqwertyuiop48/nextjs_app/blob/main/Dockerfile#L2-L17) - `FROM node:22-alpine AS build` … `FROM node:22-alpine` (multi-stage build + runtime)
   - Remote (submodule @ branch `main`): [Dockerfile#L2-L17](https://github.com/aqwertyuiop48/nextjs_app/blob/main/Dockerfile#L2-L17)
-- [javascript/next_/nextjs_news_search_microservices/Dockerfile](../javascript/next_/nextjs_news_search_microservices/Dockerfile#L2-L14) - multi-stage `node:18-alpine` builder + runner
-- [QA/cypress_/codeforces_script/Dockerfile](../QA/cypress_/codeforces_script/Dockerfile#L22-L25) - `RUN npm install` + Cypress entrypoint
+- [javascript/next_/nextjs_news_search_microservices/Dockerfile](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/Dockerfile#L2-L14) - multi-stage `node:18-alpine` builder + runner
+- [QA/cypress_/codeforces_script/Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/Dockerfile#L22-L25) - `RUN npm install` + Cypress entrypoint
   - Remote (submodule @ branch `cypress_testing`): [Dockerfile#L22-L25](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/Dockerfile#L22-L25)
 
 **Workflow yml (executes in CI):**
@@ -1019,10 +1019,10 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/Dockerfile`; `javascript/next_/nextjs_app/Dockerfile`; `javascript/next_/nextjs_news_search_microservices/Dockerfile`
-- [QA/cypress_/codeforces_script/.github/workflows/main.yml](QA/cypress_/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/Dockerfile`
-- [javascript/next_/nextjs_app/.github/workflows/main.yml](javascript/next_/nextjs_app/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app/Dockerfile`
-- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml) _(rule R1)_ — covers `javascript/next_/nextjs_news_search_microservices/Dockerfile`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `QA/cypress_/codeforces_script/Dockerfile`; `javascript/next_/nextjs_app/Dockerfile`; `javascript/next_/nextjs_news_search_microservices/Dockerfile`
+- [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml) _(rule R1)_ — covers `QA/cypress_/codeforces_script/Dockerfile`
+- [javascript/next_/nextjs_app/.github/workflows/main.yml](https://github.com/aqwertyuiop48/nextjs_app/blob/main/.github/workflows/main.yml) _(rule R1)_ — covers `javascript/next_/nextjs_app/Dockerfile`
+- [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml) _(rule R1)_ — covers `javascript/next_/nextjs_news_search_microservices/Dockerfile`
 
 **Example:**
 ```dockerfile
@@ -1046,9 +1046,9 @@ docker run -p 3000:3000 my-node-app
 **Method:** GraalVM's `org.graalvm.polyglot.Context` lets Java code execute a JavaScript expression in-process (no subprocess) and read back the result as a `Value`. Used in the codeforces solver below to evaluate arithmetic expressions for the LeetCode "Basic Calculator II" problem.
 
 **Locations:**
-- [java/codeforces_script/src/main/java/com/example/DataStructures.java](../java/codeforces_script/src/main/java/com/example/DataStructures.java#L16) - `import org.graalvm.polyglot.*;`
+- [java/codeforces_script/src/main/java/com/example/DataStructures.java](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L16) - `import org.graalvm.polyglot.*;`
   - Remote (submodule @ branch `javac_`): [DataStructures.java#L16](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L16)
-- [java/codeforces_script/src/main/java/com/example/DataStructures.java](../java/codeforces_script/src/main/java/com/example/DataStructures.java#L1040) - `return (int) Context.create("js").eval("js", expression).asDouble();`
+- [java/codeforces_script/src/main/java/com/example/DataStructures.java](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L1040) - `return (int) Context.create("js").eval("js", expression).asDouble();`
   - Remote (submodule @ branch `javac_`): [DataStructures.java#L1040](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L1040)
 
 **Workflow yml (executes in CI):**
@@ -1056,10 +1056,10 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
-- [java/codeforces_script/.github/workflows/main.yml](java/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
-- [java/codeforces_script/.github/workflows/main_kotlin.yml](java/codeforces_script/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
-- [java/codeforces_script/.github/workflows/main_kotlin_gradle.yml](java/codeforces_script/.github/workflows/main_kotlin_gradle.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main_kotlin.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main_kotlin.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
+- [java/codeforces_script/.github/workflows/main_kotlin_gradle.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/.github/workflows/main_kotlin_gradle.yml) _(rule R1)_ — covers `java/codeforces_script/src/main/java/com/example/DataStructures.java`
 
 **Example:**
 ```java
@@ -1088,14 +1088,14 @@ child.stdout.pipe(process.stdout);
 **Method:** Polyglot pattern where a non-JS host (Go's `os/exec`, Java's `ProcessBuilder`, Ruby's `exec`, Objective-C's `NSTask`, C++'s `system`) launches `node -e` with code synthesized at runtime, then reads back the program's stdout.
 
 **Locations:**
-- [golang/codeforces_script/execute/1_nested_functions.go](../golang/codeforces_script/execute/1_nested_functions.go#L29) - `exec.Command("node", "-e", string_concat)` (Go → Node)
+- [golang/codeforces_script/execute/1_nested_functions.go](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29) - `exec.Command("node", "-e", string_concat)` (Go → Node)
   - Remote (submodule @ branch `golang_`): [1_nested_functions.go#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29)
 - [java/readme.txt](../java/readme.txt#L557) - `processBuilder.command("node", "-e", strings)` (Java → Node)
-- [ruby/codeforces_script/execute/child.rb](../ruby/codeforces_script/execute/child.rb#L1-L7) - Ruby `exec <<~CMD … node -e "…" … CMD`
+- [ruby/codeforces_script/execute/child.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7) - Ruby `exec <<~CMD … node -e "…" … CMD`
   - Remote (submodule @ branch `ruby_`): [child.rb#L1-L7](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7)
-- [objective_c_cpp/codeforces_script/hello.mm](../objective_c_cpp/codeforces_script/hello.mm#L49) - `[NSString stringWithFormat:@"node -e \"%@\"", nodeCommandNSString]` (Objective-C → Node)
+- [objective_c_cpp/codeforces_script/hello.mm](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_/hello.mm#L49) - `[NSString stringWithFormat:@"node -e \"%@\"", nodeCommandNSString]` (Objective-C → Node)
   - Remote (submodule @ branch `objective_c_cpp_`): [hello.mm#L49](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_cpp_/hello.mm#L49)
-- [CPP/codeforces_script/cpp_/trial.cpp](../CPP/codeforces_script/cpp_/trial.cpp#L29) - `node -e "console.log(2+3+' from nodejs');"` invoked via `system(...)` (C++ → Node)
+- [CPP/codeforces_script/cpp_/trial.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29) - `node -e "console.log(2+3+' from nodejs');"` invoked via `system(...)` (C++ → Node)
   - Remote (submodule @ branch `cpp_`): [trial.cpp#L29](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29)
 
 **Workflow yml (executes in CI):**
@@ -1103,12 +1103,12 @@ Transitively exercised in CI via the following workflow(s) — the
 subsection's documented file(s) are inside submodules/directories
 that are built, tested, or referenced by these workflows:
 
-- [.github/workflows/main.yml](.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`; `golang/codeforces_script/execute/1_nested_functions.go`; `objective_c_cpp/codeforces_script/hello.mm`; `ruby/codeforces_script/execute/child.rb`
-- [CPP/codeforces_script/.github/workflows/builds.yml](CPP/codeforces_script/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
-- [CPP/codeforces_script/.github/workflows/main.yml](CPP/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
-- [golang/codeforces_script/.github/workflows/main.yml](golang/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/execute/1_nested_functions.go`
-- [objective_c_cpp/codeforces_script/.github/workflows/main.yml](objective_c_cpp/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `objective_c_cpp/codeforces_script/hello.mm`
-- [ruby/codeforces_script/.github/workflows/main.yml](ruby/codeforces_script/.github/workflows/main.yml) _(rule R1)_ — covers `ruby/codeforces_script/execute/child.rb`
+- [.github/workflows/main.yml](../.github/workflows/main.yml) _(rule R2)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`; `golang/codeforces_script/execute/1_nested_functions.go`; `objective_c_cpp/codeforces_script/hello.mm`; `ruby/codeforces_script/execute/child.rb`
+- [CPP/codeforces_script/.github/workflows/builds.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/builds.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [CPP/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/.github/workflows/main.yml) _(rule R1)_ — covers `CPP/codeforces_script/cpp_/trial.cpp`
+- [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml) _(rule R1)_ — covers `golang/codeforces_script/execute/1_nested_functions.go`
+- [objective_c_cpp/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/objective_c_/.github/workflows/main.yml) _(rule R1)_ — covers `objective_c_cpp/codeforces_script/hello.mm`
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml) _(rule R1)_ — covers `ruby/codeforces_script/execute/child.rb`
 
 **Example (Go):**
 ```go
@@ -1124,50 +1124,50 @@ fmt.Println(string(out))
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
 | `node <file.js>` | Direct interpreter execution | [.github/workflows/mysql_.yml](../.github/workflows/mysql_.yml#L92) |
-| `node -e "..."` | Inline JS expression | [CPP/codeforces_script/cpp_/trial.cpp](../CPP/codeforces_script/cpp_/trial.cpp#L29) |
-| `node -e` + shell heredoc | Multi-line inline JS | [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L105) |
-| `npm start` / `npm test` / `npm run <s>` | package.json scripts | [javascript/express_/JavaScript-Applications/package.json](../javascript/express_/JavaScript-Applications/package.json#L8) |
-| `npx <pkg>` | Ad-hoc package runner | [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L31) |
-| `next dev` / `next start` | Next.js dev / prod | [javascript/next_/nextjs_app/package.json](../javascript/next_/nextjs_app/package.json#L7) |
-| `nuxt dev` | Nuxt dev | [javascript/nuxt_/nuxtjs-boilerplate/package.json](../javascript/nuxt_/nuxtjs-boilerplate/package.json#L4) |
-| `react-scripts start` | Create React App | [javascript/react_/my_react_app/package.json](../javascript/react_/my_react_app/package.json#L19) |
-| `vite` / `vite preview` | Vite dev / preview | [javascript/vue_/vue_project/package.json](../javascript/vue_/vue_project/package.json#L3) |
-| `gatsby develop` / `serve` | Gatsby | [javascript/gatsby_/gatsby/package.json](../javascript/gatsby_/gatsby/package.json#L4) |
-| `remix dev` | Remix | [javascript/remix_/remix/package.json](../javascript/remix_/remix/package.json#L6) |
-| `redwood dev` / `rw dev` | RedwoodJS | [javascript/redwood_/netlify-deploy/README.md](../javascript/redwood_/netlify-deploy/README.md#L20) |
-| `stencil build --dev --watch --serve` | Stencil web components | [javascript/stencil_/stencil/package.json](../javascript/stencil_/stencil/package.json#L8) |
-| `brunch watch --server` | Brunch | [javascript/brunch_/brunch/package.json](../javascript/brunch_/brunch/package.json#L9) |
-| `umi dev` | UmiJS | [javascript/umijs_/umijs/package.json](../javascript/umijs_/umijs/package.json#L4) |
-| `nx serve` | Nx monorepo | [javascript/nx_/nx-monorepo/package.json](../javascript/nx_/nx-monorepo/package.json#L5) |
-| `turbo run dev` | Turborepo | [javascript/turborepo-with-hono/package.json](../javascript/turborepo-with-hono/package.json#L6) |
-| `nodemon <file>` | Auto-restart wrapper | [javascript/express_/JavaScript-Applications/package.json](../javascript/express_/JavaScript-Applications/package.json#L8) |
-| `serve` / `npx ws` / `sirv` | Static file servers | [.github/workflows/mains.yml](../.github/workflows/mains.yml#L36)<br/>[javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L8) |
-| `ember serve` | Ember.js | [javascript/ember_/ember/package.json](../javascript/ember_/ember/package.json#L18) |
-| `rollup -c -w` + `sirv` | Svelte legacy dev loop | [javascript/svelte_/svelte/package.json](../javascript/svelte_/svelte/package.json#L7) |
-| `parcel` | Parcel v2 | [javascript/new_frameworks/parcel/package.json](../javascript/new_frameworks/parcel/package.json#L6) |
-| `nitro dev` | Nitro universal server | [javascript/new_frameworks/nitro/package.json](../javascript/new_frameworks/nitro/package.json#L5) |
-| `polymer serve` | Polymer CLI | [javascript/new_frameworks/polymer/package.json](../javascript/new_frameworks/polymer/package.json#L9) |
-| `preact watch` | Preact CLI | [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L6) |
-| `shopify hydrogen dev` | Hydrogen | [javascript/new_frameworks/hydrogen/package.json](../javascript/new_frameworks/hydrogen/package.json#L8) |
-| `storybook dev` / `storybook build` | Storybook | [javascript/new_frameworks/storybook/package.json](../javascript/new_frameworks/storybook/package.json#L8) |
-| `eleventy --serve` | 11ty | [javascript/new_frameworks/eleventy/package.json](../javascript/new_frameworks/eleventy/package.json#L20) |
-| `hexo server` | Hexo blog | [javascript/new_frameworks/hexo/package.json](../javascript/new_frameworks/hexo/package.json#L20) |
-| `vuepress dev` | VuePress | [javascript/new_frameworks/vuepress/package.json](../javascript/new_frameworks/vuepress/package.json#L4) |
-| `vitepress dev` | VitePress | [javascript/new_frameworks/vitepress/package.json](../javascript/new_frameworks/vitepress/package.json#L11) |
-| `docusaurus-start` | Docusaurus v1 | [javascript/new_frameworks/docusaurus/package.json](../javascript/new_frameworks/docusaurus/package.json#L4) |
-| `docusaurus start / serve` | Docusaurus v2+ | [javascript/new_frameworks/docusaurus-2/package.json](../javascript/new_frameworks/docusaurus-2/package.json#L5) |
-| `jest` | JS test runner | [javascript/new_frameworks/preact/package.json](../javascript/new_frameworks/preact/package.json#L8) |
-| `vitest [run]` | Vite-native test runner | [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](../javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml#L37) |
-| `mocha` | Mocha test runner | [solidity__/codeforces_script/package-lock.json](../solidity__/codeforces_script/package-lock.json#L4888) |
-| `npx cypress run` | Headless E2E | [QA/cypress_/codeforces_script/.github/workflows/main.yml](../QA/cypress_/codeforces_script/.github/workflows/main.yml#L31) |
-| `npx playwright screenshot / test` | Browser automation | [golang/codeforces_script/.github/workflows/main.yml](../golang/codeforces_script/.github/workflows/main.yml#L98) |
+| `node -e "..."` | Inline JS expression | [CPP/codeforces_script/cpp_/trial.cpp](https://github.com/aqwertyuiop48/codeforces_script/blob/cpp_/cpp_/trial.cpp#L29) |
+| `node -e` + shell heredoc | Multi-line inline JS | [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L105) |
+| `npm start` / `npm test` / `npm run <s>` | package.json scripts | [javascript/express_/JavaScript-Applications/package.json](https://github.com/aqwertyuiop48/JavaScript-Applications/blob/main/package.json#L8) |
+| `npx <pkg>` | Ad-hoc package runner | [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L31) |
+| `next dev` / `next start` | Next.js dev / prod | [javascript/next_/nextjs_app/package.json](https://github.com/aqwertyuiop48/nextjs_app/blob/main/package.json#L7) |
+| `nuxt dev` | Nuxt dev | [javascript/nuxt_/nuxtjs-boilerplate/package.json](https://github.com/aqwertyuiop48/nuxtjs-boilerplate/blob/main/package.json#L4) |
+| `react-scripts start` | Create React App | [javascript/react_/my_react_app/package.json](https://github.com/aqwertyuiop48/my_react_app/blob/main/package.json#L19) |
+| `vite` / `vite preview` | Vite dev / preview | [javascript/vue_/vue_project/package.json](https://github.com/aqwertyuiop48/vue_project/blob/main/package.json#L3) |
+| `gatsby develop` / `serve` | Gatsby | [javascript/gatsby_/gatsby/package.json](https://github.com/aqwertyuiop48/gatsby/blob/main/package.json#L4) |
+| `remix dev` | Remix | [javascript/remix_/remix/package.json](https://github.com/aqwertyuiop48/remix/blob/main/package.json#L6) |
+| `redwood dev` / `rw dev` | RedwoodJS | [javascript/redwood_/netlify-deploy/README.md](https://github.com/aqwertyuiop48/netlify-deploy/blob/main/README.md#L20) |
+| `stencil build --dev --watch --serve` | Stencil web components | [javascript/stencil_/stencil/package.json](https://github.com/aqwertyuiop48/stencil/blob/main/package.json#L8) |
+| `brunch watch --server` | Brunch | [javascript/brunch_/brunch/package.json](https://github.com/aqwertyuiop48/brunch/blob/main/package.json#L9) |
+| `umi dev` | UmiJS | [javascript/umijs_/umijs/package.json](https://github.com/aqwertyuiop48/umijs/blob/main/package.json#L4) |
+| `nx serve` | Nx monorepo | [javascript/nx_/nx-monorepo/package.json](https://github.com/aqwertyuiop48/nx-monorepo/blob/main/package.json#L5) |
+| `turbo run dev` | Turborepo | [javascript/turborepo-with-hono/package.json](https://github.com/aqwertyuiop48/turborepo-with-hono/blob/main/package.json#L6) |
+| `nodemon <file>` | Auto-restart wrapper | [javascript/express_/JavaScript-Applications/package.json](https://github.com/aqwertyuiop48/JavaScript-Applications/blob/main/package.json#L8) |
+| `serve` / `npx ws` / `sirv` | Static file servers | [.github/workflows/mains.yml](../.github/workflows/mains.yml#L36)<br/>[javascript/svelte_/svelte/package.json](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L8) |
+| `ember serve` | Ember.js | [javascript/ember_/ember/package.json](https://github.com/aqwertyuiop48/ember/blob/main/package.json#L18) |
+| `rollup -c -w` + `sirv` | Svelte legacy dev loop | [javascript/svelte_/svelte/package.json](https://github.com/aqwertyuiop48/svelte/blob/main/package.json#L7) |
+| `parcel` | Parcel v2 | [javascript/new_frameworks/parcel/package.json](https://github.com/aqwertyuiop48/parcel/blob/main/package.json#L6) |
+| `nitro dev` | Nitro universal server | [javascript/new_frameworks/nitro/package.json](https://github.com/aqwertyuiop48/nitro/blob/main/package.json#L5) |
+| `polymer serve` | Polymer CLI | [javascript/new_frameworks/polymer/package.json](https://github.com/aqwertyuiop48/polymer/blob/main/package.json#L9) |
+| `preact watch` | Preact CLI | [javascript/new_frameworks/preact/package.json](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L6) |
+| `shopify hydrogen dev` | Hydrogen | [javascript/new_frameworks/hydrogen/package.json](https://github.com/aqwertyuiop48/hydrogen/blob/main/package.json#L8) |
+| `storybook dev` / `storybook build` | Storybook | [javascript/new_frameworks/storybook/package.json](https://github.com/aqwertyuiop48/storybook/blob/main/package.json#L8) |
+| `eleventy --serve` | 11ty | [javascript/new_frameworks/eleventy/package.json](https://github.com/aqwertyuiop48/eleventy/blob/main/package.json#L20) |
+| `hexo server` | Hexo blog | [javascript/new_frameworks/hexo/package.json](https://github.com/aqwertyuiop48/hexo/blob/main/package.json#L20) |
+| `vuepress dev` | VuePress | [javascript/new_frameworks/vuepress/package.json](https://github.com/aqwertyuiop48/vuepress/blob/main/package.json#L4) |
+| `vitepress dev` | VitePress | [javascript/new_frameworks/vitepress/package.json](https://github.com/aqwertyuiop48/vitepress/blob/main/package.json#L11) |
+| `docusaurus-start` | Docusaurus v1 | [javascript/new_frameworks/docusaurus/package.json](https://github.com/aqwertyuiop48/docusaurus/blob/main/package.json#L4) |
+| `docusaurus start / serve` | Docusaurus v2+ | [javascript/new_frameworks/docusaurus-2/package.json](https://github.com/aqwertyuiop48/docusaurus-2/blob/main/package.json#L5) |
+| `jest` | JS test runner | [javascript/new_frameworks/preact/package.json](https://github.com/aqwertyuiop48/preact/blob/main/package.json#L8) |
+| `vitest [run]` | Vite-native test runner | [javascript/next_/nextjs_news_search_microservices/.github/workflows/ci.yml](https://github.com/aqwertyuiop48/nextjs_news_search_microservices/blob/main/.github/workflows/ci.yml#L37) |
+| `mocha` | Mocha test runner | [solidity__/codeforces_script/package-lock.json](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/package-lock.json#L4888) |
+| `npx cypress run` | Headless E2E | [QA/cypress_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/cypress_testing/.github/workflows/main.yml#L31) |
+| `npx playwright screenshot / test` | Browser automation | [golang/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/.github/workflows/main.yml#L98) |
 | `npx wdio run` | WebdriverIO | [.github/workflows/webdriver_io.yml](../.github/workflows/webdriver_io.yml#L33) |
-| `npx hardhat run / test / node` | Solidity dev hosted on Node | [solidity__/codeforces_script/.github/workflows/main.yml](../solidity__/codeforces_script/.github/workflows/main.yml#L33) |
-| `nbb <file.cljs>` / `nbb -e` | ClojureScript on Node | [clojure_/clojure_script_/codeforces_script/package.json](../clojure_/clojure_script_/codeforces_script/package.json#L3) |
-| Docker (`FROM node:…`) | Containerized Node | [javascript/next_/nextjs_app/Dockerfile](../javascript/next_/nextjs_app/Dockerfile#L2) |
-| Java GraalVM `Context.eval("js", …)` | In-process polyglot | [java/codeforces_script/src/main/java/com/example/DataStructures.java](../java/codeforces_script/src/main/java/com/example/DataStructures.java#L1040) |
+| `npx hardhat run / test / node` | Solidity dev hosted on Node | [solidity__/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/solidity_/.github/workflows/main.yml#L33) |
+| `nbb <file.cljs>` / `nbb -e` | ClojureScript on Node | [clojure_/clojure_script_/codeforces_script/package.json](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_script/package.json#L3) |
+| Docker (`FROM node:…`) | Containerized Node | [javascript/next_/nextjs_app/Dockerfile](https://github.com/aqwertyuiop48/nextjs_app/blob/main/Dockerfile#L2) |
+| Java GraalVM `Context.eval("js", …)` | In-process polyglot | [java/codeforces_script/src/main/java/com/example/DataStructures.java](https://github.com/aqwertyuiop48/codeforces_script/blob/javac_/src/main/java/com/example/DataStructures.java#L1040) |
 | `child_process.spawn/exec("node", …)` | JS → Node subprocess | [typescript/inputs/shell_java_.js](../typescript/inputs/shell_java_.js#L3) |
-| Go / Java / Ruby / Obj-C / C++ → `node -e` | Cross-language polyglot | [golang/codeforces_script/execute/1_nested_functions.go](../golang/codeforces_script/execute/1_nested_functions.go#L29) |
+| Go / Java / Ruby / Obj-C / C++ → `node -e` | Cross-language polyglot | [golang/codeforces_script/execute/1_nested_functions.go](https://github.com/aqwertyuiop48/codeforces_script/blob/golang_/execute/1_nested_functions.go#L29) |
 
 ---
 

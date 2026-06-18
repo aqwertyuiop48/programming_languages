@@ -33,14 +33,14 @@ This document catalogues **all distinct Ruby methods** discovered for running Ru
 **Method:** Invoke the Ruby interpreter on a `.rb` source file. The CI iterates the `execute/` directory and runs every Ruby source it finds.
 
 **Locations:**
-- [ruby/codeforces_script/execute/hello.rb](../ruby/codeforces_script/execute/hello.rb) - `puts 'Hello, Ruby World!'`
-- [ruby/codeforces_script/execute/hello_1.rb](../ruby/codeforces_script/execute/hello_1.rb) - Multi-line strings via `<<~HEREDOC`
-- [ruby/codeforces_script/execute/child.rb](../ruby/codeforces_script/execute/child.rb) - `fork + exec` → Node.js (see §4.1)
+- [ruby/codeforces_script/execute/hello.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/hello.rb) - `puts 'Hello, Ruby World!'`
+- [ruby/codeforces_script/execute/hello_1.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/hello_1.rb) - Multi-line strings via `<<~HEREDOC`
+- [ruby/codeforces_script/execute/child.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb) - `fork + exec` → Node.js (see §4.1)
   - Remote (submodule `ruby/codeforces_script` @ branch `ruby_`): [execute/](https://github.com/aqwertyuiop48/codeforces_script/tree/ruby_/execute)
 
 **Workflow yml (executes in CI):**
-- [ruby/codeforces_script/.github/workflows/main.yml](../ruby/codeforces_script/.github/workflows/main.yml#L19-L22) - sets up Ruby 3.3.5 via `ruby/setup-ruby@v1`
-- [ruby/codeforces_script/.github/workflows/main.yml](../ruby/codeforces_script/.github/workflows/main.yml#L29-L33) - `for file in execute/*.rb; do ruby "$file"; done`
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L19-L22) - sets up Ruby 3.3.5 via `ruby/setup-ruby@v1`
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L29-L33) - `for file in execute/*.rb; do ruby "$file"; done`
   - Remote: [main.yml#L29-L33](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L29-L33)
 
 Transitively exercised in CI via the following workflow(s):
@@ -60,11 +60,11 @@ ruby execute/hello.rb
 **Method:** A vanilla `TCPServer`-based HTTP server written in Ruby. Listens on `ENV.fetch("PORT", 5678)` and responds with `HTTP/1.1 200 OK` + an HTML body for every request. Handles `HEAD` specially (no body) and recovers from `Errno::EPIPE`.
 
 **Locations:**
-- [ruby/codeforces_script/server_.rb](../ruby/codeforces_script/server_.rb) - `TCPServer.new port`, accept-loop, response writer
+- [ruby/codeforces_script/server_.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/server_.rb) - `TCPServer.new port`, accept-loop, response writer
   - Remote: [server_.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/server_.rb)
 
 **Workflow yml (executes in CI):**
-- [ruby/codeforces_script/Dockerfile](../ruby/codeforces_script/Dockerfile) - `CMD ["ruby", "server_.rb"]` (exposes 10000)
+- [ruby/codeforces_script/Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/Dockerfile) - `CMD ["ruby", "server_.rb"]` (exposes 10000)
 - Container is built and pushed in CI — see §3.1; the server is the container's entry point.
 
 **Example:**
@@ -82,11 +82,11 @@ curl -i http://localhost:5678/
 **Method:** Build a `ruby:3.3` Docker image whose entry point is `ruby server_.rb`, tag it, and push to Docker Hub. Lets the §2.1 server run anywhere Docker is available.
 
 **Locations:**
-- [ruby/codeforces_script/Dockerfile](../ruby/codeforces_script/Dockerfile) - `FROM ruby:3.3`, copies sources, `EXPOSE 10000`, `CMD ["ruby", "server_.rb"]`
+- [ruby/codeforces_script/Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/Dockerfile) - `FROM ruby:3.3`, copies sources, `EXPOSE 10000`, `CMD ["ruby", "server_.rb"]`
 
 **Workflow yml (executes in CI):**
-- [ruby/codeforces_script/.github/workflows/main.yml](../ruby/codeforces_script/.github/workflows/main.yml#L44-L47) - `docker/login-action@v3` (DockerHub credentials)
-- [ruby/codeforces_script/.github/workflows/main.yml](../ruby/codeforces_script/.github/workflows/main.yml#L50-L54) - `docker build -t ruby-http-server:latest .` + `docker tag … sreedockerhub19/ruby-http-server:latest` + `docker push sreedockerhub19/ruby-http-server:latest`
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L44-L47) - `docker/login-action@v3` (DockerHub credentials)
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L50-L54) - `docker build -t ruby-http-server:latest .` + `docker tag … sreedockerhub19/ruby-http-server:latest` + `docker push sreedockerhub19/ruby-http-server:latest`
 
 **Example:**
 ```bash
@@ -102,10 +102,10 @@ docker run --rm -p 5678:5678 ruby-http-server:latest
 **Method:** Ruby `fork { exec(...) }` spawns a child process that replaces itself with a `node -e "<js code>"` invocation. The Ruby parent runs concurrently while Node executes the inline JavaScript. Same family of patterns as the `Go / Java / Ruby / Objective-C / C++ → node -e` chain documented in [javascript.md §9.3](javascript.md#93-go--java--ruby--objective-c--c--node--e-subprocess).
 
 **Locations:**
-- [ruby/codeforces_script/execute/child.rb](../ruby/codeforces_script/execute/child.rb#L1-L7) - `fork do; exec <<~CMD\n  node -e "console.log('Hi from nested nodejs!');"\nCMD\nend`
+- [ruby/codeforces_script/execute/child.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb#L1-L7) - `fork do; exec <<~CMD\n  node -e "console.log('Hi from nested nodejs!');"\nCMD\nend`
 
 **Workflow yml (executes in CI):**
-- [ruby/codeforces_script/.github/workflows/main.yml](../ruby/codeforces_script/.github/workflows/main.yml#L29-L33) - the `for file in execute/*.rb` loop picks up `child.rb` and runs it; the workflow also sets up Node.js 18 at [main.yml#L37-L40](../ruby/codeforces_script/.github/workflows/main.yml#L37-L40) so the `node -e` subprocess resolves.
+- [ruby/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L29-L33) - the `for file in execute/*.rb` loop picks up `child.rb` and runs it; the workflow also sets up Node.js 18 at [main.yml#L37-L40](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/.github/workflows/main.yml#L37-L40) so the `node -e` subprocess resolves.
 
 **Example:**
 ```ruby
@@ -124,9 +124,9 @@ end
 **Method:** The `ruby/jekyll1` submodule is a Jekyll 4.3.x site (Ruby gem). `bundle exec jekyll build` produces a static `_site/` tree; `bundle exec jekyll serve` runs the local preview server. Scaffolded originally with `jekyll new my-blog`.
 
 **Locations:**
-- [ruby/jekyll1/Gemfile](../ruby/jekyll1/Gemfile) - declares `jekyll ~> 4.3.0`, `minima ~> 2.5`, `jekyll-feed ~> 0.12`, `webrick`
-- [ruby/jekyll1/_config.yml](../ruby/jekyll1/_config.yml) - site config (theme: `minima`, plugins, etc.)
-- [ruby/jekyll1/index.md](../ruby/jekyll1/index.md), [ruby/jekyll1/about.md](../ruby/jekyll1/about.md), [ruby/jekyll1/404.html](../ruby/jekyll1/404.html), [ruby/jekyll1/_posts/](../ruby/jekyll1/_posts/) - content
+- [ruby/jekyll1/Gemfile](https://github.com/aqwertyuiop48/jekyll1/blob/main/Gemfile) - declares `jekyll ~> 4.3.0`, `minima ~> 2.5`, `jekyll-feed ~> 0.12`, `webrick`
+- [ruby/jekyll1/_config.yml](https://github.com/aqwertyuiop48/jekyll1/blob/main/_config.yml) - site config (theme: `minima`, plugins, etc.)
+- [ruby/jekyll1/index.md](https://github.com/aqwertyuiop48/jekyll1/blob/main/index.md), [ruby/jekyll1/about.md](https://github.com/aqwertyuiop48/jekyll1/blob/main/about.md), [ruby/jekyll1/404.html](https://github.com/aqwertyuiop48/jekyll1/blob/main/404.html), [ruby/jekyll1/_posts/](https://github.com/aqwertyuiop48/jekyll1/tree/main/_posts) - content
   - Remote (submodule `ruby/jekyll1` @ branch `main`): [jekyll1](https://github.com/aqwertyuiop48/jekyll1)
 
 **Workflow yml (executes in CI):** None — the `ruby/jekyll1` submodule has no `.github/workflows/` directory. Build is intended to be triggered externally (e.g., Vercel zero-config Jekyll deploy mentioned in the submodule's `README.md`).
@@ -200,11 +200,11 @@ ruby -c some_file.rb
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| `ruby <file.rb>` | Run a Ruby script file | [hello.rb](../ruby/codeforces_script/execute/hello.rb) |
-| `ruby server_.rb` | Long-running TCP HTTP server | [server_.rb](../ruby/codeforces_script/server_.rb) |
-| `docker build / push` (Ruby image) | Containerise the Ruby HTTP server | [Dockerfile](../ruby/codeforces_script/Dockerfile) |
-| `fork + exec "node -e …"` | Ruby → Node.js polyglot | [child.rb](../ruby/codeforces_script/execute/child.rb) |
-| `bundle exec jekyll build / serve` | Jekyll static-site build / preview | [Gemfile](../ruby/jekyll1/Gemfile) |
+| `ruby <file.rb>` | Run a Ruby script file | [hello.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/hello.rb) |
+| `ruby server_.rb` | Long-running TCP HTTP server | [server_.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/server_.rb) |
+| `docker build / push` (Ruby image) | Containerise the Ruby HTTP server | [Dockerfile](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/Dockerfile) |
+| `fork + exec "node -e …"` | Ruby → Node.js polyglot | [child.rb](https://github.com/aqwertyuiop48/codeforces_script/blob/ruby_/execute/child.rb) |
+| `bundle exec jekyll build / serve` | Jekyll static-site build / preview | [Gemfile](https://github.com/aqwertyuiop48/jekyll1/blob/main/Gemfile) |
 | `ruby -e "<ruby expr>"` | Inline Ruby expression | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `ruby -n -e "<expr>"` | Sed-like loop over stdin | [pytest2_.yml](../.github/workflows/pytest2_.yml) |
 | `irb <<EOF … EOF` | Interactive REPL via heredoc | [pytest2_.yml](../.github/workflows/pytest2_.yml) |

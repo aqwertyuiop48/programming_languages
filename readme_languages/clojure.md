@@ -42,13 +42,13 @@ Each method takes Clojure source as input and produces the program's output. Int
 **Method:** Pass a `.clj` source file directly to the `clojure` launcher (from the [Clojure CLI tools](https://clojure.org/guides/install_clojure)). It resolves dependencies via `deps.edn`, builds a classpath, and runs the script in one command. Stdin can be piped to the script via shell redirection.
 
 **Locations:**
-- [Python/codeforces_script/direct/run.sh](../Python/codeforces_script/direct/run.sh#L48-L49) - `clojure "$script" < "$f" | tee "clj_output/${testname}.txt"` (pipes test input on stdin)
+- [Python/codeforces_script/direct/run.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L48-L49) - `clojure "$script" < "$f" | tee "clj_output/${testname}.txt"` (pipes test input on stdin)
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/direct/run.sh#L48-L49](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/direct/run.sh#L48-L49)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L43) - `clojure my-clojure-app/src/my_clojure_app/cc.clj`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L43) - `clojure my-clojure-app/src/my_clojure_app/cc.clj`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L43](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L43)
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L101-L106) - matrix-driven `./run.sh ${{ matrix.problem }}.clj`
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L101-L106) - matrix-driven `./run.sh ${{ matrix.problem }}.clj`
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L101-L106](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L101-L106)
 
 **Example:**
@@ -65,11 +65,11 @@ clojure 1A.clj < test1.in
 **Method:** Evaluate a Clojure form supplied as a single shell argument.
 
 **Locations:**
-- [clojure_/codeforces_script/testing.py](../clojure_/codeforces_script/testing.py#L17) - `subprocess.run(['clojure', '-e', inner_code])` (Clojure invoked from Python)
+- [clojure_/codeforces_script/testing.py](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17) - `subprocess.run(['clojure', '-e', inner_code])` (Clojure invoked from Python)
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.py#L17](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L36) - `clojure -e "(println \"Hello from -e!\")"`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L36) - `clojure -e "(println \"Hello from -e!\")"`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L36](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L36)
 
 **Example:**
@@ -81,11 +81,11 @@ clojure -e "(println \"Hello from -e!\")"
 **Method:** Pass `-` as the source argument so `clojure` reads program text from stdin; supply a heredoc to inline a multi-line script.
 
 **Locations:**
-- [clojure_/codeforces_script/testing.sh](../clojure_/codeforces_script/testing.sh#L44-L47) - `clojure - <<'EOF' ... EOF`
+- [clojure_/codeforces_script/testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44-L47) - `clojure - <<'EOF' ... EOF`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L44-L47](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44-L47)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - "Run Clojure -e example and Python" step runs `chmod +x testing.sh && ./testing.sh`, which executes [testing.sh#L44-L47](../clojure_/codeforces_script/testing.sh#L44-L47) (`clojure - <<'EOF' ... EOF`) — transitive coverage via shell script.
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39) - "Run Clojure -e example and Python" step runs `chmod +x testing.sh && ./testing.sh`, which executes [testing.sh#L44-L47](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44-L47) (`clojure - <<'EOF' ... EOF`) — transitive coverage via shell script.
   - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
@@ -104,11 +104,11 @@ EOF
 **Method:** `deps.edn` defines named `:aliases` that bundle `:main-opts`. `clojure -M:alias` resolves dependencies for the alias and runs the configured main namespace. The repo's `deps.edn` defines `:run-my` (runs `my-clojure-app.core`) and `:run-gradle` (runs `clojuregradle.core`).
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/deps.edn](../clojure_/codeforces_script/my-clojure-app/deps.edn#L11-L18) - `:run-my` / `:run-gradle` alias definitions
+- [clojure_/codeforces_script/my-clojure-app/deps.edn](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/deps.edn#L11-L18) - `:run-my` / `:run-gradle` alias definitions
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/deps.edn#L11-L18](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/deps.edn#L11-L18)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L60-L61) - `clojure -M:run-my` and `clojure -M:run-gradle`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L60-L61) - `clojure -M:run-my` and `clojure -M:run-gradle`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L60-L61](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L60-L61)
 
 **Example:**
@@ -124,7 +124,7 @@ clojure -M:run-gradle    # runs clojuregradle.core
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L57) - `kotlinc src/main/kotlin -d target/kotlin -classpath "$(clojure -Spath)"`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57) - `kotlinc src/main/kotlin -d target/kotlin -classpath "$(clojure -Spath)"`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L57](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57)
 
 **Example:**
@@ -140,13 +140,13 @@ kotlinc src/main/kotlin -d target/kotlin -classpath "$(clojure -Spath)"
 **Method:** [Leiningen](https://leiningen.org/) is the classic Clojure build tool, configured via `project.clj`. `lein run` resolves dependencies, compiles as needed, and invokes the `:main` namespace in one step. `lein compile` only AOT-compiles namespaces to `.class` files under `target/` — on its own it produces no program output, so it is paired with `lein run` here as one complete compile + run flow.
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/project.clj](../clojure_/codeforces_script/my-clojure-app/project.clj#L11) - `:main ^:skip-aot my-clojure-app.core`
+- [clojure_/codeforces_script/my-clojure-app/project.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/project.clj#L11) - `:main ^:skip-aot my-clojure-app.core`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/project.clj#L11](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/project.clj#L11)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L73) - `lein run` (inside `cd my-clojure-app`)
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) - `lein run` (inside `cd my-clojure-app`)
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L73](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73)
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L77) - `lein compile`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L77) - `lein compile`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L77](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L77)
 
 **Example:**
@@ -160,11 +160,11 @@ lein run       # runs :main, produces program output
 **Method:** `project.clj` `:aliases` map shortcuts to `run -m <ns>` invocations. The repo defines `run-my` and `run-gradle`.
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/project.clj](../clojure_/codeforces_script/my-clojure-app/project.clj#L12-L13) - `:aliases {"run-gradle" [...] "run-my" [...]}`
+- [clojure_/codeforces_script/my-clojure-app/project.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/project.clj#L12-L13) - `:aliases {"run-gradle" [...] "run-my" [...]}`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/project.clj#L12-L13](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/project.clj#L12-L13)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L73) - `lein run && lein run-my && lein run-gradle`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) - `lein run && lein run-my && lein run-gradle`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L73](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73)
 
 **Example:**
@@ -181,11 +181,11 @@ lein run-gradle
 **Method:** Use Gradle's `application` plugin together with [`dev.clojurephant.clojure`](https://github.com/clojurephant/clojurephant) to compile Clojure (with AOT), Kotlin, Groovy, and Java in one polyglot build, then run the configured `mainClass`.
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/build.gradle](../clojure_/codeforces_script/my-clojure-app/build.gradle#L6) - `id 'dev.clojurephant.clojure' version '0.8.0'`
+- [clojure_/codeforces_script/my-clojure-app/build.gradle](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/build.gradle#L6) - `id 'dev.clojurephant.clojure' version '0.8.0'`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/build.gradle#L6](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/build.gradle#L6)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L87-L89) - `gradle wrapper` then `./gradlew clean compileKotlin` then `./gradlew build run`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L87-L89) - `gradle wrapper` then `./gradlew clean compileKotlin` then `./gradlew build run`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L87-L89](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L87-L89)
 
 **Example:**
@@ -204,11 +204,11 @@ gradle wrapper
 **Method:** [`clojure-maven-plugin`](https://github.com/talios/clojure-maven-plugin) (group `com.theoryinpractise`) compiles declared Clojure namespaces; `exec-maven-plugin` then runs the configured main class.
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/pom.xml](../clojure_/codeforces_script/my-clojure-app/pom.xml#L96-L116) - `clojure-maven-plugin` configuration
+- [clojure_/codeforces_script/my-clojure-app/pom.xml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/pom.xml#L96-L116) - `clojure-maven-plugin` configuration
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/pom.xml#L96-L116](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/pom.xml#L96-L116)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L94-L95) - `cd my-clojure-app` then `mvn clean compile exec:java -Dexec.mainClass=clojuregradle.core`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L94-L95) - `cd my-clojure-app` then `mvn clean compile exec:java -Dexec.mainClass=clojuregradle.core`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L94-L95](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L94-L95)
 
 **Example:**
@@ -225,13 +225,13 @@ mvn clean compile exec:java -Dexec.mainClass=clojuregradle.core
 **Method:** Python (`subprocess.run`) invokes `clojure -e` with a dynamically constructed source string, embedding Clojure programs inside Python scripts.
 
 **Locations:**
-- [clojure_/codeforces_script/testing.py](../clojure_/codeforces_script/testing.py#L17-L18) - `subprocess.run(['clojure', '-e', inner_code])`
+- [clojure_/codeforces_script/testing.py](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17-L18) - `subprocess.run(['clojure', '-e', inner_code])`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.py#L17-L18](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17-L18)
-- [clojure_/codeforces_script/testing.sh](../clojure_/codeforces_script/testing.sh#L5-L41) - shell → python heredoc → `subprocess.run(['clojure', '-e', inner_code])`
+- [clojure_/codeforces_script/testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5-L41) - shell → python heredoc → `subprocess.run(['clojure', '-e', inner_code])`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/testing.sh#L5-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5-L41)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - step runs `python testing.py` (which does `subprocess.run(['clojure','-e',inner_code])` at [testing.py#L17](../clojure_/codeforces_script/testing.py#L17)) and `./testing.sh` (same pattern at [testing.sh#L5-L41](../clojure_/codeforces_script/testing.sh#L5-L41)) — transitive coverage.
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39) - step runs `python testing.py` (which does `subprocess.run(['clojure','-e',inner_code])` at [testing.py#L17](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17)) and `./testing.sh` (same pattern at [testing.sh#L5-L41](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L5-L41)) — transitive coverage.
   - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
@@ -245,11 +245,11 @@ subprocess.run(['clojure', '-e', inner_code])
 **Method:** A Clojure program uses `clojure.java.shell/sh` to spawn `python3 -c <generated-python>`, which in turn spawns another `clojure -e ...` — chaining `clojure → shell → python → clojure`. Used in this repo as a stress-test of multi-language string-escaping.
 
 **Locations:**
-- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40) - `(shell/sh "python3" "-c" python-code)` containing nested `subprocess.run(['clojure', '-e', ...])`
+- [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40) - `(shell/sh "python3" "-c" python-code)` containing nested `subprocess.run(['clojure', '-e', ...])`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj#L1-L40)
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L34-L39) - runs `./testing.sh`, whose embedded python heredoc spawns `clojure -e "..."` whose `clojure.java.shell/sh` invocation re-enters `python3 -c "..."` — the full nested polyglot chain runs end-to-end in CI.
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39) - runs `./testing.sh`, whose embedded python heredoc spawns `clojure -e "..."` whose `clojure.java.shell/sh` invocation re-enters `python3 -c "..."` — the full nested polyglot chain runs end-to-end in CI.
   - Remote: [clojure_/codeforces_script/.github/workflows/main.yml#L34-L39](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L34-L39)
 
 **Example:**
@@ -270,11 +270,11 @@ subprocess.run(['clojure', '-e', inner_code])
 None tracked outside the workflow citations below.
 
 **Workflow yml (executes in CI):**
-- [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L25) - `uses: DeLaGuardo/setup-clojure@master` with `cli: 1.11.1.1403`
+- [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L25) - `uses: DeLaGuardo/setup-clojure@master` with `cli: 1.11.1.1403`
   - Remote (submodule `clojure_/codeforces_script` @ branch `clojure_`): [clojure_/codeforces_script/.github/workflows/main.yml#L25](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L25)
-- [Python/codeforces_script/.github/workflows/main.yml](../Python/codeforces_script/.github/workflows/main.yml#L37-L40) - same action used by python_ branch CI
+- [Python/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L37-L40) - same action used by python_ branch CI
   - Remote (submodule `Python/codeforces_script` @ branch `python_`): [Python/codeforces_script/.github/workflows/main.yml#L37-L40](https://github.com/aqwertyuiop48/codeforces_script/blob/python_/.github/workflows/main.yml#L37-L40)
-> Leiningen is installed manually via curl (no action used) — see [clojure_/codeforces_script/.github/workflows/main.yml#L66-L69](../clojure_/codeforces_script/.github/workflows/main.yml#L66-L69).
+> Leiningen is installed manually via curl (no action used) — see [clojure_/codeforces_script/.github/workflows/main.yml#L66-L69](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L66-L69).
 
 ---
 
@@ -282,17 +282,17 @@ None tracked outside the workflow citations below.
 
 | Method | Primary Use | Example Location |
 |--------|-------------|-------------------|
-| clojure &lt;file.clj&gt; | Run a .clj script directly | [clojure_/codeforces_script/.github/workflows/main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L43)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L43) |
-| clojure -e | Inline expression | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L36)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L36) |
-| clojure - <<EOF | Stdin heredoc | [testing.sh](../clojure_/codeforces_script/testing.sh#L44)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44) |
-| clojure -M:alias | deps.edn named main | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L60)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L60) |
-| clojure -Spath | Classpath export | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L57)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57) |
-| lein run / lein compile | Leiningen compile + run | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L73)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) |
-| lein <alias> | project.clj alias | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L73)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) |
-| ./gradlew build run | Polyglot Gradle (clojurephant) | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L89)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L89) |
-| mvn clean compile exec:java | clojure-maven-plugin + exec | [main.yml](../clojure_/codeforces_script/.github/workflows/main.yml#L95)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L95) |
-| Python subprocess → clojure -e | Embedded polyglot | [testing.py](../clojure_/codeforces_script/testing.py#L17)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17) |
-| Clojure → shell → python → clojure | Nested polyglot | [cc.clj](../clojure_/codeforces_script/my-clojure-app/src/my_clojure_app/cc.clj)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj) |
+| clojure &lt;file.clj&gt; | Run a .clj script directly | [clojure_/codeforces_script/.github/workflows/main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L43)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L43) |
+| clojure -e | Inline expression | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L36)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L36) |
+| clojure - <<EOF | Stdin heredoc | [testing.sh](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.sh#L44) |
+| clojure -M:alias | deps.edn named main | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L60)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L60) |
+| clojure -Spath | Classpath export | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L57) |
+| lein run / lein compile | Leiningen compile + run | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) |
+| lein <alias> | project.clj alias | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L73) |
+| ./gradlew build run | Polyglot Gradle (clojurephant) | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L89)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L89) |
+| mvn clean compile exec:java | clojure-maven-plugin + exec | [main.yml](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L95)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/.github/workflows/main.yml#L95) |
+| Python subprocess → clojure -e | Embedded polyglot | [testing.py](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/testing.py#L17) |
+| Clojure → shell → python → clojure | Nested polyglot | [cc.clj](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj)<br/>[remote @ `clojure_`](https://github.com/aqwertyuiop48/codeforces_script/blob/clojure_/my-clojure-app/src/my_clojure_app/cc.clj) |
 
 ---
 
