@@ -222,3 +222,15 @@ jobs:
           git config --global pull.rebase false
 
           chmod +x add_modules_push.sh && ./add_modules_push.sh
+
+      - name: Run npm run mac
+        env:
+         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        continue-on-error: true
+        run: |
+          git config --global user.email "aqwertyuiop48@hotmail.com"
+          git config --global user.name "aqwertyuiop48"
+          git config --global pull.rebase false
+
+          npm install
+          npm run mac
