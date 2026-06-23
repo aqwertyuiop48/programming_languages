@@ -200,7 +200,16 @@ jobs:
           else
             echo "No changes to commit."
           fi
+   
+      - name: Run Git submodules sync again
+        env:
+         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git config --global user.email "aqwertyuiop48@hotmail.com"
+          git config --global user.name "aqwertyuiop48"
+          git config --global pull.rebase false
 
+          chmod +x add_modules_push.sh && ./add_modules_push.sh
 
       - name: Run Git submodules sync first
         env:
@@ -211,17 +220,6 @@ jobs:
           git config --global pull.rebase false
 
           chmod +x add_modules.sh && ./add_modules.sh
-
-          
-      - name: Run Git submodules sync again
-        env:
-         GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          git config --global user.email "aqwertyuiop48@hotmail.com"
-          git config --global user.name "aqwertyuiop48"
-          git config --global pull.rebase false
-
-          chmod +x add_modules_push.sh && ./add_modules_push.sh
 
       - name: Run npm run mac
         env:
