@@ -3,6 +3,10 @@
 git config --global credential.https://github.com.username aqwertyuiop48
 git config --global pull.rebase false   # always merge on pull (no rebase)
 
+# Prevent Git from hanging for 5 minutes if GitHub throttles or drops a connection
+git config --global http.lowSpeedLimit 1000
+git config --global http.lowSpeedTime 30
+
 # Format: "path|url|branch"
 modules=(
 "gate|https://github.com/aqwertyuiop48/gate.git|main"
@@ -159,29 +163,20 @@ for entry in "${modules[@]}"; do
 
     git config --global credential.https://github.com.username aqwertyuiop48
 
-
     git submodule add -b "$branch" "$url" "$path"
     echo
 done
 
 
-# submodule pull and push
+# submodule pull and push (Optimized for Network Stability and Naming Collisions)
 git submodule foreach '
 BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
-&& git switch $BRANCH \
-&& git pull origin $BRANCH \
+&& git checkout $BRANCH \
+&& git pull origin refs/heads/$BRANCH \
 && git add . \
 && (git commit -m "Update internal URLs" || echo "No changes in $name") \
-&& git push origin $BRANCH \
-|| echo "FAILED: $name"
+&& git push origin refs/heads/$BRANCH \
+&& echo "Finished processing $name, resting network for 2 seconds..." \
+&& sleep 2 \
+|| (echo "FAILED: $name" && sleep 2)
 '
-
-# # submodule ONLY push
-# git submodule foreach '
-# BRANCH=$(git config -f $toplevel/.gitmodules submodule.$name.branch || echo main) \
-# && git switch $BRANCH \
-# && git add . \
-# && (git commit -m "Update internal URLs" || echo "No changes in $name") \
-# && git push origin $BRANCH \
-# || echo "FAILED: $name"
-# '
