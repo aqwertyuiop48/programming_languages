@@ -3,8 +3,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "mac": "chmod +x add_modules.sh && ./add_modules.sh && git config pull.rebase false && git pull origin main && git submodule update --init --force --recursive --remote && git add . && if [ -n \"$(git status --porcelain)\" ]; then git commit -m \"Message\" && git push origin main; else echo \"No changes detected. Skipping commit and push.\"; fi",
     "mac_windows": "sh ./add_modules.sh && git config pull.rebase false && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m \"Message\" && git push origin main",
-    "mac": "chmod +x add_modules.sh && ./add_modules.sh && git config pull.rebase false && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m \"Message\" && git push origin main",
     "mac_public": "chmod +x add_modules_public.sh && ./add_modules_public.sh && git config pull.rebase false && git pull origin main && git -c submodule.certifications.update=none -c submodule.credentials_/credentials.update=none -c submodule.gate.update=none -c submodule.profiles.update=none submodule update --init --force --recursive && git add . && git commit -m \"Message\" && git push origin main",
     "mac_push": "chmod +x add_modules_push.sh && ./add_modules_push.sh && git config pull.rebase false && git pull origin main && git submodule update --init --force --recursive --remote && git add . && git commit -m \"Message\" && git push origin main",
     "windows": "git config pull.rebase false ; git pull origin main ; git submodule update --init --force --remote ; git add . ; git commit -m \"Message\" ; git push origin main"
