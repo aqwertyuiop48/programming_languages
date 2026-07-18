@@ -82,7 +82,8 @@ jobs:
 
     - name: Install ts-node, tsx, typescript, and bun
       run: |
-        npm install -g ts-node typescript tsx
+        # Pinning typescript to 5.4.5 ensures compatibility with ts-node's global hooks
+        npm install -g ts-node typescript@5.4.5 tsx
         curl -fsSL https://bun.sh/install | bash
         echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
@@ -101,7 +102,7 @@ jobs:
         # 1. Feed the global node_modules directory straight to Node's resolution engine
         export NODE_PATH=$(npm root -g)
         
-        # 2. Run your .cts file directly
+        # 2. Run your .cts file safely using the pinned compiler
         ts-node /tmp/hello_tsnode.cts
             
     - name: ts-node -e  (inline expression)
