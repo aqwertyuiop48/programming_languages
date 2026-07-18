@@ -98,12 +98,11 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
         
-        # 1. Expose global modules to Node natively
-        export NODE_PATH="$(npm root -g)"
+        # 1. Install locally to /tmp to create a perfect, working module tree
+        npm install --prefix /tmp typescript ts-node
         
-        # 2. Run native Node, but inject the global ts-node loader directly.
-        # This completely bypasses the configuration.js / ts.sys bootstrapping crash.
-        node -r "$NODE_PATH/ts-node/register" /tmp/hello_tsnode.ts
+        # 2. Run the file directly using the local bin executable
+        /tmp/node_modules/.bin/ts-node /tmp/hello_tsnode.ts
         
     - name: ts-node -e  (inline expression)
       run: |
