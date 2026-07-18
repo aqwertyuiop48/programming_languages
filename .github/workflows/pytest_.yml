@@ -80,15 +80,22 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install ts-node, tsx, typescript, and bun
+    - name: Install local ts-node and typescript; install tsx and bun
       run: |
-        npm install -g ts-node typescript tsx
+        npm init -y
+        # Install ts-node and typescript as local devDependencies (reproducible)
+        npm install --no-audit --no-fund --save-dev ts-node typescript
+    
+        # Keep tsx globally available if you prefer the global binary (optional)
+        npm install -g tsx
+    
+        # Install bun (keeps your existing bun steps working)
         curl -fsSL https://bun.sh/install | bash
         echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
     # ---------- ts-node ----------
 
-    - name: ts-node <file.ts>  (file run)
+    - name: ts-node <file.ts>  (file run using local binary)
       run: |
         cat > /tmp/hello_tsnode.ts <<'EOF'
         const msg: string = "Hello from ts-node file!";
@@ -97,13 +104,22 @@ jobs:
         console.log("Platform: "     + process.platform);
         console.log("Arch: "         + process.arch);
         EOF
-        
-        # 1. Install locally to /tmp to create a perfect, working module tree
-        npm install --prefix /tmp typescript ts-node
-        
-        # 2. Run the file directly using the local bin executable
-        /tmp/node_modules/.bin/ts-node /tmp/hello_tsnode.ts
-        
+    
+        # Use local ts-node binary directly; transpile-only avoids config bootstrap
+        ./node_modules/.bin/ts-node --transpile-only /tmp/hello_tsnode.ts
+    
+    - name: ts-node <file.ts>  (file run via node -r register/transpile-only)
+      run: |
+        cat > /tmp/hello_tsnode.ts <<'EOF'
+        const msg: string = "Hello from ts-node file (register)!";
+        console.log(msg);
+        console.log("Node version: " + process.version);
+        console.log("Platform: "     + process.platform);
+        EOF
+    
+        # Require the local transpile-only register to avoid ts.sys bootstrap
+        node -r ./node_modules/ts-node/register/transpile-only /tmp/hello_tsnode.ts
+            
     - name: ts-node -e  (inline expression)
       run: |
         TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
