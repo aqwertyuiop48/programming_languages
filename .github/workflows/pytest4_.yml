@@ -100,14 +100,13 @@ jobs:
     - name: Install Pharo (headless Smalltalk VM + image)
       run: |
         mkdir -p /tmp/pharo && cd /tmp/pharo
-        # Removed trailing slash and added +vm to fetch both the image and VM
-        curl -fsSL https://get.pharo.org/64+vm | bash
+        # Use explicit version 120 (Pharo 12) to ensure the server sends the bash script
+        curl -fsSL https://get.pharo.org/64/120+vm | bash
         ls -la /tmp/pharo
 
     - name: pharo Pharo.image eval "..."  (Smalltalk inline expression)
       run: |
         cd /tmp/pharo
-        # Removed deprecated --headless flag.
         ./pharo Pharo.image eval --save \
           "'Hello from Pharo eval! Sum: ', ((1 to: 5) inject: 0 into: [:a :b | a + b]) printString"
 
@@ -128,7 +127,7 @@ jobs:
         
         # Format: ./pharo <image> st <filename> [--quit]
         ./pharo Pharo.image st /tmp/hello.st --quit
-
+        
     # =====================================================================
     # Prolog — apt: swi-prolog
     # =====================================================================
