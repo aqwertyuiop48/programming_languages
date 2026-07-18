@@ -90,14 +90,7 @@ jobs:
 
     - name: ts-node <file.ts>  (file run)
       run: |
-        cd /tmp
-        
-        # This tells npm to symlink your globally installed 'typescript' 
-        # into /tmp/node_modules so ts-node can successfully load the compiler.
-        npm link typescript
-
-        # Write the file as standard .ts
-        cat > hello_tsnode.ts <<'EOF'
+        cat > /tmp/hello_tsnode.ts <<'EOF'
         const msg: string = "Hello from ts-node file!";
         console.log(msg);
         console.log("Node version: " + process.version);
@@ -105,8 +98,11 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
         
-        # Execute directly with your global ts-node
-        ts-node hello_tsnode.ts
+        # 1. Find the exact absolute path to the global typescript package
+        TS_COMPILER_PATH=$(npm root -g)/typescript
+        
+        # 2. Force ts-node to use that exact path, bypassing Node 20's global resolution bug
+        ts-node --compiler "$TS_COMPILER_PATH" /tmp/hello_tsnode.ts
         
     - name: ts-node -e  (inline expression)
       run: |
