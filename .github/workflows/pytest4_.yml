@@ -107,7 +107,8 @@ jobs:
     - name: pharo Pharo.image eval "..."  (Smalltalk inline expression)
       run: |
         cd /tmp/pharo
-        ./pharo --headless Pharo.image eval --save \
+        # Removed deprecated --headless flag.
+        ./pharo Pharo.image eval --save \
           "'Hello from Pharo eval! Sum: ', ((1 to: 5) inject: 0 into: [:a :b | a + b]) printString"
 
     - name: pharo Pharo.image st <file.st>  (Smalltalk file execution)
@@ -124,7 +125,9 @@ jobs:
         1 to: 5 do: [:i | sum := sum + i].
         Transcript show: 'Sum: ', sum printString; cr.
         EOF
-        ./pharo --headless Pharo.image st --quit /tmp/hello.st
+        
+        # Format: ./pharo <image> st <filename> [--quit]
+        ./pharo Pharo.image st /tmp/hello.st --quit
 
     # =====================================================================
     # Prolog — apt: swi-prolog
