@@ -95,29 +95,16 @@ jobs:
 
     # ---------- ts-node ----------
 
-    - name: ts-node <file.ts>
+    - name: ts-node <file.ts>  (file run)
       run: |
-        cat > /tmp/hello_tsnode.ts <<'EOF'
+        cat > /tmp/hello_tsnode.cts <<'EOF'
         const msg: string = "Hello from ts-node file!";
         console.log(msg);
         console.log("Node version: " + process.version);
         console.log("Platform: "     + process.platform);
         console.log("Arch: "         + process.arch);
         EOF
-    
-        npx ts-node --transpile-only /tmp/hello_tsnode.ts
-        
-    - name: ts-node <file.ts>  (file run via node -r register/transpile-only)
-      run: |
-        cat > /tmp/hello_tsnode.ts <<'EOF'
-        const msg: string = "Hello from ts-node file (register)!";
-        console.log(msg);
-        console.log("Node version: " + process.version);
-        console.log("Platform: "     + process.platform);
-        EOF
-    
-        # Require the local transpile-only register to avoid ts.sys bootstrap
-        node -r ./node_modules/ts-node/register/transpile-only /tmp/hello_tsnode.ts
+        ts-node /tmp/hello_tsnode.cts
             
     - name: ts-node -e  (inline expression)
       run: |
