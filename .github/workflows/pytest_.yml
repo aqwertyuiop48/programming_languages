@@ -98,12 +98,12 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
         
-        # Move into the global npm directory before executing.
-        # This completely bypasses Node 20's resolution bug because ts-node 
-        # is now running right next to the typescript peer dependency!
-        cd "$(npm root -g)"
+        # 1. Expose global modules to Node natively
+        export NODE_PATH="$(npm root -g)"
         
-        ts-node /tmp/hello_tsnode.ts
+        # 2. Run native Node, but inject the global ts-node loader directly.
+        # This completely bypasses the configuration.js / ts.sys bootstrapping crash.
+        node -r "$NODE_PATH/ts-node/register" /tmp/hello_tsnode.ts
         
     - name: ts-node -e  (inline expression)
       run: |
