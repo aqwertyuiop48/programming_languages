@@ -100,8 +100,8 @@ jobs:
     - name: Install Pharo (headless Smalltalk VM + image)
       run: |
         mkdir -p /tmp/pharo && cd /tmp/pharo
-        # Downloads `pharo` launcher + `Pharo.image` + `Pharo.changes`.
-        curl -fsSL https://get.pharo.org/64/ | bash
+        # Removed trailing slash and added +vm to fetch both the image and VM
+        curl -fsSL https://get.pharo.org/64+vm | bash
         ls -la /tmp/pharo
 
     - name: pharo Pharo.image eval "..."  (Smalltalk inline expression)
