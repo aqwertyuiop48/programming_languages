@@ -95,7 +95,7 @@ jobs:
 
     # ---------- ts-node ----------
 
-    - name: ts-node <file.ts>  (file run using local binary)
+    - name: ts-node <file.ts>
       run: |
         cat > /tmp/hello_tsnode.ts <<'EOF'
         const msg: string = "Hello from ts-node file!";
@@ -105,9 +105,8 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
     
-        # Use local ts-node binary directly; transpile-only avoids config bootstrap
-        ./node_modules/.bin/ts-node --transpile-only /tmp/hello_tsnode.ts
-    
+        npx ts-node --transpile-only /tmp/hello_tsnode.ts
+        
     - name: ts-node <file.ts>  (file run via node -r register/transpile-only)
       run: |
         cat > /tmp/hello_tsnode.ts <<'EOF'
