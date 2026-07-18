@@ -97,7 +97,9 @@ jobs:
         console.log("Platform: "     + process.platform);
         console.log("Arch: "         + process.arch);
         EOF
-        ts-node /tmp/hello_tsnode.cts
+        
+        # Expose the global npm modules to Node so ts-node can find typescript
+        NODE_PATH=$(npm root -g) ts-node /tmp/hello_tsnode.cts
 
     - name: ts-node -e  (inline expression)
       run: |
