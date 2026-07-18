@@ -98,12 +98,12 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
         
-        # 1. Get the exact path to the global TypeScript compiler's main JS file
-        TS_COMPILER_FILE="$(npm root -g)/typescript/lib/typescript.js"
+        # Move into the global npm directory before executing.
+        # This completely bypasses Node 20's resolution bug because ts-node 
+        # is now running right next to the typescript peer dependency!
+        cd "$(npm root -g)"
         
-        # 2. Expose the global modules to Node via NODE_PATH, and force 
-        # ts-node to use the exact compiler file path.
-        NODE_PATH="$(npm root -g)" ts-node --compiler "$TS_COMPILER_FILE" /tmp/hello_tsnode.ts
+        ts-node /tmp/hello_tsnode.ts
         
     - name: ts-node -e  (inline expression)
       run: |
