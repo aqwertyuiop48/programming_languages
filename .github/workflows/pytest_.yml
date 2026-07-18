@@ -80,16 +80,9 @@ jobs:
       with:
         node-version: '20'
 
-    - name: Install local ts-node and typescript; install tsx and bun
+    - name: Install ts-node, tsx, typescript, and bun
       run: |
-        npm init -y
-        # Install ts-node and typescript as local devDependencies (reproducible)
-        npm install --no-audit --no-fund --save-dev ts-node typescript
-    
-        # Keep tsx globally available if you prefer the global binary (optional)
-        npm install -g tsx
-    
-        # Install bun (keeps your existing bun steps working)
+        npm install -g ts-node typescript tsx
         curl -fsSL https://bun.sh/install | bash
         echo "$HOME/.bun/bin" >> $GITHUB_PATH
 
