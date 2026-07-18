@@ -90,7 +90,14 @@ jobs:
 
     - name: ts-node <file.ts>  (file run)
       run: |
-        cat > /tmp/hello_tsnode.cts <<'EOF'
+        cd /tmp
+        
+        # This tells npm to symlink your globally installed 'typescript' 
+        # into /tmp/node_modules so ts-node can successfully load the compiler.
+        npm link typescript
+
+        # Write the file as standard .ts
+        cat > hello_tsnode.ts <<'EOF'
         const msg: string = "Hello from ts-node file!";
         console.log(msg);
         console.log("Node version: " + process.version);
@@ -98,9 +105,9 @@ jobs:
         console.log("Arch: "         + process.arch);
         EOF
         
-        # Expose the global npm modules to Node so ts-node can find typescript
-        NODE_PATH=$(npm root -g) ts-node /tmp/hello_tsnode.cts
-
+        # Execute directly with your global ts-node
+        ts-node hello_tsnode.ts
+        
     - name: ts-node -e  (inline expression)
       run: |
         TS_NODE_COMPILER_OPTIONS='{"module":"commonjs"}' \
