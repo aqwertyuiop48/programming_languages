@@ -123,6 +123,3 @@ https://split-video.com/
 ================================================================
 
 
-## Cengage material
-
-- https://github.com/aqwertyuiop48/profiles/releases
