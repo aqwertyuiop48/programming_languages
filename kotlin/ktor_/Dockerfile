@@ -9,17 +9,18 @@ RUN mvn dependency:go-offline
 # Copy all source
 COPY . .
 
-# Build a self-contained fat JAR
-RUN mvn clean package -DskipTests
+# Build a self-contained fat JAR and explicitly copy/rename it to a fixed name
+RUN mvn clean package -DskipTests && \
+    cp target/*.jar target/app.jar
 
 # ---------- Run Stage ----------
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
+# Copy the exact single file (no wildcards, perfectly safe for all builders)
+COPY --from=build /app/target/app.jar app.jar
 
-# Render (and Docker) will set PORT, default 8080 locally
+# Render and Back4App will set PORT, default 8080 locally
 ENV PORT=8080
 EXPOSE 8080
 
