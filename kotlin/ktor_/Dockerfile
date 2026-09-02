@@ -2,27 +2,24 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy pom.xml and download dependencies (better cache)
 COPY pom.xml ./
 RUN mvn dependency:go-offline
 
-# Copy all source
 COPY . .
-
-# Build and safely copy/rename the fat JAR (ignoring original/sources/javadoc variants)
+# Build the thin jar and extract dependencies into target/lib via CLI
 RUN mvn clean package -DskipTests && \
-    find target/ -maxdepth 1 -name "*.jar" ! -name "*sources*" ! -name "*javadoc*" ! -name "original*" -exec cp {} target/app.jar \;
+    mvn dependency:copy-dependencies -DoutputDirectory=target/lib
 
 # ---------- Run Stage ----------
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the exact single file (no wildcards, perfectly safe for all builders)
-COPY --from=build /app/target/app.jar app.jar
+# Copy the thin JAR and the dependency folder
+COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/target/lib ./lib
 
-# Render and Back4App will set PORT, default 8080 locally
 ENV PORT=8080
 EXPOSE 8080
 
-# Start the Ktor app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Execute using classpath mode pointing to your main class
+ENTRYPOINT ["java", "-cp", "app.jar:lib/*", "com.example.ApplicationKt"]
