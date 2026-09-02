@@ -6,20 +6,20 @@ COPY pom.xml ./
 RUN mvn dependency:go-offline
 
 COPY . .
-# Build the thin jar and extract dependencies into target/lib via CLI
+# Build the app and copy the generated jar to a stable name so deploys do not fail
+# when the exact jar filename changes or is not predictable across platforms.
 RUN mvn clean package -DskipTests && \
-    mvn dependency:copy-dependencies -DoutputDirectory=target/lib
+    JAR_FILE=$(find target -maxdepth 1 -type f -name '*.jar' | head -n 1) && \
+    cp "$JAR_FILE" /app/app.jar
 
 # ---------- Run Stage ----------
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the thin JAR and the dependency folder
-COPY --from=build /app/target/*.jar app.jar
-COPY --from=build /app/target/lib ./lib
+COPY --from=build /app/app.jar /app/app.jar
 
 ENV PORT=8080
 EXPOSE 8080
 
-# Execute using classpath mode pointing to your main class
-ENTRYPOINT ["java", "-cp", "app.jar:lib/*", "com.example.ApplicationKt"]
+# Run the built JAR directly; Render sets PORT at runtime.
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
