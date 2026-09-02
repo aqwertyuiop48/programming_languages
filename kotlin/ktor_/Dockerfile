@@ -9,19 +9,22 @@ RUN mvn dependency:go-offline
 # Copy all source
 COPY . .
 
-# Build a self-contained fat JAR
+# Build the application
 RUN mvn clean package -DskipTests
+
+# Isolate the exact fat JAR (with proper wildcard matching) and copy to a fixed path
+RUN cp $(find target -maxdepth 1 -name "*.jar" ! -name "*.original" ! -name "*-sources.jar" ! -name "*-javadoc.jar") /app/app.jar
 
 # ---------- Run Stage ----------
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /app/target/*.jar app.jar
+# Copy the static, pre-resolved file. No wildcards mean this works identically on both Render and Back4App.
+COPY --from=build /app/app.jar app.jar
 
-# Render (and Docker) will set PORT, default 8080 locally
+# Render and Back4App set PORT, default 8080 locally
 ENV PORT=8080
 EXPOSE 8080
 
-# Start the Ktor app
+# Start the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
