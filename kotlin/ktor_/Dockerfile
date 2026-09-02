@@ -9,9 +9,9 @@ RUN mvn dependency:go-offline
 # Copy all source
 COPY . .
 
-# Build a self-contained fat JAR and explicitly copy/rename it to a fixed name
+# Build and safely copy/rename the fat JAR (ignoring original/sources/javadoc variants)
 RUN mvn clean package -DskipTests && \
-    cp target/*.jar target/app.jar
+    find target/ -maxdepth 1 -name "*.jar" ! -name "*sources*" ! -name "*javadoc*" ! -name "original*" -exec cp {} target/app.jar \;
 
 # ---------- Run Stage ----------
 FROM eclipse-temurin:21-jre
